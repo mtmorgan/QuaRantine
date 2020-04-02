@@ -12,11 +12,13 @@ description: |
     COVID-19 epidemic as an excuse.
 ---
 
+# Motivation {-}
+
 This is a WORK IN PROGRESS.
 
 This course was suggested and enabled by Adam Kisailus and Richard Hershberger. It is available for Roswell Park graduate students.
 
-# Motivation {-}
+## Introduction {-}
 
 The word '[quarantine][]' is from the 1660's and refers to the fourty days (Italian _quaranta giorni_) a ship suspected of carrying a disease was kept in isolation
 
@@ -24,6 +26,8 @@ What to do in a quarantine? The astronaut Scott Kelly spent nearly a year in spa
 
 [quarantine]: https://www.etymonline.com/word/quarantine
 [opinion piece]: https://www.nytimes.com/2020/03/21/opinion/scott-kelly-coronavirus-isolation.html
+
+## What to expect {-}
 
 We'll meet via zoom twice a week, Mondays and Thursdays, for one hour. We'll use this time to make sure everyone is making progress, and to introduce new or more difficult topics. Other days we'll have short exercises and activities that hopefully provide an opportunity to learn at your own speed.
 
