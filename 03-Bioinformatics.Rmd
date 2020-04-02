@@ -1,4 +1,4 @@
-# Week 2: Packages {#two}
+# Week 2: Packages {#three}
 
 ## [Bioconductor][]
 
