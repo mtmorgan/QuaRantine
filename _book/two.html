@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Week 2: Packages | 40 Days and 40 Nights</title>
+  <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Week 2: Packages | 40 Days and 40 Nights" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Week 2: Packages | 40 Days and 40 Nights" />
+  
+  <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
+  
+
+<meta name="author" content="Martin Morgan" />
+<meta name="author" content="Shawn Matott" />
+
+
+<meta name="date" content="2020-04-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="one.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Motivation</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-to-expect"><i class="fa fa-check"></i><b>1.1</b> What to expect</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="one.html"><a href="one.html"><i class="fa fa-check"></i><b>2</b> Week 1: Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="one.html"><a href="one.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Installing <em>R</em> and <em>RStudio</em></a></li>
+<li class="chapter" data-level="2.2" data-path="one.html"><a href="one.html#basics-of-r"><i class="fa fa-check"></i><b>2.2</b> Basics of <em>R</em></a></li>
+<li class="chapter" data-level="2.3" data-path="one.html"><a href="one.html#day-1-monday-zoom-orientation"><i class="fa fa-check"></i><b>2.3</b> Day 1 (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="2.4" data-path="one.html"><a href="one.html#day-2"><i class="fa fa-check"></i><b>2.4</b> Day 2</a></li>
+<li class="chapter" data-level="2.5" data-path="one.html"><a href="one.html#day-3"><i class="fa fa-check"></i><b>2.5</b> Day 3</a></li>
+<li class="chapter" data-level="2.6" data-path="one.html"><a href="one.html#day-4-thursday-zoom-check-in."><i class="fa fa-check"></i><b>2.6</b> Day 4 (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="2.7" data-path="one.html"><a href="one.html#day-5"><i class="fa fa-check"></i><b>2.7</b> Day 5</a></li>
+<li class="chapter" data-level="2.8" data-path="one.html"><a href="one.html#day-6"><i class="fa fa-check"></i><b>2.8</b> Day 6</a></li>
+<li class="chapter" data-level="2.9" data-path="one.html"><a href="one.html#day-7"><i class="fa fa-check"></i><b>2.9</b> Day 7</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="two.html"><a href="two.html"><i class="fa fa-check"></i><b>3</b> Week 2: Packages</a><ul>
+<li class="chapter" data-level="3.1" data-path="two.html"><a href="two.html#cran"><i class="fa fa-check"></i><b>3.1</b> <span>CRAN</span></a></li>
+<li class="chapter" data-level="3.2" data-path="two.html"><a href="two.html#the-tidyverse-of-packages"><i class="fa fa-check"></i><b>3.2</b> The ‘<span>tidyverse</span>’ of packages</a></li>
+<li class="chapter" data-level="3.3" data-path="two.html"><a href="two.html#day-8-monday-zoom-orientation"><i class="fa fa-check"></i><b>3.3</b> Day 8 (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="3.4" data-path="two.html"><a href="two.html#day-9"><i class="fa fa-check"></i><b>3.4</b> Day 9</a></li>
+<li class="chapter" data-level="3.5" data-path="two.html"><a href="two.html#day-10"><i class="fa fa-check"></i><b>3.5</b> Day 10</a></li>
+<li class="chapter" data-level="3.6" data-path="two.html"><a href="two.html#day-11-thursday-zoom-check-in."><i class="fa fa-check"></i><b>3.6</b> Day 11 (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="3.7" data-path="two.html"><a href="two.html#day-12"><i class="fa fa-check"></i><b>3.7</b> Day 12</a></li>
+<li class="chapter" data-level="3.8" data-path="two.html"><a href="two.html#day-13"><i class="fa fa-check"></i><b>3.8</b> Day 13</a></li>
+<li class="chapter" data-level="3.9" data-path="two.html"><a href="two.html#day-14"><i class="fa fa-check"></i><b>3.9</b> Day 14</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">40 Days and 40 Nights</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="two" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Week 2: Packages</h1>
+<div id="cran" class="section level2">
+<h2><span class="header-section-number">3.1</span> <a href="https://cran.r-project.org">CRAN</a></h2>
+</div>
+<div id="the-tidyverse-of-packages" class="section level2">
+<h2><span class="header-section-number">3.2</span> The ‘<a href="https://www.tidyverse.org/">tidyverse</a>’ of packages</h2>
+</div>
+<div id="day-8-monday-zoom-orientation" class="section level2">
+<h2><span class="header-section-number">3.3</span> Day 8 (Monday): Zoom orientation</h2>
+</div>
+<div id="day-9" class="section level2">
+<h2><span class="header-section-number">3.4</span> Day 9</h2>
+</div>
+<div id="day-10" class="section level2">
+<h2><span class="header-section-number">3.5</span> Day 10</h2>
+</div>
+<div id="day-11-thursday-zoom-check-in." class="section level2">
+<h2><span class="header-section-number">3.6</span> Day 11 (Thursday) Zoom check-in.</h2>
+</div>
+<div id="day-12" class="section level2">
+<h2><span class="header-section-number">3.7</span> Day 12</h2>
+</div>
+<div id="day-13" class="section level2">
+<h2><span class="header-section-number">3.8</span> Day 13</h2>
+</div>
+<div id="day-14" class="section level2">
+<h2><span class="header-section-number">3.9</span> Day 14</h2>
+<p>Self-directed activities.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="one.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["QuaRantine.pdf", "QuaRantine.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

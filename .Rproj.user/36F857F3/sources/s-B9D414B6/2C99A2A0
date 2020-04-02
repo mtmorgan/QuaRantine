@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1585826192035.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1605769559",
+    "id" : "2C99A2A0",
+    "lastKnownWriteTime" : 1585822684,
+    "last_content_update" : 1585822684,
+    "path" : "~/a/github/QuaRantine/preamble.tex",
+    "project_path" : "preamble.tex",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "tex"
+}

@@ -1,0 +1,25 @@
+# Packages {#two}
+
+## [CRAN][]
+
+[CRAN]: https://cran.r-project.org
+
+## The '[tidyverse][]' of packages
+
+[tidyverse]: https://www.tidyverse.org/
+
+## Day 8 (Monday): Zoom orientation
+
+## Day 9
+
+## Day 10
+
+## Day 11 (Thursday) Zoom check-in.
+
+## Day 12
+
+## Day 13
+
+## Day 14
+
+Self-directed activities.

@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1585825247837.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2717323427",
+    "id" : "D3B340BB",
+    "lastKnownWriteTime" : 1585825863,
+    "last_content_update" : 1585825863025,
+    "path" : "~/a/github/QuaRantine/02-Packages.Rmd",
+    "project_path" : "02-Packages.Rmd",
+    "properties" : {
+        "cursorPosition" : "2,3",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

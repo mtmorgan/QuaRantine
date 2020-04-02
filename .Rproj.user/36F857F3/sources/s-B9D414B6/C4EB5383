@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1585825984170.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "761921049",
+    "id" : "C4EB5383",
+    "lastKnownWriteTime" : 1585826036,
+    "last_content_update" : 1585826036222,
+    "path" : "~/a/github/QuaRantine/05-Group-Projects.Rmd",
+    "project_path" : "05-Group-Projects.Rmd",
+    "properties" : {
+        "cursorPosition" : "16,9",
+        "scrollLine" : "3"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

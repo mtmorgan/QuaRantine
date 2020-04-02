@@ -1,0 +1,1 @@
+'This'QuaRantine' is an _ad hoc_ course developed during the COVID-19 epidemci. It is based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "Get Started" at https://bookdown.org/home/about/ for how to compile this book.

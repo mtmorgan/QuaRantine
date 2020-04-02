@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>40 Days and 40 Nights</title>
+  <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="40 Days and 40 Nights" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="40 Days and 40 Nights" />
+  
+  <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
+  
+
+<meta name="author" content="Martin Morgan" />
+<meta name="author" content="Shawn Matott" />
+
+
+<meta name="date" content="2020-04-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="one.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">QuaRantine</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Motivation</a></li>
+<li class="chapter" data-level="1" data-path="one.html"><a href="one.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
+<li class="chapter" data-level="1.1" data-path="one.html"><a href="one.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing <em>R</em> and <em>RStudio</em></a></li>
+<li class="chapter" data-level="1.2" data-path="one.html"><a href="one.html#basics-of-r"><i class="fa fa-check"></i><b>1.2</b> Basics of <em>R</em></a></li>
+<li class="chapter" data-level="1.3" data-path="one.html"><a href="one.html#day-1-monday-zoom-orientation"><i class="fa fa-check"></i><b>1.3</b> Day 1 (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="1.4" data-path="one.html"><a href="one.html#day-2"><i class="fa fa-check"></i><b>1.4</b> Day 2</a></li>
+<li class="chapter" data-level="1.5" data-path="one.html"><a href="one.html#day-3"><i class="fa fa-check"></i><b>1.5</b> Day 3</a></li>
+<li class="chapter" data-level="1.6" data-path="one.html"><a href="one.html#day-4-thursday-zoom-check-in."><i class="fa fa-check"></i><b>1.6</b> Day 4 (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="1.7" data-path="one.html"><a href="one.html#day-5"><i class="fa fa-check"></i><b>1.7</b> Day 5</a></li>
+<li class="chapter" data-level="1.8" data-path="one.html"><a href="one.html#day-6"><i class="fa fa-check"></i><b>1.8</b> Day 6</a></li>
+<li class="chapter" data-level="1.9" data-path="one.html"><a href="one.html#day-7"><i class="fa fa-check"></i><b>1.9</b> Day 7</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="two.html"><a href="two.html"><i class="fa fa-check"></i><b>2</b> Packages</a><ul>
+<li class="chapter" data-level="2.1" data-path="two.html"><a href="two.html#cran"><i class="fa fa-check"></i><b>2.1</b> <span>CRAN</span></a></li>
+<li class="chapter" data-level="2.2" data-path="two.html"><a href="two.html#the-tidyverse-of-packages"><i class="fa fa-check"></i><b>2.2</b> The ‘<span>tidyverse</span>’ of packages</a></li>
+<li class="chapter" data-level="2.3" data-path="two.html"><a href="two.html#day-8-monday-zoom-orientation"><i class="fa fa-check"></i><b>2.3</b> Day 8 (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="2.4" data-path="two.html"><a href="two.html#day-9"><i class="fa fa-check"></i><b>2.4</b> Day 9</a></li>
+<li class="chapter" data-level="2.5" data-path="two.html"><a href="two.html#day-10"><i class="fa fa-check"></i><b>2.5</b> Day 10</a></li>
+<li class="chapter" data-level="2.6" data-path="two.html"><a href="two.html#day-11-thursday-zoom-check-in."><i class="fa fa-check"></i><b>2.6</b> Day 11 (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="2.7" data-path="two.html"><a href="two.html#day-12"><i class="fa fa-check"></i><b>2.7</b> Day 12</a></li>
+<li class="chapter" data-level="2.8" data-path="two.html"><a href="two.html#day-13"><i class="fa fa-check"></i><b>2.8</b> Day 13</a></li>
+<li class="chapter" data-level="2.9" data-path="two.html"><a href="two.html#day-14"><i class="fa fa-check"></i><b>2.9</b> Day 14</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="two.html"><a href="two.html#two"><i class="fa fa-check"></i><b>3</b> Week 2: Packages</a><ul>
+<li class="chapter" data-level="3.1" data-path="two.html"><a href="two.html#bioconductor"><i class="fa fa-check"></i><b>3.1</b> <span>Bioconductor</span></a></li>
+<li class="chapter" data-level="3.2" data-path="two.html"><a href="two.html#sequence-analysis"><i class="fa fa-check"></i><b>3.2</b> Sequence analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="two.html"><a href="two.html#day-15-monday-zoom-orientation"><i class="fa fa-check"></i><b>3.3</b> Day 15 (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="3.4" data-path="two.html"><a href="two.html#day-16"><i class="fa fa-check"></i><b>3.4</b> Day 16</a></li>
+<li class="chapter" data-level="3.5" data-path="two.html"><a href="two.html#day-17"><i class="fa fa-check"></i><b>3.5</b> Day 17</a></li>
+<li class="chapter" data-level="3.6" data-path="two.html"><a href="two.html#day-18-thursday-zoom-check-in."><i class="fa fa-check"></i><b>3.6</b> Day 18 (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="3.7" data-path="two.html"><a href="two.html#day-19"><i class="fa fa-check"></i><b>3.7</b> Day 19</a></li>
+<li class="chapter" data-level="3.8" data-path="two.html"><a href="two.html#day-20"><i class="fa fa-check"></i><b>3.8</b> Day 20</a></li>
+<li class="chapter" data-level="3.9" data-path="two.html"><a href="two.html#day-21"><i class="fa fa-check"></i><b>3.9</b> Day 21</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="two.html"><a href="two.html#two"><i class="fa fa-check"></i><b>4</b> Independent Projects</a><ul>
+<li class="chapter" data-level="4.1" data-path="two.html"><a href="two.html#day-22-monday-zoom-check-in."><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday): Zoom check-in.</a></li>
+<li class="chapter" data-level="4.2" data-path="two.html"><a href="two.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
+<li class="chapter" data-level="4.3" data-path="two.html"><a href="two.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
+<li class="chapter" data-level="4.4" data-path="two.html"><a href="two.html#day-25-thursday-zoom-check-in."><i class="fa fa-check"></i><b>4.4</b> Day 25 (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="4.5" data-path="two.html"><a href="two.html#day-26"><i class="fa fa-check"></i><b>4.5</b> Day 26</a></li>
+<li class="chapter" data-level="4.6" data-path="two.html"><a href="two.html#day-27"><i class="fa fa-check"></i><b>4.6</b> Day 27</a></li>
+<li class="chapter" data-level="4.7" data-path="two.html"><a href="two.html#day-28"><i class="fa fa-check"></i><b>4.7</b> Day 28</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="five.html"><a href="five.html"><i class="fa fa-check"></i><b>5</b> Group Projects</a><ul>
+<li class="chapter" data-level="5.1" data-path="five.html"><a href="five.html#day-29-monday-zoom-check-in."><i class="fa fa-check"></i><b>5.1</b> Day 29 (Monday): Zoom check-in.</a></li>
+<li class="chapter" data-level="5.2" data-path="five.html"><a href="five.html#day-30"><i class="fa fa-check"></i><b>5.2</b> Day 30</a></li>
+<li class="chapter" data-level="5.3" data-path="five.html"><a href="five.html#day-31"><i class="fa fa-check"></i><b>5.3</b> Day 31</a></li>
+<li class="chapter" data-level="5.4" data-path="five.html"><a href="five.html#day-32-thursday-zoom-check-in."><i class="fa fa-check"></i><b>5.4</b> Day 32 (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="5.5" data-path="five.html"><a href="five.html#day-33"><i class="fa fa-check"></i><b>5.5</b> Day 33</a></li>
+<li class="chapter" data-level="5.6" data-path="five.html"><a href="five.html#day-34"><i class="fa fa-check"></i><b>5.6</b> Day 34</a></li>
+<li class="chapter" data-level="5.7" data-path="five.html"><a href="five.html#day-35"><i class="fa fa-check"></i><b>5.7</b> Day 35</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="six.html"><a href="six.html"><i class="fa fa-check"></i><b>6</b> Finally</a><ul>
+<li class="chapter" data-level="6.1" data-path="six.html"><a href="six.html#days-monday-zoom-orientation"><i class="fa fa-check"></i><b>6.1</b> 5 Days (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="6.2" data-path="six.html"><a href="six.html#days"><i class="fa fa-check"></i><b>6.2</b> 4 Days</a></li>
+<li class="chapter" data-level="6.3" data-path="six.html"><a href="six.html#days-1"><i class="fa fa-check"></i><b>6.3</b> 3 Days</a></li>
+<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-thursday-zoom-check-in."><i class="fa fa-check"></i><b>6.4</b> 2 Days (Thursday) Zoom check-in.</a></li>
+<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today"><i class="fa fa-check"></i><b>6.5</b> Today!</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">40 Days and 40 Nights</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">40 Days and 40 Nights</h1>
+<p class="author"><em>Martin Morgan</em></p>
+<p class="author"><em>Shawn Matott</em></p>
+<p class="date"><em>2020-04-02</em></p>
+</div>
+<div id="motivation" class="section level1 unnumbered">
+<h1>Motivation</h1>
+<p>The word ‘<a href="https://www.etymonline.com/word/quarantine">quarantine</a>’ is from the 1660’s and refers to the fourty days (Italian <em>quaranta giorni</em>) a ship suspected of carrying a disease was kept in isolation</p>
+<p>What to do in a quarantine? The astronaut Scott Kelly spent nearly a year in space on the International Space Station. In a New York Times <a href="https://www.nytimes.com/2020/03/21/opinion/scott-kelly-coronavirus-isolation.html">opinion piece</a> he says, among other things, that ‘you need a hobby’, and what better hobby than a useful one? Let’s take the opportunity provided by COVID-19 to learn R for statistical analysis and comprehension of data. Who knows, it may be useful after all this is over!</p>
+<p>We’ll meet via zoom twice a week, Mondays and Thursdays, for one hour. We’ll use this time to make sure everyone is making progress, and to introduce new or more difficult topics. Other days we’ll have short exercises and activities that hopefully provide an opportunity to learn at your own speed.</p>
+<p>We haven’t thought this through much, but roughly we might cover:</p>
+<ul>
+<li><p>Week 1: In Chapter  we’ll start with the basics of installing and using R. We’ll set up R and RStudio on your local computer, or if that doesn’t work use a cloud-based RStudio. We’ll learn the basics of R – numeric, character, factor, and other vectors; variables; the <code>data.frame</code>; saving and reading data; basic data manipulation and visualization.</p></li>
+<li><p>Week 2: Packages for extending R. A great strenght of R is its extensibility through packages. We’ll learn about <a href="https://cran.r-project.org">CRAN</a>, and install and use the ‘tidyverse’ suite of packages. We’ll use publicly available data to explore the spread of COVID-19 in the US, including data manipulation and visualization.</p></li>
+<li><p>Week 3: Bioinformatic analysis with <a href="https://bioconductor.org">Bioconductor</a>. <em>Bioconductor</em> is a collection of more than 1800 <em>R</em> packages for the statistical analysis and comprehension of high-throughput genomic data. We’ll use <em>Bioconductor</em> to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.</p></li>
+<li><p>Week 4: Independent projects. This week we’ll get introspective, developing an analysis of data interesting to ourselves. We’ll learn about writing ‘markdown’ reports to share our project with others.</p></li>
+<li><p>Week 5: Group projects. COVID-19 has really shown the value of open data and collaboration, so we’ll tackle a group project where we each contribute to overall insights. We’ll learn tools of collaboration including git and github, and develop ‘best practices’ for robust, reproducible research.</p></li>
+<li><p>Week 6: Sharing and end of QuaRantine! 40 days is 5 weeks and 5 days, so we should be wrapping up our ‘hobby’ in week 6. Let’s summarize what we’ve done, and chart a path forward as we return to civilization!</p></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="one.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["QuaRantine.pdf", "QuaRantine.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

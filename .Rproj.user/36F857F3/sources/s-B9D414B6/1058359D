@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1585822686552.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "966204040",
+    "id" : "1058359D",
+    "lastKnownWriteTime" : 1585826343,
+    "last_content_update" : 1585826343147,
+    "path" : "~/a/github/QuaRantine/README.md",
+    "project_path" : "README.md",
+    "properties" : {
+        "cursorPosition" : "0,260",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}

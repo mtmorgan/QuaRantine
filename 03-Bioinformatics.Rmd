@@ -1,0 +1,23 @@
+# Week 2: Packages {#two}
+
+## [Bioconductor][]
+
+[Bioconductor]: https://bioconductor.org
+
+## Sequence analysis
+
+## Day 15 (Monday): Zoom orientation
+
+## Day 16
+
+## Day 17
+
+## Day 18 (Thursday) Zoom check-in.
+
+## Day 19
+
+## Day 20
+
+## Day 21
+
+Self-directed activities.
