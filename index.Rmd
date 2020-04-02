@@ -12,6 +12,10 @@ description: |
     COVID-19 epidemic as an excuse.
 ---
 
+This is a WORK IN PROGRESS.
+
+This course was suggested and enabled by Adam Kisailus and Richard Hershberger. It is available for Roswell Park graduate students.
+
 # Motivation {-}
 
 The word '[quarantine][]' is from the 1660's and refers to the fourty days (Italian _quaranta giorni_) a ship suspected of carrying a disease was kept in isolation
