@@ -20,9 +20,9 @@ This course was suggested and enabled by Adam Kisailus and Richard Hershberger. 
 
 ## Introduction {-}
 
-The word '[quarantine][]' is from the 1660's and refers to the fourty days (Italian _quaranta giorni_) a ship suspected of carrying a disease was kept in isolation
+The word '[quarantine][]' is from the 1660's and refers to the fourty days (Italian _quaranta giorni_) a ship suspected of carrying disease was kept in isolation.
 
-What to do in a quarantine? The astronaut Scott Kelly spent nearly a year in space on the International Space Station. In a New York Times [opinion piece][] he says, among other things, that 'you need a hobby', and what better hobby than a useful one? Let's take the opportunity provided by COVID-19 to learn R for statistical analysis and comprehension of data. Who knows, it may be useful after all this is over!
+What to do in a quarantine? The astronaut Scott Kelly spent nearly a year on the International Space Station. In a New York Times [opinion piece][] he says, among other things, that 'you need a hobby', and what better hobby than a useful one? Let's take the opportunity provided by COVID-19 to learn R for statistical analysis and comprehension of data. Who knows, it may be useful after all this is over!
 
 [quarantine]: https://www.etymonline.com/word/quarantine
 [opinion piece]: https://www.nytimes.com/2020/03/21/opinion/scott-kelly-coronavirus-isolation.html
