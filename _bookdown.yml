@@ -3,4 +3,6 @@ delete_merged_file: true
 output_dir: "docs"
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: "Week "
+new_session: yes
+before_chapter_script: ["scripts/before_chapter.R"]

@@ -4,12 +4,12 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Bioconductor | 40 Days and 40 Nights</title>
+  <title>Week 3 Bioconductor | 40 Days and 40 Nights</title>
   <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
 COVID-19 epidemic as an excuse." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Bioconductor | 40 Days and 40 Nights" />
+  <meta property="og:title" content="Week 3 Bioconductor | 40 Days and 40 Nights" />
   <meta property="og:type" content="book" />
   
   
@@ -18,17 +18,17 @@ COVID-19 epidemic as an excuse." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Bioconductor | 40 Days and 40 Nights" />
+  <meta name="twitter:title" content="Week 3 Bioconductor | 40 Days and 40 Nights" />
   
   <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
 COVID-19 epidemic as an excuse." />
   
 
 <meta name="author" content="Martin Morgan" />
-<meta name="author" content="Shawn Matott" />
+<meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-02" />
+<meta name="date" content="2020-04-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,6 +56,68 @@ COVID-19 epidemic as an excuse." />
 
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -78,60 +140,74 @@ COVID-19 epidemic as an excuse." />
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-to-expect"><i class="fa fa-check"></i>What to expect</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="one.html"><a href="one.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
-<li class="chapter" data-level="1.1" data-path="one.html"><a href="one.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing <em>R</em> and <em>RStudio</em></a></li>
-<li class="chapter" data-level="1.2" data-path="one.html"><a href="one.html#basics-of-r"><i class="fa fa-check"></i><b>1.2</b> Basics of <em>R</em></a></li>
-<li class="chapter" data-level="1.3" data-path="one.html"><a href="one.html#day-1-monday-zoom-orientation"><i class="fa fa-check"></i><b>1.3</b> Day 1 (Monday): Zoom orientation</a></li>
-<li class="chapter" data-level="1.4" data-path="one.html"><a href="one.html#day-2"><i class="fa fa-check"></i><b>1.4</b> Day 2</a></li>
-<li class="chapter" data-level="1.5" data-path="one.html"><a href="one.html#day-3"><i class="fa fa-check"></i><b>1.5</b> Day 3</a></li>
-<li class="chapter" data-level="1.6" data-path="one.html"><a href="one.html#day-4-thursday-zoom-check-in."><i class="fa fa-check"></i><b>1.6</b> Day 4 (Thursday) Zoom check-in.</a></li>
-<li class="chapter" data-level="1.7" data-path="one.html"><a href="one.html#day-5"><i class="fa fa-check"></i><b>1.7</b> Day 5</a></li>
-<li class="chapter" data-level="1.8" data-path="one.html"><a href="one.html#day-6"><i class="fa fa-check"></i><b>1.8</b> Day 6</a></li>
-<li class="chapter" data-level="1.9" data-path="one.html"><a href="one.html#day-7"><i class="fa fa-check"></i><b>1.9</b> Day 7</a></li>
+<li class="chapter" data-level="1.1" data-path="one.html"><a href="one.html#day-1-monday-zoom-orientation"><i class="fa fa-check"></i><b>1.1</b> Day 1 (Monday) Zoom orientation</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="one.html"><a href="one.html#installing-r-and-rstudio-25-minutes-shawn"><i class="fa fa-check"></i><b>1.1.1</b> Installing <em>R</em> and <em>RStudio</em> (25 minutes, Shawn)</a></li>
+<li class="chapter" data-level="1.1.2" data-path="one.html"><a href="one.html#logistics-10-minutes-adam"><i class="fa fa-check"></i><b>1.1.2</b> Logistics (10 minutes, Adam)</a></li>
+<li class="chapter" data-level="1.1.3" data-path="one.html"><a href="one.html#basics-of-r-25-minutes-martin"><i class="fa fa-check"></i><b>1.1.3</b> Basics of <em>R</em> (25 minutes, Martin)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="one.html"><a href="one.html#day-2"><i class="fa fa-check"></i><b>1.2</b> Day 2</a></li>
+<li class="chapter" data-level="1.3" data-path="one.html"><a href="one.html#day-3"><i class="fa fa-check"></i><b>1.3</b> Day 3</a></li>
+<li class="chapter" data-level="1.4" data-path="one.html"><a href="one.html#day-4"><i class="fa fa-check"></i><b>1.4</b> Day 4</a></li>
+<li class="chapter" data-level="1.5" data-path="one.html"><a href="one.html#day-5-friday-zoom-check-in"><i class="fa fa-check"></i><b>1.5</b> Day 5 (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="one.html"><a href="one.html#review-and-trouble-shoot-25-minutes"><i class="fa fa-check"></i><b>1.5.1</b> Review and trouble shoot (25 minutes)</a></li>
+<li class="chapter" data-level="1.5.2" data-path="one.html"><a href="one.html#next-week-25-minutes"><i class="fa fa-check"></i><b>1.5.2</b> Next week (25 minutes)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="one.html"><a href="one.html#day-6"><i class="fa fa-check"></i><b>1.6</b> Day 6</a></li>
+<li class="chapter" data-level="1.7" data-path="one.html"><a href="one.html#day-7"><i class="fa fa-check"></i><b>1.7</b> Day 7</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="two.html"><a href="two.html"><i class="fa fa-check"></i><b>2</b> Packages</a><ul>
 <li class="chapter" data-level="2.1" data-path="two.html"><a href="two.html#cran"><i class="fa fa-check"></i><b>2.1</b> <span>CRAN</span></a></li>
 <li class="chapter" data-level="2.2" data-path="two.html"><a href="two.html#the-tidyverse-of-packages"><i class="fa fa-check"></i><b>2.2</b> The ‘<span>tidyverse</span>’ of packages</a></li>
-<li class="chapter" data-level="2.3" data-path="two.html"><a href="two.html#day-8-monday-zoom-orientation"><i class="fa fa-check"></i><b>2.3</b> Day 8 (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="2.3" data-path="two.html"><a href="two.html#day-8-monday-zoom-check-in"><i class="fa fa-check"></i><b>2.3</b> Day 8 (Monday) Zoom check-in</a></li>
 <li class="chapter" data-level="2.4" data-path="two.html"><a href="two.html#day-9"><i class="fa fa-check"></i><b>2.4</b> Day 9</a></li>
 <li class="chapter" data-level="2.5" data-path="two.html"><a href="two.html#day-10"><i class="fa fa-check"></i><b>2.5</b> Day 10</a></li>
-<li class="chapter" data-level="2.6" data-path="two.html"><a href="two.html#day-11-thursday-zoom-check-in."><i class="fa fa-check"></i><b>2.6</b> Day 11 (Thursday) Zoom check-in.</a></li>
-<li class="chapter" data-level="2.7" data-path="two.html"><a href="two.html#day-12"><i class="fa fa-check"></i><b>2.7</b> Day 12</a></li>
+<li class="chapter" data-level="2.6" data-path="two.html"><a href="two.html#day-11"><i class="fa fa-check"></i><b>2.6</b> Day 11</a></li>
+<li class="chapter" data-level="2.7" data-path="two.html"><a href="two.html#day-12-friday-zoom-check-in"><i class="fa fa-check"></i><b>2.7</b> Day 12 (Friday) Zoom check-in</a></li>
 <li class="chapter" data-level="2.8" data-path="two.html"><a href="two.html#day-13"><i class="fa fa-check"></i><b>2.8</b> Day 13</a></li>
 <li class="chapter" data-level="2.9" data-path="two.html"><a href="two.html#day-14"><i class="fa fa-check"></i><b>2.9</b> Day 14</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="three.html"><a href="three.html"><i class="fa fa-check"></i><b>3</b> <span>Bioconductor</span></a><ul>
-<li class="chapter" data-level="3.1" data-path="three.html"><a href="three.html#day-15-monday-zoom-orientation"><i class="fa fa-check"></i><b>3.1</b> Day 15 (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="3.1" data-path="three.html"><a href="three.html#day-15-monday-zoom-check-in"><i class="fa fa-check"></i><b>3.1</b> Day 15 (Monday) Zoom check-in</a></li>
 <li class="chapter" data-level="3.2" data-path="three.html"><a href="three.html#day-16"><i class="fa fa-check"></i><b>3.2</b> Day 16</a></li>
 <li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17"><i class="fa fa-check"></i><b>3.3</b> Day 17</a></li>
-<li class="chapter" data-level="3.4" data-path="three.html"><a href="three.html#day-18-thursday-zoom-check-in."><i class="fa fa-check"></i><b>3.4</b> Day 18 (Thursday) Zoom check-in.</a></li>
-<li class="chapter" data-level="3.5" data-path="three.html"><a href="three.html#day-19"><i class="fa fa-check"></i><b>3.5</b> Day 19</a></li>
+<li class="chapter" data-level="3.4" data-path="three.html"><a href="three.html#day-18"><i class="fa fa-check"></i><b>3.4</b> Day 18</a></li>
+<li class="chapter" data-level="3.5" data-path="three.html"><a href="three.html#day-19-friday-zoom-check-in"><i class="fa fa-check"></i><b>3.5</b> Day 19 (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="three.html"><a href="three.html#review-and-trouble-shoot-25-minutes-1"><i class="fa fa-check"></i><b>3.5.1</b> Review and trouble shoot (25 minutes)</a></li>
+<li class="chapter" data-level="3.5.2" data-path="three.html"><a href="three.html#next-week-25-minutes-1"><i class="fa fa-check"></i><b>3.5.2</b> Next week (25 minutes)</a></li>
+</ul></li>
 <li class="chapter" data-level="3.6" data-path="three.html"><a href="three.html#day-20"><i class="fa fa-check"></i><b>3.6</b> Day 20</a></li>
 <li class="chapter" data-level="3.7" data-path="three.html"><a href="three.html#day-21"><i class="fa fa-check"></i><b>3.7</b> Day 21</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="four.html"><a href="four.html"><i class="fa fa-check"></i><b>4</b> Independent Projects</a><ul>
-<li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in."><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday): Zoom check-in.</a></li>
+<li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a></li>
 <li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
 <li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
-<li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25-thursday-zoom-check-in."><i class="fa fa-check"></i><b>4.4</b> Day 25 (Thursday) Zoom check-in.</a></li>
-<li class="chapter" data-level="4.5" data-path="four.html"><a href="four.html#day-26"><i class="fa fa-check"></i><b>4.5</b> Day 26</a></li>
+<li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25"><i class="fa fa-check"></i><b>4.4</b> Day 25</a></li>
+<li class="chapter" data-level="4.5" data-path="four.html"><a href="four.html#day-26-friday-zoom-check-in"><i class="fa fa-check"></i><b>4.5</b> Day 26 (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="four.html"><a href="four.html#review-and-trouble-shoot-25-minutes-2"><i class="fa fa-check"></i><b>4.5.1</b> Review and trouble shoot (25 minutes)</a></li>
+<li class="chapter" data-level="4.5.2" data-path="four.html"><a href="four.html#next-week-25-minutes-2"><i class="fa fa-check"></i><b>4.5.2</b> Next week (25 minutes)</a></li>
+</ul></li>
 <li class="chapter" data-level="4.6" data-path="four.html"><a href="four.html#day-27"><i class="fa fa-check"></i><b>4.6</b> Day 27</a></li>
 <li class="chapter" data-level="4.7" data-path="four.html"><a href="four.html#day-28"><i class="fa fa-check"></i><b>4.7</b> Day 28</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="five.html"><a href="five.html"><i class="fa fa-check"></i><b>5</b> Group Projects</a><ul>
-<li class="chapter" data-level="5.1" data-path="five.html"><a href="five.html#day-29-monday-zoom-check-in."><i class="fa fa-check"></i><b>5.1</b> Day 29 (Monday): Zoom check-in.</a></li>
+<li class="chapter" data-level="5.1" data-path="five.html"><a href="five.html#day-29-monday-zoom-check-in"><i class="fa fa-check"></i><b>5.1</b> Day 29 (Monday) Zoom check-in</a></li>
 <li class="chapter" data-level="5.2" data-path="five.html"><a href="five.html#day-30"><i class="fa fa-check"></i><b>5.2</b> Day 30</a></li>
 <li class="chapter" data-level="5.3" data-path="five.html"><a href="five.html#day-31"><i class="fa fa-check"></i><b>5.3</b> Day 31</a></li>
-<li class="chapter" data-level="5.4" data-path="five.html"><a href="five.html#day-32-thursday-zoom-check-in."><i class="fa fa-check"></i><b>5.4</b> Day 32 (Thursday) Zoom check-in.</a></li>
-<li class="chapter" data-level="5.5" data-path="five.html"><a href="five.html#day-33"><i class="fa fa-check"></i><b>5.5</b> Day 33</a></li>
+<li class="chapter" data-level="5.4" data-path="five.html"><a href="five.html#day-32"><i class="fa fa-check"></i><b>5.4</b> Day 32</a></li>
+<li class="chapter" data-level="5.5" data-path="five.html"><a href="five.html#day-33-friday-zoom-check-in"><i class="fa fa-check"></i><b>5.5</b> Day 33 (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="five.html"><a href="five.html#review-and-trouble-shoot-25-minutes-3"><i class="fa fa-check"></i><b>5.5.1</b> Review and trouble shoot (25 minutes)</a></li>
+<li class="chapter" data-level="5.5.2" data-path="five.html"><a href="five.html#next-week-25-minutes-3"><i class="fa fa-check"></i><b>5.5.2</b> Next week (25 minutes)</a></li>
+</ul></li>
 <li class="chapter" data-level="5.6" data-path="five.html"><a href="five.html#day-34"><i class="fa fa-check"></i><b>5.6</b> Day 34</a></li>
 <li class="chapter" data-level="5.7" data-path="five.html"><a href="five.html#day-35"><i class="fa fa-check"></i><b>5.7</b> Day 35</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="six.html"><a href="six.html"><i class="fa fa-check"></i><b>6</b> Finally</a><ul>
-<li class="chapter" data-level="6.1" data-path="six.html"><a href="six.html#days-monday-zoom-orientation"><i class="fa fa-check"></i><b>6.1</b> 5 Days (Monday): Zoom orientation</a></li>
+<li class="chapter" data-level="6.1" data-path="six.html"><a href="six.html#days-monday-zoom-check-in"><i class="fa fa-check"></i><b>6.1</b> 5 Days (Monday) Zoom check-in</a></li>
 <li class="chapter" data-level="6.2" data-path="six.html"><a href="six.html#days"><i class="fa fa-check"></i><b>6.2</b> 4 Days</a></li>
 <li class="chapter" data-level="6.3" data-path="six.html"><a href="six.html#days-1"><i class="fa fa-check"></i><b>6.3</b> 3 Days</a></li>
-<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-thursday-zoom-check-in."><i class="fa fa-check"></i><b>6.4</b> 2 Days (Thursday) Zoom check-in.</a></li>
-<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today"><i class="fa fa-check"></i><b>6.5</b> Today!</a></li>
+<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-2"><i class="fa fa-check"></i><b>6.4</b> 2 Days</a></li>
+<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -154,9 +230,9 @@ COVID-19 epidemic as an excuse." />
 
             <section class="normal" id="section-">
 <div id="three" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> <a href="https://bioconductor.org">Bioconductor</a></h1>
-<div id="day-15-monday-zoom-orientation" class="section level2">
-<h2><span class="header-section-number">3.1</span> Day 15 (Monday): Zoom orientation</h2>
+<h1><span class="header-section-number">Week 3</span> <a href="https://bioconductor.org">Bioconductor</a></h1>
+<div id="day-15-monday-zoom-check-in" class="section level2">
+<h2><span class="header-section-number">3.1</span> Day 15 (Monday) Zoom check-in</h2>
 </div>
 <div id="day-16" class="section level2">
 <h2><span class="header-section-number">3.2</span> Day 16</h2>
@@ -164,11 +240,17 @@ COVID-19 epidemic as an excuse." />
 <div id="day-17" class="section level2">
 <h2><span class="header-section-number">3.3</span> Day 17</h2>
 </div>
-<div id="day-18-thursday-zoom-check-in." class="section level2">
-<h2><span class="header-section-number">3.4</span> Day 18 (Thursday) Zoom check-in.</h2>
+<div id="day-18" class="section level2">
+<h2><span class="header-section-number">3.4</span> Day 18</h2>
 </div>
-<div id="day-19" class="section level2">
-<h2><span class="header-section-number">3.5</span> Day 19</h2>
+<div id="day-19-friday-zoom-check-in" class="section level2">
+<h2><span class="header-section-number">3.5</span> Day 19 (Friday) Zoom check-in</h2>
+<div id="review-and-trouble-shoot-25-minutes-1" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Review and trouble shoot (25 minutes)</h3>
+</div>
+<div id="next-week-25-minutes-1" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Next week (25 minutes)</h3>
+</div>
 </div>
 <div id="day-20" class="section level2">
 <h2><span class="header-section-number">3.6</span> Day 20</h2>

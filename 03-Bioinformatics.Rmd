@@ -2,15 +2,19 @@
 
 [Bioconductor]: https://bioconductor.org
 
-## Day 15 (Monday): Zoom orientation
+## Day 15 (Monday) Zoom check-in
 
 ## Day 16
 
 ## Day 17
 
-## Day 18 (Thursday) Zoom check-in.
+## Day 18
 
-## Day 19
+## Day 19 (Friday) Zoom check-in
+
+### Review and trouble shoot (25 minutes)
+
+### Next week (25 minutes)
 
 ## Day 20
 
