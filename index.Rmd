@@ -1,6 +1,6 @@
 --- 
 title: "40 Days and 40 Nights"
-author: ["Martin Morgan", "Shawn Matott"]
+author: ["Martin Morgan", "L. Shawn Matott"]
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
