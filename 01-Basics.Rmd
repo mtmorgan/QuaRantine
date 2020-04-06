@@ -1,10 +1,18 @@
 # Basics {#one}
 
-## Installing _R_ and _RStudio_
+## Day 1 (Monday): Zoom orientation
 
-## Basics of _R_
+### Installing _R_ and _RStudio_ (25 minutes)
+
+BLAH BLAH BLAH. images, BLAH BLAH BLAH.
+
+### Basics of _R_ (25 minutes)
 
 A simple calculator
+
+```{r}
+1 + 2
+```
 
 Variables
 
@@ -14,7 +22,6 @@ The versatile `data.frame`
 
 Scripting
 
-## Day 1 (Monday): Zoom orientation
 
 ## Day 2
 
@@ -24,11 +31,15 @@ Creating a daily log of quarantine activities -- create a `data.frame` logging a
 
 Add to a `data.frame`. Basic statistical summary and visualization.
 
-## Day 4 (Thursday) Zoom check-in.
+## Day 4
+
+## Day 5 Zoom check-in
 
 Participant progress / challenges. Introduction to a COVID-19 data set documenting cases reported in the US.
 
-## Day 5
+### Review and trouble shoot (25 minutes)
+
+### Next week (25 minutes)
 
 Input and subset COVID-19 data. Statistical summary.
 
