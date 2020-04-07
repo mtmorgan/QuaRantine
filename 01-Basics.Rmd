@@ -2,10 +2,6 @@
 
 ## Day 1 (Monday) Zoom orientation
 
-### Installing _R_ and _RStudio_ (25 minutes, Shawn)
-
-BLAH BLAH BLAH. images, BLAH BLAH BLAH.
-
 ### Logistics (10 minutes, Adam)
 
 Course material
@@ -14,8 +10,42 @@ Course material
 
 Microsoft TEAMS
 
-- Visit https://teams.microsoft.org and sign in with your Roswell username (e.g., `MA38727@RoswellPark.org` and the password you use to check email, etc.)
+- Visit https://teams.microsoft.org and sign in with your Roswell username (e.g., `MA38727@RoswellPark.org`) and the password you use to check email, etc.
 - Join the QuaRantine team
+
+### Installing _R_ and _RStudio_ (25 minutes, Shawn)
+
+Try to install R and RStudio on your own computer
+
+Windows:
+
+- [Download R for Windows][] and run the installer. Avoid, if possible, installing as administrator.
+- [Download RStudio for Windows][] and run the installer.
+- Test the installation by launching RStudio. You should end up with a window like the screen shot below.
+
+[Download R for Windows]: https://cran.rstudio.com/bin/windows/base/R-3.6.3-win.exe
+[Download Rstudio for Windows]: https://download1.rstudio.org/desktop/windows/RStudio-1.2.5033.exe
+
+Mac:
+
+- [Download R for macOS][] (OS X 10.11, El Capitan, and later) or [older macOS][] and run the installer.
+- [Download RStudio for macOS][] and run the installer.
+- Test the installation by launching RStudio. You should end up with a window like the screen shot below.
+
+[Download R for macOS]: https://cran.rstudio.com/bin/macosx/R-3.6.3.pkg
+[older macOS]: https://cran.rstudio.com/bin/macosx/R-3.6.3.nn.pkg
+[Download Rstudio for macOS]: https://download1.rstudio.org/desktop/macos/RStudio-1.2.5033.dmg 
+
+<img src="images/RStudio-screenshot.png">
+
+ALTERNATIVELY;
+
+- Do the following only if you are NOT ABLE TO INSTALL R and RStudio:
+- Visit [rstudio.cloud][]. Click the 'Get Started' button, and create an account. You should end up at a screen like the following.
+
+<img src="images/RStudio-cloud-screenshot.png">
+
+[rstudio.cloud]: https://rstudio.cloud/
 
 ### Basics of _R_ (25 minutes, Martin)
 
