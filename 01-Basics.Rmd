@@ -41,9 +41,13 @@ Mac:
 ALTERNATIVELY;
 
 - Do the following only if you are NOT ABLE TO INSTALL R and RStudio:
-- Visit [rstudio.cloud][]. Click the 'Get Started' button, and create an account. You should end up at a screen like the following.
+- Visit [rstudio.cloud][]. Click the 'Get Started' button, and create an account (I used by gmail account...). You should end up at a screen like the following.
 
 <img src="images/RStudio-cloud-screenshot.png">
+
+- Click on the 'New Project' button, to end up with a screen like the one below. Note the 'Untitled Project' at the top of the screen; click on it to name your project, e.g., 'QuaRantine'.
+
+<img src="images/RStudio-cloud-project.png">
 
 [rstudio.cloud]: https://rstudio.cloud/
 
