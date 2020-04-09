@@ -18,12 +18,10 @@ Microsoft TEAMS
 What is R?
 
 ```{r echo = FALSE}
-library(knitr)
-include_graphics('images/R_logo.png')
+knitr::include_graphics('images/R_logo.png')
 ```
 
-- A programming language for statistical computing, data
-analysis and scientific graphics.
+- A programming language for statistical computing, data analysis and scientific graphics.
 
 - Open-source with a large (and growing) user community.
 
@@ -40,6 +38,8 @@ What is [RStudio][]?
     - Easy switching between shell and editor
     - Dynamic help and docs
     
+Installing _R_ and _RStudio_
+
 - Two ways to "get" RStudio:
     - Install on your laptop or desktop
         - Download the free desktop [installer here][]
@@ -50,48 +50,46 @@ What is [RStudio][]?
 
 [Visit rstudio.cloud]: https://rstudio.cloud/
 
-- The preferred approach for this course is to try to install R and RStudio on your own computer
-  - Windows Users:
-    - [Download R for Windows][] and run the installer. Avoid, if possible, installing as administrator.
-    - [Download RStudio for Windows][] and run the installer.
-    - Test the installation by launching RStudio. You should end up with a window like the screen shot below.
-  - Mac Users:
-    - [Download R for macOS][] (OS X 10.11, El Capitan, and later) or [older macOS][] and run the installer.
-    - [Download RStudio for macOS][] and run the installer.
-    - Test the installation by launching RStudio. You should end up with a window like the screen shot below.
+The preferred approach for this course is to try to install R and RStudio on your own computer
+
+- Windows Users:
+  - [Download R for Windows][] and run the installer. Avoid, if possible, installing as administrator.
+  - [Download RStudio for Windows][] and run the installer.
+  - Test the installation by launching RStudio. You should end up with a window like the screen shot below.
+- Mac Users:
+  - [Download R for macOS][] (OS X 10.11, El Capitan, and later) or [older macOS][] and run the installer.
+  - [Download RStudio for macOS][] and run the installer.
+  - Test the installation by launching RStudio. You should end up with a window like the screen shot below.
 
 [Download R for Windows]: https://cran.rstudio.com/bin/windows/base/R-3.6.3-win.exe
-
 [Download Rstudio for Windows]: https://download1.rstudio.org/desktop/windows/RStudio-1.2.5033.exe
-
 [Download R for macOS]: https://cran.rstudio.com/bin/macosx/R-3.6.3.pkg
-
 [older macOS]: https://cran.rstudio.com/bin/macosx/R-3.6.3.nn.pkg
-
 [Download Rstudio for macOS]: https://download1.rstudio.org/desktop/macos/RStudio-1.2.5033.dmg 
 
 ```{r echo = FALSE}
 knitr::include_graphics('images/RStudio-screenshot.png')
 ```
 
-ALTERNATIVE OPTION;
+An ALTERNATIVE, if installing on your own computer does not work:
 
-- Do the following only if you are NOT ABLE TO INSTALL R and RStudio:
+- Do the following only if you are NOT ABLE TO INSTALL R and RStudio.
 - Visit [rstudio.cloud][]. Click the 'Get Started' button, and create an account (I used my gmail account...). You should end up at a screen like the following.
 
-```{r echo = FALSE}
-knitr::include_graphics('images/RStudio-cloud-screenshot.png')
-```
+    ```{r echo = FALSE}
+    knitr::include_graphics('images/RStudio-cloud-screenshot.png')
+    ```
 
 - Click on the 'New Project' button, to end up with a screen like the one below. Note the 'Untitled Project' at the top of the screen; click on it to name your project, e.g., 'QuaRantine'.
 
-```{r echo = FALSE}
-knitr::include_graphics('images/RStudio-cloud-project.png')
-```
+    ```{r echo = FALSE}
+    knitr::include_graphics('images/RStudio-cloud-project.png')
+    ```
 
 [rstudio.cloud]: https://rstudio.cloud/
 
-## Breakout Room
+#### Breakout Room {-}
+
 At this point you should have RStudio running either via your desktop installation or through rstudio.cloud. If not, please let use know via the chat window and we'll invite you to a breakout room to troubleshoot your installation.
 
 ### Basics of _R_ (25 minutes, Martin)
