@@ -35,7 +35,7 @@ What is [RStudio][]?
     - Syntax highlighting and color coding
     - Easy switching between shell and editor
     - Dynamic help and docs
-    
+
 Installing _R_ and _RStudio_
 
 - Two ways to "get" RStudio:
@@ -63,7 +63,7 @@ The preferred approach for this course is to try to install R and RStudio on you
 [Download Rstudio for Windows]: https://download1.rstudio.org/desktop/windows/RStudio-1.2.5033.exe
 [Download R for macOS]: https://cran.rstudio.com/bin/macosx/R-3.6.3.pkg
 [older macOS]: https://cran.rstudio.com/bin/macosx/R-3.6.3.nn.pkg
-[Download Rstudio for macOS]: https://download1.rstudio.org/desktop/macos/RStudio-1.2.5033.dmg 
+[Download Rstudio for macOS]: https://download1.rstudio.org/desktop/macos/RStudio-1.2.5033.dmg
 
 ```{r echo = FALSE}
 knitr::include_graphics('images/RStudio-screenshot.png')
@@ -106,16 +106,200 @@ The versatile `data.frame`
 
 Scripting
 
+## Day 2: Vectors and variables
 
-## Day 2
+Our overall goal for the next few days is to use _R_ to create a daily log of quarantine activities.
 
-Creating a daily log of quarantine activities -- create a `data.frame` logging activities. Save to / read from a file.
+Our goal for today is to become familiar with _R_ vectors. Along the way we'll probably make data entry and other errors that will start to get us comfortable with _R_.
 
-## Day 3
+If you run into problems, reach out to the slack channel for support!
+
+The astronaut Scott Kelly said that to survive a year on the International Space Station he found it essential to
+
+- Follow a schedule -- plan your day, and stick to the plan
+- Pace yourselves -- you've got a long time to accomplish tasks, so don't try to get everything done in the first week.
+- Go outside -- if Scott can head out to space, we should be able to make it to the back yard or around the block!
+- Get a hobby -- something not work related, and away from that evil little screen. Maybe it's as simple as rediscovering the joy of reading.
+- Keep a journal
+- Take time to connect -- on a human level, with people you work with and people you don't!
+- Listen to experts -- Scott talked about relying on the mission controllers; for us maybe that's watching webinars or taking courses in new topics!
+- Wash your hands!
+
+I wanted to emphasize 'follow a schedule' and 'keep a journal'. How can _R_ help? Well, I want to create a short record of how I spend today, day 2 of my quarantine.
+
+My first goal is to create _vectors_ describing things I plan to do today. Let's start with some of these. To get up to speed, type the following into the _R_ console, at the `>` prompt
+
+```{r, eval = FALSE}
+1 + 2
+```
+
+Press the carriage return and remind yourself that _R_ is a calculator, and knows how to work with numbers!
+
+Now type an activity in your day, for instance I often start with
+
+```{r, eval = FALSE}
+"check e-mail"
+```
+
+Now try assigning that to a variable, and displaying the variable, e.g.,
+
+```{r}
+activity <- "check e-mail"
+activity
+```
+
+OK, likely you have several activities scheduled. Create a _vector_ of a few of
+these by `c`oncatenating individual values
+
+```{r}
+c("check e-mail", "breakfast", "conference call", "webinar")
+```
+
+Assign these to a variable
+
+```{r}
+activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+activity
+```
+
+Create another vector, but this time the vector should contain the minutes spent on each activity
+
+```{r}
+minutes <- c(20, 30, 60, 60, 60)
+minutes
+```
+
+So I spent 20 minutes checking email, 30 minutes having breakfast and things like that, I was in a conference call for 60 minutes, and then attended a webinar where I learned new stuff for another 60 minutes. Finally I went for a walk to clear my head and remember why I'm doing things.
+
+Apply some basic functions to the variables, e.g., use `length()` to demonstrate that you for each `activity` you have recorded the `minutes`.
+
+```{r}
+length(activity)
+length(minutes)
+```
+
+Use `tail()` to select the last two activities (or `head()` to select the first two...)
+
+```{r}
+tail(activity, 2)
+tail(minutes, 2)
+```
+
+_R_ has other types of vectors. Create a logical vector that indicates whether each activity was 'work' activity' or something you did for your own survival. We'll say that checking email is a work-related activity!
+
+```{r}
+is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+is_work
+```
+
+Alternatively, classify the activities into categories inspired by Astronaut Scott's guidance like `connect` with others, go outside and `exercise`, `consult` experts, get a `hobby`, and (my own category, I guess) perform `essential` functions like eating and sleeping.
+
+```{r}
+classification <-
+    c("connect", "essential", "connect", "consult", "exercise")
+```
+
+I want to emphasize a difference between the `activity` and `classification` variables. I want `activity` to be a character vector that could contain any description of an activity. But I want `classification` to be terms only from a limited set of possibilities. In _R_, `classification` is a special type of vector called a `factor`, and I create a factor by enumerating the possible _levels_ (values) that the factor can take on
+
+```{r}
+levels <- c("connect", "exercise", "consult", "hobby", "essential")
+```
+
+And then tell _R_ that the vector `classification` should be a factor with values taken from a particular set of levels
+
+
+```{r}
+classification <- factor(
+    c("connect", "essential", "connect", "consult", "exercise"),
+    levels = levels
+)
+classification
+```
+
+Notice that activity (a character vector) displays differently from classification (a factor)
+
+```{r}
+activity
+classification
+```
+
+Also, some of the levels (e.g., `hobby`) have not been part of our schedule yet, but the factor still 'knows' about the level.
+
+Notice also what happens when you try to use a value that is not a level of a factor
+
+```{r}
+factor(c("connect", "disconnect"), levels = levels)
+```
+
+The value with the unknown level is displayed as `NA`, for not known. `NA` values can be present in any vector, e.g.,
+
+```{r}
+c(1, 2, NA, 4)
+c("walk", "talk", NA)
+c(NA, TRUE, FALSE, TRUE, TRUE)
+```
+
+This serves as an indication that the value is simply not available. Use `NA` rather than adopting some special code (e.g., '-99') to indicate when a value is not available.
+
+One other type of vector we will work a lot with are dates. All of my activities are for today, so I'll start with a character vector with the same length as my activity vector, each indicating the date in a consistent month-day-year format
+
+```{r}
+dates <- c("04-14-2020", "04-14-2020", "04-14-2020", "04-14-2020", "04-14-2020")
+dates
+```
+
+Incidentally, I could do this more efficiently using the `rep`licate function
+
+```{r}
+rep("04-14-2020", 5)
+```
+
+And even better use `length()` to know for sure how many times I should replicate the character vector
+
+```{r}
+rep("04-14-2020", length(activity))
+```
+
+`dates` is a character vector, but it has specially meaning as a calendar date, _R_ has a `Date` _class_ that knows how to work with dates. We will _coerce_ `date` to an object of class `Date` using a function `as.Date`. Here's our first attempt...
+
+```{r, eval = FALSE}
+as.Date(dates)
+```
+... but this results in an error:
+
+```
+Error in charToDate(x) : 
+  character string is not in a standard unambiguous format
+```
+
+_R_ doesn't know the format (month-day-year) of the dates we provide. The solution is to add a second argument to `as.Date()`. The second argument is a character vector that describes the date format. The format we use is `"%m-%d-%Y"`, which says that we provide the `%m`onth first, then a hyphen, then the `%d`ay, another hyphen, and finally the four-digit `%Y`ear.
+
+```{r}
+as.Date(dates, format = "%m-%d-%y")
+```
+
+Notice that the format has been standardized to year-month-day. Also notice that although the original value of `date` and the return from `asData()` look the same, they are actually of different _class_.
+
+```{r}
+class(date)
+class(as.Date(dates, format = "%m-%d-%Y"))
+```
+
+_R_ will use this information to enable specialized calculation on dates, e.g., to sort them or to determine the number of days between different dates. So here's our `date` vector as a `Date` object.
+
+```{r}
+dates <- rep("04-14-2020", length(activity))
+date <- as.Date(dates, format = "%m-%d-%Y")
+date
+```
+
+OK, time for a walk! See you tomorrow!
+
+## Day 3: The `data.frame`
 
 Add to a `data.frame`. Basic statistical summary and visualization.
 
-## Day 4
+## Day 4: Essential data manipulation
 
 ## Day 5 (Friday) Zoom check-in
 

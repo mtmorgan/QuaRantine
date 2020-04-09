@@ -145,9 +145,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.2" data-path="one.html"><a href="one.html#installing-r-and-rstudio-25-minutes-shawn"><i class="fa fa-check"></i><b>1.1.2</b> Installing <em>R</em> and <em>RStudio</em> (25 minutes, Shawn)</a></li>
 <li class="chapter" data-level="1.1.3" data-path="one.html"><a href="one.html#basics-of-r-25-minutes-martin"><i class="fa fa-check"></i><b>1.1.3</b> Basics of <em>R</em> (25 minutes, Martin)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="one.html"><a href="one.html#day-2"><i class="fa fa-check"></i><b>1.2</b> Day 2</a></li>
-<li class="chapter" data-level="1.3" data-path="one.html"><a href="one.html#day-3"><i class="fa fa-check"></i><b>1.3</b> Day 3</a></li>
-<li class="chapter" data-level="1.4" data-path="one.html"><a href="one.html#day-4"><i class="fa fa-check"></i><b>1.4</b> Day 4</a></li>
+<li class="chapter" data-level="1.2" data-path="one.html"><a href="one.html#day-2-variables"><i class="fa fa-check"></i><b>1.2</b> Day 2: Variables</a></li>
+<li class="chapter" data-level="1.3" data-path="one.html"><a href="one.html#day-3-the-data.frame"><i class="fa fa-check"></i><b>1.3</b> Day 3: The <code>data.frame</code></a></li>
+<li class="chapter" data-level="1.4" data-path="one.html"><a href="one.html#day-4-essential-data-manipulation"><i class="fa fa-check"></i><b>1.4</b> Day 4: Essential data manipulation</a></li>
 <li class="chapter" data-level="1.5" data-path="one.html"><a href="one.html#day-5-friday-zoom-check-in"><i class="fa fa-check"></i><b>1.5</b> Day 5 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="1.5.1" data-path="one.html"><a href="one.html#review-and-trouble-shoot-25-minutes"><i class="fa fa-check"></i><b>1.5.1</b> Review and trouble shoot (25 minutes)</a></li>
 <li class="chapter" data-level="1.5.2" data-path="one.html"><a href="one.html#next-week-25-minutes"><i class="fa fa-check"></i><b>1.5.2</b> Next week (25 minutes)</a></li>
@@ -317,16 +317,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Scripting</p>
 </div>
 </div>
-<div id="day-2" class="section level2">
-<h2><span class="header-section-number">1.2</span> Day 2</h2>
-<p>Creating a daily log of quarantine activities – create a <code>data.frame</code> logging activities. Save to / read from a file.</p>
+<div id="day-2-variables" class="section level2">
+<h2><span class="header-section-number">1.2</span> Day 2: Variables</h2>
+<p>Our overall goal for the next few days is to use <em>R</em> to create a daily log of quarantine activities.</p>
+<p>Our goal for today is to become familiar with <em>R</em> vectors. Along the way we’ll probably make data entry and other errors that will start to get us comfortable with <em>R</em>.</p>
+<p>If you run into problems, reach out to the slack channel for support!</p>
+<p>The astronaut Scott Kelly said that to survive a year on the International Space Station he found it essential to</p>
+<ul>
+<li>Follow a schedule – plan your day, and stick to the plan</li>
+<li>Pace yourselves – you’ve got a long time to accomplish tasks, so don’t try to get everything done in the first week.</li>
+<li>Go outside – if Scott can head out to space, we should be able to make it to the back yard or around the block!</li>
+<li>Get a hobby – something not work related, and away from that evil little screen. Maybe it’s as simple as rediscovering the joy of reading.</li>
+<li>Keep a journal</li>
+<li>Take time to connect – on a human level, with people you work with and people you don’t!</li>
+<li>Listen to experts – Scott talked about relying on the mission controllers; for us maybe that’s watching webinars or taking courses in new topics!</li>
+<li>Wash your hands!</li>
+</ul>
+<p>I wanted to emphasize ‘follow a schedule’ and ‘keep a journal’. How can <em>R</em> help? Well, I want to create a short record of how I spend today, day 2 of my quarantine.</p>
+<p>My first goal is to create <em>vectors</em> describing things I plan to do today. Let’s start with some of these. To get up to speed, type the following into the <em>R</em> console, at the <code>&gt;</code> prompt</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<p>Press the carriage return and remind yourself that <em>R</em> is a calculator, and knows how to work with numbers!</p>
+<p>Now type an activity in your day, for instance I often start with</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="st">&quot;check e-mail&quot;</span></a></code></pre></div>
+<p>Now try assigning that to a variable, and displaying the variable, e.g.,</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">activity &lt;-<span class="st"> &quot;check e-mail&quot;</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">activity</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">## [1] &quot;check e-mail&quot;</span></a></code></pre></div>
+<p>OK, likely you have several activities scheduled. Create a <em>vector</em> of a few of
+these by <code>c</code>oncatenating individual values</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">## [1] &quot;check e-mail&quot;    &quot;breakfast&quot;       &quot;conference call&quot; &quot;webinar&quot;</span></a></code></pre></div>
+<p>Assign these to a variable</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">activity</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">## [1] &quot;check e-mail&quot;    &quot;breakfast&quot;       &quot;conference call&quot; &quot;webinar&quot;        </span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">## [5] &quot;walk&quot;</span></a></code></pre></div>
+<p>Create another vector, but this time the vector should contain the minutes spent on each activity</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">minutes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">minutes</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">## [1] 20 30 60 60 60</span></a></code></pre></div>
+<p>So I spent 20 minutes checking email, 30 minutes having breakfast and things like that, I was in a conference call for 60 minutes, and then attended a webinar where I learned new stuff for another 60 minutes. Finally I went for a walk to clear my head and remember why I’m doing things.</p>
+<p>Apply some basic functions to the variables, e.g., use <code>length()</code> to demonstrate that you for each <code>activity</code> you have recorded the <code>minutes</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">length</span>(activity)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">## [1] 5</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">length</span>(minutes)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">## [1] 5</span></a></code></pre></div>
+<p>Use <code>tail()</code> to select the last two activities (or <code>head()</code> to select the first two…)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">tail</span>(activity, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">## [1] &quot;webinar&quot; &quot;walk&quot;</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">tail</span>(minutes, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">## [1] 60 60</span></a></code></pre></div>
+<p><em>R</em> has other types of vectors. Create a logical vector that indicates whether each activity was ‘work’ activity’ or something you did for your own survival. We’ll say that checking email is a work-related activity!</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">is_work &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">is_work</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">## [1]  TRUE FALSE  TRUE  TRUE FALSE</span></a></code></pre></div>
+<p>Alternatively, classify the activities into categories inspired by Astronaut Scott’s guidance like <code>connect</code> with others, go outside and <code>exercise</code>, <code>consult</code> experts, get a <code>hobby</code>, and (my own category, I guess) perform <code>essential</code> functions like eating and sleeping.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">classification &lt;-</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>)</a></code></pre></div>
+<p>I want to emphasize a difference between the <code>activity</code> and <code>classification</code> variables. I want <code>activity</code> to be a character vector that could contain any description of an activity. But I want <code>classification</code> to be terms only from a limited set of possibilities. In <em>R</em>, <code>classification</code> is a special type of vector called a <code>factor</code>, and I create a factor by enumerating the possible <em>levels</em> (values) that the factor can take on</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a></code></pre></div>
+<p>And then tell <em>R</em> that the vector <code>classification</code> should be a factor with values taken from a particular set of levels</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">classification &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">levels =</span> levels</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">classification</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div>
+<p>Notice that activity (a character vector) displays differently from classification (a factor)</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">activity</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">## [1] &quot;check e-mail&quot;    &quot;breakfast&quot;       &quot;conference call&quot; &quot;webinar&quot;        </span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">## [5] &quot;walk&quot;</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">classification</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div>
+<p>Also, some of the levels (e.g., <code>hobby</code>) have not been part of our schedule yet, but the factor still ‘knows’ about the level.</p>
+<p>Notice also what happens when you try to use a value that is not a level of a factor</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;disconnect&quot;</span>), <span class="dt">levels =</span> levels)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">## [1] connect &lt;NA&gt;   </span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div>
+<p>The value with the unknown level is displayed as <code>NA</code>, for not known. <code>NA</code> values can be present in any vector, e.g.,</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">## [1]  1  2 NA  4</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">c</span>(<span class="st">&quot;walk&quot;</span>, <span class="st">&quot;talk&quot;</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">## [1] &quot;walk&quot; &quot;talk&quot; NA</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">## [1]    NA  TRUE FALSE  TRUE  TRUE</span></a></code></pre></div>
+<p>This serves as an indication that the value is simply not available. Use <code>NA</code> rather than adopting some special code (e.g., ‘-99’) to indicate when a value is not available.</p>
+<p>One other type of vector we will work a lot with are dates. All of my activities are for today, so I’ll start with a character vector with the same length as my activity vector, each indicating the date in a consistent month-day-year format</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">dates &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="st">&quot;04-14-2020&quot;</span>, <span class="st">&quot;04-14-2020&quot;</span>, <span class="st">&quot;04-14-2020&quot;</span>, <span class="st">&quot;04-14-2020&quot;</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">dates</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">## [1] &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot;</span></a></code></pre></div>
+<p>Incidentally, I could do this more efficiently using the <code>rep</code>licate function</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">## [1] &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot;</span></a></code></pre></div>
+<p>And even better use <code>length()</code> to know for sure how many times I should replicate the character vector</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity))</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">## [1] &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot; &quot;04-14-2020&quot;</span></a></code></pre></div>
+<p><code>dates</code> is a character vector, but it has specially meaning as a calendar date, <em>R</em> has a <code>Date</code> <em>class</em> that knows how to work with dates. We will <em>coerce</em> <code>date</code> to an object of class <code>Date</code> using a function <code>as.Date</code>. Here’s our first attempt…</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">as.Date</span>(dates)</a></code></pre></div>
+<p>… but this results in an error:</p>
+<pre><code>Error in charToDate(x) : 
+  character string is not in a standard unambiguous format</code></pre>
+<p><em>R</em> doesn’t know the format (month-day-year) of the dates we provide. The solution is to add a second argument to <code>as.Date()</code>. The second argument is a character vector that describes the date format. The format we use is <code>&quot;%m-%d-%Y&quot;</code>, which says that we provide the <code>%m</code>onth first, then a hyphen, then the <code>%d</code>ay, another hyphen, and finally the four-digit <code>%Y</code>ear.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">as.Date</span>(dates, <span class="dt">format =</span> <span class="st">&quot;%m-%d-%y&quot;</span>)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">## [1] &quot;2020-04-14&quot; &quot;2020-04-14&quot; &quot;2020-04-14&quot; &quot;2020-04-14&quot; &quot;2020-04-14&quot;</span></a></code></pre></div>
+<p>Notice that the format has been standardized to year-month-day. Also notice that although the original value of <code>date</code> and the return from <code>asData()</code> look the same, they are actually of different <em>class</em>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">class</span>(date)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="co">## [1] &quot;function&quot;</span></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="kw">class</span>(<span class="kw">as.Date</span>(dates, <span class="dt">format =</span> <span class="st">&quot;%m-%d-%Y&quot;</span>))</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co">## [1] &quot;Date&quot;</span></a></code></pre></div>
+<p><em>R</em> will use this information to enable specialized calculation on dates, e.g., to sort them or to determine the number of days between different dates. So here’s our <code>date</code> vector as a <code>Date</code> object.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">dates &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity))</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(dates, <span class="dt">format =</span> <span class="st">&quot;%m-%d-%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">date</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="co">## [1] &quot;2020-04-14&quot; &quot;2020-04-14&quot; &quot;2020-04-14&quot; &quot;2020-04-14&quot; &quot;2020-04-14&quot;</span></a></code></pre></div>
+<p>OK, time for a walk! See you tomorrow!</p>
 </div>
-<div id="day-3" class="section level2">
-<h2><span class="header-section-number">1.3</span> Day 3</h2>
+<div id="day-3-the-data.frame" class="section level2">
+<h2><span class="header-section-number">1.3</span> Day 3: The <code>data.frame</code></h2>
 <p>Add to a <code>data.frame</code>. Basic statistical summary and visualization.</p>
 </div>
-<div id="day-4" class="section level2">
-<h2><span class="header-section-number">1.4</span> Day 4</h2>
+<div id="day-4-essential-data-manipulation" class="section level2">
+<h2><span class="header-section-number">1.4</span> Day 4: Essential data manipulation</h2>
 </div>
 <div id="day-5-friday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">1.5</span> Day 5 (Friday) Zoom check-in</h2>
