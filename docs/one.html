@@ -364,24 +364,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="dv">7</span> -&gt;<span class="st"> </span>z</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">cat</span>(x, <span class="st">&#39; &#39;</span>, y, <span class="st">&#39; &#39;</span>, z)</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">## 17   20   23</span></a></code></pre></div>
-<p>R’s Atomic Data Types
-- 4 basic data types:
-- Numeric (includes integer, double, etc.)
-- <code>3.14</code>, <code>1</code>, <code>2600</code>
-- Character (string)
-- <code>&quot;hey, I'm a string&quot;</code>
-- <code>'single quotes are ok too'</code>
-- Logical
-- <code>TRUE</code> or <code>FALSE</code> (note all caps)
-- <code>NA</code>
-- not assigned (no known value)</p>
-<p>Use <code>typeof()</code> to query the data type</p>
+<p>R’s Atomic Data Types</p>
+<ul>
+<li>4 basic data types:
+<ul>
+<li>Numeric (includes integer, double, etc.)
+<ul>
+<li><code>3.14</code>, <code>1</code>, <code>2600</code></li>
+</ul></li>
+<li>Character (string)
+<ul>
+<li><code>&quot;hey, I'm a string&quot;</code></li>
+<li><code>'single quotes are ok too'</code></li>
+</ul></li>
+<li>Logical
+<ul>
+<li><code>TRUE</code> or <code>FALSE</code> (note all caps)</li>
+</ul></li>
+<li><code>NA</code>
+<ul>
+<li>not assigned (no known value)</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Use <code>typeof()</code> to query the data type:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">a =<span class="st"> </span><span class="dv">5</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">typeof</span>(a)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div>
-<ul>
-<li>Use <code>as.</code> to coerce a varaible to a specific data type</li>
-</ul>
+<p>Use <code>as.</code> to coerce a variable to a specific data type</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">a =<span class="st"> </span><span class="kw">as.integer</span>(<span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">typeof</span>(a)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">## [1] &quot;integer&quot;</span></a></code></pre></div>
@@ -390,35 +400,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">## TRUE</span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">typeof</span>(d)</a>
 <a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">## [1] &quot;logical&quot;</span></a></code></pre></div>
-<p>Using Logical Operators</p>
-<ul>
-<li>Equivalence test (<code>==</code>)</li>
-</ul>
+</div>
+<div id="using-logical-operators" class="section level4 unnumbered">
+<h4>Using Logical Operators</h4>
+<p>Equivalence test (<code>==</code>):</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="dv">1</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">## [1] FALSE</span></a></code></pre></div>
-<ul>
-<li>Not equal test (<code>!=</code>)</li>
-</ul>
+<p>Not equal test (<code>!=</code>):</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="dv">1</span> <span class="op">!=</span><span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<ul>
-<li>less-than (<code>&lt;</code>) and greater-than (<code>&gt;</code>)</li>
-</ul>
+<p>less-than (<code>&lt;</code>) and greater-than (<code>&gt;</code>):</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="dv">18</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">44</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">## [1] FALSE</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="dv">3</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">204</span></a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<ul>
-<li>Logical Or (<code>||</code>)</li>
-</ul>
+<p>Logical Or (<code>||</code>):</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="dv">1</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">||</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<ul>
-<li>Logical And (<code>&amp;&amp;</code>)</li>
-</ul>
+<p>Logical And (<code>&amp;&amp;</code>):</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">1</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;&amp;</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">## [1] FALSE</span></a></code></pre></div>
-<p>Objects in R</p>
+</div>
+<div id="objects-and-vectors-in-r" class="section level4 unnumbered">
+<h4>Objects and Vectors in R</h4>
+<p>Objects</p>
 <ul>
 <li>R stores everything, variables included, in Objects.</li>
 </ul>
@@ -435,12 +440,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Vectors</p>
 <ul>
 <li>Vectors and Data Frames are the bread and butter of R</li>
-<li>Vecotrs are a list of elements of the <b><i>same type</b></i>
+<li>Vectors are a list of elements of the <b><i>same type</b></i>
 <ul>
 <li>e.g. a list of heart rates, one per patient</li>
 </ul></li>
 </ul>
 <p><img src="images/simple_vector.png" width="246" /></p>
+<p>Data Frames</p>
 <ul>
 <li>Data Frames are structures that can contain columns of <b><i>various types</b></i>
 <ul>
@@ -449,6 +455,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>More on Data Frames next week!</li>
 </ul></li>
 </ul>
+</div>
+<div id="wrapping-up-day-1" class="section level4 unnumbered">
+<h4>Wrapping up day 1</h4>
+<p>The goal for today was to rapidly cover some of the essential aspects of R programming. For the remainder of the week you’ll work at your own pace to get more of a hands-on deep dive into this material. If you run into trouble please don’t hesiate to ask for help via Teams, slack, or email — whatever works best for you!</p>
 </div>
 </div>
 </div>
