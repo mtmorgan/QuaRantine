@@ -476,17 +476,43 @@ Participant progress / challenges. Introduction to a COVID-19 data set documenti
 ### Next week (25 minutes)
 
 #### R Scripts {-}
-Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here are some tips:
+Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here is an example to get you started:
+
+- In RStudio, click "File --> New File --> R Script" to create a new script file and open it in the editor
+
+```{r echo = FALSE, fig.align="center", out.width="60%"}
+knitr::include_graphics('images/rstudio_new_rscript_file.png')
+```
 
 - By convention, R scripts have a .R exstension (e.g. my_script.R)
+  - In RStudio, click into your untitled script and click "File --> Save"
+  - Name your file something fun like `my_first_script.R` and save it
 
-- Use the `#` character for comments
+- Use the `#` character for comments. Enter the following into your R Script file:
 
-- Use a semi-colon `;` (or a newline) to separate commands
+```{r}
+# This is my first R script
+```
 
-- Use "Run" button in RStudio to run the highlighted portion of an R script file.
+- Use a semi-colon `;` (or a newline) to separate commands. Add the following to your R Script file:
 
-- Use "Run --> Run All" to run an entire script file.
+```{r results="hide"}
+x = "Hello world!"; y = 'Today is'; d = format(Sys.Date(),"%b %d, %Y")
+cat(x, y, d)
+```
+
+- Use the "Run" button in RStudio to run the highlighted portion of an R script file. Try this on your simple R Script.
+
+```{r echo = FALSE, fig.align="center", out.width="60%"}
+knitr::include_graphics('images/rstudio_run_button.png')
+```
+
+```{r echo=FALSE}
+x = "Hello world!"; y = 'Today is'; d = format(Sys.Date(),"%b %d, %Y")
+cat(x, y, d)
+```
+
+- Alternatively, use "Run --> Run All" to run an entire script file.
 
 ## Day 6
 

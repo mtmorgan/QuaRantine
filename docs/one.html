@@ -596,13 +596,32 @@ these by <code>c</code>oncatenating individual values</p>
 <h3><span class="header-section-number">1.5.2</span> Next week (25 minutes)</h3>
 <div id="r-scripts" class="section level4 unnumbered">
 <h4>R Scripts</h4>
-<p>Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here are some tips:</p>
+<p>Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here is an example to get you started:</p>
 <ul>
-<li><p>By convention, R scripts have a .R exstension (e.g. my_script.R)</p></li>
-<li><p>Use the <code>#</code> character for comments</p></li>
-<li><p>Use a semi-colon <code>;</code> (or a newline) to separate commands</p></li>
-<li><p>Use “Run” button in RStudio to run the highlighted portion of an R script file.</p></li>
-<li><p>Use “Run –&gt; Run All” to run an entire script file.</p></li>
+<li>In RStudio, click “File –&gt; New File –&gt; R Script” to create a new script file and open it in the editor</li>
+</ul>
+<p><img src="images/rstudio_new_rscript_file.png" width="60%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>By convention, R scripts have a .R exstension (e.g. my_script.R)
+<ul>
+<li>In RStudio, click into your untitle script and click “File –&gt; Save”</li>
+<li>Name your file something fun like <code>my_first_script.R</code> and save it</li>
+</ul></li>
+<li>Use the <code>#</code> character for comments. Enter the following into your R Script file:</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># This is my first R script</span></a></code></pre></div>
+<ul>
+<li>Use a semi-colon <code>;</code> (or a newline) to separate commands. Add the following to your R Script file:</li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">x =<span class="st"> &quot;Hello world!&quot;</span>; y =<span class="st"> &#39;Today is&#39;</span>; d =<span class="st"> </span><span class="kw">format</span>(<span class="kw">Sys.Date</span>(),<span class="st">&quot;%b %d, %Y&quot;</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw">cat</span>(x, y, d)</a></code></pre></div>
+<ul>
+<li>Use the “Run” button in RStudio to run the highlighted portion of an R script file. Try this on your simple R Script.</li>
+</ul>
+<p><img src="images/rstudio_run_button.png" width="60%" style="display: block; margin: auto;" /></p>
+<pre><code>## Hello world! Today is Apr 09, 2020</code></pre>
+<ul>
+<li>Alternatively, use “Run –&gt; Run All” to run an entire script file.</li>
 </ul>
 </div>
 </div>
