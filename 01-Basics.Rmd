@@ -445,21 +445,32 @@ is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
 is_work
 ```
 
-Alternatively, classify the activities into categories inspired by Astronaut Scott's guidance like `connect` with others, go outside and `exercise`, `consult` experts, get a `hobby`, and (my own category, I guess) perform `essential` functions like eating and sleeping.
+## Day 3: `factor()` and `Date()` objects
+
+Yesterday we learned about `character`, `numeric`, and `logical` vectors in _R_ (you may need to revisit previous notes and re-create these variables)
+
+```{r}
+activity
+minutes
+is_work
+```
+
+Today we will learn about slightly more complicated vectors.
+
+We created the logical vector `is_work` to classify each `activity` as either work-related or not. What if we had several different categories? For instance, we might want to classify the activities into categories inspired by astronaut Kelly's guidance. Categories might include: `connect` with others; go outside and `exercise`; `consult` experts; get a `hobby`; and (my own category, I guess) perform `essential` functions like eating and sleeping. So the values of `activity` could be classified as
 
 ```{r}
 classification <-
     c("connect", "essential", "connect", "consult", "exercise")
 ```
 
-I want to emphasize a difference between the `activity` and `classification` variables. I want `activity` to be a character vector that could contain any description of an activity. But I want `classification` to be terms only from a limited set of possibilities. In _R_, `classification` is a special type of vector called a `factor`, and I create a factor by enumerating the possible _levels_ (values) that the factor can take on
+I want to emphasize a difference between the `activity` and `classification` variables. I want `activity` to be a character vector that could contain any description of an activity. But I want `classification` to be terms only from a limited set of possibilities. In _R_, I want `classification` to be a special type of vector called a `factor`, with the _values_ of the vector restricted to a set of possible _levels_ that I define. I create a factor by enumerating the possible _levels_ that the factor can take on
 
 ```{r}
 levels <- c("connect", "exercise", "consult", "hobby", "essential")
 ```
 
 And then tell _R_ that the vector `classification` should be a factor with values taken from a particular set of levels
-
 
 ```{r}
 classification <- factor(
@@ -478,13 +489,13 @@ classification
 
 Also, some of the levels (e.g., `hobby`) have not been part of our schedule yet, but the factor still 'knows' about the level.
 
-Notice also what happens when you try to use a value that is not a level of a factor
+Notice also what happens when I try to use a value (`disconnect`) that is not a level of a factor
 
 ```{r}
 factor(c("connect", "disconnect"), levels = levels)
 ```
 
-The value with the unknown level is displayed as `NA`, for not known. `NA` values can be present in any vector, e.g.,
+The value with the unknown level is displayed as `NA`, for 'not known'. `NA` values can be present in any vector, e.g.,
 
 ```{r}
 c(1, 2, NA, 4)
@@ -513,7 +524,7 @@ And even better use `length()` to know for sure how many times I should replicat
 rep("04-14-2020", length(activity))
 ```
 
-`dates` is a character vector, but it has specially meaning as a calendar date, _R_ has a `Date` _class_ that knows how to work with dates. We will _coerce_ `date` to an object of class `Date` using a function `as.Date`. Here's our first attempt...
+`dates` is a character vector, but it has specially meaning as a calendar date, _R_ has a `Date` _class_ that knows how to work with dates, for instance to calculate the number of days between two dates. We will _coerce_ `date` to an object of class `Date` using a function `as.Date`. Here's our first attempt...
 
 ```{r, eval = FALSE}
 as.Date(dates)
@@ -521,24 +532,24 @@ as.Date(dates)
 ... but this results in an error:
 
 ```
-Error in charToDate(x) : 
+Error in charToDate(x) :
   character string is not in a standard unambiguous format
 ```
 
 _R_ doesn't know the format (month-day-year) of the dates we provide. The solution is to add a second argument to `as.Date()`. The second argument is a character vector that describes the date format. The format we use is `"%m-%d-%Y"`, which says that we provide the `%m`onth first, then a hyphen, then the `%d`ay, another hyphen, and finally the four-digit `%Y`ear.
 
 ```{r}
-as.Date(dates, format = "%m-%d-%y")
+as.Date(dates, format = "%m-%d-%Y")
 ```
 
-Notice that the format has been standardized to year-month-day. Also notice that although the original value of `date` and the return from `asData()` look the same, they are actually of different _class_.
+Notice that the format has been standardized to year-month-day. Also notice that although the original value of `date` and the return from `as.Data()` look the same, they are actually of different _class_.
 
 ```{r}
 class(date)
 class(as.Date(dates, format = "%m-%d-%Y"))
 ```
 
-_R_ will use this information to enable specialized calculation on dates, e.g., to sort them or to determine the number of days between different dates. So here's our `date` vector as a `Date` object.
+_R_ will use the information about class to enable specialized calculation on dates, e.g., to sort them or to determine the number of days between different dates. So here's our `date` vector as a `Date` object.
 
 ```{r}
 dates <- rep("04-14-2020", length(activity))
@@ -548,21 +559,8 @@ date
 
 OK, time for a walk! See you tomorrow!
 
-## Day 3: The `data.frame`
+## Day 4: _R_ scripts
 
-Add to a `data.frame`. Basic statistical summary and visualization.
-
-## Day 4: Essential data manipulation
-
-## Day 5 (Friday) Zoom check-in
-
-Participant progress / challenges. Introduction to a COVID-19 data set documenting cases reported in the US.
-
-### Review and trouble shoot (25 minutes)
-
-### Next week (25 minutes)
-
-#### R Scripts {-}
 Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here is an example to get you started:
 
 - In RStudio, click "File --> New File --> R Script" to create a new script file and open it in the editor
@@ -578,13 +576,14 @@ knitr::include_graphics('images/rstudio_new_rscript_file.png')
 - Use the `#` character for comments. Enter the following into your R Script file:
 
 ```{r}
-# This is my first R script
+## This is my first R script
 ```
 
-- Use a semi-colon `;` (or a newline) to separate commands. Add the following to your R Script file:
+- Enter each command on a separate line. It's also possible to enter multiple (short!) commands on a single line, separated by a semi-colon `;`
 
 ```{r results="hide"}
-x = "Hello world!"; y = 'Today is'; d = format(Sys.Date(),"%b %d, %Y")
+x = "Hello world!"
+y = 'Today is'; d = format(Sys.Date(), "%b %d, %Y")
 cat(x, y, d)
 ```
 
@@ -594,17 +593,81 @@ cat(x, y, d)
 knitr::include_graphics('images/rstudio_run_button.png')
 ```
 
-```{r echo=FALSE}
+```{r}
 x = "Hello world!"; y = 'Today is'; d = format(Sys.Date(),"%b %d, %Y")
-cat(x, y, d)
+cat(x, y, d, "\n")
 ```
 
 - Alternatively, use "Run --> Run All" to run an entire script file.
 
+For today's exercise, create a script file that summarizes your quarantine activities over several days. Use comments, white space (blank lines and spaces), and variable names to summarize each day. Here's what I've got...
+
+```{r}
+## 'classification' factor levels
+levels <- c("connect", "exercise", "consult", "hobby", "essential")
+
+## Quarantine log, day 1
+
+activity_day_1 <-
+    c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+minutes_day_2 <- c(20, 30, 60, 60, 60)
+is_work_day_2 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+classification_day_2 <- factor(
+    c("connect", "essential", "connect", "consult", "exercise"),
+    levels = levels
+)
+date_day_1 <- as.Date(rep("04-14-2020", length(activity_day_1)), "%m-%d-%Y")
+
+## Quarantine log, day 2
+
+activity_day_2 <-
+    c("check e-mail", "breakfast", "conference call", "webinar", "read a book")
+minutes_day_2 <- c(20, 30, 60, 60, 60)
+is_work_day_2 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+classification_day_2 <- factor(
+    c("connect", "essential", "connect", "consult", "hobby"),
+    levels = levels
+)
+date_day_2 <- as.Date(rep("04-15-2020", length(activity_day_2)), "%m-%d-%Y")
+
+## Quarantine log, day 3
+
+activity_day_3 <-
+    c("check e-mail", "breakfast", "webinar", "read a book")
+minutes_day_3 <- c(20, 30, 60, 60)
+is_work_day_3 <- c(TRUE, FALSE, TRUE, FALSE)
+classification_day_3 <- factor(
+    c("connect", "essential", "connect", "consult", "hobby"),
+    levels = levels
+)
+date_day_3 <- as.Date(rep("04-16-2020", length(activity_day_3)), "%m-%d-%Y")
+```
+
+Try `c`oncatenating these values, e.g.,
+
+```{r}
+activity <- c(activity_day_1, activity_day_2, activity_day_3)
+activity
+```
+
+Save your script, quit _R_ and _RStudio_, and restart _R_. Re-open and run the script to re-do your original work.
+
+Think about how this makes your work _reproducible_ from one day to the next, and how making your scientific work reproducible would be advantageous.
+
+## Day 5 (Friday) Zoom check-in
+
+### Review and trouble shoot (40 minutes)
+
+### Weekend activities (20 minutes)
+
+Concatenating two vectors
+
+Sneak peak: `data.frame`
+
+Saving data as simple 'text' files
+
+#### R Scripts {-}
+
 ## Day 6
 
-Installing tidyverse
-
 ## Day 7
-
-Input COVID-19 data. Statistical summary.
