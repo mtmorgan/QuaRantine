@@ -33,17 +33,17 @@ We'll meet via zoom twice a week, Mondays and Thursdays, for one hour. We'll use
 
 We haven't thought this through much, but roughly we might cover:
 
-- Week 1: In Chapter \@ref(one) we'll start with the basics of installing and using R. We'll set up R and RStudio on your local computer, or if that doesn't work use a cloud-based RStudio. We'll learn the basics of R -- numeric, character, factor, and other vectors; variables; the `data.frame`; saving and reading data; basic data manipulation and visualization.
+- Week \@ref(one): We'll start with the basics of installing and using R. We'll set up _R_ and _RStudio_ on your local computer, or if that doesn't work use a cloud-based RStudio. We'll learn the basics of _R_ -- numeric, character, logical, and other vectors; variables; and slightly more complicated representations of 'factors' and dates. We'll also use _RStudio_ to write a script that allows us to easy re-create an analysis, illustrating the power concept of *reproducible research*.
 
-- Week 2: Packages for extending R. A great strenght of R is its extensibility through packages. We'll learn about [CRAN][], and install and use the 'tidyverse' suite of packages. We'll use publicly available data to explore the spread of COVID-19 in the US, including data manipulation and visualization.
+- Week \@ref(two): The `data.frame`. This week is all about _R_'s `data.frame`, a versatile way of representing and manipulating a table (like an Excel spreadsheet) of data. We'll learn how to create, write, and read a `data.frame`; how to go from data in a spreadsheet in Excel to a `data.frame` in _R_; and how to perform simple manipulations on a `data.frame`, like creating a subset of data, summarizing values in a column, and summarizing values in one column based on a grouping variable in another column.
 
-- Week 3: Bioinformatic analysis with [Bioconductor][]. _Bioconductor_ is a collection of more than 1800 _R_ packages for the statistical analysis and comprehension of high-throughput genomic data. We'll use _Bioconductor_ to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.
+- Week \@ref(three): Packages for extending _R_. A great strength of _R_ is its extensibility through packages. We'll learn about [CRAN][], and install and use the 'tidyverse' suite of packages. The tidyverse provides us with an alternative set of tools for working with tabular data, and We'll use publicly available data to explore the spread of COVID-19 in the US. We'll read, filter, mutate (change), and select subsets of the data, and group data by one column (e.g., 'state') to create summaries (e.g., cases per state). We'll also start to explore data visualization, creating our first plots of the spread of COVID-19.
 
-- Week 4: Independent projects. This week we'll get introspective, developing an analysis of data interesting to ourselves. We'll learn about writing 'markdown' reports to share our project with others.
+- Week \@ref(four): Maps. This week will be a specialized topic, tackling relatively advanced challenges associated with spatial visualization. 
 
-- Week 5: Group projects. COVID-19 has really shown the value of open data and collaboration, so we'll tackle a group project where we each contribute to overall insights. We'll learn tools of collaboration including git and github, and develop 'best practices' for robust, reproducible research.
+- Week \@ref(five): Bioinformatic analysis [Bioconductor][]. _Bioconductor_ is a collection of more than 1800 _R_ packages for the statistical analysis and comprehension of high-throughput genomic data. We'll use _Bioconductor_ to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.
 
-- Week 6: Sharing and end of QuaRantine! 40 days is 5 weeks and 5 days, so we should be wrapping up our 'hobby' in week 6. Let's summarize what we've done, and chart a path forward as we return to civilization!
+- Week \@ref(six): COVID-19 has really show the value of open data and collaboration. In the final week of our quarantine, we'll explore collaboration; developing independent and group projects that synthesize the use of _R_ to explore data. We'll learn tools of collaboration including git and github, and develop 'best practices' for robust, reproducible research. We'll learn about writing 'markdown' reports to share our project with others.
 
 [CRAN]: https://cran.r-project.org
 [Bioconductor]: https://bioconductor.org

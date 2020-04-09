@@ -1,6 +1,4 @@
-# [Bioconductor][] {#three}
-
-[Bioconductor]: https://bioconductor.org
+# Packages and the 'tidyverse' {#three}
 
 ## Day 15 (Monday) Zoom check-in
 

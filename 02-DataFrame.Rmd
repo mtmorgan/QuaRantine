@@ -1,4 +1,4 @@
-# Packages {#two}
+# The data frame {#two}
 
 ## [CRAN][]
 

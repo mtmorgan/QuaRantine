@@ -1,4 +1,6 @@
-# Group Projects {#five}
+# Bioinformatics with [Bioconductor][] {#five}
+
+[Bioconductor]: https://bioconductor.org
 
 ## Day 29 (Monday) Zoom check-in
 
