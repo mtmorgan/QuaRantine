@@ -33,7 +33,7 @@ We'll meet via zoom twice a week, Mondays and Thursdays, for one hour. We'll use
 
 We haven't thought this through much, but roughly we might cover:
 
-- Week 1: In Chapter \ref{one} we'll start with the basics of installing and using R. We'll set up R and RStudio on your local computer, or if that doesn't work use a cloud-based RStudio. We'll learn the basics of R -- numeric, character, factor, and other vectors; variables; the `data.frame`; saving and reading data; basic data manipulation and visualization.
+- Week 1: In Chapter \@ref(one) we'll start with the basics of installing and using R. We'll set up R and RStudio on your local computer, or if that doesn't work use a cloud-based RStudio. We'll learn the basics of R -- numeric, character, factor, and other vectors; variables; the `data.frame`; saving and reading data; basic data manipulation and visualization.
 
 - Week 2: Packages for extending R. A great strenght of R is its extensibility through packages. We'll learn about [CRAN][], and install and use the 'tidyverse' suite of packages. We'll use publicly available data to explore the spread of COVID-19 in the US, including data manipulation and visualization.
 
