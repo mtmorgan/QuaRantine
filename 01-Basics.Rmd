@@ -107,18 +107,20 @@ At this point you should have RStudio running either via your desktop installati
 #### R Console Output {-}
 
 Enter this in the console:
-  ```{r}
-  2 + 3 *5
-  ```
+
+```{r}
+2 + 3 * 5
+```
   
 Q: what's the `[1]` all about in the output?
 
 A: It's the index of the first entry in each line.
   
 This is maybe a better example:
-  ```{r}
-  1:30
-  ```
+
+```{r}
+1:30
+```
 
 #### Displaying help in the R Console {-}
 
@@ -126,17 +128,14 @@ This is maybe a better example:
 
 - Some examples: 
 
- ``` 
- ? cat
- ```
- 
- ``` 
- ? print
- ```
+  ``` 
+  ? cat
+  ? print
+  ```
 
 #### Variables {-}
 
-Naming variables in R
+Naming variables in _R_
 
 - A variable name can contain letters, numbers, and the dot `.` or underline `_` characters. Variables should start with a letter.
   
@@ -157,7 +156,7 @@ Naming variables in R
   `function = "oops, my bad"`
   
 
-R is case sensitive (R != r)
+_R_ is case sensitive (R != r)
 
 ```{r}
 R = 2
@@ -167,83 +166,88 @@ R == r
  
 Variable Assignment
 
-  - You may use `=` or `<-` or `->` to assign values to a variable.
+- You may use `=` or `<-` (and even `->`) to assign values to a variable.
+
   ```{r}
-  x <- 2 + 3*5
-  y =  2 + 3*6
-  2 + 3*7 -> z
-  cat(x, ' ', y, ' ', z)
+  x <- 2 + 3 * 5
+  y =  2 + 3 * 6
+  2 + 3 * 7 -> z
+  cat(x, y, z)
   ```
 
-R's Atomic Data Types
+_R_'s four basic 'atomic' data types
 
-- 4 basic data types:
-  - Numeric (includes integer, double, etc.)
-    - `3.14`, `1`, `2600`
-  - Character (string)
-    - `"hey, I'm a string"`
-    - `'single quotes are ok too'`
-  - Logical
-    - `TRUE` or `FALSE` (note all caps)
-  - `NA`
-    - not assigned (no known value)
+- Numeric (includes integer, double, etc.)
+  - `3.14`, `1`, `2600`
+- Character (string)
+  - `"hey, I'm a string"`
+  - `'single quotes are ok too'`
+- Logical
+  - `TRUE` or `FALSE` (note all caps)
+- `NA`
+  - not assigned (no known value)
     
-Use `typeof()` to query the data type:
+Use `class()` to query the class of data:
   
 ```{r}
-a = 5
-typeof(a)
+a <- 5
+class(a)
 ```
 
 Use `as.` to coerce a variable to a specific data type
 
 ```{r}
-a = as.integer(5)
-typeof(a)
+a <- as.integer(5)
+class(a)
 ```
 
 ```{r}
-d = as.logical(a)
-cat(d)
-typeof(d)
+d <- as.logical(a)
+d
+class(d)
 ```
 
 #### Using Logical Operators {-}
 
 Equivalence test (`==`):
+
 ```{r}
 1 == 2
 ```
 
 Not equal test (`!=`):
+
 ```{r}
 1 != 2
 ```
 
 less-than (`<`) and greater-than (`>`):
+
 ```{r}
 18 > 44
 3 < 204
 ```
 
-Logical Or (`||`):
+Logical Or (`|`):
+
 ```{r}
-1 == 2 || 2 == 2
+(1 == 2) | (2 == 2)
 ```
 
-Logical And (`&&`):
+Logical And (`&`):
+
 ```{r}
-1 == 2 && 2 == 2
+(1 == 2) & (2 == 2)
 ```
 
 #### Objects and Vectors in R {-}
 
 Objects
 
-- R stores everything, variables included, in Objects.
+- R stores everything, variables included, in 'objects'.
 
 ```{r}
-x = 2.71
+x <- 2.71
 # print the value of an object
 print(x) 
 # determine class or internal type of an object
@@ -254,17 +258,17 @@ is.na(x)
 
 Vectors
 
-- Vectors and Data Frames are the bread and butter of R
-- Vectors are a list of elements of the <b><i>same type</b></i>
-  - e.g. a list of heart rates, one per patient
+- 'Vectors' and 'data frames' are the bread and butter of R
+- Vectors consist of several elements of the <b><i>same class</b></i>
+  - e.g. a vector of heart rates, one per patient
 
 ```{r echo = FALSE}
 knitr::include_graphics('images/simple_vector.png')
 ```
 
-Data Frames
+Data frames (`data.frame`)
 
-- Data Frames are structures that can contain columns of <b><i>various types</b></i>
+- Data frames are structures that can contain columns of <b><i>various types</b></i>
   - e.g. height, weight, age, heart rate, etc.
   - Handy containers for experimental data
   - Analogous to spreadsheet data
@@ -277,15 +281,17 @@ Creating a Vector
 - Use the `c()` function
 
 ```{r}
-name = c("John Doe","Jane Smith","MacGillicuddy Jones","Echo Shamus")
-age = c(36,54,82,15)
-favorite_color = c("red", "orange", "green", "black")
+name <- c("John Doe", "Jane Smith", "MacGillicuddy Jones", "Echo Shamus")
+age <- c(36, 54, 82, 15)
+favorite_color <- c("red", "orange", "green", "black")
 
-# pretty print the vectors
-print(data.frame(name,age,favorite_color),row.names=FALSE)
+## print the vectors
+name
+age
+favorite_color
 ```
 
-Accessing Vector Data
+Accessing vector data
 
 - Use numerical indexing
 - R uses 1-based indexing
@@ -302,48 +308,52 @@ age[3]
 - R supports "slicing" (i.e. extracting multiple items)
 
 ```{r}
-favorite_color[2:3]
+favorite_color[c(2, 3)]
 ```
 
 - Negative indices are omitted
+
 ```{r}
 age[-2]
 ```
 
 Some Useful Vector Operations
 
-- ```sum()     # sum of all element values```
-- ```length()  # number of elements```
-- ```unique()  # distinct values```
-- ```sort()    # sort elements, omitting NAs```
-- ```order()   # indices of sorted elements, NAs are last```
-- ```rev()     # reverse the order```
-- ```summary() # simple statistics```
+- `length()`: number of elements
+- `sum()`: sum of all element values
+- `unique()`: distinct values
+- `sort()`: sort elements, omitting NAs
+- `order()`: indices of sorted elements, NAs are last
+- `rev()`: reverse the order
+- `summary()`: simple statistics
 
 ```{r}
-a = c(5,5,6,7,8,4)
+a <- c(5, 5, 6, 7, 8, 4)
 sum(a)
 length(a)
 unique(a)
 sort(a)
 order(a)
-a[order(a)[1:6]]
+a[order(a)]
 rev(a)
 summary(a)
 ```
+
 Handling Missing Data
 
 - First consider the <i>reason(s)</i> for the missing data
   - e.g. concentrations that are below detectable levels?
 - Sometimes NAs in data require special statistical methods
-- Other times we can safely discard/ignore NA entries
+- Other times we can safely discard / ignore NA entries
 - To remove NAs prior to a calculation:
+
 ```{r}
 y = c(1,NA,3,2,NA)
 sum(y, na.rm=TRUE)
 ```
 
 #### Wrapping up day 1 {-}
+
 The goal for today was to rapidly cover some of the essential aspects of R programming. For the remainder of the week you'll work at your own pace to get more of a hands-on deep dive into this material. If you run into trouble please don't hesiate to ask for help via <a href="https://teams.microsoft.com">Teams</a> (QuaRantine Team), <a href = "https://quarantinecourse.slack.com/archives/C011GGP4K62">slack</a> (QuaRantine Course), or <a href="mailto:Loren.Matott@RoswellPark.org?cc=Martin.Morgan@RoswellPark.org">email</a> (Drs. Matott and Morgan) --- whatever works best for you!
 
 ## Day 2: Vectors and variables
