@@ -35,15 +35,58 @@ We haven't thought this through much, but roughly we might cover:
 
 - Week \@ref(one): We'll start with the basics of installing and using R. We'll set up _R_ and _RStudio_ on your local computer, or if that doesn't work use a cloud-based RStudio. We'll learn the basics of _R_ -- numeric, character, logical, and other vectors; variables; and slightly more complicated representations of 'factors' and dates. We'll also use _RStudio_ to write a script that allows us to easy re-create an analysis, illustrating the power concept of *reproducible research*.
 
+  ```{r}
+  activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+  minutes_per_activity <- c(20, 30, 60, 60, 60)
+  minutes_per_activity >= 60
+  activity[minutes_per_activity >= 60]
+  ```
+
 - Week \@ref(two): The `data.frame`. This week is all about _R_'s `data.frame`, a versatile way of representing and manipulating a table (like an Excel spreadsheet) of data. We'll learn how to create, write, and read a `data.frame`; how to go from data in a spreadsheet in Excel to a `data.frame` in _R_; and how to perform simple manipulations on a `data.frame`, like creating a subset of data, summarizing values in a column, and summarizing values in one column based on a grouping variable in another column.
 
+  ```{r}
+  url = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+  cases <- read.csv(url)
+  erie <- subset(cases, county == "Erie" & state == "New York")
+  tail(erie)
+  ```
+
+
 - Week \@ref(three): Packages for extending _R_. A great strength of _R_ is its extensibility through packages. We'll learn about [CRAN][], and install and use the 'tidyverse' suite of packages. The tidyverse provides us with an alternative set of tools for working with tabular data, and We'll use publicly available data to explore the spread of COVID-19 in the US. We'll read, filter, mutate (change), and select subsets of the data, and group data by one column (e.g., 'state') to create summaries (e.g., cases per state). We'll also start to explore data visualization, creating our first plots of the spread of COVID-19.
+
+  ```{r, message = FALSE}
+  library(dplyr)
+  library(ggplot2)
+  ## ...additional commands
+  ```
+
+  ```{r, echo = FALSE, fig = TRUE, message = FALSE, warning = FALSE}
+  covid = readr::read_csv(url) %>%
+      mutate(date = lubridate::ymd(date))
+  
+  erie =
+      covid %>% 
+      filter(
+          county %in% c("Erie"),
+          state == "New York"
+      ) %>% 
+      mutate(
+          new_cases = c(diff(cases + deaths), NA)
+      ) %>%
+      head(-1)
+  
+  ggplot(erie, aes(x = date, y = new_cases)) +
+      scale_y_log10() + 
+      geom_point() +
+      geom_smooth() +
+      ggtitle("Erie County, New York")
+  ```
 
 - Week \@ref(four): Maps. This week will be a specialized topic, tackling relatively advanced challenges associated with spatial visualization. 
 
 - Week \@ref(five): Bioinformatic analysis [Bioconductor][]. _Bioconductor_ is a collection of more than 1800 _R_ packages for the statistical analysis and comprehension of high-throughput genomic data. We'll use _Bioconductor_ to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.
 
-- Week \@ref(six): COVID-19 has really show the value of open data and collaboration. In the final week of our quarantine, we'll explore collaboration; developing independent and group projects that synthesize the use of _R_ to explore data. We'll learn tools of collaboration including git and github, and develop 'best practices' for robust, reproducible research. We'll learn about writing 'markdown' reports to share our project with others.
+- Week \@ref(six): COVID-19 has really shown the value of open data and collaboration. In the final week of our quarantine, we'll explore collaboration; developing independent and group projects that synthesize the use of _R_ to explore data. We'll learn tools of collaboration including git and github, and develop 'best practices' for robust, reproducible research. We'll learn about writing 'markdown' reports to share our project with others.
 
 [CRAN]: https://cran.r-project.org
 [Bioconductor]: https://bioconductor.org

@@ -404,7 +404,7 @@ OK, likely you have several activities scheduled. Create a _vector_ of a few of
 these by `c`oncatenating individual values
 
 ```{r}
-c("check e-mail", "breakfast", "conference call", "webinar")
+c("check e-mail", "breakfast", "conference call", "webinar", "walk")
 ```
 
 Assign these to a variable
