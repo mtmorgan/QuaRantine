@@ -475,6 +475,19 @@ Participant progress / challenges. Introduction to a COVID-19 data set documenti
 
 ### Next week (25 minutes)
 
+#### R Scripts {-}
+Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here are some tips:
+
+- By convention, R scripts have a .R exstension (e.g. my_script.R)
+
+- Use the `#` character for comments
+
+- Use a semi-colon `;` (or a newline) to separate commands
+
+- Use "Run" button in RStudio to run the highlighted portion of an R script file.
+
+- Use "Run --> Run All" to run an entire script file.
+
 ## Day 6
 
 Installing tidyverse
