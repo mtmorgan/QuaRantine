@@ -1,13 +1,5 @@
 # The data frame {#two}
 
-## [CRAN][]
-
-[CRAN]: https://cran.r-project.org
-
-## The '[tidyverse][]' of packages
-
-[tidyverse]: https://www.tidyverse.org/
-
 ## Day 8 (Monday) Zoom check-in
 
 ## Day 9
