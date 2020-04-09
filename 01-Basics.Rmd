@@ -86,17 +86,19 @@ An ALTERNATIVE, if installing on your own computer does not work:
 
 [rstudio.cloud]: https://rstudio.cloud/
 
+```{r echo = FALSE}
+knitr::include_graphics('images/breakout_stop.png')
+```
+
 #### Breakout Room {-}
 
-At this point you should have RStudio running either via your desktop installation or through rstudio.cloud. If not, please let use know via the chat window and we'll invite you to a breakout room to troubleshoot your installation.
+At this point you should have RStudio running either via your desktop installation or through rstudio.cloud. If not, please let us know via the chat window and we'll invite you to a breakout room to troubleshoot your installation.
 
 ### Basics of _R_ (25 minutes, Martin)
 
-- R can be used as a simple calculator
+<img src="images/simple_calc.png" style="float:right;">
 
-```{r echo = FALSE}
-knitr::include_graphics('images/simple_calc.png')
-```
+- R can be used as a simple calculator
 
 ```{r}
 1 + 2
