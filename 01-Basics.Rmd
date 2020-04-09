@@ -92,15 +92,167 @@ At this point you should have RStudio running either via your desktop installati
 
 ### Basics of _R_ (25 minutes, Martin)
 
-A simple calculator
+- R can be used as a simple calculator
+
+```{r echo = FALSE}
+knitr::include_graphics('images/simple_calc.png')
+```
 
 ```{r}
 1 + 2
 ```
 
+- R Console Output
+
+  - Enter this in the console:
+  ```{r}
+  2 + 3 *5
+  ```
+  
+  - Q: what's the `[1]` all about in the output?
+  - A: It's the index of the first entry in each line.
+  
+  - This is maybe a better example:
+  ```{r}
+  1:30
+  ```
+
+- To display help from the R Console:
+
+ `? <command-name>`
+ 
+ 
+- Some examples: 
+
+ ``` 
+ ? cat
+ ```
+ 
+ ``` 
+ ? print
+ ```
+
 Variables
 
+- Naming variables in R
+
+  - A variable name can contain letters, numbers, and the dot `.` or underline `_` characters. Variables should start with a letter.
+  
+  - Try entering these in the console:
+  
+  ` y = 2`
+  
+  `try.this = 33.3`
+  
+  `oneMoreTime = "woohoo"`
+  
+  - Now try these:
+  
+  `2y = 2`
+  
+  `_z = 33.3`
+  
+  `function = "oops, my bad"`
+  
+
+- R is case sensitive (R != r)
+
+```{r}
+R = 2
+r = 3
+R == r
+```
+ 
+- Variable Assignment
+
+  - You may use `=` or `<-` or `->` to assign values to a variable.
+  ```{r}
+  x <- 2 + 3*5
+  y =  2 + 3*6
+  2 + 3*7 -> z
+  cat(x, ' ', y, ' ', z)
+  ```
+
+- R's Atomic Data Types
+  - 4 basic data types:
+    - Numeric (includes integer, double, etc.)
+      - `3.14`, `1`, `2600`
+    - Character (string)
+      - `"hey, I'm a string"`
+      - `'single quotes are ok too'`
+    - Logical
+      - `TRUE` or `FALSE` (note all caps)
+    - `NA`
+      - not assigned (no known value)
+  - Use `typeof()` to query the data type
+  
+```{r}
+a = 5
+typeof(a)
+```
+
+  - Use `as.` to coerce a varaible to a specific data type
+
+```{r}
+a = as.integer(5)
+typeof(a)
+```
+
+```{r}
+d = as.logical(a)
+cat(d)
+typeof(d)
+```
+
+Using Logical Operators
+
+- Equivalence test (`==`)
+```{r}
+1 == 2
+```
+
+- Not equal test (`!=`)
+```{r}
+1 != 2
+```
+
+- less-than (`<`) and greater-than (`>`)
+```{r}
+18 > 44
+3 < 204
+```
+
+- Logical Or (`||`)
+```{r}
+1 == 2 || 2 == 2
+```
+
+- Logical And (`&&`)
+```{r}
+1 == 2 && 2 == 2
+```
+
+Objects in R
+
+- R stores everything, variables included, in Objects.
+
+```{r}
+x = 2.71
+# print the value of an object
+print(x) 
+# determine class or internal type of an object
+class(x)
+# TRUE if an object has not been assigned a value
+is.na(x)
+```
 Vectors
+
+- Vectors and Data Frames are the bread and butter of R
+- Vecotrs are a list of elements of the <b><i>same type</b></i>
+  - e.g. a list of heart rates, one per patient
+- Data Frames are structures that can contain columns of <b><i>various types</b></i>
+  - e.g. height, weight, age, heart rate, etc.
+- Analogous to spreadsheet data
 
 The versatile `data.frame`
 
