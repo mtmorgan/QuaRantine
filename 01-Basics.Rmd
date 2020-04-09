@@ -270,7 +270,7 @@ Data Frames
   - More on Data Frames next week!
 
 #### Wrapping up day 1 {-}
-The goal for today was to rapidly cover some of the essential aspects of R programming. For the remainder of the week you'll work at your own pace to get more of a hands-on deep dive into this material. If you run into trouble please don't hesiate to ask for help via Teams, slack, or email --- whatever works best for you!
+The goal for today was to rapidly cover some of the essential aspects of R programming. For the remainder of the week you'll work at your own pace to get more of a hands-on deep dive into this material. If you run into trouble please don't hesiate to ask for help via <a href="https://teams.microsoft.com">Teams</a> (QuaRantine Team), <a href = "https://quarantinecourse.slack.com/archives/C011GGP4K62">slack</a> (QuaRantine Course), or <a href="mailto:Loren.Matott@RoswellPark.org?cc=Martin.Morgan@RoswellPark.org">email</a> (Drs. Matott and Morgan) --- whatever works best for you!
 
 ## Day 2: Vectors and variables
 
