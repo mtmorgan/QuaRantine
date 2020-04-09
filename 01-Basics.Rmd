@@ -155,7 +155,6 @@ Naming variables in _R_
 
   `function = "oops, my bad"`
 
-
 _R_ is case sensitive (R != r)
 
 ```{r}
