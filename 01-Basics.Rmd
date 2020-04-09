@@ -15,11 +15,9 @@ Microsoft TEAMS
 
 ### Installing _R_ and _RStudio_ (25 minutes, Shawn)
 
-What is R?
+<img src="images/R_logo.png" style="float:right;">
 
-```{r echo = FALSE}
-knitr::include_graphics('images/R_logo.png')
-```
+What is R?
 
 - A programming language for statistical computing, data analysis and scientific graphics.
 
