@@ -266,8 +266,82 @@ Data Frames
 
 - Data Frames are structures that can contain columns of <b><i>various types</b></i>
   - e.g. height, weight, age, heart rate, etc.
+  - Handy containers for experimental data
   - Analogous to spreadsheet data
-  - More on Data Frames next week!
+  - More on Data Frames throughout the week!
+
+#### Working with Vectors {-}
+
+Creating a Vector
+
+- Use the `c()` function
+
+```{r}
+name = c("John Doe","Jane Smith","MacGillicuddy Jones","Echo Shamus")
+age = c(36,54,82,15)
+favorite_color = c("red", "orange", "green", "black")
+
+# pretty print the vectors
+print(data.frame(name,age,favorite_color),row.names=FALSE)
+```
+
+Accessing Vector Data
+
+- Use numerical indexing
+- R uses 1-based indexing
+  - 1st vector element has index of 1
+  - 2nd has an index of 2
+  - 3rd has an index of 3
+  - and so on
+  
+```{r}
+name[1]
+age[3]
+```
+
+- R supports "slicing" (i.e. extracting multiple items)
+
+```{r}
+favorite_color[2:3]
+```
+
+- Negative indices are omitted
+```{r}
+age[-2]
+```
+
+Some Useful Vector Operations
+
+- ```sum()     # sum of all element values```
+- ```length()  # number of elements```
+- ```unique()  # distinct values```
+- ```sort()    # sort elements, omitting NAs```
+- ```order()   # indices of sorted elements, NAs are last```
+- ```rev()     # reverse the order```
+- ```summary() # simple statistics```
+
+```{r}
+a = c(5,5,6,7,8,4)
+sum(a)
+length(a)
+unique(a)
+sort(a)
+order(a)
+a[order(a)[1:6]]
+rev(a)
+summary(a)
+```
+Handling Missing Data
+
+- First consider the <i>reason(s)</i> for the missing data
+  - e.g. concentrations that are below detectable levels?
+- Sometimes NAs in data require special statistical methods
+- Other times we can safely discard/ignore NA entries
+- To remove NAs prior to a calculation:
+```{r}
+y = c(1,NA,3,2,NA)
+sum(y, na.rm=TRUE)
+```
 
 #### Wrapping up day 1 {-}
 The goal for today was to rapidly cover some of the essential aspects of R programming. For the remainder of the week you'll work at your own pace to get more of a hands-on deep dive into this material. If you run into trouble please don't hesiate to ask for help via <a href="https://teams.microsoft.com">Teams</a> (QuaRantine Team), <a href = "https://quarantinecourse.slack.com/archives/C011GGP4K62">slack</a> (QuaRantine Course), or <a href="mailto:Loren.Matott@RoswellPark.org?cc=Martin.Morgan@RoswellPark.org">email</a> (Drs. Matott and Morgan) --- whatever works best for you!
@@ -503,7 +577,7 @@ cat(x, y, d)
 
 - Use the "Run" button in RStudio to run the highlighted portion of an R script file. Try this on your simple R Script.
 
-```{r echo = FALSE, fig.align="center", out.width="60%"}
+```{r echo = FALSE, fig.align="center", out.width="80%"}
 knitr::include_graphics('images/rstudio_run_button.png')
 ```
 
