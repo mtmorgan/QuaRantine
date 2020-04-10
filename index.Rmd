@@ -29,11 +29,11 @@ What to do in a quarantine? The astronaut Scott Kelly spent nearly a year on the
 
 ## What to expect {-}
 
-We'll meet via zoom twice a week, Mondays and Thursdays, for one hour. We'll use this time to make sure everyone is making progress, and to introduce new or more difficult topics. Other days we'll have short exercises and activities that hopefully provide an opportunity to learn at your own speed.
+We'll meet via zoom twice a week, Mondays and Fridays, for one hour. We'll use this time to make sure everyone is making progress, and to introduce new or more difficult topics. Other days we'll have short exercises and activities that hopefully provide an opportunity to learn at your own speed.
 
 We haven't thought this through much, but roughly we might cover:
 
-- Week \@ref(one): We'll start with the basics of installing and using R. We'll set up _R_ and _RStudio_ on your local computer, or if that doesn't work use a cloud-based RStudio. We'll learn the basics of _R_ -- numeric, character, logical, and other vectors; variables; and slightly more complicated representations of 'factors' and dates. We'll also use _RStudio_ to write a script that allows us to easy re-create an analysis, illustrating the power concept of *reproducible research*.
+- Week \@ref(one): We'll start with the basics of installing and using R. We'll set up _R_ and _RStudio_ on your local computer, or if that doesn't work use a cloud-based RStudio. We'll learn the basics of _R_ -- numeric, character, logical, and other vectors; variables; and slightly more complicated representations of 'factors' and dates. We'll also use _RStudio_ to write a script that allows us to easily re-create an analysis, illustrating the power concept of *reproducible research*.
 
   ```{r}
   activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
@@ -84,7 +84,7 @@ We haven't thought this through much, but roughly we might cover:
 
 - Week \@ref(four): Maps. This week will be a specialized topic, tackling relatively advanced challenges associated with spatial visualization. 
 
-- Week \@ref(five): Bioinformatic analysis [Bioconductor][]. _Bioconductor_ is a collection of more than 1800 _R_ packages for the statistical analysis and comprehension of high-throughput genomic data. We'll use _Bioconductor_ to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.
+- Week \@ref(five): Bioinformatic analysis with [Bioconductor][]. _Bioconductor_ is a collection of more than 1800 _R_ packages for the statistical analysis and comprehension of high-throughput genomic data. We'll use _Bioconductor_ to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.
 
 - Week \@ref(six): COVID-19 has really shown the value of open data and collaboration. In the final week of our quarantine, we'll explore collaboration; developing independent and group projects that synthesize the use of _R_ to explore data. We'll learn tools of collaboration including git and github, and develop 'best practices' for robust, reproducible research. We'll learn about writing 'markdown' reports to share our project with others.
 
