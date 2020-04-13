@@ -15,11 +15,9 @@ Cadence
 
 Communicating
 
-- We'll use Microsoft Teams (if most participants have access to the course) or slack (if teams access turns out to be difficult).
+- We'll use Microsoft Teams (if most participants have access to the course)
 - Visit Microsoft [teams][]  and sign in with your Roswell username (e.g., `MA38727@RoswellPark.org`) and the password you use to check email, etc. Join the 'QuaRantine' team.
-- Sign up on the [QuaRantine][slack] slack.
 
-[slack]: https://quarantinecourse.slack.com/archives/C011GGP4K62
 [teams]: https://teams.microsoft.org
 
 ### Installing _R_ and _RStudio_ (25 minutes, Shawn)
