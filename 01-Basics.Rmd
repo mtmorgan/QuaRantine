@@ -567,7 +567,122 @@ date
 
 OK, time for a walk! See you tomorrow!
 
-## Day 4: _R_ scripts
+## Day 4: Working with variables
+
+Remember that _R_ can act as a simple calculator, and that one can create new variables by assignment
+
+```
+x <- 1
+x + 1
+y <- x + 1
+y
+```
+
+Let's apply these ideaas to our `minutes` vector from earlier in the week.
+
+```{r}
+minutes <- c(20, 30, 60, 60, 60)
+```
+
+We can perform basic arithmetic on vectors. Suppose we wanted to increase the time of each activity by 5 minutes
+
+```{r}
+minutes + 5
+```
+
+or to increase the time of the first two activities by 5 minutes, and the last three activities by 10 minutes
+
+```{r}
+minutes + c(5, 5, 10, 10, 10)
+```
+
+_R_ has a very large number of _functions_ that can be used on vectors. For instance, the average time spent on activities is
+
+```{r}
+mean(minutes)
+```
+
+while the total amount of time is
+
+```{r}
+sum(minutes)
+```
+
+Explore other typical mathematical transformations, e.g., `log()`, `log10()`, `sqrt()` (square root), ... Check out the help pages for each, e.g., `?log`.
+
+Explore the consequences of `NA` in a vector for functions like `mean()` and `sum()`.
+
+```{r}
+x <- c(1, 2, NA, 3)
+mean(x)
+```
+
+_R_ is saying that, since there is an unknown (`NA`) value in the vector, it cannot possibly know what the mean is! Tell _R_ to remove the missing values before performing the calculation by adding the `na.rm = TRUE` argument
+
+```{r}
+mean(x, na.rm = TRUE)
+```
+
+Check out the help page `?mean` to find a description of the `na.rm` and other arguments.
+
+It's possible to perform logical operations on vectors, e.g., to ask which activities lasted 60 minutes or more
+
+```{r}
+minutes >= 60
+```
+
+Here's our `activity` vector
+
+```{r}
+activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+```
+
+The elements of this vector are numbered from 1 to 5. We can create a new vector that is a subset of this vector using `[` and an integer index, e.g., the second activity is
+
+```{r}
+activity[2]
+```
+
+The index can actually be a vector, so we could choose the second and fourth activity as
+
+```{r}
+index <- c(2, 4)
+activity[index]
+```
+
+In fact, we can use logical vectors for subsetting. Consider the activities that take sixty minutes or longer:
+
+```{r}
+index <- minutes >= 60
+activity[index]
+```
+
+Note that it doesn't make sense to take the `mean()` of a character vector like `activity`, and _R_ signals a warning and returns `NA`
+
+```{r}
+mean(activity)
+```
+
+Nonetheless, there are many functions that _do_ work on character vectors, e.g., the number of letters in each element `nchar()`, or transformation to upper-case
+
+```{r}
+nchar(activity)
+toupper(activity)
+```
+
+## Day 5 (Friday) Zoom check-in
+
+### Review and trouble shoot (40 minutes)
+
+### Weekend activities (20 minutes)
+
+Writing _R_ scripts
+
+Saving data
+
+#### R Scripts {-}
+
+## Day 6: _R_ scripts
 
 Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here is an example to get you started:
 
@@ -662,20 +777,10 @@ Save your script, quit _R_ and _RStudio_, and restart _R_. Re-open and run the s
 
 Think about how this makes your work _reproducible_ from one day to the next, and how making your scientific work reproducible would be advantageous.
 
-## Day 5 (Friday) Zoom check-in
+## Day 7: Saving data
 
-### Review and trouble shoot (40 minutes)
+`writeLines()` / `readLines()`
 
-### Weekend activities (20 minutes)
+`saveRDS()` / `loadRDS()`
 
-Concatenating two vectors
-
-Sneak peak: `data.frame`
-
-Saving data as simple 'text' files
-
-#### R Scripts {-}
-
-## Day 6
-
-## Day 7
+Sneak peak: `data.frame()` / `write.csv()` / `read.csv()`
