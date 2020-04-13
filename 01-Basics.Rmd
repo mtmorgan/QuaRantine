@@ -2,16 +2,25 @@
 
 ## Day 1 (Monday) Zoom orientation
 
-### Logistics (10 minutes, Adam)
+### Logistics
 
 Course material
 
 - Available at https://mtmorgan.github.io/QuaRantine
 
-Microsoft TEAMS
+Cadence
 
-- Visit https://teams.microsoft.org and sign in with your Roswell username (e.g., `MA38727@RoswellPark.org`) and the password you use to check email, etc.
-- Join the QuaRantine team
+- Daily independent activities -- most of your learning will happen here!
+- Monday and Friday group zoom sessions -- these will review and troubleshoot previous material, and outline goals for the next set of independent activities.
+
+Communicating
+
+- We'll use Microsoft Teams (if most participants have access to the course) or slack (if teams access turns out to be difficult).
+- Visit Microsoft [teams][]  and sign in with your Roswell username (e.g., `MA38727@RoswellPark.org`) and the password you use to check email, etc. Join the 'QuaRantine' team.
+- Sign up on the [QuaRantine][slack] slack.
+
+[slack]: https://quarantinecourse.slack.com/archives/C011GGP4K62
+[teams]: https://teams.microsoft.org
 
 ### Installing _R_ and _RStudio_ (25 minutes, Shawn)
 
@@ -94,7 +103,7 @@ knitr::include_graphics('images/breakout_stop.png')
 
 At this point you should have RStudio running either via your desktop installation or through rstudio.cloud. If not, please let us know via the chat window and we'll invite you to a breakout room to troubleshoot your installation.
 
-### Basics of _R_ (25 minutes, Martin)
+### Basics of _R_ (25 minutes)
 
 <img src="images/simple_calc.png" style="float:right;">
 
