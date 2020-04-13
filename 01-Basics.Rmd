@@ -2,7 +2,7 @@
 
 ## Day 1 (Monday) Zoom orientation
 
-### Logistics
+### Logistics (10 minutes)
 
 Course material
 
@@ -10,8 +10,8 @@ Course material
 
 Cadence
 
-- Daily independent activities -- most of your learning will happen here!
 - Monday and Friday group zoom sessions -- these will review and troubleshoot previous material, and outline goals for the next set of independent activities.
+- Daily independent activities -- most of your learning will happen here!
 
 Communicating
 
