@@ -571,7 +571,7 @@ OK, time for a walk! See you tomorrow!
 
 Remember that _R_ can act as a simple calculator, and that one can create new variables by assignment
 
-```
+```{r}
 x <- 1
 x + 1
 y <- x + 1
