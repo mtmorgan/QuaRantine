@@ -453,7 +453,7 @@ is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
 is_work
 ```
 
-## Day 3: `factor()` and `Date()` objects
+## Day 3: `factor()`, `Date()`, and `NA`
 
 Yesterday we learned about `character`, `numeric`, and `logical` vectors in _R_ (you may need to revisit previous notes and re-create these variables)
 
@@ -655,6 +655,34 @@ In fact, we can use logical vectors for subsetting. Consider the activities that
 ```{r}
 index <- minutes >= 60
 activity[index]
+```
+
+We had previously characterized the activities as 'work' or otherwise.
+
+```{r}
+is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+```
+
+Use `is_work` to subset `activity` and identify the work-related activities
+
+```{r}
+activity[is_work]
+```
+
+How many minutes were work-related?
+
+```{r}
+work_minutes <- minutes[is_work]
+sum(work_minutes)
+```
+
+What about not work related? `!` negates logical vectors, so
+
+```{r}
+is_work
+!is_work
+non_work_minutes <- minutes[!is_work]
+sum(non_work_minutes)
 ```
 
 Note that it doesn't make sense to take the `mean()` of a character vector like `activity`, and _R_ signals a warning and returns `NA`
