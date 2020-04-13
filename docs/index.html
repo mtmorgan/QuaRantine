@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="one.html"><a href="one.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
 <li class="chapter" data-level="1.1" data-path="one.html"><a href="one.html#day-1-monday-zoom-orientation"><i class="fa fa-check"></i><b>1.1</b> Day 1 (Monday) Zoom orientation</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="one.html"><a href="one.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+<li class="chapter" data-level="1.1.1" data-path="one.html"><a href="one.html#logistics-10-minutes"><i class="fa fa-check"></i><b>1.1.1</b> Logistics (10 minutes)</a></li>
 <li class="chapter" data-level="1.1.2" data-path="one.html"><a href="one.html#installing-r-and-rstudio-25-minutes-shawn"><i class="fa fa-check"></i><b>1.1.2</b> Installing <em>R</em> and <em>RStudio</em> (25 minutes, Shawn)</a></li>
 <li class="chapter" data-level="1.1.3" data-path="one.html"><a href="one.html#basics-of-r-25-minutes"><i class="fa fa-check"></i><b>1.1.3</b> Basics of <em>R</em> (25 minutes)</a></li>
 </ul></li>
@@ -262,12 +262,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-3" data-line-number="3">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(cases, county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span> <span class="op">&amp;</span><span class="st"> </span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">tail</span>(erie)</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">##             date county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">## 37160 2020-04-06   Erie New York 36029  1163     30</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">## 39674 2020-04-07   Erie New York 36029  1163     36</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">## 42227 2020-04-08   Erie New York 36029  1205     38</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">## 44803 2020-04-09   Erie New York 36029  1362     46</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## 47417 2020-04-10   Erie New York 36029  1409     58</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">## 39674 2020-04-07   Erie New York 36029  1163     36</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">## 42227 2020-04-08   Erie New York 36029  1205     38</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">## 44803 2020-04-09   Erie New York 36029  1362     46</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">## 47417 2020-04-10   Erie New York 36029  1409     58</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">## 52744 2020-04-12   Erie New York 36029  1571     75</span></a></code></pre></div></li>
 <li><p>Week <a href="three.html#three">3</a>: Packages for extending <em>R</em>. A great strength of <em>R</em> is its extensibility through packages. We’ll learn about <a href="https://cran.r-project.org">CRAN</a>, and install and use the ‘tidyverse’ suite of packages. The tidyverse provides us with an alternative set of tools for working with tabular data, and We’ll use publicly available data to explore the spread of COVID-19 in the US. We’ll read, filter, mutate (change), and select subsets of the data, and group data by one column (e.g., ‘state’) to create summaries (e.g., cases per state). We’ll also start to explore data visualization, creating our first plots of the spread of COVID-19.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
