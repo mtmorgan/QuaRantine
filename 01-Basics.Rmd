@@ -698,9 +698,9 @@ toupper(activity)
 
 ## Day 5 (Friday) Zoom check-in
 
-### Review and trouble shoot (40 minutes)
+### Review and trouble shoot (25 minutes; Martin)
 
-### Weekend activities (20 minutes)
+### Weekend activities (25 minutes; Shawn)
 
 Writing _R_ scripts
 
