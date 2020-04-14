@@ -700,6 +700,140 @@ toupper(activity)
 
 ### Review and trouble shoot (25 minutes; Martin)
 
+Data representations
+
+- 'Atomic' vectors
+
+    ```{r}
+    activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+    minutes <- c(20, 30, 60, 60, 60)
+    is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+    ```
+
+- `factor()` and `date()`
+
+    ```{r}
+    levels <- c("connect", "exercise", "consult", "hobby", "essential")
+    classification <- factor(
+        c("connect", "essential", "connect", "consult", "exercise"),
+        levels = levels
+    )
+
+    dates <- rep("04-14-2020", length(activity))
+    date <- as.Date(dates, format = "%m-%d-%Y")
+    ```
+
+- missing values
+
+    ```{r}
+    x <- c(1, 3, NA, 5)
+    sum(x)
+    sum(x, na.rm = TRUE)
+
+    factor(c("connect", "disconnect"), levels = levels)
+    ```
+
+- functions and logical operators
+
+    ```{r}
+    x <- c(1, 3, NA, 5)
+    sum(x)
+    sum(x, na.rm = TRUE)
+
+    minutes >= 60
+    ```
+
+Subsetting vectors
+
+- 1-basaed numeric indexes
+
+    ```{r}
+    activity
+
+    idx <- c(1, 3, 1)
+    activity[idx]
+    ```
+
+- logical index
+
+    ```{r}
+    is_work
+    activity[is_work]
+
+    sum(minutes[is_work])
+    ```
+
+-  Maybe more interesting...
+
+    ```{r}
+    short <- minutes < 60
+    short
+    minutes[short]
+    activity[short]
+    ```
+
+Other fun topics
+
+- `%in%`: a _binary operator_ -- is each of the vector elements on the left-hand side _in_ the set of elements on the right hand side
+
+    ```{r}
+    fruits <- c("banana", "apple", "grape", "orange", "kiwi")
+    c("apple", "orange", "hand sanitizer") %in% fruits
+    ```
+
+- _named_ vectors (see [Annual Estimates...][fun:1] table from [census.gov][fun:2])
+
+  Define a named vector
+
+    ```{r}
+    state_populations <- c(
+        Alabama = 4903185, Alaska = 731545, Arizona = 7278717, Arkansas = 3017804,
+        California = 39512223, Colorado = 5758736, Connecticut = 3565287,
+        Delaware = 973764, `District of Columbia` = 705749, Florida = 21477737,
+        Georgia = 10617423, Hawaii = 1415872, Idaho = 1787065, Illinois = 12671821,
+        Indiana = 6732219, Iowa = 3155070, Kansas = 2913314, Kentucky = 4467673,
+        Louisiana = 4648794, Maine = 1344212, Maryland = 6045680, Massachusetts = 6892503,
+        Michigan = 9986857, Minnesota = 5639632, Mississippi = 2976149,
+        Missouri = 6137428, Montana = 1068778, Nebraska = 1934408, Nevada = 3080156,
+        `New Hampshire` = 1359711, `New Jersey` = 8882190, `New Mexico` = 2096829,
+        `New York` = 19453561, `North Carolina` = 10488084, `North Dakota` = 762062,
+        Ohio = 11689100, Oklahoma = 3956971, Oregon = 4217737, Pennsylvania = 12801989,
+        `Rhode Island` = 1059361, `South Carolina` = 5148714, `South Dakota` = 884659,
+        Tennessee = 6829174, Texas = 28995881, Utah = 3205958, Vermont = 623989,
+        Virginia = 8535519, Washington = 7614893, `West Virginia` = 1792147,
+        Wisconsin = 5822434, Wyoming = 578759
+    )
+    ```
+
+  Computations
+
+    ```{r}
+    ## US population
+    sum(state_populations)
+
+    ## smallest states
+    head(sort(state_populations))
+
+    ## largest states
+    head(sort(state_populations, decreasing = TRUE))
+
+    ## states with more than 10 million people
+    big <- state_populations[state_populations > 10000000]
+    big
+    names(big)
+    ```
+
+  Subset by name
+
+    ```{r}
+    ## populations of California and New York
+    state_populations[c("California", "New York")]
+    ```
+
+[fun:1]: https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/totals/nst-est2019-01.xlsx
+
+[fun:2]: https://www.census.gov/data/datasets/time-series/demo/popest/2010s-state-total.html
+
 ### Weekend activities (25 minutes; Shawn)
 
 Writing _R_ scripts
@@ -805,8 +939,137 @@ Think about how this makes your work _reproducible_ from one day to the next, an
 
 ## Day 7: Saving data
 
-`writeLines()` / `readLines()`
+We've defined these variables
 
-`saveRDS()` / `loadRDS()`
+```{r}
+activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+minutes <- c(20, 30, 60, 60, 60)
+is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
 
-Sneak peak: `data.frame()` / `write.csv()` / `read.csv()`
+levels <- c("connect", "exercise", "consult", "hobby", "essential")
+classification <- factor(
+    c("connect", "essential", "connect", "consult", "exercise"),
+    levels = levels
+)
+
+dates <- rep("04-14-2020", length(activity))
+date <- as.Date(dates, format = "%m-%d-%Y")
+```
+
+Individual variables can be saved to a file.
+
+- Define the _path_ to the file. The file extension is, by convention, '.rds'. We'll use a temporary location
+
+    ```{r}
+    temporary_file_path <- tempfile(fileext = ".rds")
+    ```
+
+  ...but we could have chosen the destination interactively
+
+    ```{r, eval = FALSE}
+    interactive_file_path <- file.choose(new = TRUE)
+    ```
+
+  ...or provided path relative to the 'current working directory', or an absolute file path (use '/' to specify paths on all operating systems, including Windows)
+
+
+    ```{r, eval = FALSE}
+    getcwd()
+    relative_file_path <- "my_activity.rds"
+    absolute_file_path_on_macOS <- "/Users/ma38727/my_activity.rda"
+    ```
+
+- use `saveRDS()` to save a single object to a file
+
+    ```{r}
+    saveRDS(activity, temporary_file_path)
+    ```
+    
+- use `readRDS()` to read the object back in
+
+    ```{r}
+    activity_from_disk <- readRDS(temporary_file_path)
+    activity_from_disk
+    ```
+
+Use `save()` and `load()` to save and load several objects.
+
+- Use `.RDaata` as the file extension.Usually we would NOT save to a temporary location, because the temporary location would be deleted when we ended our _R_ session.
+
+	```{r}
+	temporary_file_path <- tempfile(fileext = ".RData")
+	save(activity, minutes, file = temporary_file_path)
+	```
+
+- Remove the objects from the _R_ session, and verify that they are absent
+
+	```{r}
+	rm(activity, minutes)
+	try(activity) # fails -- object not present
+	```
+
+- Load the saved objects
+
+    ```{r}
+    load(temporary_file_path)
+    activity
+    ```
+
+As an exercise...
+
+- Chose a location to save your data, e.g., in the current working direcotry
+
+    ```{r}
+    getwd()    # Where the heck are we?
+    my_file_path <- "my_quaRantine.RData"
+    ```
+
+- Save the data
+
+    ```{r, echo = FALSE}
+    .my_file_path <- my_file_path <- tempfile()
+    ```
+
+    ```{r}
+    save(activity, minutes, is_work, classification, date, file = my_file_path)
+    ```
+    
+- Now the moment of truth. Quit _R_ without saving your workspace
+
+    ```{r, eval = FALSE}
+    quit(save = FALSE)
+    ```
+    
+    ```{r, echo = FALSE}
+    rm(list = ls())
+    ```
+    
+- Start a new session of _R_, and verify that your objects are not present
+
+    ```{r}
+    ls() # list objects available in the '.GlobalEnv' -- there should be none
+    try(activity) # nope, not there...
+    ```
+
+- Create a path to the saved data file
+
+    ```{r, eval = FALSE}
+    my_file_path <- "my_quaRantine.RData"
+    ```
+    
+    ```{r, echo = FALSE}
+    my_file_path <- .my_file_path
+    ```
+
+- Load the data and verify that it is correct
+
+    ```{r}
+    load(my_file_path)
+    activity
+    minutes
+    is_work
+    date
+    classification
+    ```
+    
+See you in zoom on Monday!
