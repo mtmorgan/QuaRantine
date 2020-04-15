@@ -2900,6 +2900,34 @@ Self-directed activities.
 
 Course review and next steps
 
+\hypertarget{frequently-asked-questions}{%
+\chapter*{Frequently asked questions}\label{frequently-asked-questions}}
+\addcontentsline{toc}{chapter}{Frequently asked questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Is the course material available in PDF?
+
+  Yes, click the `Download' icon and PDF format in the title bar of the main document, as illustrated in the figure.
+
+  Remember that the course material is a `work in progress', so the PDF will need to be updated frequently throughout the course. Also, the book is not pretty; that's a task for a separate quarantine!
+
+  \includegraphics[width=16.97in]{images/99-Download-PDF}
+\item
+  Whenever I press the `enter' key, the RStudio console keeps saying \texttt{+} and doesn't evaluate my expression! See the figure below.
+
+  \includegraphics[width=15.81in]{images/99-console-plus-1}
+
+  Notice that you've started a character string with a double \texttt{"}, and tried to terminate it with a single quote \texttt{\textquotesingle{}}. Because the quotes do not match, \emph{R} thinks you're still trying to complete the entry of the variable, and it's letting you know that it is expecting more with the \texttt{+} prompt at the begining of the line.
+
+  A common variant of this is to open more parentheses than you close, as shown in
+
+  \includegraphics[width=19.47in]{images/99-console-plus-2}
+
+  The solution is either to complete your entry (by entering a \texttt{"} or balancing the parentheses with \texttt{)}) or abandon your attempt by pressing \texttt{control-C} or the escape key (usually in the top left corner of the keyboard)
+\end{enumerate}
+
 \bibliography{book.bib,packages.bib}
 
 \end{document}

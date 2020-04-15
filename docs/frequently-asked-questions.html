@@ -249,6 +249,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Yes, click the ‘Download’ icon and PDF format in the title bar of the main document, as illustrated in the figure.</p>
 <p>Remember that the course material is a ‘work in progress’, so the PDF will need to be updated frequently throughout the course. Also, the book is not pretty; that’s a task for a separate quarantine!</p>
 <p><img src="images/99-Download-PDF.png" width="611" /></p></li>
+<li><p>Whenever I press the ‘enter’ key, the RStudio console keeps saying <code>+</code> and doesn’t evaluate my expression! See the figure below.</p>
+<p><img src="images/99-console-plus-1.png" width="569" /></p>
+<p>Notice that you’ve started a character string with a double <code>&quot;</code>, and tried to terminate it with a single quote <code>'</code>. Because the quotes do not match, <em>R</em> thinks you’re still trying to complete the entry of the variable, and it’s letting you know that it is expecting more with the <code>+</code> prompt at the begining of the line.</p>
+<p>A common variant of this is to open more parentheses than you close, as shown in</p>
+<p><img src="images/99-console-plus-2.png" width="701" /></p>
+<p>The solution is either to complete your entry (by entering a <code>&quot;</code> or balancing the parentheses with <code>)</code>) or abandon your attempt by pressing <code>control-C</code> or the escape key (usually in the top left corner of the keyboard)</p></li>
 </ol>
 
 </div>
