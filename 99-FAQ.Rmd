@@ -1,0 +1,11 @@
+# Frequently asked questions {-}
+
+1. Is the course material available in PDF?
+
+   Yes, click the 'Download' icon and PDF format in the title bar of the main document, as illustrated in the  figure.
+
+   Remember that the course material is a 'work in progress', so the PDF will need to be updated frequently throughout the course. Also, the book is not pretty; that's a task for a separate quarantine!
+
+    ```{r echo = FALSE}
+    knitr::include_graphics('images/99-Download-PDF.png')
+    ```
