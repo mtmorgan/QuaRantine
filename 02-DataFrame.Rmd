@@ -2,15 +2,534 @@
 
 ## Day 8 (Monday) Zoom check-in
 
-## Day 9
+## Day 9: Creation and manipulation
 
-## Day 10
+### Creation {-}
 
-## Day 11
+Last week we created vectors summarizing our quarantine activities
+
+```{r}
+activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+minutes <- c(20, 30, 60, 60, 60)
+is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+levels <- c("connect", "exercise", "consult", "hobby", "essential")
+classification <- factor(
+    c("connect", "essential", "connect", "consult", "exercise"),
+    levels = levels
+)
+
+dates <- rep("04-14-2020", length(activity))
+date <- as.Date(dates, format = "%m-%d-%Y")
+```
+
+Each of these vectors is the same length, and are related to one another in a specific way -- the first element of `activity`, 'check e-mail', is related to the first element of `minutes`, '20', and to `is_work`, etc.
+
+Use `data.frame()` to construct an object containing each of these vectors
+
+- Each argument to `data.frame()` is a vector representing a column
+
+- The `stringsAsFactors = FALSE` argument says that character vectors should NOT be automatically coerced to factors
+
+    ```{r}
+    activities <- data.frame(
+        activity, minutes, is_work, classification, date,
+        stringsAsFactors = FALSE
+    )
+    activities
+    ```
+    
+- We can query the object we've created for its `class()`, `dim()`ensions, take a look at the `head()` or `tail()` of the object, etc. `names()` returns the column names.
+
+    ```{r}
+    class(activities)
+    dim(activities)     # number of rows and columns
+    head(activities, 3) # first three rows
+    names(activities)
+    ```
+
+### Column selection {-}
+
+Use `[` to select rows and columns
+
+- `activities` is a two-dimensional object
+
+- Subset the data to contain the first and third rows and the first and fourth columns
+
+    ```{r}
+    activities[c(1, 3), c(1, 4)]
+    ```
+    
+- Subset columns by name
+
+    ```{r}
+    activities[c(1, 3), c("activity", "is_work")]
+    ```
+    
+- Subset only by row or only by column by omiting the subscript index for that dimension
+
+    ```{r}
+    activities[c(1, 3), ]                  # all columns for rows 1 and 3
+    activities[, c("activity", "minutes")] # all rows for columns 1 and 2
+    ```
+
+- Be careful when selecting a single column!
+
+  - By default, _R_ returns a _vector_
+  
+      ```{r}
+      activities[, "classification"]
+      ```
+  
+  - Use `drop = FALSE` to return a `data.frame`
+  
+      ```{r}
+      activities[, "classification", drop = FALSE]
+      ```
+
+Use `$` or `[[` to select a column
+
+- Selection of individual columns as vectors is easy
+
+    ```{r}
+    activities$classification
+    ```
+    
+- An alternative, often used in scripts, is to use `[[`, which requires the name of a variable provided as a character vector
+
+    ```{r}
+    activities[["classification"]]
+
+    colname <- "classification"
+    activities[[colname]]
+    ```
+    
+Column selection and subsetting are often combined, e.g., to create a `data.frame` of  work-related activities, or work-related activities lasting 60 minutes or longer
+
+```{r}
+work_related_activities <- activities[ activities$is_work == TRUE, ]
+work_related_activities
+
+row_idx <- activities$is_work & (activities$minutes >= 60)
+activities[row_idx,]
+```
+
+### Adding or updating columns {-}
+
+Use `$` or `[` or `[[` to add a new column, 
+
+```{r}
+activities$is_long_work <- activities$is_work & (activities$minutes >= 60)
+activities
+
+## ...another way of doing the same thing
+activities[["is_long_work"]] <- activities$is_work & (activities$minutes >= 60)
+
+## ...and another way
+activities[,"is_long_work"] <- activities$is_work & (activities$minutes >= 60)
+```
+
+Columns can be updated in the same way
+
+```{r}
+activities$activity <- toupper(activities$activity)
+activities
+```
+
+### Reading and writing {-}
+
+Create a file path to store a 'csv' file. From day 7, the path could be temporary, chosen interactively, a relative path, or an absolute path
+
+```{r}
+## could be any of these...
+##
+## interactive_file_path <- file.choose(new = TRUE)
+## getcwd()
+## relative_file_path <- "my_activity.rds"
+## absolute_file_path_on_macOS <- "/Users/ma38727/my_activity.rda"
+##
+## ... but we'll use
+temporary_file_path <- tempfile(fileext = ".csv")
+```
+
+Use `write.csv()` to save the data.frame to disk as a plain text file in 'csv' (comma-separated value) format. The `row.names = FALSE` argument means that the row indexes are not saved to the file (row names are created when data is read in using `read.csv()`).
+
+```{r}
+write.csv(activities, temporary_file_path, row.names = FALSE)
+```
+
+If you wish, use RStudio File -> Open File to navigate to the location where you saved the file, and open it. You could also open the file in Excel or other spreadsheet. Conversely, you can take an Excel sheet and export it as a csv file for reading into _R_.
+
+Use `read.csv()` to import a plain text file formatted as csv
+
+```{r}
+imported_activities <- read.csv(temporary_file_path, stringsAsFactors = FALSE)
+imported_activities
+```
+
+Note that some information has not survived the round-trip -- the `classification` and `date` columns are plain character vectors.
+
+```{r}
+class(imported_activities$classification)
+class(imported_activities$date)
+```
+
+Update these to be a `factor()` with specific levels, and a `Date`.
+`
+```{r}
+levels <- c("connect", "exercise", "consult", "hobby", "essential")
+imported_activities$classification <- factor(
+    imported_activities$classification,
+    levels = levels
+)
+
+imported_activities$date <- as.Date(imported_activities$date, format = "%Y-%m-%d")
+
+imported_activities
+```
+
+Reading from a remote file (!)
+
+- Visit the New York Times [csv file][us-counties.csv] daily tally of COVID-19 cases in all US counties.
+
+- Read the data into an _R_ `data.frame`
+
+    ```{r}
+    url <-
+      "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read.csv(url, stringsAsFactors = FALSE)
+    ```
+
+- Explore the data
+
+    ```{r}
+    class(us)
+    dim(us)
+    head(us)
+    ```
+
+- Subset the data to only New York state or Erie county
+
+    ```{r}
+    ny_state <- us[us$state == "New York",]
+    dim(ny_state)
+
+    erie <- us[(us$state == "New York") & (us$county == "Erie"), ]
+    erie
+    ```
+
+[us-counties.csv]: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
+
+## Day 10: `subset()`, `with()`, and `within()`
+
+### `subset()` {-}
+
+`subset()`ing a `data.frame`
+
+- Read the New York Times csv file summarizing COVID cases in the US.
+
+    ```{r, eval = FALSE}
+    url <-
+      "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read.csv(url, stringsAsFactors = FALSE)
+    ```
+
+- Create subsets, e.g., to include only New York state, or only Erie county
+
+    ```{r}
+    ny_state <- subset(us, state == "New York")
+    dim(ny_state)
+    tail(ny_state)
+
+    erie <- subset(us, (state == "New York") & county == "Erie")
+    dim(erie)
+    tail(erie)
+    ```
+
+### `with()` {-}
+
+Use `with()` to simply column references
+
+- Goal: calculate maximum number of cases in the Erie county data subset
+
+- First argument: a `data.frame` containing data to be manipulated -- `erie`
+
+- Second argument: an _expression_ to be evaluated, usually referencing columns in the data set -- `max(cases)`
+
+  - E.g., Calculate the maximum number of cases in the `erie` subset
+
+    ```{r}
+    with(erie, max(cases))
+    ```
+
+Second argument can be more complicated, using `{}` to enclose several lines.
+
+- E.g., Calculate the number of new cases, and then reports the average number of new cases per day. We will use `diff()`
+
+  - `diff()` calculates the difference between successive values of a vector
+
+      ```{r}
+      x <- c(1, 1, 2, 3, 5, 8)
+      diff(x)
+      ```
+
+  - The length of `diff(x)` is one less than the length of `x`
+
+      ```{r}
+      length(x)
+      length(diff(x))
+      ```
+
+  - The initial value of `x` is sometimes implicit, e.g., prior to the first observation in the COVID data sets there were 0 cases reported. `c()`oncatenate a leading 0 to `x` to include the implicit initial value
+
+      ```{r}
+      diff(c(0, x))
+      ```
+
+- `new_cases` is the `diff()` of successive values of `cases`, with the initial value implicitly 0.
+
+    ```{r}
+    with(erie, {
+        new_cases <- diff(c(0, cases))
+        mean(new_cases)
+    })
+    ```
+
+### `within()` {-}
+
+Adding and updating columns `within()` a `data.frame`
+
+- First argument: a `data.frame` containing data to be updated -- `erie`
+
+- Second argument: an expression of one or more variable assignments, the assignments create new columns in the `data.frame`.
+
+- Example: add a `new_cases` column
+
+    ```{r}
+    erie_new_cases <- within(erie, {
+        new_cases <- diff(c(0, cases))
+    })
+    head(erie_new_cases)
+    ```
+
+## Day 11: `aggregate()` and an initial work flow
+
+### `aggregate()` for summarizing columns by group {-}
+
+Goal: summarize maximum number of cases by county in New York state
+
+Setup
+
+- Read and subset the New York Times data to contain only New York state data
+
+    ```{r, eval = FALSE}
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read.csv(url, stringsAsFactors = FALSE)
+    ```
+    ```{r}
+    ny_state <- subset(us, state == "New York")
+    ```
+
+`aggregate()`
+
+- First argument: a _formula_ -- `cases ~ county`
+
+  - Right-hand side: the variable to be used to subset (group) the data -- `county`
+  
+  - Left-hand side: the variable to be used in the aggregation function -- `cases`
+
+- Second argument: source of data -- `ny_state`
+
+- Third argument: the function to be applied to each subset of data -- `max`
+
+- Maximum number of cases by county:
+
+    ```{r}
+    max_cases_by_county <- aggregate( cases ~ county, ny_state, max )
+    ```
+
+Exploring the data summary
+
+- Subset to some interesting 'counties'
+
+    ```{r}
+    head(max_cases_by_county)
+    subset(
+        max_cases_by_county,
+        county %in% c("New York City", "Westchester", "Erie")
+    )
+    ```
+
+Help: `?aggregate.formula`
+
+### An initial work flow{-}
+
+Data input
+
+```{r, eval = FALSE}
+url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+us <- read.csv(url, stringsAsFactors = FALSE)
+```
+```{r}
+class(us)
+dim(us)
+head(us)
+```
+
+Cleaning
+
+- `date` is a plain-old `character` vector, but should be a `Date`.
+
+    ```{r}
+    class(us$date) # oops, should be 'Date'
+    ```
+
+- Update, method 1
+
+    ```{r}
+    us$date <- as.Date(us$date, format = "%Y-%m-%d")
+    head(us)
+    ```
+
+- Update, method 2
+
+    ```{r}
+    us <- within(us, {
+        date = as.Date(date, format = "%Y-%m-%d")
+    })
+    head(us)
+    ```
+
+Interested only in Erie county, New York state
+
+- Subset, method 1
+
+    ```{r}
+    row_idx <- (us$county == "Erie") & (us$state == "New York")
+    erie <- us[row_idx,]
+    dim(erie)
+    ```
+
+- Subset, method 2
+
+  ```{r}
+  erie <- subset(us, (county == "Erie") & (state == "New York"))
+  dim(erie)
+  ```
+
+Manipulation
+
+- Goal: calculate `new_cases` as the difference between succesive days, using `diff()`
+
+- Remember use of `diff()`
+
+    ```{r}
+    ## example: `diff()` between successive numbers in a vector
+    x <- c(1, 1, 2, 3, 5, 7)
+    diff(x)
+
+    ## note 'diff()' what about the implicit '0' at the start of a sequence?
+    diff( c(0, x) )
+    ```
+
+- Update, methods 1 & 2
+
+    ```{r}
+    ## one way...
+    erie$new_cases <- diff( c(0, erie$cases) )
+
+    ## ...or another
+    erie <- within(erie, {
+        new_cases <- diff( c(0, cases) )
+    })
+    ```
+
+Simple visualization
+
+- Use a formula to describe the dependent (y-axis) variable as a function of the independent (x-axis) variable -- `cases ~ date`
+
+    ```{r}
+    plot( cases ~ date, erie)
+    ```
+
+  maybe more informative: log-transformed new cases
+
+    ```{r}
+    plot( new_cases ~ date, erie, log = "y", main = "New Cases, Erie County" )
+    ```
+    
+- Help: `?plot.formula`
+
+Summary: calculate maximum (total) number of cases per county in New York state
+
+- For Erie county, let's see how to calculate the maximum (total) number of cases
+
+    ```{r}
+    max(erie$cases)        # one way...
+    with(erie, max(cases)) # ... another
+    ```
+
+- Subset US data to New York state
+
+    ```{r}
+    ny_state <- subset(us, state == "New York")
+    ```
+
+- Summarize each county in the state using `aggregate()`.
+
+  - First argument: summarize `cases` grouped by `county` -- `cases ~ county`
+  
+  - Second argument: data source -- `ny_state`
+  
+  - Third argument: function to apply to each subset -- `max`
+
+    ```{r}
+    max_cases_by_county <- aggregate( cases ~ county, ny_state, max)
+    head(max_cases_by_county)
+    ```
+
+- `subset()` to select counties
+
+    ```{r}
+    subset(
+        max_cases_by_county,
+        county %in% c("New York City", "Westchester", "Erie")
+    )
+    ```
+
+Summary: calculate maximum (total) number of cases per state
+
+- Use entire data set, `us`
+
+- `aggregate()` cases by county _and_ state -- `cases ~ county + state`
+
+    ```{r}
+    max_cases_by_county_state <-
+        aggregate( cases ~ county + state, us, max )
+    dim(max_cases_by_county_state)
+    head(max_cases_by_county_state)
+    ```
+
+- `aggregate()` a second time, using `max_cases_by_county_state` and aggregtaing by state 
+
+    ```{r}
+    max_cases_by_state <-
+        aggregate( cases ~ state, max_cases_by_county_state, max )
+    ```
+
+- Explore the data
+    
+    ```{r}
+    head(max_cases_by_state)
+    subset(
+        max_cases_by_state,
+        state %in% c("California", "Illinois", "New York", "Washington")
+    )
+    ```
 
 ## Day 12 (Friday) Zoom check-in
 
-## Day 13
+## Day 13:
 
 ## Day 14
 
