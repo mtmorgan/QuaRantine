@@ -836,17 +836,215 @@ Other fun topics
 
 ### Weekend activities (25 minutes; Shawn)
 
-Writing _R_ scripts
+#### Writing _R_ scripts {-}
 
-Saving data
+_R_ scripts are convenient text files that we can use to save one or more lines of _R_ syntax. Over the weekend you will get some experience working with _R_ scripts.  The example below will help you be a bit more prepared. 
 
-#### R Scripts {-}
+- In RStudio, click `File --> New File --> R Script` to create a new script file and open it in the editor.
+
+If you've followed the daily coding activities throughout the week, you should have some R code that keeps track of your daily activities.
+
+- If so, enter that code into your _R_ script now.
+
+- Otherwise, feel free to use the code below. Look for a `copy to clipboard` icon in the top-right of the code block. To copy the code block to your _R_ script:
+  - Click on the `copy to clipboard` icon 
+  - Place your cursor in your _R_ script 
+  - Click `Edit --> Paste`:
+
+```{r eval=FALSE}
+# ====================================================================
+# day 1 information 
+# ====================================================================
+day1_activity = c("breakfast", 
+                  "check e-mail", 
+                  "projects",
+                  "conference call", 
+                  "teams meeting", 
+                  "lunch", 
+                  "conference call", 
+                  "webinar")
+n = length(day1_activity)
+day1_is_work = c(FALSE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)
+day1_minutes = c(30, 75, 120, 30, 60, 30, 60, 120)
+day1_total_hours = sum(day1_minutes) / 60
+day1_work_hours = sum(day1_minutes[day1_is_work == TRUE]) / 60
+cat("Total time recorded for day 1 : ", day1_total_hours,  
+    "hours, over", n, "activities\n")
+cat("Total time working  for day 1 : ", day1_work_hours, "hours \n\n")
+```
+
+Recall the discussion of factors and levels in Day 3; the code below leverages this but adds another level named `independent work`.
+
+- If you've already got code to assign factors and levels to your daily activity, enter that code into your _R_ script now.
+
+- Otherwise, feel free to use the code below via the `copy to clipboard` procedure outlined above:
+
+```{r eval=FALSE}
+# ====================================================================
+# Kelly, Morgan, and Matott's classification strategy
+# ====================================================================
+kmm_levels = c("connect", 
+              "exercise", 
+              "consult", 
+              "hobby", 
+              "essential",
+              "independent work")
+# manually map day 1 activity to appropriate kmm_levels
+day1_classes = factor(
+    c("essential", "connect", "independent work",
+      "connect", "connect",  "essential", 
+      "connect", "consult"), levels = kmm_levels)
+```
+
+<hr>
+<i>[OPTIONAL ADVANCED MATERIAL]</i>
+
+Earlier today Dr. Morgan touched on named vectors. We can leverage named vectors to create a more general mapping between activities and levels. The code for this is given below. Try it and compare the result to your manual mapping!
+
+```{r eval=FALSE}
+# kmm_map is a named vector that maps activities to categories
+kmm_map = c("breakfast"       = "essential", 
+            "check e-mail"    = "connect", 
+            "projects"        = "independent work",
+            "requests"        = "independent work",
+            "conference call" = "connect",
+            "teams meeting"   = "connect", 
+            "lunch"           = "essential", 
+            "webinar"         = "consult",
+            "walk"            = "exercise")
+day1_classes = factor(kmm_map[day1_activity], levels = kmm_levels)
+```
+<hr>
+
+On day 3 you also got some experience working with dates. The code below stamps our day 1 activity data with an appropriately formatted date.
+
+- If you've already got code to assign dates your daily activity, enter that code into your R script now.
+
+- Otherwise, feel free to use the code below via the `copy to clipboard` procedure outlined above:
+
+```{r eval=FALSE}
+# ====================================================================
+# Assign dates
+# ====================================================================
+day1_dates = rep("04-13-2020",length(day1_activity))
+day1_dates = as.Date(day1_dates,format = "%m-%d-%Y")
+```
+
+#### Saving _R_ scripts {-}
+
+If you've been following along you should now have an _R_ script that contains a bunch of code for keeping track of your daily activity log. Let's save this file: 
+
+- In RStudio, place your cursor anywhere in the script file 
+- click `File --> Save` (or press `CTRL+S`)
+  - Name your file something like `daily_activity.R`.
+  
+#### Running _R_ scripts {-}
+
+Now that we've created an _R_ script you may be wondering "How do I run the code in the script?" There's actually a few ways to do this:
+
+Option #1 (Run)
+
+- <mark>Highlight</mark> the first block of the code (e.g the part where you recorded day 1 activity and maybe calculated amount of time worked). 
+- Click the `--> Run` icon in the top-right portion of the script editor window. 
+  - This will run the highlighted block of code. The output will appear in the RStudio console window along with an echo of the code itself.
+  
+Option #2 (Source)
+
+- Click on the `--> Source` icon just to the right of the `--> Run` icon.
+  - This will run the entire script. Apart from a single `source()` command, only the output generated by `print()` and `cat()` will appear in the RStudio console (i.e. the code in the script is not echoed to the console).
+  
+Option #3 (Source with Echo)
+
+- Click on the downward pointing arrowhead next to the source buton to open a dropdown menu
+- In the dropdown menu, sectect `Source with Echo`
+  - This will run the entire script and the code in the script will be echoed to the RStudio console along with any output generated by `print()` and `cat()`. 
+  - The echoed source and the normal output are not color-coded like they are when using the `--> Run` button.
+
+#### Saving data {-}
+
+It can be useful to save objects created in an _R_ script as a data file. These data files can be loaded or re-loaded into a new or existing _R_ session. 
+
+For example, let's suppose you had an _R_ script that mined a trove of Twitter feeds for sentiment data related to government responses to COVID-19. Suppose you ran the script for serveral weeks and collected lot's of valuable data into a bunch of vectors. Even though the _R_ code is saved as a script file, the data that the script is collecting would be lost once script stops running. Furthermore, due to the temporal nature of Twitter feeds, you wouldn't be able to collect the same data by simply re-running the script. Luckily, _R_ provides several routines for saving and loading objects. Placing the appropriate code in your _R_ script will ensure that your data is preserved even after the script stops running.
+
+#### Saving individual _R_ ojbects {-}
+
+_R_ supports storing a single _R_ object as an `.rds` file. For example, the code below saves the `day1_activity` vector to an `.rds` file. The `saveRDS()` function is the workhorse in this case and the `setwd()`, `getwd()`, and `paste()` commands allow us to conveniently specify a name and location for the data file:
+
+```{r eval=FALSE}
+# ====================================================================
+# creating .rds data files (for saving individual objects)
+# ====================================================================
+setwd("C:/Matott/MyQuarantine")
+my_rds_file = paste(getwd(),"day1_activity.rds",sep="/")
+print(my_rds_file)
+saveRDS(day1_activity, my_rds_file)
+```
+
+#### Loading individual _R_ ojbects {-}
+
+The complement to the `saveRDS()` function is the `readRDS()` function. It loads the _R_ object stored in the specified file. In the example below a data file is loaded and stored as an object named `day1_activity_loaded`. Compare this object to the existing `day1_activity` object - they should be the same!
+
+```{r eval=FALSE}
+# ====================================================================
+# Reading .rds data files (for loading individual objects)
+# ====================================================================
+setwd("C:/Matott/MyQuarantine")
+my_rds_file = paste(getwd(),"day1_activity.rds",sep="/")
+print(my_rds_file)
+day1_activity_loaded = readRDS(my_rds_file) # now load from disk
+```
+#### Saving multiple _R_ ojbects {-}
+
+The `save()` function will save one or more objects into a `.Rdata` file (these are also known as `session` files). The example below saves various `day1` and related factor-level objects to an `.Rdata` file.
+
+```{R eval=FALSE}
+# ====================================================================
+# creating .RData files (for saving multiple objects)
+# ====================================================================
+setwd("C:/Matott/MyQuarantine")
+my_rdata_file = paste(getwd(),"day1.rdata",sep="/")
+save(kmm_levels, kmm_map,
+     day1_activity, day1_classes, day1_dates, day1_is_work, 
+     day1_minutes, day1_total_hours, day1_work_hours, 
+     file = my_rdata_file)
+```
+
+If you have many objects that you want to save, listing them all can be tedious. Fortunately, the `ls()` command provides a list of <i>all</i> objects in the current _R_ session. The results of `ls()` can be passed along to the `save()` command and this will result in all objects being saved. An example of the required syntax is given below.
+
+```{R eval=FALSE}
+setwd("C:/Matott/MyQuarantine")
+my_rdata_file = paste(getwd(),"day1.rdata",sep="/")
+save(list = ls(), file = my_rdata_file)
+```
+
+#### Loading multiple _R_ ojbects {-}
+
+The complement to the `save()` function is the `load()` function. This will load all objects stored in an `.Rdata` file into the current _R_ session. Example syntax is given below:
+
+```{r eval=FALSE}
+# ====================================================================
+# Reading .RData files (for loading multiple objects)
+# ====================================================================
+setwd("C:/Matott/MyQuarantine")
+my_rdata_file = paste(getwd(),"daily_activity.rdata",sep="/")
+load(my_rdata_file) # reload
+```
+
+It is also possible to load an `.Rdata` file using the RStudio interface.
+
+- Click `Session --> Load Workspace ...`
+- A file browser dialog will open 
+- Navigate to the .rdata file and select  
+
+#### Wrapping up day 5 {-}
+
+Today we reviewed the concepts that you worked with throughout the week during your independent activity. We also troubleshooted any problems or questions that may have come up during this time. Finally, we previewed the creation and use of _R_ scripts and learned about saving and loading objects. Over the weekend you will gain some more experience with these topics.
 
 ## Day 6: _R_ scripts
 
 Some of you may have already started saving your R commands as script files. As the material gets more complicated (and more interesting) everyone will want to start doing this. Here is an example to get you started:
 
-- In RStudio, click "File --> New File --> R Script" to create a new script file and open it in the editor
+- Recall that we can create a script file in RStudio, click "File --> New File --> R Script" to create a new script file and open it in the editor
 
 ```{r echo = FALSE, fig.align="center", out.width="60%"}
 knitr::include_graphics('images/rstudio_new_rscript_file.png')
