@@ -700,48 +700,48 @@ toupper(activity)
 
 ### Review and trouble shoot (25 minutes; Martin)
 
-Data representations
+#### Data representations {-}
 
-- 'Atomic' vectors
+'Atomic' vectors
 
-    ```{r}
-    activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
-    minutes <- c(20, 30, 60, 60, 60)
-    is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
-    ```
+```{r}
+activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+minutes <- c(20, 30, 60, 60, 60)
+is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+```
 
-- `factor()` and `date()`
+`factor()` and `date()`
 
-    ```{r}
-    levels <- c("connect", "exercise", "consult", "hobby", "essential")
-    classification <- factor(
-        c("connect", "essential", "connect", "consult", "exercise"),
-        levels = levels
-    )
+```{r}
+levels <- c("connect", "exercise", "consult", "hobby", "essential")
+classification <- factor(
+    c("connect", "essential", "connect", "consult", "exercise"),
+    levels = levels
+)
 
-    dates <- rep("04-14-2020", length(activity))
-    date <- as.Date(dates, format = "%m-%d-%Y")
-    ```
+dates <- rep("04-14-2020", length(activity))
+date <- as.Date(dates, format = "%m-%d-%Y")
+```
 
-- missing values
+Missing values
 
-    ```{r}
-    x <- c(1, 3, NA, 5)
-    sum(x)
-    sum(x, na.rm = TRUE)
+```{r}
+x <- c(1, 3, NA, 5)
+sum(x)
+sum(x, na.rm = TRUE)
 
-    factor(c("connect", "disconnect"), levels = levels)
-    ```
+factor(c("connect", "disconnect"), levels = levels)
+```
 
-- functions and logical operators
+Functions and logical operators
 
-    ```{r}
-    x <- c(1, 3, NA, 5)
-    sum(x)
-    sum(x, na.rm = TRUE)
+```{r}
+x <- c(1, 3, NA, 5)
+sum(x)
+sum(x, na.rm = TRUE)
 
-    minutes >= 60
-    ```
+minutes >= 60
+```
 
 Subsetting vectors
 
@@ -772,18 +772,20 @@ Subsetting vectors
     activity[short]
     ```
 
-Other fun topics
+#### Other fun topics {-}
 
-- `%in%`: a _binary operator_ -- is each of the vector elements on the left-hand side _in_ the set of elements on the right hand side
+`%in%`: a _binary operator_
+
+- is each of the vector elements on the left-hand side _in_ the set of elements on the right hand side
 
     ```{r}
     fruits <- c("banana", "apple", "grape", "orange", "kiwi")
     c("apple", "orange", "hand sanitizer") %in% fruits
     ```
 
-- _named_ vectors (see [Annual Estimates...][fun:1] table from [census.gov][fun:2])
+_named_ vectors (see [Annual Estimates...][fun:1] table from [census.gov][fun:2])
 
-  Define a named vector
+- Define a named vector
 
     ```{r}
     state_populations <- c(
@@ -805,7 +807,7 @@ Other fun topics
     )
     ```
 
-  Computations
+- Computations on named vectors
 
     ```{r}
     ## US population
@@ -823,7 +825,7 @@ Other fun topics
     names(big)
     ```
 
-  Subset by name
+- Subset by name
 
     ```{r}
     ## populations of California and New York
@@ -852,9 +854,9 @@ If you've followed the daily coding activities throughout the week, you should h
   - Click `Edit --> Paste`:
 
 ```{r eval=FALSE}
-# ====================================================================
-# day 1 information 
-# ====================================================================
+## ====================================================================
+## day 1 information 
+## ====================================================================
 day1_activity = c("breakfast", 
                   "check e-mail", 
                   "projects",
@@ -863,11 +865,13 @@ day1_activity = c("breakfast",
                   "lunch", 
                   "conference call", 
                   "webinar")
-n = length(day1_activity)
 day1_is_work = c(FALSE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)
 day1_minutes = c(30, 75, 120, 30, 60, 30, 60, 120)
+
+n = length(day1_activity)
 day1_total_hours = sum(day1_minutes) / 60
 day1_work_hours = sum(day1_minutes[day1_is_work == TRUE]) / 60
+
 cat("Total time recorded for day 1 : ", day1_total_hours,  
     "hours, over", n, "activities\n")
 cat("Total time working  for day 1 : ", day1_work_hours, "hours \n\n")
@@ -880,29 +884,44 @@ Recall the discussion of factors and levels in Day 3; the code below leverages t
 - Otherwise, feel free to use the code below via the `copy to clipboard` procedure outlined above:
 
 ```{r eval=FALSE}
-# ====================================================================
-# Kelly, Morgan, and Matott's classification strategy
-# ====================================================================
+## ====================================================================
+## Kelly, Morgan, and Matott's classification strategy
+## ====================================================================
 kmm_levels = c("connect", 
               "exercise", 
               "consult", 
               "hobby", 
               "essential",
               "independent work")
-# manually map day 1 activity to appropriate kmm_levels
+## manually map day 1 activity to appropriate kmm_levels
 day1_classes = factor(
     c("essential", "connect", "independent work",
       "connect", "connect",  "essential", 
-      "connect", "consult"), levels = kmm_levels)
+      "connect", "consult"),
+    levels = kmm_levels
+)
 ```
 
-<hr>
-<i>[OPTIONAL ADVANCED MATERIAL]</i>
+On day 3 you also got some experience working with dates. The code below stamps our day 1 activity data with an appropriately formatted date.
+
+- If you've already got code to assign dates your daily activity, enter that code into your R script now.
+
+- Otherwise, feel free to use the code below via the `copy to clipboard` procedure outlined above:
+
+```{r eval=FALSE}
+## ====================================================================
+## Assign dates
+## ====================================================================
+day1_dates = rep("04-13-2020",length(day1_activity))
+day1_dates = as.Date(day1_dates,format = "%m-%d-%Y")
+```
+
+#### [OPTIONAL ADVANCED MATERIAL] {-}
 
 Earlier today Dr. Morgan touched on named vectors. We can leverage named vectors to create a more general mapping between activities and levels. The code for this is given below. Try it and compare the result to your manual mapping!
 
 ```{r eval=FALSE}
-# kmm_map is a named vector that maps activities to categories
+## kmm_map is a named vector that maps activities to categories
 kmm_map = c("breakfast"       = "essential", 
             "check e-mail"    = "connect", 
             "projects"        = "independent work",
@@ -913,21 +932,6 @@ kmm_map = c("breakfast"       = "essential",
             "webinar"         = "consult",
             "walk"            = "exercise")
 day1_classes = factor(kmm_map[day1_activity], levels = kmm_levels)
-```
-<hr>
-
-On day 3 you also got some experience working with dates. The code below stamps our day 1 activity data with an appropriately formatted date.
-
-- If you've already got code to assign dates your daily activity, enter that code into your R script now.
-
-- Otherwise, feel free to use the code below via the `copy to clipboard` procedure outlined above:
-
-```{r eval=FALSE}
-# ====================================================================
-# Assign dates
-# ====================================================================
-day1_dates = rep("04-13-2020",length(day1_activity))
-day1_dates = as.Date(day1_dates,format = "%m-%d-%Y")
 ```
 
 #### Saving _R_ scripts {-}
@@ -951,14 +955,27 @@ Option #1 (Run)
 Option #2 (Source)
 
 - Click on the `--> Source` icon just to the right of the `--> Run` icon.
-  - This will run the entire script. Apart from a single `source()` command, only the output generated by `print()` and `cat()` will appear in the RStudio console (i.e. the code in the script is not echoed to the console).
+- This will run the entire script. 
+- Equivalent to entering into the console
+
+    ```{r, eval = FALSE}
+    source("daily_activity.R")
+    ```
+
+- Only the output generated by `print()` and `cat()` will appear in the RStudio console (i.e. the code in the script is not echoed to the console).
   
 Option #3 (Source with Echo)
 
 - Click on the downward pointing arrowhead next to the source buton to open a dropdown menu
 - In the dropdown menu, sectect `Source with Echo`
-  - This will run the entire script and the code in the script will be echoed to the RStudio console along with any output generated by `print()` and `cat()`. 
-  - The echoed source and the normal output are not color-coded like they are when using the `--> Run` button.
+- This will run the entire script and the code in the script will be echoed to the RStudio console along with any output generated by `print()` and `cat()`.
+- The echoed source and the normal output are not color-coded like they are when using the `--> Run` button.
+- Equivalent to running
+
+
+    ```{r, eval = FALSE}
+    source("daily_activity.R", echo = TRUE, max = Inf)
+    ```
 
 #### Saving data {-}
 
@@ -966,43 +983,43 @@ It can be useful to save objects created in an _R_ script as a data file. These 
 
 For example, let's suppose you had an _R_ script that mined a trove of Twitter feeds for sentiment data related to government responses to COVID-19. Suppose you ran the script for serveral weeks and collected lot's of valuable data into a bunch of vectors. Even though the _R_ code is saved as a script file, the data that the script is collecting would be lost once script stops running. Furthermore, due to the temporal nature of Twitter feeds, you wouldn't be able to collect the same data by simply re-running the script. Luckily, _R_ provides several routines for saving and loading objects. Placing the appropriate code in your _R_ script will ensure that your data is preserved even after the script stops running.
 
-#### Saving individual _R_ ojbects {-}
+#### Saving individual _R_ objects {-}
 
-_R_ supports storing a single _R_ object as an `.rds` file. For example, the code below saves the `day1_activity` vector to an `.rds` file. The `saveRDS()` function is the workhorse in this case and the `setwd()`, `getwd()`, and `paste()` commands allow us to conveniently specify a name and location for the data file:
+_R_ supports storing a single _R_ object as an `.rds` file. For example, the code below saves the `day1_activity` vector to an `.rds` file. The `saveRDS()` function is the workhorse in this case and the `setwd()`, `getwd()`, and `file.path()` commands allow us to conveniently specify a name and location for the data file:
 
 ```{r eval=FALSE}
-# ====================================================================
-# creating .rds data files (for saving individual objects)
-# ====================================================================
+## ====================================================================
+## creating .rds data files (for saving individual objects)
+## ====================================================================
 setwd("C:/Matott/MyQuarantine")
-my_rds_file = paste(getwd(),"day1_activity.rds",sep="/")
-print(my_rds_file)
+my_rds_file = file.path(getwd(), "day1_activity.rds")
+my_rds_file # print value -- sanity check
 saveRDS(day1_activity, my_rds_file)
 ```
 
-#### Loading individual _R_ ojbects {-}
+#### Loading individual _R_ objects {-}
 
 The complement to the `saveRDS()` function is the `readRDS()` function. It loads the _R_ object stored in the specified file. In the example below a data file is loaded and stored as an object named `day1_activity_loaded`. Compare this object to the existing `day1_activity` object - they should be the same!
 
 ```{r eval=FALSE}
-# ====================================================================
-# Reading .rds data files (for loading individual objects)
-# ====================================================================
+## ====================================================================
+## Reading .rds data files (for loading individual objects)
+## ====================================================================
 setwd("C:/Matott/MyQuarantine")
-my_rds_file = paste(getwd(),"day1_activity.rds",sep="/")
-print(my_rds_file)
+my_rds_file = file.path(getwd() ,"day1_activity.rds")
+my_rds_file
 day1_activity_loaded = readRDS(my_rds_file) # now load from disk
 ```
-#### Saving multiple _R_ ojbects {-}
+#### Saving multiple _R_ objects {-}
 
 The `save()` function will save one or more objects into a `.Rdata` file (these are also known as `session` files). The example below saves various `day1` and related factor-level objects to an `.Rdata` file.
 
 ```{R eval=FALSE}
-# ====================================================================
-# creating .RData files (for saving multiple objects)
-# ====================================================================
+## ====================================================================
+## creating .RData files (for saving multiple objects)
+## ====================================================================
 setwd("C:/Matott/MyQuarantine")
-my_rdata_file = paste(getwd(),"day1.rdata",sep="/")
+my_rdata_file = file.path(getwd(), "day1.rdata")
 save(kmm_levels, kmm_map,
      day1_activity, day1_classes, day1_dates, day1_is_work, 
      day1_minutes, day1_total_hours, day1_work_hours, 
@@ -1013,20 +1030,20 @@ If you have many objects that you want to save, listing them all can be tedious.
 
 ```{R eval=FALSE}
 setwd("C:/Matott/MyQuarantine")
-my_rdata_file = paste(getwd(),"day1.rdata",sep="/")
+my_rdata_file = file.path(getwd(), "day1.rdata")
 save(list = ls(), file = my_rdata_file)
 ```
 
-#### Loading multiple _R_ ojbects {-}
+#### Loading multiple _R_ objects {-}
 
 The complement to the `save()` function is the `load()` function. This will load all objects stored in an `.Rdata` file into the current _R_ session. Example syntax is given below:
 
 ```{r eval=FALSE}
-# ====================================================================
-# Reading .RData files (for loading multiple objects)
-# ====================================================================
+## ====================================================================
+## Reading .RData files (for loading multiple objects)
+## ====================================================================
 setwd("C:/Matott/MyQuarantine")
-my_rdata_file = paste(getwd(),"daily_activity.rdata",sep="/")
+my_rdata_file = file.path(getwd(), "daily_activity.rdata")
 load(my_rdata_file) # reload
 ```
 
