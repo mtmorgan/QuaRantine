@@ -2,6 +2,184 @@
 
 ## Day 8 (Monday) Zoom check-in
 
+### Review and troubleshoot (15 minutes) {-}
+
+### The data frame (40 minutes) {-}
+
+Concept
+
+Creation
+
+- Data from the second day of quarantine
+
+    ```{r}
+    activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+    minutes <- c(20, 30, 60, 60, 60)
+    is_work <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+    levels <- c("connect", "exercise", "consult", "hobby", "essential")
+    classification <- factor(
+        c("connect", "essential", "connect", "consult", "exercise"),
+        levels = levels
+    )
+
+    dates <- rep("04-14-2020", length(activity))
+    date <- as.Date(dates, format = "%m-%d-%Y")
+    ```
+
+- Represent as a `data.frame()`
+
+    ```{r}
+    activities <- data.frame(activity, minutes, is_work, classification, date)
+    activities
+    ```
+
+- Interogate for some basic properties, including `dim()`ensions (number of rows and columns)
+
+    ```{r}
+    class(activities)
+    dim(activities)
+    ```
+
+Column access
+
+- `$`
+- `[[`
+
+Updating or adding columns
+
+Subsetting with `[`
+
+- Subsetting rows
+- Subsetting columns
+- Subsetting rows and columns
+
+Subsetting based on column values
+
+- example
+
+    ```{r}
+    row_idx <- activities$minutes >= 60
+    activities[row_idx,]
+
+    ## same as, but more readable than, ...
+    activities[activities$minutes >= 60,]
+    ```
+
+Binding rows (and columns)
+
+- Activities, day 1
+
+    ```{r}
+    ## 'classification' factor levels
+    levels <- c("connect", "exercise", "consult", "hobby", "essential")
+
+    ## Quarantine log, day 1
+
+    activity_day_1 <-
+        c("check e-mail", "breakfast", "conference call", "webinar", "walk")
+    minutes_day_1 <- c(20, 30, 60, 60, 60)
+    is_work_day_1 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+    classification_day_1 <- factor(
+        c("connect", "essential", "connect", "consult", "exercise"),
+        levels = levels
+    )
+    date_day_1 <- as.Date(rep("04-14-2020", length(activity_day_1)), "%m-%d-%Y")
+
+    day1 <- data.frame(
+        activity = activity_day_1,
+        minutes = minutes_day_1,
+        is_work = is_work_day_1,
+        classification = classification_day_1,
+        date = date_day_1
+    )
+    ```
+
+- Activities, day 2
+
+    ```{r}
+    activity_day_2 <-
+        c("check e-mail", "breakfast", "conference call", "webinar", "read a book")
+    minutes_day_2 <- c(20, 30, 60, 60, 60)
+    is_work_day_2 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+    classification_day_2 <- factor(
+        c("connect", "essential", "connect", "consult", "hobby"),
+        levels = levels
+    )
+    date_day_2 <- as.Date(rep("04-15-2020", length(activity_day_2)), "%m-%d-%Y")
+
+    day2 <- data.frame(
+        activity = activity_day_2,
+        minutes = minutes_day_2,
+        is_work = is_work_day_2,
+        classification = classification_day_2,
+        date = date_day_2
+    )
+    ```
+
+- Activities, both days
+
+    ```{r}
+    quarantine_log <- rbind(day1, day2)
+    quarantine_log
+    ```
+
+Writing and reading
+
+- Exmaple: round-trip
+
+    ```{r}
+    file <- tempfile() # temporary file
+    ## file <- file.choose()
+    ## file <- "activities.csv"
+    ## file <- "/Users/ma38737/MyQuarantine/activities.csv"
+    write.csv(quarantine_log, file, row.names = FALSE)
+    read.csv(file)
+    ```
+
+_R_ and spreadsheets
+
+An alternative way of working with `data.frame()`
+
+- `with()`: column selection and computation
+- `within()`: update or add columns
+- `subset()`: row and column subset
+
+Summarization
+
+- Use `with()` to simplify variable reference
+- Create a new `data.frame()` containing the summary
+
+    ```{r}
+    with(quarantine_log, {
+        data.frame(
+            days_in_quarantine = length(unique(date)),
+            total_minutes = sum(minutes),
+            work_activities = sum(is_work),
+            other_activities = sum(!is_work)
+        )
+    })
+    ```
+
+Summarization by group
+
+- `aggregate()`
+
+    ```{r}
+    ## minutes per day spent on each activity, from the quarantine_log
+    aggregate(minutes ~ activity, quarantine_log, sum)
+
+    ## minutes per day spent on each clasasification
+    aggregate(minutes ~ classification, quarantine_log, sum)
+
+    ## non-work activities per day
+    aggregate(!is_work ~ date, quarantine_log, sum)
+    ```
+    
+### This week's activities (5 minutes)
+
+Goal: retrieve and summarize COVID 19 cases in Erie county and nationally
+
 ## Day 9: Creation and manipulation
 
 ### Creation {-}
@@ -38,7 +216,7 @@ Use `data.frame()` to construct an object containing each of these vectors
     )
     activities
     ```
-    
+
 - We can query the object we've created for its `class()`, `dim()`ensions, take a look at the `head()` or `tail()` of the object, etc. `names()` returns the column names.
 
     ```{r}
@@ -59,13 +237,13 @@ Use `[` to select rows and columns
     ```{r}
     activities[c(1, 3), c(1, 4)]
     ```
-    
+
 - Subset columns by name
 
     ```{r}
     activities[c(1, 3), c("activity", "is_work")]
     ```
-    
+
 - Subset only by row or only by column by omiting the subscript index for that dimension
 
     ```{r}
@@ -76,13 +254,13 @@ Use `[` to select rows and columns
 - Be careful when selecting a single column!
 
   - By default, _R_ returns a _vector_
-  
+
       ```{r}
       activities[, "classification"]
       ```
-  
+
   - Use `drop = FALSE` to return a `data.frame`
-  
+
       ```{r}
       activities[, "classification", drop = FALSE]
       ```
@@ -94,7 +272,7 @@ Use `$` or `[[` to select a column
     ```{r}
     activities$classification
     ```
-    
+
 - An alternative, often used in scripts, is to use `[[`, which requires the name of a variable provided as a character vector
 
     ```{r}
@@ -103,7 +281,7 @@ Use `$` or `[[` to select a column
     colname <- "classification"
     activities[[colname]]
     ```
-    
+
 Column selection and subsetting are often combined, e.g., to create a `data.frame` of  work-related activities, or work-related activities lasting 60 minutes or longer
 
 ```{r}
@@ -116,7 +294,7 @@ activities[row_idx,]
 
 ### Adding or updating columns {-}
 
-Use `$` or `[` or `[[` to add a new column, 
+Use `$` or `[` or `[[` to add a new column,
 
 ```{r}
 activities$is_long_work <- activities$is_work & (activities$minutes >= 60)
@@ -335,7 +513,7 @@ Setup
 - First argument: a _formula_ -- `cases ~ county`
 
   - Right-hand side: the variable to be used to subset (group) the data -- `county`
-  
+
   - Left-hand side: the variable to be used in the aggregation function -- `cases`
 
 - Second argument: source of data -- `ny_state`
@@ -457,7 +635,7 @@ Simple visualization
     ```{r}
     plot( new_cases ~ date, erie, log = "y", main = "New Cases, Erie County" )
     ```
-    
+
 - Help: `?plot.formula`
 
 Summary: calculate maximum (total) number of cases per county in New York state
@@ -478,9 +656,9 @@ Summary: calculate maximum (total) number of cases per county in New York state
 - Summarize each county in the state using `aggregate()`.
 
   - First argument: summarize `cases` grouped by `county` -- `cases ~ county`
-  
+
   - Second argument: data source -- `ny_state`
-  
+
   - Third argument: function to apply to each subset -- `max`
 
     ```{r}
@@ -510,7 +688,7 @@ Summary: calculate maximum (total) number of cases per state
     head(max_cases_by_county_state)
     ```
 
-- `aggregate()` a second time, using `max_cases_by_county_state` and aggregtaing by state 
+- `aggregate()` a second time, using `max_cases_by_county_state` and aggregtaing by state
 
     ```{r}
     max_cases_by_state <-
@@ -518,7 +696,7 @@ Summary: calculate maximum (total) number of cases per state
     ```
 
 - Explore the data
-    
+
     ```{r}
     head(max_cases_by_state)
     subset(
