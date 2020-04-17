@@ -5,23 +5,23 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Week 2 The data frame | 40 Days and 40 Nights</title>
-  <meta name="description" content="<p>An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse.</p>" />
+  <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Week 2 The data frame | 40 Days and 40 Nights" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse.</p>" />
+  <meta property="og:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Week 2 The data frame | 40 Days and 40 Nights" />
   
-  <meta name="twitter:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse.</p>" />
+  <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
   
 
 <meta name="author" content="Martin Morgan" />
@@ -73,7 +73,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -149,8 +149,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3" data-path="one.html"><a href="one.html#day-3-factor-date-and-na"><i class="fa fa-check"></i><b>1.3</b> Day 3: <code>factor()</code>, <code>Date()</code>, and <code>NA</code></a></li>
 <li class="chapter" data-level="1.4" data-path="one.html"><a href="one.html#day-4-working-with-variables"><i class="fa fa-check"></i><b>1.4</b> Day 4: Working with variables</a></li>
 <li class="chapter" data-level="1.5" data-path="one.html"><a href="one.html#day-5-friday-zoom-check-in"><i class="fa fa-check"></i><b>1.5</b> Day 5 (Friday) Zoom check-in</a><ul>
-<li class="chapter" data-level="1.5.1" data-path="one.html"><a href="one.html#review-and-trouble-shoot-25-minutes-martin"><i class="fa fa-check"></i><b>1.5.1</b> Review and trouble shoot (25 minutes; Martin)</a></li>
-<li class="chapter" data-level="1.5.2" data-path="one.html"><a href="one.html#weekend-activities-25-minutes-shawn"><i class="fa fa-check"></i><b>1.5.2</b> Weekend activities (25 minutes; Shawn)</a></li>
+<li class="chapter" data-level="1.5.1" data-path="one.html"><a href="one.html#logistics"><i class="fa fa-check"></i><b>1.5.1</b> Logistics</a></li>
+<li class="chapter" data-level="1.5.2" data-path="one.html"><a href="one.html#review-and-trouble-shoot-25-minutes-martin"><i class="fa fa-check"></i><b>1.5.2</b> Review and trouble shoot (25 minutes; Martin)</a></li>
+<li class="chapter" data-level="1.5.3" data-path="one.html"><a href="one.html#weekend-activities-25-minutes-shawn"><i class="fa fa-check"></i><b>1.5.3</b> Weekend activities (25 minutes; Shawn)</a></li>
 </ul></li>
 <li class="chapter" data-level="1.6" data-path="one.html"><a href="one.html#day-6-r-scripts"><i class="fa fa-check"></i><b>1.6</b> Day 6: <em>R</em> scripts</a></li>
 <li class="chapter" data-level="1.7" data-path="one.html"><a href="one.html#day-7-saving-data"><i class="fa fa-check"></i><b>1.7</b> Day 7: Saving data</a></li>
@@ -276,76 +277,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="create-a-simple-data-frame" class="section level4 unnumbered">
 <h4>Create a simple data frame</h4>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">heights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">72</span>, <span class="dv">65</span>, <span class="dv">68</span>)</a>
-<a class="sourceLine" id="cb110-2" title="2">weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">190</span>, <span class="dv">130</span>, <span class="dv">150</span>)</a>
-<a class="sourceLine" id="cb110-3" title="3">ages &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">35</span>, <span class="dv">37</span>)</a>
-<a class="sourceLine" id="cb110-4" title="4">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(heights, weights, ages)</a>
-<a class="sourceLine" id="cb110-5" title="5">df</a>
-<a class="sourceLine" id="cb110-6" title="6"><span class="co">##   heights weights ages</span></a>
-<a class="sourceLine" id="cb110-7" title="7"><span class="co">## 1      72     190   44</span></a>
-<a class="sourceLine" id="cb110-8" title="8"><span class="co">## 2      65     130   35</span></a>
-<a class="sourceLine" id="cb110-9" title="9"><span class="co">## 3      68     150   37</span></a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">heights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">72</span>, <span class="dv">65</span>, <span class="dv">68</span>)</a>
+<a class="sourceLine" id="cb110-2" data-line-number="2">weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">190</span>, <span class="dv">130</span>, <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb110-3" data-line-number="3">ages &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">35</span>, <span class="dv">37</span>)</a>
+<a class="sourceLine" id="cb110-4" data-line-number="4">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(heights, weights, ages)</a>
+<a class="sourceLine" id="cb110-5" data-line-number="5">df</a>
+<a class="sourceLine" id="cb110-6" data-line-number="6"><span class="co">##   heights weights ages</span></a>
+<a class="sourceLine" id="cb110-7" data-line-number="7"><span class="co">## 1      72     190   44</span></a>
+<a class="sourceLine" id="cb110-8" data-line-number="8"><span class="co">## 2      65     130   35</span></a>
+<a class="sourceLine" id="cb110-9" data-line-number="9"><span class="co">## 3      68     150   37</span></a></code></pre></div>
 </div>
 <div id="create-a-data-frame-with-row-and-column-names" class="section level4 unnumbered">
 <h4>Create a data frame with row and column names</h4>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">named_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(heights, weights, ages)</a>
-<a class="sourceLine" id="cb111-2" title="2"><span class="kw">colnames</span>(named_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;hgt_inches&quot;</span>, <span class="st">&quot;wgt_lbs&quot;</span>, <span class="st">&quot;age_years&quot;</span>)</a>
-<a class="sourceLine" id="cb111-3" title="3"><span class="kw">rownames</span>(named_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John Doe&quot;</span>, <span class="st">&quot;Pat Jones&quot;</span>, <span class="st">&quot;Sara Grant&quot;</span>)</a>
-<a class="sourceLine" id="cb111-4" title="4">named_df</a>
-<a class="sourceLine" id="cb111-5" title="5"><span class="co">##            hgt_inches wgt_lbs age_years</span></a>
-<a class="sourceLine" id="cb111-6" title="6"><span class="co">## John Doe           72     190        44</span></a>
-<a class="sourceLine" id="cb111-7" title="7"><span class="co">## Pat Jones          65     130        35</span></a>
-<a class="sourceLine" id="cb111-8" title="8"><span class="co">## Sara Grant         68     150        37</span></a></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">named_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(heights, weights, ages)</a>
+<a class="sourceLine" id="cb111-2" data-line-number="2"><span class="kw">colnames</span>(named_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;hgt_inches&quot;</span>, <span class="st">&quot;wgt_lbs&quot;</span>, <span class="st">&quot;age_years&quot;</span>)</a>
+<a class="sourceLine" id="cb111-3" data-line-number="3"><span class="kw">rownames</span>(named_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John Doe&quot;</span>, <span class="st">&quot;Pat Jones&quot;</span>, <span class="st">&quot;Sara Grant&quot;</span>)</a>
+<a class="sourceLine" id="cb111-4" data-line-number="4">named_df</a>
+<a class="sourceLine" id="cb111-5" data-line-number="5"><span class="co">##            hgt_inches wgt_lbs age_years</span></a>
+<a class="sourceLine" id="cb111-6" data-line-number="6"><span class="co">## John Doe           72     190        44</span></a>
+<a class="sourceLine" id="cb111-7" data-line-number="7"><span class="co">## Pat Jones          65     130        35</span></a>
+<a class="sourceLine" id="cb111-8" data-line-number="8"><span class="co">## Sara Grant         68     150        37</span></a></code></pre></div>
 </div>
 <div id="add-a-rowtuple" class="section level4">
 <h4><span class="header-section-number">2.1.0.1</span> Add a row/tuple</h4>
 <p>For now, use <code>rbind()</code>. Later you’ll learn about the more intuitive <code>add_row()</code> functionality of the <code>tidyverse</code> pacakge.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1">more_heights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">61</span>, <span class="dv">68</span>, <span class="dv">70</span>)</a>
-<a class="sourceLine" id="cb112-2" title="2">more_weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">101</span>, <span class="dv">134</span>, <span class="dv">175</span>)</a>
-<a class="sourceLine" id="cb112-3" title="3">more_ages &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">13</span>, <span class="dv">16</span>, <span class="dv">24</span>)</a>
-<a class="sourceLine" id="cb112-4" title="4">df_more &lt;-<span class="st"> </span><span class="kw">data.frame</span>(more_heights, more_weights, more_ages)</a>
-<a class="sourceLine" id="cb112-5" title="5"><span class="kw">colnames</span>(df_more) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;hgt_inches&quot;</span>, <span class="st">&quot;wgt_lbs&quot;</span>, <span class="st">&quot;age_years&quot;</span>)</a>
-<a class="sourceLine" id="cb112-6" title="6"><span class="kw">rownames</span>(df_more) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bob Kane&quot;</span>, <span class="st">&quot;Kari Patra&quot;</span>, <span class="st">&quot;Sam Groe&quot;</span>)</a>
-<a class="sourceLine" id="cb112-7" title="7"></a>
-<a class="sourceLine" id="cb112-8" title="8">named_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(named_df, df_more)</a>
-<a class="sourceLine" id="cb112-9" title="9">named_df</a>
-<a class="sourceLine" id="cb112-10" title="10"><span class="co">##            hgt_inches wgt_lbs age_years</span></a>
-<a class="sourceLine" id="cb112-11" title="11"><span class="co">## John Doe           72     190        44</span></a>
-<a class="sourceLine" id="cb112-12" title="12"><span class="co">## Pat Jones          65     130        35</span></a>
-<a class="sourceLine" id="cb112-13" title="13"><span class="co">## Sara Grant         68     150        37</span></a>
-<a class="sourceLine" id="cb112-14" title="14"><span class="co">## Bob Kane           61     101        13</span></a>
-<a class="sourceLine" id="cb112-15" title="15"><span class="co">## Kari Patra         68     134        16</span></a>
-<a class="sourceLine" id="cb112-16" title="16"><span class="co">## Sam Groe           70     175        24</span></a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1">more_heights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">61</span>, <span class="dv">68</span>, <span class="dv">70</span>)</a>
+<a class="sourceLine" id="cb112-2" data-line-number="2">more_weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">101</span>, <span class="dv">134</span>, <span class="dv">175</span>)</a>
+<a class="sourceLine" id="cb112-3" data-line-number="3">more_ages &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">13</span>, <span class="dv">16</span>, <span class="dv">24</span>)</a>
+<a class="sourceLine" id="cb112-4" data-line-number="4">df_more &lt;-<span class="st"> </span><span class="kw">data.frame</span>(more_heights, more_weights, more_ages)</a>
+<a class="sourceLine" id="cb112-5" data-line-number="5"><span class="kw">colnames</span>(df_more) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;hgt_inches&quot;</span>, <span class="st">&quot;wgt_lbs&quot;</span>, <span class="st">&quot;age_years&quot;</span>)</a>
+<a class="sourceLine" id="cb112-6" data-line-number="6"><span class="kw">rownames</span>(df_more) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bob Kane&quot;</span>, <span class="st">&quot;Kari Patra&quot;</span>, <span class="st">&quot;Sam Groe&quot;</span>)</a>
+<a class="sourceLine" id="cb112-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb112-8" data-line-number="8">named_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(named_df, df_more)</a>
+<a class="sourceLine" id="cb112-9" data-line-number="9">named_df</a>
+<a class="sourceLine" id="cb112-10" data-line-number="10"><span class="co">##            hgt_inches wgt_lbs age_years</span></a>
+<a class="sourceLine" id="cb112-11" data-line-number="11"><span class="co">## John Doe           72     190        44</span></a>
+<a class="sourceLine" id="cb112-12" data-line-number="12"><span class="co">## Pat Jones          65     130        35</span></a>
+<a class="sourceLine" id="cb112-13" data-line-number="13"><span class="co">## Sara Grant         68     150        37</span></a>
+<a class="sourceLine" id="cb112-14" data-line-number="14"><span class="co">## Bob Kane           61     101        13</span></a>
+<a class="sourceLine" id="cb112-15" data-line-number="15"><span class="co">## Kari Patra         68     134        16</span></a>
+<a class="sourceLine" id="cb112-16" data-line-number="16"><span class="co">## Sam Groe           70     175        24</span></a></code></pre></div>
 </div>
 <div id="delete-a-rowtuple" class="section level4">
 <h4><span class="header-section-number">2.1.0.2</span> Delete a row/tuple</h4>
 <p>Row deletion using row names is a little tricky ….</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="co"># suppose the study has some dropouts ....</span></a>
-<a class="sourceLine" id="cb113-2" title="2">dropouts =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bob Kane&quot;</span>, <span class="st">&quot;John Doe&quot;</span>)</a>
-<a class="sourceLine" id="cb113-3" title="3"></a>
-<a class="sourceLine" id="cb113-4" title="4">named_df &lt;-<span class="st"> </span>named_df[<span class="op">!</span><span class="st"> </span><span class="kw">rownames</span>(named_df) <span class="op">%in%</span><span class="st"> </span>dropouts, ]</a>
-<a class="sourceLine" id="cb113-5" title="5"></a>
-<a class="sourceLine" id="cb113-6" title="6">named_df</a>
-<a class="sourceLine" id="cb113-7" title="7"><span class="co">##            hgt_inches wgt_lbs age_years</span></a>
-<a class="sourceLine" id="cb113-8" title="8"><span class="co">## Pat Jones          65     130        35</span></a>
-<a class="sourceLine" id="cb113-9" title="9"><span class="co">## Sara Grant         68     150        37</span></a>
-<a class="sourceLine" id="cb113-10" title="10"><span class="co">## Kari Patra         68     134        16</span></a>
-<a class="sourceLine" id="cb113-11" title="11"><span class="co">## Sam Groe           70     175        24</span></a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="co"># suppose the study has some dropouts ....</span></a>
+<a class="sourceLine" id="cb113-2" data-line-number="2">dropouts =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bob Kane&quot;</span>, <span class="st">&quot;John Doe&quot;</span>)</a>
+<a class="sourceLine" id="cb113-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb113-4" data-line-number="4">named_df &lt;-<span class="st"> </span>named_df[<span class="op">!</span><span class="st"> </span><span class="kw">rownames</span>(named_df) <span class="op">%in%</span><span class="st"> </span>dropouts, ]</a>
+<a class="sourceLine" id="cb113-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb113-6" data-line-number="6">named_df</a>
+<a class="sourceLine" id="cb113-7" data-line-number="7"><span class="co">##            hgt_inches wgt_lbs age_years</span></a>
+<a class="sourceLine" id="cb113-8" data-line-number="8"><span class="co">## Pat Jones          65     130        35</span></a>
+<a class="sourceLine" id="cb113-9" data-line-number="9"><span class="co">## Sara Grant         68     150        37</span></a>
+<a class="sourceLine" id="cb113-10" data-line-number="10"><span class="co">## Kari Patra         68     134        16</span></a>
+<a class="sourceLine" id="cb113-11" data-line-number="11"><span class="co">## Sam Groe           70     175        24</span></a></code></pre></div>
 <p>Row deletion using row indices is more straightforawrd. Just use negative subsetting ….</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1"><span class="co"># suppose the study has some dropouts ....</span></a>
-<a class="sourceLine" id="cb114-2" title="2">dropouts =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb114-3" title="3"></a>
-<a class="sourceLine" id="cb114-4" title="4">df <span class="co"># referesh my memory about df contents ....</span></a>
-<a class="sourceLine" id="cb114-5" title="5"><span class="co">##   heights weights ages</span></a>
-<a class="sourceLine" id="cb114-6" title="6"><span class="co">## 1      72     190   44</span></a>
-<a class="sourceLine" id="cb114-7" title="7"><span class="co">## 2      65     130   35</span></a>
-<a class="sourceLine" id="cb114-8" title="8"><span class="co">## 3      68     150   37</span></a>
-<a class="sourceLine" id="cb114-9" title="9"></a>
-<a class="sourceLine" id="cb114-10" title="10">df &lt;-<span class="st"> </span>df[<span class="op">-</span>dropouts, ]</a>
-<a class="sourceLine" id="cb114-11" title="11"></a>
-<a class="sourceLine" id="cb114-12" title="12">df <span class="co"># items 2 and 3 are dropped!</span></a>
-<a class="sourceLine" id="cb114-13" title="13"><span class="co">##   heights weights ages</span></a>
-<a class="sourceLine" id="cb114-14" title="14"><span class="co">## 1      72     190   44</span></a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="co"># suppose the study has some dropouts ....</span></a>
+<a class="sourceLine" id="cb114-2" data-line-number="2">dropouts =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb114-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb114-4" data-line-number="4">df <span class="co"># referesh my memory about df contents ....</span></a>
+<a class="sourceLine" id="cb114-5" data-line-number="5"><span class="co">##   heights weights ages</span></a>
+<a class="sourceLine" id="cb114-6" data-line-number="6"><span class="co">## 1      72     190   44</span></a>
+<a class="sourceLine" id="cb114-7" data-line-number="7"><span class="co">## 2      65     130   35</span></a>
+<a class="sourceLine" id="cb114-8" data-line-number="8"><span class="co">## 3      68     150   37</span></a>
+<a class="sourceLine" id="cb114-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb114-10" data-line-number="10">df &lt;-<span class="st"> </span>df[<span class="op">-</span>dropouts, ]</a>
+<a class="sourceLine" id="cb114-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb114-12" data-line-number="12">df <span class="co"># items 2 and 3 are dropped!</span></a>
+<a class="sourceLine" id="cb114-13" data-line-number="13"><span class="co">##   heights weights ages</span></a>
+<a class="sourceLine" id="cb114-14" data-line-number="14"><span class="co">## 1      72     190   44</span></a></code></pre></div>
 </div>
 <div id="some-useful-data-frame-operations" class="section level4">
 <h4><span class="header-section-number">2.1.0.3</span> Some useful data frame operations</h4>
@@ -363,32 +364,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Creation</p>
 <ul>
 <li><p>Data from the second day of quarantine</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
-<a class="sourceLine" id="cb115-2" title="2">minutes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb115-3" title="3">is_work &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb115-4" title="4"></a>
-<a class="sourceLine" id="cb115-5" title="5">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
-<a class="sourceLine" id="cb115-6" title="6">classification &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
-<a class="sourceLine" id="cb115-7" title="7">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
-<a class="sourceLine" id="cb115-8" title="8">    <span class="dt">levels =</span> levels</a>
-<a class="sourceLine" id="cb115-9" title="9">)</a>
-<a class="sourceLine" id="cb115-10" title="10"></a>
-<a class="sourceLine" id="cb115-11" title="11">dates &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity))</a>
-<a class="sourceLine" id="cb115-12" title="12">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(dates, <span class="dt">format =</span> <span class="st">&quot;%m-%d-%Y&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1">activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
+<a class="sourceLine" id="cb115-2" data-line-number="2">minutes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb115-3" data-line-number="3">is_work &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb115-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb115-5" data-line-number="5">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
+<a class="sourceLine" id="cb115-6" data-line-number="6">classification &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb115-7" data-line-number="7">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
+<a class="sourceLine" id="cb115-8" data-line-number="8">    <span class="dt">levels =</span> levels</a>
+<a class="sourceLine" id="cb115-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb115-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb115-11" data-line-number="11">dates &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity))</a>
+<a class="sourceLine" id="cb115-12" data-line-number="12">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(dates, <span class="dt">format =</span> <span class="st">&quot;%m-%d-%Y&quot;</span>)</a></code></pre></div></li>
 <li><p>Represent as a <code>data.frame()</code></p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1">activities &lt;-<span class="st"> </span><span class="kw">data.frame</span>(activity, minutes, is_work, classification, date)</a>
-<a class="sourceLine" id="cb116-2" title="2">activities</a>
-<a class="sourceLine" id="cb116-3" title="3"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb116-4" title="4"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb116-5" title="5"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14</span></a>
-<a class="sourceLine" id="cb116-6" title="6"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb116-7" title="7"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
-<a class="sourceLine" id="cb116-8" title="8"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1">activities &lt;-<span class="st"> </span><span class="kw">data.frame</span>(activity, minutes, is_work, classification, date)</a>
+<a class="sourceLine" id="cb116-2" data-line-number="2">activities</a>
+<a class="sourceLine" id="cb116-3" data-line-number="3"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb116-4" data-line-number="4"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb116-5" data-line-number="5"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14</span></a>
+<a class="sourceLine" id="cb116-6" data-line-number="6"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb116-7" data-line-number="7"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
+<a class="sourceLine" id="cb116-8" data-line-number="8"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a></code></pre></div></li>
 <li><p>Interogate for some basic properties, including <code>dim()</code>ensions (number of rows and columns)</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="kw">class</span>(activities)</a>
-<a class="sourceLine" id="cb117-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
-<a class="sourceLine" id="cb117-3" title="3"><span class="kw">dim</span>(activities)</a>
-<a class="sourceLine" id="cb117-4" title="4"><span class="co">## [1] 5 5</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="kw">class</span>(activities)</a>
+<a class="sourceLine" id="cb117-2" data-line-number="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
+<a class="sourceLine" id="cb117-3" data-line-number="3"><span class="kw">dim</span>(activities)</a>
+<a class="sourceLine" id="cb117-4" data-line-number="4"><span class="co">## [1] 5 5</span></a></code></pre></div></li>
 </ul>
 <p>Column access</p>
 <ul>
@@ -405,98 +406,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Subsetting based on column values</p>
 <ul>
 <li><p>example</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1">row_idx &lt;-<span class="st"> </span>activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span></a>
-<a class="sourceLine" id="cb118-2" title="2">activities[row_idx,]</a>
-<a class="sourceLine" id="cb118-3" title="3"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb118-4" title="4"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb118-5" title="5"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
-<a class="sourceLine" id="cb118-6" title="6"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a>
-<a class="sourceLine" id="cb118-7" title="7"></a>
-<a class="sourceLine" id="cb118-8" title="8"><span class="co">## same as, but more readable than, ...</span></a>
-<a class="sourceLine" id="cb118-9" title="9">activities[activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,]</a>
-<a class="sourceLine" id="cb118-10" title="10"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb118-11" title="11"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb118-12" title="12"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
-<a class="sourceLine" id="cb118-13" title="13"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1">row_idx &lt;-<span class="st"> </span>activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span></a>
+<a class="sourceLine" id="cb118-2" data-line-number="2">activities[row_idx,]</a>
+<a class="sourceLine" id="cb118-3" data-line-number="3"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb118-4" data-line-number="4"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb118-5" data-line-number="5"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
+<a class="sourceLine" id="cb118-6" data-line-number="6"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a>
+<a class="sourceLine" id="cb118-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb118-8" data-line-number="8"><span class="co">## same as, but more readable than, ...</span></a>
+<a class="sourceLine" id="cb118-9" data-line-number="9">activities[activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,]</a>
+<a class="sourceLine" id="cb118-10" data-line-number="10"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb118-11" data-line-number="11"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb118-12" data-line-number="12"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
+<a class="sourceLine" id="cb118-13" data-line-number="13"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a></code></pre></div></li>
 </ul>
 <p>Binding rows (and columns)</p>
 <ul>
 <li><p>Activities, day 1</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="co">## &#39;classification&#39; factor levels</span></a>
-<a class="sourceLine" id="cb119-2" title="2">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
-<a class="sourceLine" id="cb119-3" title="3"></a>
-<a class="sourceLine" id="cb119-4" title="4"><span class="co">## Quarantine log, day 1</span></a>
-<a class="sourceLine" id="cb119-5" title="5"></a>
-<a class="sourceLine" id="cb119-6" title="6">activity_day_<span class="dv">1</span> &lt;-</a>
-<a class="sourceLine" id="cb119-7" title="7"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
-<a class="sourceLine" id="cb119-8" title="8">minutes_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb119-9" title="9">is_work_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb119-10" title="10">classification_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
-<a class="sourceLine" id="cb119-11" title="11">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
-<a class="sourceLine" id="cb119-12" title="12">    <span class="dt">levels =</span> levels</a>
-<a class="sourceLine" id="cb119-13" title="13">)</a>
-<a class="sourceLine" id="cb119-14" title="14">date_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity_day_<span class="dv">1</span>)), <span class="st">&quot;%m-%d-%Y&quot;</span>)</a>
-<a class="sourceLine" id="cb119-15" title="15"></a>
-<a class="sourceLine" id="cb119-16" title="16">day1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb119-17" title="17">    <span class="dt">activity =</span> activity_day_<span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb119-18" title="18">    <span class="dt">minutes =</span> minutes_day_<span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb119-19" title="19">    <span class="dt">is_work =</span> is_work_day_<span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb119-20" title="20">    <span class="dt">classification =</span> classification_day_<span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb119-21" title="21">    <span class="dt">date =</span> date_day_<span class="dv">1</span></a>
-<a class="sourceLine" id="cb119-22" title="22">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="co">## &#39;classification&#39; factor levels</span></a>
+<a class="sourceLine" id="cb119-2" data-line-number="2">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
+<a class="sourceLine" id="cb119-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb119-4" data-line-number="4"><span class="co">## Quarantine log, day 1</span></a>
+<a class="sourceLine" id="cb119-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb119-6" data-line-number="6">activity_day_<span class="dv">1</span> &lt;-</a>
+<a class="sourceLine" id="cb119-7" data-line-number="7"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
+<a class="sourceLine" id="cb119-8" data-line-number="8">minutes_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb119-9" data-line-number="9">is_work_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb119-10" data-line-number="10">classification_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb119-11" data-line-number="11">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
+<a class="sourceLine" id="cb119-12" data-line-number="12">    <span class="dt">levels =</span> levels</a>
+<a class="sourceLine" id="cb119-13" data-line-number="13">)</a>
+<a class="sourceLine" id="cb119-14" data-line-number="14">date_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity_day_<span class="dv">1</span>)), <span class="st">&quot;%m-%d-%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb119-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb119-16" data-line-number="16">day1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb119-17" data-line-number="17">    <span class="dt">activity =</span> activity_day_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb119-18" data-line-number="18">    <span class="dt">minutes =</span> minutes_day_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb119-19" data-line-number="19">    <span class="dt">is_work =</span> is_work_day_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb119-20" data-line-number="20">    <span class="dt">classification =</span> classification_day_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb119-21" data-line-number="21">    <span class="dt">date =</span> date_day_<span class="dv">1</span></a>
+<a class="sourceLine" id="cb119-22" data-line-number="22">)</a></code></pre></div></li>
 <li><p>Activities, day 2</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1">activity_day_<span class="dv">2</span> &lt;-</a>
-<a class="sourceLine" id="cb120-2" title="2"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;read a book&quot;</span>)</a>
-<a class="sourceLine" id="cb120-3" title="3">minutes_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb120-4" title="4">is_work_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb120-5" title="5">classification_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
-<a class="sourceLine" id="cb120-6" title="6">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>),</a>
-<a class="sourceLine" id="cb120-7" title="7">    <span class="dt">levels =</span> levels</a>
-<a class="sourceLine" id="cb120-8" title="8">)</a>
-<a class="sourceLine" id="cb120-9" title="9">date_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">rep</span>(<span class="st">&quot;04-15-2020&quot;</span>, <span class="kw">length</span>(activity_day_<span class="dv">2</span>)), <span class="st">&quot;%m-%d-%Y&quot;</span>)</a>
-<a class="sourceLine" id="cb120-10" title="10"></a>
-<a class="sourceLine" id="cb120-11" title="11">day2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb120-12" title="12">    <span class="dt">activity =</span> activity_day_<span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb120-13" title="13">    <span class="dt">minutes =</span> minutes_day_<span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb120-14" title="14">    <span class="dt">is_work =</span> is_work_day_<span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb120-15" title="15">    <span class="dt">classification =</span> classification_day_<span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb120-16" title="16">    <span class="dt">date =</span> date_day_<span class="dv">2</span></a>
-<a class="sourceLine" id="cb120-17" title="17">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1">activity_day_<span class="dv">2</span> &lt;-</a>
+<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;read a book&quot;</span>)</a>
+<a class="sourceLine" id="cb120-3" data-line-number="3">minutes_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb120-4" data-line-number="4">is_work_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb120-5" data-line-number="5">classification_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb120-6" data-line-number="6">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>),</a>
+<a class="sourceLine" id="cb120-7" data-line-number="7">    <span class="dt">levels =</span> levels</a>
+<a class="sourceLine" id="cb120-8" data-line-number="8">)</a>
+<a class="sourceLine" id="cb120-9" data-line-number="9">date_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">rep</span>(<span class="st">&quot;04-15-2020&quot;</span>, <span class="kw">length</span>(activity_day_<span class="dv">2</span>)), <span class="st">&quot;%m-%d-%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb120-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb120-11" data-line-number="11">day2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb120-12" data-line-number="12">    <span class="dt">activity =</span> activity_day_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb120-13" data-line-number="13">    <span class="dt">minutes =</span> minutes_day_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb120-14" data-line-number="14">    <span class="dt">is_work =</span> is_work_day_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb120-15" data-line-number="15">    <span class="dt">classification =</span> classification_day_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb120-16" data-line-number="16">    <span class="dt">date =</span> date_day_<span class="dv">2</span></a>
+<a class="sourceLine" id="cb120-17" data-line-number="17">)</a></code></pre></div></li>
 <li><p>Activities, both days</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1">quarantine_log &lt;-<span class="st"> </span><span class="kw">rbind</span>(day1, day2)</a>
-<a class="sourceLine" id="cb121-2" title="2">quarantine_log</a>
-<a class="sourceLine" id="cb121-3" title="3"><span class="co">##           activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb121-4" title="4"><span class="co">## 1     check e-mail      20    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb121-5" title="5"><span class="co">## 2        breakfast      30   FALSE      essential 2020-04-14</span></a>
-<a class="sourceLine" id="cb121-6" title="6"><span class="co">## 3  conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb121-7" title="7"><span class="co">## 4          webinar      60    TRUE        consult 2020-04-14</span></a>
-<a class="sourceLine" id="cb121-8" title="8"><span class="co">## 5             walk      60   FALSE       exercise 2020-04-14</span></a>
-<a class="sourceLine" id="cb121-9" title="9"><span class="co">## 6     check e-mail      20    TRUE        connect 2020-04-15</span></a>
-<a class="sourceLine" id="cb121-10" title="10"><span class="co">## 7        breakfast      30   FALSE      essential 2020-04-15</span></a>
-<a class="sourceLine" id="cb121-11" title="11"><span class="co">## 8  conference call      60    TRUE        connect 2020-04-15</span></a>
-<a class="sourceLine" id="cb121-12" title="12"><span class="co">## 9          webinar      60    TRUE        consult 2020-04-15</span></a>
-<a class="sourceLine" id="cb121-13" title="13"><span class="co">## 10     read a book      60   FALSE          hobby 2020-04-15</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1">quarantine_log &lt;-<span class="st"> </span><span class="kw">rbind</span>(day1, day2)</a>
+<a class="sourceLine" id="cb121-2" data-line-number="2">quarantine_log</a>
+<a class="sourceLine" id="cb121-3" data-line-number="3"><span class="co">##           activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb121-4" data-line-number="4"><span class="co">## 1     check e-mail      20    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb121-5" data-line-number="5"><span class="co">## 2        breakfast      30   FALSE      essential 2020-04-14</span></a>
+<a class="sourceLine" id="cb121-6" data-line-number="6"><span class="co">## 3  conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb121-7" data-line-number="7"><span class="co">## 4          webinar      60    TRUE        consult 2020-04-14</span></a>
+<a class="sourceLine" id="cb121-8" data-line-number="8"><span class="co">## 5             walk      60   FALSE       exercise 2020-04-14</span></a>
+<a class="sourceLine" id="cb121-9" data-line-number="9"><span class="co">## 6     check e-mail      20    TRUE        connect 2020-04-15</span></a>
+<a class="sourceLine" id="cb121-10" data-line-number="10"><span class="co">## 7        breakfast      30   FALSE      essential 2020-04-15</span></a>
+<a class="sourceLine" id="cb121-11" data-line-number="11"><span class="co">## 8  conference call      60    TRUE        connect 2020-04-15</span></a>
+<a class="sourceLine" id="cb121-12" data-line-number="12"><span class="co">## 9          webinar      60    TRUE        consult 2020-04-15</span></a>
+<a class="sourceLine" id="cb121-13" data-line-number="13"><span class="co">## 10     read a book      60   FALSE          hobby 2020-04-15</span></a></code></pre></div></li>
 </ul>
 <p>Writing and reading</p>
 <ul>
 <li><p>Exmaple: round-trip</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1">file &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file</span></a>
-<a class="sourceLine" id="cb122-2" title="2"><span class="co">## file &lt;- file.choose()</span></a>
-<a class="sourceLine" id="cb122-3" title="3"><span class="co">## file &lt;- &quot;activities.csv&quot;</span></a>
-<a class="sourceLine" id="cb122-4" title="4"><span class="co">## file &lt;- &quot;/Users/ma38737/MyQuarantine/activities.csv&quot;</span></a>
-<a class="sourceLine" id="cb122-5" title="5"><span class="kw">write.csv</span>(quarantine_log, file, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb122-6" title="6"><span class="kw">read.csv</span>(file)</a>
-<a class="sourceLine" id="cb122-7" title="7"><span class="co">##           activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb122-8" title="8"><span class="co">## 1     check e-mail      20    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb122-9" title="9"><span class="co">## 2        breakfast      30   FALSE      essential 2020-04-14</span></a>
-<a class="sourceLine" id="cb122-10" title="10"><span class="co">## 3  conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb122-11" title="11"><span class="co">## 4          webinar      60    TRUE        consult 2020-04-14</span></a>
-<a class="sourceLine" id="cb122-12" title="12"><span class="co">## 5             walk      60   FALSE       exercise 2020-04-14</span></a>
-<a class="sourceLine" id="cb122-13" title="13"><span class="co">## 6     check e-mail      20    TRUE        connect 2020-04-15</span></a>
-<a class="sourceLine" id="cb122-14" title="14"><span class="co">## 7        breakfast      30   FALSE      essential 2020-04-15</span></a>
-<a class="sourceLine" id="cb122-15" title="15"><span class="co">## 8  conference call      60    TRUE        connect 2020-04-15</span></a>
-<a class="sourceLine" id="cb122-16" title="16"><span class="co">## 9          webinar      60    TRUE        consult 2020-04-15</span></a>
-<a class="sourceLine" id="cb122-17" title="17"><span class="co">## 10     read a book      60   FALSE          hobby 2020-04-15</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">file &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file</span></a>
+<a class="sourceLine" id="cb122-2" data-line-number="2"><span class="co">## file &lt;- file.choose()</span></a>
+<a class="sourceLine" id="cb122-3" data-line-number="3"><span class="co">## file &lt;- &quot;activities.csv&quot;</span></a>
+<a class="sourceLine" id="cb122-4" data-line-number="4"><span class="co">## file &lt;- &quot;/Users/ma38737/MyQuarantine/activities.csv&quot;</span></a>
+<a class="sourceLine" id="cb122-5" data-line-number="5"><span class="kw">write.csv</span>(quarantine_log, file, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb122-6" data-line-number="6"><span class="kw">read.csv</span>(file)</a>
+<a class="sourceLine" id="cb122-7" data-line-number="7"><span class="co">##           activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb122-8" data-line-number="8"><span class="co">## 1     check e-mail      20    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb122-9" data-line-number="9"><span class="co">## 2        breakfast      30   FALSE      essential 2020-04-14</span></a>
+<a class="sourceLine" id="cb122-10" data-line-number="10"><span class="co">## 3  conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb122-11" data-line-number="11"><span class="co">## 4          webinar      60    TRUE        consult 2020-04-14</span></a>
+<a class="sourceLine" id="cb122-12" data-line-number="12"><span class="co">## 5             walk      60   FALSE       exercise 2020-04-14</span></a>
+<a class="sourceLine" id="cb122-13" data-line-number="13"><span class="co">## 6     check e-mail      20    TRUE        connect 2020-04-15</span></a>
+<a class="sourceLine" id="cb122-14" data-line-number="14"><span class="co">## 7        breakfast      30   FALSE      essential 2020-04-15</span></a>
+<a class="sourceLine" id="cb122-15" data-line-number="15"><span class="co">## 8  conference call      60    TRUE        connect 2020-04-15</span></a>
+<a class="sourceLine" id="cb122-16" data-line-number="16"><span class="co">## 9          webinar      60    TRUE        consult 2020-04-15</span></a>
+<a class="sourceLine" id="cb122-17" data-line-number="17"><span class="co">## 10     read a book      60   FALSE          hobby 2020-04-15</span></a></code></pre></div></li>
 </ul>
 <p><em>R</em> and spreadsheets</p>
 <p>An alternative way of working with <code>data.frame()</code></p>
@@ -507,46 +508,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Summarization</p>
 <ul>
-<li><p>Use <code>with()</code> to simplify variable reference</p></li>
+<li>Use <code>with()</code> to simplify variable reference</li>
 <li><p>Create a new <code>data.frame()</code> containing the summary</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1"><span class="kw">with</span>(quarantine_log, {</a>
-<a class="sourceLine" id="cb123-2" title="2">    <span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb123-3" title="3">        <span class="dt">days_in_quarantine =</span> <span class="kw">length</span>(<span class="kw">unique</span>(date)),</a>
-<a class="sourceLine" id="cb123-4" title="4">        <span class="dt">total_minutes =</span> <span class="kw">sum</span>(minutes),</a>
-<a class="sourceLine" id="cb123-5" title="5">        <span class="dt">work_activities =</span> <span class="kw">sum</span>(is_work),</a>
-<a class="sourceLine" id="cb123-6" title="6">        <span class="dt">other_activities =</span> <span class="kw">sum</span>(<span class="op">!</span>is_work)</a>
-<a class="sourceLine" id="cb123-7" title="7">    )</a>
-<a class="sourceLine" id="cb123-8" title="8">})</a>
-<a class="sourceLine" id="cb123-9" title="9"><span class="co">##   days_in_quarantine total_minutes work_activities other_activities</span></a>
-<a class="sourceLine" id="cb123-10" title="10"><span class="co">## 1                  2           460               6                4</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1"><span class="kw">with</span>(quarantine_log, {</a>
+<a class="sourceLine" id="cb123-2" data-line-number="2">    <span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb123-3" data-line-number="3">        <span class="dt">days_in_quarantine =</span> <span class="kw">length</span>(<span class="kw">unique</span>(date)),</a>
+<a class="sourceLine" id="cb123-4" data-line-number="4">        <span class="dt">total_minutes =</span> <span class="kw">sum</span>(minutes),</a>
+<a class="sourceLine" id="cb123-5" data-line-number="5">        <span class="dt">work_activities =</span> <span class="kw">sum</span>(is_work),</a>
+<a class="sourceLine" id="cb123-6" data-line-number="6">        <span class="dt">other_activities =</span> <span class="kw">sum</span>(<span class="op">!</span>is_work)</a>
+<a class="sourceLine" id="cb123-7" data-line-number="7">    )</a>
+<a class="sourceLine" id="cb123-8" data-line-number="8">})</a>
+<a class="sourceLine" id="cb123-9" data-line-number="9"><span class="co">##   days_in_quarantine total_minutes work_activities other_activities</span></a>
+<a class="sourceLine" id="cb123-10" data-line-number="10"><span class="co">## 1                  2           460               6                4</span></a></code></pre></div></li>
 </ul>
 <p>Summarization by group</p>
 <ul>
 <li><p><code>aggregate()</code></p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1"><span class="co">## minutes per day spent on each activity, from the quarantine_log</span></a>
-<a class="sourceLine" id="cb124-2" title="2"><span class="kw">aggregate</span>(minutes <span class="op">~</span><span class="st"> </span>activity, quarantine_log, sum)</a>
-<a class="sourceLine" id="cb124-3" title="3"><span class="co">##          activity minutes</span></a>
-<a class="sourceLine" id="cb124-4" title="4"><span class="co">## 1       breakfast      60</span></a>
-<a class="sourceLine" id="cb124-5" title="5"><span class="co">## 2    check e-mail      40</span></a>
-<a class="sourceLine" id="cb124-6" title="6"><span class="co">## 3 conference call     120</span></a>
-<a class="sourceLine" id="cb124-7" title="7"><span class="co">## 4            walk      60</span></a>
-<a class="sourceLine" id="cb124-8" title="8"><span class="co">## 5         webinar     120</span></a>
-<a class="sourceLine" id="cb124-9" title="9"><span class="co">## 6     read a book      60</span></a>
-<a class="sourceLine" id="cb124-10" title="10"></a>
-<a class="sourceLine" id="cb124-11" title="11"><span class="co">## minutes per day spent on each clasasification</span></a>
-<a class="sourceLine" id="cb124-12" title="12"><span class="kw">aggregate</span>(minutes <span class="op">~</span><span class="st"> </span>classification, quarantine_log, sum)</a>
-<a class="sourceLine" id="cb124-13" title="13"><span class="co">##   classification minutes</span></a>
-<a class="sourceLine" id="cb124-14" title="14"><span class="co">## 1        connect     160</span></a>
-<a class="sourceLine" id="cb124-15" title="15"><span class="co">## 2       exercise      60</span></a>
-<a class="sourceLine" id="cb124-16" title="16"><span class="co">## 3        consult     120</span></a>
-<a class="sourceLine" id="cb124-17" title="17"><span class="co">## 4          hobby      60</span></a>
-<a class="sourceLine" id="cb124-18" title="18"><span class="co">## 5      essential      60</span></a>
-<a class="sourceLine" id="cb124-19" title="19"></a>
-<a class="sourceLine" id="cb124-20" title="20"><span class="co">## non-work activities per day</span></a>
-<a class="sourceLine" id="cb124-21" title="21"><span class="kw">aggregate</span>(<span class="op">!</span>is_work <span class="op">~</span><span class="st"> </span>date, quarantine_log, sum)</a>
-<a class="sourceLine" id="cb124-22" title="22"><span class="co">##         date !is_work</span></a>
-<a class="sourceLine" id="cb124-23" title="23"><span class="co">## 1 2020-04-14        2</span></a>
-<a class="sourceLine" id="cb124-24" title="24"><span class="co">## 2 2020-04-15        2</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="co">## minutes per day spent on each activity, from the quarantine_log</span></a>
+<a class="sourceLine" id="cb124-2" data-line-number="2"><span class="kw">aggregate</span>(minutes <span class="op">~</span><span class="st"> </span>activity, quarantine_log, sum)</a>
+<a class="sourceLine" id="cb124-3" data-line-number="3"><span class="co">##          activity minutes</span></a>
+<a class="sourceLine" id="cb124-4" data-line-number="4"><span class="co">## 1       breakfast      60</span></a>
+<a class="sourceLine" id="cb124-5" data-line-number="5"><span class="co">## 2    check e-mail      40</span></a>
+<a class="sourceLine" id="cb124-6" data-line-number="6"><span class="co">## 3 conference call     120</span></a>
+<a class="sourceLine" id="cb124-7" data-line-number="7"><span class="co">## 4            walk      60</span></a>
+<a class="sourceLine" id="cb124-8" data-line-number="8"><span class="co">## 5         webinar     120</span></a>
+<a class="sourceLine" id="cb124-9" data-line-number="9"><span class="co">## 6     read a book      60</span></a>
+<a class="sourceLine" id="cb124-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb124-11" data-line-number="11"><span class="co">## minutes per day spent on each clasasification</span></a>
+<a class="sourceLine" id="cb124-12" data-line-number="12"><span class="kw">aggregate</span>(minutes <span class="op">~</span><span class="st"> </span>classification, quarantine_log, sum)</a>
+<a class="sourceLine" id="cb124-13" data-line-number="13"><span class="co">##   classification minutes</span></a>
+<a class="sourceLine" id="cb124-14" data-line-number="14"><span class="co">## 1        connect     160</span></a>
+<a class="sourceLine" id="cb124-15" data-line-number="15"><span class="co">## 2       exercise      60</span></a>
+<a class="sourceLine" id="cb124-16" data-line-number="16"><span class="co">## 3        consult     120</span></a>
+<a class="sourceLine" id="cb124-17" data-line-number="17"><span class="co">## 4          hobby      60</span></a>
+<a class="sourceLine" id="cb124-18" data-line-number="18"><span class="co">## 5      essential      60</span></a>
+<a class="sourceLine" id="cb124-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb124-20" data-line-number="20"><span class="co">## non-work activities per day</span></a>
+<a class="sourceLine" id="cb124-21" data-line-number="21"><span class="kw">aggregate</span>(<span class="op">!</span>is_work <span class="op">~</span><span class="st"> </span>date, quarantine_log, sum)</a>
+<a class="sourceLine" id="cb124-22" data-line-number="22"><span class="co">##         date !is_work</span></a>
+<a class="sourceLine" id="cb124-23" data-line-number="23"><span class="co">## 1 2020-04-14        2</span></a>
+<a class="sourceLine" id="cb124-24" data-line-number="24"><span class="co">## 2 2020-04-15        2</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -560,47 +561,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="creation" class="section level3 unnumbered">
 <h3>Creation</h3>
 <p>Last week we created vectors summarizing our quarantine activities</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" title="1">activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
-<a class="sourceLine" id="cb125-2" title="2">minutes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb125-3" title="3">is_work &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb125-4" title="4"></a>
-<a class="sourceLine" id="cb125-5" title="5">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
-<a class="sourceLine" id="cb125-6" title="6">classification &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
-<a class="sourceLine" id="cb125-7" title="7">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
-<a class="sourceLine" id="cb125-8" title="8">    <span class="dt">levels =</span> levels</a>
-<a class="sourceLine" id="cb125-9" title="9">)</a>
-<a class="sourceLine" id="cb125-10" title="10"></a>
-<a class="sourceLine" id="cb125-11" title="11">dates &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity))</a>
-<a class="sourceLine" id="cb125-12" title="12">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(dates, <span class="dt">format =</span> <span class="st">&quot;%m-%d-%Y&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1">activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
+<a class="sourceLine" id="cb125-2" data-line-number="2">minutes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb125-3" data-line-number="3">is_work &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb125-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb125-5" data-line-number="5">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
+<a class="sourceLine" id="cb125-6" data-line-number="6">classification &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb125-7" data-line-number="7">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
+<a class="sourceLine" id="cb125-8" data-line-number="8">    <span class="dt">levels =</span> levels</a>
+<a class="sourceLine" id="cb125-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb125-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb125-11" data-line-number="11">dates &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;04-14-2020&quot;</span>, <span class="kw">length</span>(activity))</a>
+<a class="sourceLine" id="cb125-12" data-line-number="12">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(dates, <span class="dt">format =</span> <span class="st">&quot;%m-%d-%Y&quot;</span>)</a></code></pre></div>
 <p>Each of these vectors is the same length, and are related to one another in a specific way – the first element of <code>activity</code>, ‘check e-mail’, is related to the first element of <code>minutes</code>, ‘20’, and to <code>is_work</code>, etc.</p>
 <p>Use <code>data.frame()</code> to construct an object containing each of these vectors</p>
 <ul>
 <li><p>Each argument to <code>data.frame()</code> is a vector representing a column</p></li>
 <li><p>The <code>stringsAsFactors = FALSE</code> argument says that character vectors should NOT be automatically coerced to factors</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1">activities &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb126-2" title="2">    activity, minutes, is_work, classification, date,</a>
-<a class="sourceLine" id="cb126-3" title="3">    <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb126-4" title="4">)</a>
-<a class="sourceLine" id="cb126-5" title="5">activities</a>
-<a class="sourceLine" id="cb126-6" title="6"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb126-7" title="7"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb126-8" title="8"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14</span></a>
-<a class="sourceLine" id="cb126-9" title="9"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb126-10" title="10"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
-<a class="sourceLine" id="cb126-11" title="11"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1">activities &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb126-2" data-line-number="2">    activity, minutes, is_work, classification, date,</a>
+<a class="sourceLine" id="cb126-3" data-line-number="3">    <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb126-4" data-line-number="4">)</a>
+<a class="sourceLine" id="cb126-5" data-line-number="5">activities</a>
+<a class="sourceLine" id="cb126-6" data-line-number="6"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb126-7" data-line-number="7"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb126-8" data-line-number="8"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14</span></a>
+<a class="sourceLine" id="cb126-9" data-line-number="9"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb126-10" data-line-number="10"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
+<a class="sourceLine" id="cb126-11" data-line-number="11"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14</span></a></code></pre></div></li>
 <li><p>We can query the object we’ve created for its <code>class()</code>, <code>dim()</code>ensions, take a look at the <code>head()</code> or <code>tail()</code> of the object, etc. <code>names()</code> returns the column names.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1"><span class="kw">class</span>(activities)</a>
-<a class="sourceLine" id="cb127-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
-<a class="sourceLine" id="cb127-3" title="3"><span class="kw">dim</span>(activities)     <span class="co"># number of rows and columns</span></a>
-<a class="sourceLine" id="cb127-4" title="4"><span class="co">## [1] 5 5</span></a>
-<a class="sourceLine" id="cb127-5" title="5"><span class="kw">head</span>(activities, <span class="dv">3</span>) <span class="co"># first three rows</span></a>
-<a class="sourceLine" id="cb127-6" title="6"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb127-7" title="7"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb127-8" title="8"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14</span></a>
-<a class="sourceLine" id="cb127-9" title="9"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb127-10" title="10"><span class="kw">names</span>(activities)</a>
-<a class="sourceLine" id="cb127-11" title="11"><span class="co">## [1] &quot;activity&quot;       &quot;minutes&quot;        &quot;is_work&quot;        &quot;classification&quot;</span></a>
-<a class="sourceLine" id="cb127-12" title="12"><span class="co">## [5] &quot;date&quot;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="kw">class</span>(activities)</a>
+<a class="sourceLine" id="cb127-2" data-line-number="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
+<a class="sourceLine" id="cb127-3" data-line-number="3"><span class="kw">dim</span>(activities)     <span class="co"># number of rows and columns</span></a>
+<a class="sourceLine" id="cb127-4" data-line-number="4"><span class="co">## [1] 5 5</span></a>
+<a class="sourceLine" id="cb127-5" data-line-number="5"><span class="kw">head</span>(activities, <span class="dv">3</span>) <span class="co"># first three rows</span></a>
+<a class="sourceLine" id="cb127-6" data-line-number="6"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb127-7" data-line-number="7"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb127-8" data-line-number="8"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14</span></a>
+<a class="sourceLine" id="cb127-9" data-line-number="9"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb127-10" data-line-number="10"><span class="kw">names</span>(activities)</a>
+<a class="sourceLine" id="cb127-11" data-line-number="11"><span class="co">## [1] &quot;activity&quot;       &quot;minutes&quot;        &quot;is_work&quot;        &quot;classification&quot;</span></a>
+<a class="sourceLine" id="cb127-12" data-line-number="12"><span class="co">## [5] &quot;date&quot;</span></a></code></pre></div></li>
 </ul>
 </div>
 <div id="column-selection" class="section level3 unnumbered">
@@ -609,207 +610,207 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p><code>activities</code> is a two-dimensional object</p></li>
 <li><p>Subset the data to contain the first and third rows and the first and fourth columns</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1">activities[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)]</a>
-<a class="sourceLine" id="cb128-2" title="2"><span class="co">##          activity classification</span></a>
-<a class="sourceLine" id="cb128-3" title="3"><span class="co">## 1    check e-mail        connect</span></a>
-<a class="sourceLine" id="cb128-4" title="4"><span class="co">## 3 conference call        connect</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1">activities[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)]</a>
+<a class="sourceLine" id="cb128-2" data-line-number="2"><span class="co">##          activity classification</span></a>
+<a class="sourceLine" id="cb128-3" data-line-number="3"><span class="co">## 1    check e-mail        connect</span></a>
+<a class="sourceLine" id="cb128-4" data-line-number="4"><span class="co">## 3 conference call        connect</span></a></code></pre></div></li>
 <li><p>Subset columns by name</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1">activities[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="st">&quot;activity&quot;</span>, <span class="st">&quot;is_work&quot;</span>)]</a>
-<a class="sourceLine" id="cb129-2" title="2"><span class="co">##          activity is_work</span></a>
-<a class="sourceLine" id="cb129-3" title="3"><span class="co">## 1    check e-mail    TRUE</span></a>
-<a class="sourceLine" id="cb129-4" title="4"><span class="co">## 3 conference call    TRUE</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1">activities[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="st">&quot;activity&quot;</span>, <span class="st">&quot;is_work&quot;</span>)]</a>
+<a class="sourceLine" id="cb129-2" data-line-number="2"><span class="co">##          activity is_work</span></a>
+<a class="sourceLine" id="cb129-3" data-line-number="3"><span class="co">## 1    check e-mail    TRUE</span></a>
+<a class="sourceLine" id="cb129-4" data-line-number="4"><span class="co">## 3 conference call    TRUE</span></a></code></pre></div></li>
 <li><p>Subset only by row or only by column by omiting the subscript index for that dimension</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">activities[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), ]                  <span class="co"># all columns for rows 1 and 3</span></a>
-<a class="sourceLine" id="cb130-2" title="2"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb130-3" title="3"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb130-4" title="4"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb130-5" title="5">activities[, <span class="kw">c</span>(<span class="st">&quot;activity&quot;</span>, <span class="st">&quot;minutes&quot;</span>)] <span class="co"># all rows for columns 1 and 2</span></a>
-<a class="sourceLine" id="cb130-6" title="6"><span class="co">##          activity minutes</span></a>
-<a class="sourceLine" id="cb130-7" title="7"><span class="co">## 1    check e-mail      20</span></a>
-<a class="sourceLine" id="cb130-8" title="8"><span class="co">## 2       breakfast      30</span></a>
-<a class="sourceLine" id="cb130-9" title="9"><span class="co">## 3 conference call      60</span></a>
-<a class="sourceLine" id="cb130-10" title="10"><span class="co">## 4         webinar      60</span></a>
-<a class="sourceLine" id="cb130-11" title="11"><span class="co">## 5            walk      60</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1">activities[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), ]                  <span class="co"># all columns for rows 1 and 3</span></a>
+<a class="sourceLine" id="cb130-2" data-line-number="2"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb130-3" data-line-number="3"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb130-4" data-line-number="4"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb130-5" data-line-number="5">activities[, <span class="kw">c</span>(<span class="st">&quot;activity&quot;</span>, <span class="st">&quot;minutes&quot;</span>)] <span class="co"># all rows for columns 1 and 2</span></a>
+<a class="sourceLine" id="cb130-6" data-line-number="6"><span class="co">##          activity minutes</span></a>
+<a class="sourceLine" id="cb130-7" data-line-number="7"><span class="co">## 1    check e-mail      20</span></a>
+<a class="sourceLine" id="cb130-8" data-line-number="8"><span class="co">## 2       breakfast      30</span></a>
+<a class="sourceLine" id="cb130-9" data-line-number="9"><span class="co">## 3 conference call      60</span></a>
+<a class="sourceLine" id="cb130-10" data-line-number="10"><span class="co">## 4         webinar      60</span></a>
+<a class="sourceLine" id="cb130-11" data-line-number="11"><span class="co">## 5            walk      60</span></a></code></pre></div></li>
 <li><p>Be careful when selecting a single column!</p>
 <ul>
 <li><p>By default, <em>R</em> returns a <em>vector</em></p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" title="1">activities[, <span class="st">&quot;classification&quot;</span>]</a>
-<a class="sourceLine" id="cb131-2" title="2"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
-<a class="sourceLine" id="cb131-3" title="3"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1">activities[, <span class="st">&quot;classification&quot;</span>]</a>
+<a class="sourceLine" id="cb131-2" data-line-number="2"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
+<a class="sourceLine" id="cb131-3" data-line-number="3"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div></li>
 <li><p>Use <code>drop = FALSE</code> to return a <code>data.frame</code></p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1">activities[, <span class="st">&quot;classification&quot;</span>, drop =<span class="st"> </span><span class="ot">FALSE</span>]</a>
-<a class="sourceLine" id="cb132-2" title="2"><span class="co">##   classification</span></a>
-<a class="sourceLine" id="cb132-3" title="3"><span class="co">## 1        connect</span></a>
-<a class="sourceLine" id="cb132-4" title="4"><span class="co">## 2      essential</span></a>
-<a class="sourceLine" id="cb132-5" title="5"><span class="co">## 3        connect</span></a>
-<a class="sourceLine" id="cb132-6" title="6"><span class="co">## 4        consult</span></a>
-<a class="sourceLine" id="cb132-7" title="7"><span class="co">## 5       exercise</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1">activities[, <span class="st">&quot;classification&quot;</span>, drop =<span class="st"> </span><span class="ot">FALSE</span>]</a>
+<a class="sourceLine" id="cb132-2" data-line-number="2"><span class="co">##   classification</span></a>
+<a class="sourceLine" id="cb132-3" data-line-number="3"><span class="co">## 1        connect</span></a>
+<a class="sourceLine" id="cb132-4" data-line-number="4"><span class="co">## 2      essential</span></a>
+<a class="sourceLine" id="cb132-5" data-line-number="5"><span class="co">## 3        connect</span></a>
+<a class="sourceLine" id="cb132-6" data-line-number="6"><span class="co">## 4        consult</span></a>
+<a class="sourceLine" id="cb132-7" data-line-number="7"><span class="co">## 5       exercise</span></a></code></pre></div></li>
 </ul></li>
 </ul>
 <p>Use <code>$</code> or <code>[[</code> to select a column</p>
 <ul>
 <li><p>Selection of individual columns as vectors is easy</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1">activities<span class="op">$</span>classification</a>
-<a class="sourceLine" id="cb133-2" title="2"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
-<a class="sourceLine" id="cb133-3" title="3"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">activities<span class="op">$</span>classification</a>
+<a class="sourceLine" id="cb133-2" data-line-number="2"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
+<a class="sourceLine" id="cb133-3" data-line-number="3"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div></li>
 <li><p>An alternative, often used in scripts, is to use <code>[[</code>, which requires the name of a variable provided as a character vector</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1">activities[[<span class="st">&quot;classification&quot;</span>]]</a>
-<a class="sourceLine" id="cb134-2" title="2"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
-<a class="sourceLine" id="cb134-3" title="3"><span class="co">## Levels: connect exercise consult hobby essential</span></a>
-<a class="sourceLine" id="cb134-4" title="4"></a>
-<a class="sourceLine" id="cb134-5" title="5">colname &lt;-<span class="st"> &quot;classification&quot;</span></a>
-<a class="sourceLine" id="cb134-6" title="6">activities[[colname]]</a>
-<a class="sourceLine" id="cb134-7" title="7"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
-<a class="sourceLine" id="cb134-8" title="8"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1">activities[[<span class="st">&quot;classification&quot;</span>]]</a>
+<a class="sourceLine" id="cb134-2" data-line-number="2"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
+<a class="sourceLine" id="cb134-3" data-line-number="3"><span class="co">## Levels: connect exercise consult hobby essential</span></a>
+<a class="sourceLine" id="cb134-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb134-5" data-line-number="5">colname &lt;-<span class="st"> &quot;classification&quot;</span></a>
+<a class="sourceLine" id="cb134-6" data-line-number="6">activities[[colname]]</a>
+<a class="sourceLine" id="cb134-7" data-line-number="7"><span class="co">## [1] connect   essential connect   consult   exercise </span></a>
+<a class="sourceLine" id="cb134-8" data-line-number="8"><span class="co">## Levels: connect exercise consult hobby essential</span></a></code></pre></div></li>
 </ul>
 <p>Column selection and subsetting are often combined, e.g., to create a <code>data.frame</code> of work-related activities, or work-related activities lasting 60 minutes or longer</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1">work_related_activities &lt;-<span class="st"> </span>activities[ activities<span class="op">$</span>is_work <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ]</a>
-<a class="sourceLine" id="cb135-2" title="2">work_related_activities</a>
-<a class="sourceLine" id="cb135-3" title="3"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb135-4" title="4"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb135-5" title="5"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb135-6" title="6"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
-<a class="sourceLine" id="cb135-7" title="7"></a>
-<a class="sourceLine" id="cb135-8" title="8">row_idx &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb135-9" title="9">activities[row_idx,]</a>
-<a class="sourceLine" id="cb135-10" title="10"><span class="co">##          activity minutes is_work classification       date</span></a>
-<a class="sourceLine" id="cb135-11" title="11"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
-<a class="sourceLine" id="cb135-12" title="12"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">work_related_activities &lt;-<span class="st"> </span>activities[ activities<span class="op">$</span>is_work <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ]</a>
+<a class="sourceLine" id="cb135-2" data-line-number="2">work_related_activities</a>
+<a class="sourceLine" id="cb135-3" data-line-number="3"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb135-4" data-line-number="4"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb135-5" data-line-number="5"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb135-6" data-line-number="6"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a>
+<a class="sourceLine" id="cb135-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb135-8" data-line-number="8">row_idx &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb135-9" data-line-number="9">activities[row_idx,]</a>
+<a class="sourceLine" id="cb135-10" data-line-number="10"><span class="co">##          activity minutes is_work classification       date</span></a>
+<a class="sourceLine" id="cb135-11" data-line-number="11"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14</span></a>
+<a class="sourceLine" id="cb135-12" data-line-number="12"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14</span></a></code></pre></div>
 </div>
 <div id="adding-or-updating-columns" class="section level3 unnumbered">
 <h3>Adding or updating columns</h3>
 <p>Use <code>$</code> or <code>[</code> or <code>[[</code> to add a new column,</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1">activities<span class="op">$</span>is_long_work &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb136-2" title="2">activities</a>
-<a class="sourceLine" id="cb136-3" title="3"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
-<a class="sourceLine" id="cb136-4" title="4"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb136-5" title="5"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb136-6" title="6"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb136-7" title="7"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb136-8" title="8"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb136-9" title="9"></a>
-<a class="sourceLine" id="cb136-10" title="10"><span class="co">## ...another way of doing the same thing</span></a>
-<a class="sourceLine" id="cb136-11" title="11">activities[[<span class="st">&quot;is_long_work&quot;</span>]] &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb136-12" title="12"></a>
-<a class="sourceLine" id="cb136-13" title="13"><span class="co">## ...and another way</span></a>
-<a class="sourceLine" id="cb136-14" title="14">activities[,<span class="st">&quot;is_long_work&quot;</span>] &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1">activities<span class="op">$</span>is_long_work &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb136-2" data-line-number="2">activities</a>
+<a class="sourceLine" id="cb136-3" data-line-number="3"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
+<a class="sourceLine" id="cb136-4" data-line-number="4"><span class="co">## 1    check e-mail      20    TRUE        connect 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb136-5" data-line-number="5"><span class="co">## 2       breakfast      30   FALSE      essential 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb136-6" data-line-number="6"><span class="co">## 3 conference call      60    TRUE        connect 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb136-7" data-line-number="7"><span class="co">## 4         webinar      60    TRUE        consult 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb136-8" data-line-number="8"><span class="co">## 5            walk      60   FALSE       exercise 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb136-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb136-10" data-line-number="10"><span class="co">## ...another way of doing the same thing</span></a>
+<a class="sourceLine" id="cb136-11" data-line-number="11">activities[[<span class="st">&quot;is_long_work&quot;</span>]] &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb136-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb136-13" data-line-number="13"><span class="co">## ...and another way</span></a>
+<a class="sourceLine" id="cb136-14" data-line-number="14">activities[,<span class="st">&quot;is_long_work&quot;</span>] &lt;-<span class="st"> </span>activities<span class="op">$</span>is_work <span class="op">&amp;</span><span class="st"> </span>(activities<span class="op">$</span>minutes <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>)</a></code></pre></div>
 <p>Columns can be updated in the same way</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1">activities<span class="op">$</span>activity &lt;-<span class="st"> </span><span class="kw">toupper</span>(activities<span class="op">$</span>activity)</a>
-<a class="sourceLine" id="cb137-2" title="2">activities</a>
-<a class="sourceLine" id="cb137-3" title="3"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
-<a class="sourceLine" id="cb137-4" title="4"><span class="co">## 1    CHECK E-MAIL      20    TRUE        connect 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb137-5" title="5"><span class="co">## 2       BREAKFAST      30   FALSE      essential 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb137-6" title="6"><span class="co">## 3 CONFERENCE CALL      60    TRUE        connect 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb137-7" title="7"><span class="co">## 4         WEBINAR      60    TRUE        consult 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb137-8" title="8"><span class="co">## 5            WALK      60   FALSE       exercise 2020-04-14        FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">activities<span class="op">$</span>activity &lt;-<span class="st"> </span><span class="kw">toupper</span>(activities<span class="op">$</span>activity)</a>
+<a class="sourceLine" id="cb137-2" data-line-number="2">activities</a>
+<a class="sourceLine" id="cb137-3" data-line-number="3"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
+<a class="sourceLine" id="cb137-4" data-line-number="4"><span class="co">## 1    CHECK E-MAIL      20    TRUE        connect 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb137-5" data-line-number="5"><span class="co">## 2       BREAKFAST      30   FALSE      essential 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb137-6" data-line-number="6"><span class="co">## 3 CONFERENCE CALL      60    TRUE        connect 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb137-7" data-line-number="7"><span class="co">## 4         WEBINAR      60    TRUE        consult 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb137-8" data-line-number="8"><span class="co">## 5            WALK      60   FALSE       exercise 2020-04-14        FALSE</span></a></code></pre></div>
 </div>
 <div id="reading-and-writing" class="section level3 unnumbered">
 <h3>Reading and writing</h3>
 <p>Create a file path to store a ‘csv’ file. From day 7, the path could be temporary, chosen interactively, a relative path, or an absolute path</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="co">## could be any of these...</span></a>
-<a class="sourceLine" id="cb138-2" title="2"><span class="co">##</span></a>
-<a class="sourceLine" id="cb138-3" title="3"><span class="co">## interactive_file_path &lt;- file.choose(new = TRUE)</span></a>
-<a class="sourceLine" id="cb138-4" title="4"><span class="co">## getcwd()</span></a>
-<a class="sourceLine" id="cb138-5" title="5"><span class="co">## relative_file_path &lt;- &quot;my_activity.rds&quot;</span></a>
-<a class="sourceLine" id="cb138-6" title="6"><span class="co">## absolute_file_path_on_macOS &lt;- &quot;/Users/ma38727/my_activity.rda&quot;</span></a>
-<a class="sourceLine" id="cb138-7" title="7"><span class="co">##</span></a>
-<a class="sourceLine" id="cb138-8" title="8"><span class="co">## ... but we&#39;ll use</span></a>
-<a class="sourceLine" id="cb138-9" title="9">temporary_file_path &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="co">## could be any of these...</span></a>
+<a class="sourceLine" id="cb138-2" data-line-number="2"><span class="co">##</span></a>
+<a class="sourceLine" id="cb138-3" data-line-number="3"><span class="co">## interactive_file_path &lt;- file.choose(new = TRUE)</span></a>
+<a class="sourceLine" id="cb138-4" data-line-number="4"><span class="co">## getcwd()</span></a>
+<a class="sourceLine" id="cb138-5" data-line-number="5"><span class="co">## relative_file_path &lt;- &quot;my_activity.rds&quot;</span></a>
+<a class="sourceLine" id="cb138-6" data-line-number="6"><span class="co">## absolute_file_path_on_macOS &lt;- &quot;/Users/ma38727/my_activity.rda&quot;</span></a>
+<a class="sourceLine" id="cb138-7" data-line-number="7"><span class="co">##</span></a>
+<a class="sourceLine" id="cb138-8" data-line-number="8"><span class="co">## ... but we&#39;ll use</span></a>
+<a class="sourceLine" id="cb138-9" data-line-number="9">temporary_file_path &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.csv&quot;</span>)</a></code></pre></div>
 <p>Use <code>write.csv()</code> to save the data.frame to disk as a plain text file in ‘csv’ (comma-separated value) format. The <code>row.names = FALSE</code> argument means that the row indexes are not saved to the file (row names are created when data is read in using <code>read.csv()</code>).</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1"><span class="kw">write.csv</span>(activities, temporary_file_path, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1"><span class="kw">write.csv</span>(activities, temporary_file_path, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>If you wish, use RStudio File -&gt; Open File to navigate to the location where you saved the file, and open it. You could also open the file in Excel or other spreadsheet. Conversely, you can take an Excel sheet and export it as a csv file for reading into <em>R</em>.</p>
 <p>Use <code>read.csv()</code> to import a plain text file formatted as csv</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1">imported_activities &lt;-<span class="st"> </span><span class="kw">read.csv</span>(temporary_file_path, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb140-2" title="2">imported_activities</a>
-<a class="sourceLine" id="cb140-3" title="3"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
-<a class="sourceLine" id="cb140-4" title="4"><span class="co">## 1    CHECK E-MAIL      20    TRUE        connect 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb140-5" title="5"><span class="co">## 2       BREAKFAST      30   FALSE      essential 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb140-6" title="6"><span class="co">## 3 CONFERENCE CALL      60    TRUE        connect 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb140-7" title="7"><span class="co">## 4         WEBINAR      60    TRUE        consult 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb140-8" title="8"><span class="co">## 5            WALK      60   FALSE       exercise 2020-04-14        FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1">imported_activities &lt;-<span class="st"> </span><span class="kw">read.csv</span>(temporary_file_path, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb140-2" data-line-number="2">imported_activities</a>
+<a class="sourceLine" id="cb140-3" data-line-number="3"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
+<a class="sourceLine" id="cb140-4" data-line-number="4"><span class="co">## 1    CHECK E-MAIL      20    TRUE        connect 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb140-5" data-line-number="5"><span class="co">## 2       BREAKFAST      30   FALSE      essential 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb140-6" data-line-number="6"><span class="co">## 3 CONFERENCE CALL      60    TRUE        connect 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb140-7" data-line-number="7"><span class="co">## 4         WEBINAR      60    TRUE        consult 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb140-8" data-line-number="8"><span class="co">## 5            WALK      60   FALSE       exercise 2020-04-14        FALSE</span></a></code></pre></div>
 <p>Note that some information has not survived the round-trip – the <code>classification</code> and <code>date</code> columns are plain character vectors.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"><span class="kw">class</span>(imported_activities<span class="op">$</span>classification)</a>
-<a class="sourceLine" id="cb141-2" title="2"><span class="co">## [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb141-3" title="3"><span class="kw">class</span>(imported_activities<span class="op">$</span>date)</a>
-<a class="sourceLine" id="cb141-4" title="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1"><span class="kw">class</span>(imported_activities<span class="op">$</span>classification)</a>
+<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="co">## [1] &quot;character&quot;</span></a>
+<a class="sourceLine" id="cb141-3" data-line-number="3"><span class="kw">class</span>(imported_activities<span class="op">$</span>date)</a>
+<a class="sourceLine" id="cb141-4" data-line-number="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
 <p>Update these to be a <code>factor()</code> with specific levels, and a <code>Date</code>.
 `</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
-<a class="sourceLine" id="cb142-2" title="2">imported_activities<span class="op">$</span>classification &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
-<a class="sourceLine" id="cb142-3" title="3">    imported_activities<span class="op">$</span>classification,</a>
-<a class="sourceLine" id="cb142-4" title="4">    <span class="dt">levels =</span> levels</a>
-<a class="sourceLine" id="cb142-5" title="5">)</a>
-<a class="sourceLine" id="cb142-6" title="6"></a>
-<a class="sourceLine" id="cb142-7" title="7">imported_activities<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(imported_activities<span class="op">$</span>date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb142-8" title="8"></a>
-<a class="sourceLine" id="cb142-9" title="9">imported_activities</a>
-<a class="sourceLine" id="cb142-10" title="10"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
-<a class="sourceLine" id="cb142-11" title="11"><span class="co">## 1    CHECK E-MAIL      20    TRUE        connect 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb142-12" title="12"><span class="co">## 2       BREAKFAST      30   FALSE      essential 2020-04-14        FALSE</span></a>
-<a class="sourceLine" id="cb142-13" title="13"><span class="co">## 3 CONFERENCE CALL      60    TRUE        connect 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb142-14" title="14"><span class="co">## 4         WEBINAR      60    TRUE        consult 2020-04-14         TRUE</span></a>
-<a class="sourceLine" id="cb142-15" title="15"><span class="co">## 5            WALK      60   FALSE       exercise 2020-04-14        FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;exercise&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;hobby&quot;</span>, <span class="st">&quot;essential&quot;</span>)</a>
+<a class="sourceLine" id="cb142-2" data-line-number="2">imported_activities<span class="op">$</span>classification &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb142-3" data-line-number="3">    imported_activities<span class="op">$</span>classification,</a>
+<a class="sourceLine" id="cb142-4" data-line-number="4">    <span class="dt">levels =</span> levels</a>
+<a class="sourceLine" id="cb142-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb142-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb142-7" data-line-number="7">imported_activities<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(imported_activities<span class="op">$</span>date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb142-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb142-9" data-line-number="9">imported_activities</a>
+<a class="sourceLine" id="cb142-10" data-line-number="10"><span class="co">##          activity minutes is_work classification       date is_long_work</span></a>
+<a class="sourceLine" id="cb142-11" data-line-number="11"><span class="co">## 1    CHECK E-MAIL      20    TRUE        connect 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb142-12" data-line-number="12"><span class="co">## 2       BREAKFAST      30   FALSE      essential 2020-04-14        FALSE</span></a>
+<a class="sourceLine" id="cb142-13" data-line-number="13"><span class="co">## 3 CONFERENCE CALL      60    TRUE        connect 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb142-14" data-line-number="14"><span class="co">## 4         WEBINAR      60    TRUE        consult 2020-04-14         TRUE</span></a>
+<a class="sourceLine" id="cb142-15" data-line-number="15"><span class="co">## 5            WALK      60   FALSE       exercise 2020-04-14        FALSE</span></a></code></pre></div>
 <p>Reading from a remote file (!)</p>
 <ul>
 <li><p>Visit the New York Times <a href="https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv">csv file</a> daily tally of COVID-19 cases in all US counties.</p></li>
 <li><p>Read the data into an <em>R</em> <code>data.frame</code></p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1">url &lt;-</a>
-<a class="sourceLine" id="cb143-2" title="2"><span class="st">  &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb143-3" title="3">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">url &lt;-</a>
+<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="st">  &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb143-3" data-line-number="3">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
 <li><p>Explore the data</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">class</span>(us)</a>
-<a class="sourceLine" id="cb144-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
-<a class="sourceLine" id="cb144-3" title="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb144-4" title="4"><span class="co">## [1] 64707     6</span></a>
-<a class="sourceLine" id="cb144-5" title="5"><span class="kw">head</span>(us)</a>
-<a class="sourceLine" id="cb144-6" title="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb144-7" title="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb144-8" title="8"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb144-9" title="9"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb144-10" title="10"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
-<a class="sourceLine" id="cb144-11" title="11"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb144-12" title="12"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1"><span class="kw">class</span>(us)</a>
+<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
+<a class="sourceLine" id="cb144-3" data-line-number="3"><span class="kw">dim</span>(us)</a>
+<a class="sourceLine" id="cb144-4" data-line-number="4"><span class="co">## [1] 64707     6</span></a>
+<a class="sourceLine" id="cb144-5" data-line-number="5"><span class="kw">head</span>(us)</a>
+<a class="sourceLine" id="cb144-6" data-line-number="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb144-7" data-line-number="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb144-8" data-line-number="8"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb144-9" data-line-number="9"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb144-10" data-line-number="10"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
+<a class="sourceLine" id="cb144-11" data-line-number="11"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb144-12" data-line-number="12"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div></li>
 <li><p>Subset the data to only New York state or Erie county</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1">ny_state &lt;-<span class="st"> </span>us[us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>,]</a>
-<a class="sourceLine" id="cb145-2" title="2"><span class="kw">dim</span>(ny_state)</a>
-<a class="sourceLine" id="cb145-3" title="3"><span class="co">## [1] 1780    6</span></a>
-<a class="sourceLine" id="cb145-4" title="4"></a>
-<a class="sourceLine" id="cb145-5" title="5">erie &lt;-<span class="st"> </span>us[(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>), ]</a>
-<a class="sourceLine" id="cb145-6" title="6">erie</a>
-<a class="sourceLine" id="cb145-7" title="7"><span class="co">##             date county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb145-8" title="8"><span class="co">## 2569  2020-03-15   Erie New York 36029     3      0</span></a>
-<a class="sourceLine" id="cb145-9" title="9"><span class="co">## 3028  2020-03-16   Erie New York 36029     6      0</span></a>
-<a class="sourceLine" id="cb145-10" title="10"><span class="co">## 3544  2020-03-17   Erie New York 36029     7      0</span></a>
-<a class="sourceLine" id="cb145-11" title="11"><span class="co">## 4141  2020-03-18   Erie New York 36029     7      0</span></a>
-<a class="sourceLine" id="cb145-12" title="12"><span class="co">## 4870  2020-03-19   Erie New York 36029    28      0</span></a>
-<a class="sourceLine" id="cb145-13" title="13"><span class="co">## 5717  2020-03-20   Erie New York 36029    31      0</span></a>
-<a class="sourceLine" id="cb145-14" title="14"><span class="co">## 6711  2020-03-21   Erie New York 36029    38      0</span></a>
-<a class="sourceLine" id="cb145-15" title="15"><span class="co">## 7805  2020-03-22   Erie New York 36029    54      0</span></a>
-<a class="sourceLine" id="cb145-16" title="16"><span class="co">## 9003  2020-03-23   Erie New York 36029    87      0</span></a>
-<a class="sourceLine" id="cb145-17" title="17"><span class="co">## 10314 2020-03-24   Erie New York 36029   107      0</span></a>
-<a class="sourceLine" id="cb145-18" title="18"><span class="co">## 11754 2020-03-25   Erie New York 36029   122      0</span></a>
-<a class="sourceLine" id="cb145-19" title="19"><span class="co">## 13367 2020-03-26   Erie New York 36029   134      2</span></a>
-<a class="sourceLine" id="cb145-20" title="20"><span class="co">## 15111 2020-03-27   Erie New York 36029   219      6</span></a>
-<a class="sourceLine" id="cb145-21" title="21"><span class="co">## 16951 2020-03-28   Erie New York 36029   354      6</span></a>
-<a class="sourceLine" id="cb145-22" title="22"><span class="co">## 18888 2020-03-29   Erie New York 36029   380      6</span></a>
-<a class="sourceLine" id="cb145-23" title="23"><span class="co">## 20938 2020-03-30   Erie New York 36029   443      8</span></a>
-<a class="sourceLine" id="cb145-24" title="24"><span class="co">## 23079 2020-03-31   Erie New York 36029   438      8</span></a>
-<a class="sourceLine" id="cb145-25" title="25"><span class="co">## 25283 2020-04-01   Erie New York 36029   553     12</span></a>
-<a class="sourceLine" id="cb145-26" title="26"><span class="co">## 27544 2020-04-02   Erie New York 36029   734     19</span></a>
-<a class="sourceLine" id="cb145-27" title="27"><span class="co">## 29866 2020-04-03   Erie New York 36029   802     22</span></a>
-<a class="sourceLine" id="cb145-28" title="28"><span class="co">## 32254 2020-04-04   Erie New York 36029   945     26</span></a>
-<a class="sourceLine" id="cb145-29" title="29"><span class="co">## 34687 2020-04-05   Erie New York 36029  1059     27</span></a>
-<a class="sourceLine" id="cb145-30" title="30"><span class="co">## 37160 2020-04-06   Erie New York 36029  1163     30</span></a>
-<a class="sourceLine" id="cb145-31" title="31"><span class="co">## 39674 2020-04-07   Erie New York 36029  1163     36</span></a>
-<a class="sourceLine" id="cb145-32" title="32"><span class="co">## 42227 2020-04-08   Erie New York 36029  1205     38</span></a>
-<a class="sourceLine" id="cb145-33" title="33"><span class="co">## 44803 2020-04-09   Erie New York 36029  1362     46</span></a>
-<a class="sourceLine" id="cb145-34" title="34"><span class="co">## 47417 2020-04-10   Erie New York 36029  1409     58</span></a>
-<a class="sourceLine" id="cb145-35" title="35"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a>
-<a class="sourceLine" id="cb145-36" title="36"><span class="co">## 52744 2020-04-12   Erie New York 36029  1571     75</span></a>
-<a class="sourceLine" id="cb145-37" title="37"><span class="co">## 55428 2020-04-13   Erie New York 36029  1624     86</span></a>
-<a class="sourceLine" id="cb145-38" title="38"><span class="co">## 58128 2020-04-14   Erie New York 36029  1668     99</span></a>
-<a class="sourceLine" id="cb145-39" title="39"><span class="co">## 60844 2020-04-15   Erie New York 36029  1751    110</span></a>
-<a class="sourceLine" id="cb145-40" title="40"><span class="co">## 63572 2020-04-16   Erie New York 36029  1850    115</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">ny_state &lt;-<span class="st"> </span>us[us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>,]</a>
+<a class="sourceLine" id="cb145-2" data-line-number="2"><span class="kw">dim</span>(ny_state)</a>
+<a class="sourceLine" id="cb145-3" data-line-number="3"><span class="co">## [1] 1780    6</span></a>
+<a class="sourceLine" id="cb145-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb145-5" data-line-number="5">erie &lt;-<span class="st"> </span>us[(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>), ]</a>
+<a class="sourceLine" id="cb145-6" data-line-number="6">erie</a>
+<a class="sourceLine" id="cb145-7" data-line-number="7"><span class="co">##             date county    state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb145-8" data-line-number="8"><span class="co">## 2569  2020-03-15   Erie New York 36029     3      0</span></a>
+<a class="sourceLine" id="cb145-9" data-line-number="9"><span class="co">## 3028  2020-03-16   Erie New York 36029     6      0</span></a>
+<a class="sourceLine" id="cb145-10" data-line-number="10"><span class="co">## 3544  2020-03-17   Erie New York 36029     7      0</span></a>
+<a class="sourceLine" id="cb145-11" data-line-number="11"><span class="co">## 4141  2020-03-18   Erie New York 36029     7      0</span></a>
+<a class="sourceLine" id="cb145-12" data-line-number="12"><span class="co">## 4870  2020-03-19   Erie New York 36029    28      0</span></a>
+<a class="sourceLine" id="cb145-13" data-line-number="13"><span class="co">## 5717  2020-03-20   Erie New York 36029    31      0</span></a>
+<a class="sourceLine" id="cb145-14" data-line-number="14"><span class="co">## 6711  2020-03-21   Erie New York 36029    38      0</span></a>
+<a class="sourceLine" id="cb145-15" data-line-number="15"><span class="co">## 7805  2020-03-22   Erie New York 36029    54      0</span></a>
+<a class="sourceLine" id="cb145-16" data-line-number="16"><span class="co">## 9003  2020-03-23   Erie New York 36029    87      0</span></a>
+<a class="sourceLine" id="cb145-17" data-line-number="17"><span class="co">## 10314 2020-03-24   Erie New York 36029   107      0</span></a>
+<a class="sourceLine" id="cb145-18" data-line-number="18"><span class="co">## 11754 2020-03-25   Erie New York 36029   122      0</span></a>
+<a class="sourceLine" id="cb145-19" data-line-number="19"><span class="co">## 13367 2020-03-26   Erie New York 36029   134      2</span></a>
+<a class="sourceLine" id="cb145-20" data-line-number="20"><span class="co">## 15111 2020-03-27   Erie New York 36029   219      6</span></a>
+<a class="sourceLine" id="cb145-21" data-line-number="21"><span class="co">## 16951 2020-03-28   Erie New York 36029   354      6</span></a>
+<a class="sourceLine" id="cb145-22" data-line-number="22"><span class="co">## 18888 2020-03-29   Erie New York 36029   380      6</span></a>
+<a class="sourceLine" id="cb145-23" data-line-number="23"><span class="co">## 20938 2020-03-30   Erie New York 36029   443      8</span></a>
+<a class="sourceLine" id="cb145-24" data-line-number="24"><span class="co">## 23079 2020-03-31   Erie New York 36029   438      8</span></a>
+<a class="sourceLine" id="cb145-25" data-line-number="25"><span class="co">## 25283 2020-04-01   Erie New York 36029   553     12</span></a>
+<a class="sourceLine" id="cb145-26" data-line-number="26"><span class="co">## 27544 2020-04-02   Erie New York 36029   734     19</span></a>
+<a class="sourceLine" id="cb145-27" data-line-number="27"><span class="co">## 29866 2020-04-03   Erie New York 36029   802     22</span></a>
+<a class="sourceLine" id="cb145-28" data-line-number="28"><span class="co">## 32254 2020-04-04   Erie New York 36029   945     26</span></a>
+<a class="sourceLine" id="cb145-29" data-line-number="29"><span class="co">## 34687 2020-04-05   Erie New York 36029  1059     27</span></a>
+<a class="sourceLine" id="cb145-30" data-line-number="30"><span class="co">## 37160 2020-04-06   Erie New York 36029  1163     30</span></a>
+<a class="sourceLine" id="cb145-31" data-line-number="31"><span class="co">## 39674 2020-04-07   Erie New York 36029  1163     36</span></a>
+<a class="sourceLine" id="cb145-32" data-line-number="32"><span class="co">## 42227 2020-04-08   Erie New York 36029  1205     38</span></a>
+<a class="sourceLine" id="cb145-33" data-line-number="33"><span class="co">## 44803 2020-04-09   Erie New York 36029  1362     46</span></a>
+<a class="sourceLine" id="cb145-34" data-line-number="34"><span class="co">## 47417 2020-04-10   Erie New York 36029  1409     58</span></a>
+<a class="sourceLine" id="cb145-35" data-line-number="35"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a>
+<a class="sourceLine" id="cb145-36" data-line-number="36"><span class="co">## 52744 2020-04-12   Erie New York 36029  1571     75</span></a>
+<a class="sourceLine" id="cb145-37" data-line-number="37"><span class="co">## 55428 2020-04-13   Erie New York 36029  1624     86</span></a>
+<a class="sourceLine" id="cb145-38" data-line-number="38"><span class="co">## 58128 2020-04-14   Erie New York 36029  1668     99</span></a>
+<a class="sourceLine" id="cb145-39" data-line-number="39"><span class="co">## 60844 2020-04-15   Erie New York 36029  1751    110</span></a>
+<a class="sourceLine" id="cb145-40" data-line-number="40"><span class="co">## 63572 2020-04-16   Erie New York 36029  1850    115</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -820,33 +821,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>subset()</code>ing a <code>data.frame</code></p>
 <ul>
 <li><p>Read the New York Times csv file summarizing COVID cases in the US.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">url &lt;-</a>
-<a class="sourceLine" id="cb146-2" title="2"><span class="st">  &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb146-3" title="3">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">url &lt;-</a>
+<a class="sourceLine" id="cb146-2" data-line-number="2"><span class="st">  &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb146-3" data-line-number="3">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
 <li><p>Create subsets, e.g., to include only New York state, or only Erie county</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
-<a class="sourceLine" id="cb147-2" title="2"><span class="kw">dim</span>(ny_state)</a>
-<a class="sourceLine" id="cb147-3" title="3"><span class="co">## [1] 1780    6</span></a>
-<a class="sourceLine" id="cb147-4" title="4"><span class="kw">tail</span>(ny_state)</a>
-<a class="sourceLine" id="cb147-5" title="5"><span class="co">##             date      county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb147-6" title="6"><span class="co">## 63611 2020-04-16      Warren New York 36113    81      5</span></a>
-<a class="sourceLine" id="cb147-7" title="7"><span class="co">## 63612 2020-04-16  Washington New York 36115    46      0</span></a>
-<a class="sourceLine" id="cb147-8" title="8"><span class="co">## 63613 2020-04-16       Wayne New York 36117    49      0</span></a>
-<a class="sourceLine" id="cb147-9" title="9"><span class="co">## 63614 2020-04-16 Westchester New York 36119 21828    738</span></a>
-<a class="sourceLine" id="cb147-10" title="10"><span class="co">## 63615 2020-04-16     Wyoming New York 36121    34      3</span></a>
-<a class="sourceLine" id="cb147-11" title="11"><span class="co">## 63616 2020-04-16       Yates New York 36123     7      0</span></a>
-<a class="sourceLine" id="cb147-12" title="12"></a>
-<a class="sourceLine" id="cb147-13" title="13">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>)</a>
-<a class="sourceLine" id="cb147-14" title="14"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb147-15" title="15"><span class="co">## [1] 33  6</span></a>
-<a class="sourceLine" id="cb147-16" title="16"><span class="kw">tail</span>(erie)</a>
-<a class="sourceLine" id="cb147-17" title="17"><span class="co">##             date county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb147-18" title="18"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a>
-<a class="sourceLine" id="cb147-19" title="19"><span class="co">## 52744 2020-04-12   Erie New York 36029  1571     75</span></a>
-<a class="sourceLine" id="cb147-20" title="20"><span class="co">## 55428 2020-04-13   Erie New York 36029  1624     86</span></a>
-<a class="sourceLine" id="cb147-21" title="21"><span class="co">## 58128 2020-04-14   Erie New York 36029  1668     99</span></a>
-<a class="sourceLine" id="cb147-22" title="22"><span class="co">## 60844 2020-04-15   Erie New York 36029  1751    110</span></a>
-<a class="sourceLine" id="cb147-23" title="23"><span class="co">## 63572 2020-04-16   Erie New York 36029  1850    115</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
+<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="kw">dim</span>(ny_state)</a>
+<a class="sourceLine" id="cb147-3" data-line-number="3"><span class="co">## [1] 1780    6</span></a>
+<a class="sourceLine" id="cb147-4" data-line-number="4"><span class="kw">tail</span>(ny_state)</a>
+<a class="sourceLine" id="cb147-5" data-line-number="5"><span class="co">##             date      county    state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb147-6" data-line-number="6"><span class="co">## 63611 2020-04-16      Warren New York 36113    81      5</span></a>
+<a class="sourceLine" id="cb147-7" data-line-number="7"><span class="co">## 63612 2020-04-16  Washington New York 36115    46      0</span></a>
+<a class="sourceLine" id="cb147-8" data-line-number="8"><span class="co">## 63613 2020-04-16       Wayne New York 36117    49      0</span></a>
+<a class="sourceLine" id="cb147-9" data-line-number="9"><span class="co">## 63614 2020-04-16 Westchester New York 36119 21828    738</span></a>
+<a class="sourceLine" id="cb147-10" data-line-number="10"><span class="co">## 63615 2020-04-16     Wyoming New York 36121    34      3</span></a>
+<a class="sourceLine" id="cb147-11" data-line-number="11"><span class="co">## 63616 2020-04-16       Yates New York 36123     7      0</span></a>
+<a class="sourceLine" id="cb147-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb147-13" data-line-number="13">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>)</a>
+<a class="sourceLine" id="cb147-14" data-line-number="14"><span class="kw">dim</span>(erie)</a>
+<a class="sourceLine" id="cb147-15" data-line-number="15"><span class="co">## [1] 33  6</span></a>
+<a class="sourceLine" id="cb147-16" data-line-number="16"><span class="kw">tail</span>(erie)</a>
+<a class="sourceLine" id="cb147-17" data-line-number="17"><span class="co">##             date county    state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb147-18" data-line-number="18"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a>
+<a class="sourceLine" id="cb147-19" data-line-number="19"><span class="co">## 52744 2020-04-12   Erie New York 36029  1571     75</span></a>
+<a class="sourceLine" id="cb147-20" data-line-number="20"><span class="co">## 55428 2020-04-13   Erie New York 36029  1624     86</span></a>
+<a class="sourceLine" id="cb147-21" data-line-number="21"><span class="co">## 58128 2020-04-14   Erie New York 36029  1668     99</span></a>
+<a class="sourceLine" id="cb147-22" data-line-number="22"><span class="co">## 60844 2020-04-15   Erie New York 36029  1751    110</span></a>
+<a class="sourceLine" id="cb147-23" data-line-number="23"><span class="co">## 63572 2020-04-16   Erie New York 36029  1850    115</span></a></code></pre></div></li>
 </ul>
 </div>
 <div id="with" class="section level3 unnumbered">
@@ -858,8 +859,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Second argument: an <em>expression</em> to be evaluated, usually referencing columns in the data set – <code>max(cases)</code></p>
 <ul>
 <li><p>E.g., Calculate the maximum number of cases in the <code>erie</code> subset</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases))</a>
-<a class="sourceLine" id="cb148-2" title="2"><span class="co">## [1] 1850</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases))</a>
+<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="co">## [1] 1850</span></a></code></pre></div></li>
 </ul></li>
 </ul>
 <p>Second argument can be more complicated, using <code>{}</code> to enclose several lines.</p>
@@ -867,21 +868,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>E.g., Calculate the number of new cases, and then reports the average number of new cases per day. We will use <code>diff()</code></p>
 <ul>
 <li><p><code>diff()</code> calculates the difference between successive values of a vector</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb149-2" title="2"><span class="kw">diff</span>(x)</a>
-<a class="sourceLine" id="cb149-3" title="3"><span class="co">## [1] 0 1 1 2 3</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="kw">diff</span>(x)</a>
+<a class="sourceLine" id="cb149-3" data-line-number="3"><span class="co">## [1] 0 1 1 2 3</span></a></code></pre></div></li>
 <li><p>The length of <code>diff(x)</code> is one less than the length of <code>x</code></p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1"><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb150-2" title="2"><span class="co">## [1] 6</span></a>
-<a class="sourceLine" id="cb150-3" title="3"><span class="kw">length</span>(<span class="kw">diff</span>(x))</a>
-<a class="sourceLine" id="cb150-4" title="4"><span class="co">## [1] 5</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="co">## [1] 6</span></a>
+<a class="sourceLine" id="cb150-3" data-line-number="3"><span class="kw">length</span>(<span class="kw">diff</span>(x))</a>
+<a class="sourceLine" id="cb150-4" data-line-number="4"><span class="co">## [1] 5</span></a></code></pre></div></li>
 </ul></li>
 <li><p><code>new_cases</code> is the <code>diff()</code> of successive values of <code>cases</code>, with an implicit initial value equal to 0.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="kw">with</span>(erie, {</a>
-<a class="sourceLine" id="cb151-2" title="2">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))</a>
-<a class="sourceLine" id="cb151-3" title="3">    <span class="kw">mean</span>(new_cases)</a>
-<a class="sourceLine" id="cb151-4" title="4">})</a>
-<a class="sourceLine" id="cb151-5" title="5"><span class="co">## [1] 56.06061</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1"><span class="kw">with</span>(erie, {</a>
+<a class="sourceLine" id="cb151-2" data-line-number="2">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))</a>
+<a class="sourceLine" id="cb151-3" data-line-number="3">    <span class="kw">mean</span>(new_cases)</a>
+<a class="sourceLine" id="cb151-4" data-line-number="4">})</a>
+<a class="sourceLine" id="cb151-5" data-line-number="5"><span class="co">## [1] 56.06061</span></a></code></pre></div></li>
 </ul>
 </div>
 <div id="within" class="section level3 unnumbered">
@@ -891,17 +892,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>First argument: a <code>data.frame</code> containing data to be updated – <code>erie</code></p></li>
 <li><p>Second argument: an expression of one or more variable assignments, the assignments create new columns in the <code>data.frame</code>.</p></li>
 <li><p>Example: add a <code>new_cases</code> column</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1">erie_new_cases &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
-<a class="sourceLine" id="cb152-2" title="2">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))</a>
-<a class="sourceLine" id="cb152-3" title="3">})</a>
-<a class="sourceLine" id="cb152-4" title="4"><span class="kw">head</span>(erie_new_cases)</a>
-<a class="sourceLine" id="cb152-5" title="5"><span class="co">##            date county    state  fips cases deaths new_cases</span></a>
-<a class="sourceLine" id="cb152-6" title="6"><span class="co">## 2569 2020-03-15   Erie New York 36029     3      0         3</span></a>
-<a class="sourceLine" id="cb152-7" title="7"><span class="co">## 3028 2020-03-16   Erie New York 36029     6      0         3</span></a>
-<a class="sourceLine" id="cb152-8" title="8"><span class="co">## 3544 2020-03-17   Erie New York 36029     7      0         1</span></a>
-<a class="sourceLine" id="cb152-9" title="9"><span class="co">## 4141 2020-03-18   Erie New York 36029     7      0         0</span></a>
-<a class="sourceLine" id="cb152-10" title="10"><span class="co">## 4870 2020-03-19   Erie New York 36029    28      0        21</span></a>
-<a class="sourceLine" id="cb152-11" title="11"><span class="co">## 5717 2020-03-20   Erie New York 36029    31      0         3</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1">erie_new_cases &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
+<a class="sourceLine" id="cb152-2" data-line-number="2">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))</a>
+<a class="sourceLine" id="cb152-3" data-line-number="3">})</a>
+<a class="sourceLine" id="cb152-4" data-line-number="4"><span class="kw">head</span>(erie_new_cases)</a>
+<a class="sourceLine" id="cb152-5" data-line-number="5"><span class="co">##            date county    state  fips cases deaths new_cases</span></a>
+<a class="sourceLine" id="cb152-6" data-line-number="6"><span class="co">## 2569 2020-03-15   Erie New York 36029     3      0         3</span></a>
+<a class="sourceLine" id="cb152-7" data-line-number="7"><span class="co">## 3028 2020-03-16   Erie New York 36029     6      0         3</span></a>
+<a class="sourceLine" id="cb152-8" data-line-number="8"><span class="co">## 3544 2020-03-17   Erie New York 36029     7      0         1</span></a>
+<a class="sourceLine" id="cb152-9" data-line-number="9"><span class="co">## 4141 2020-03-18   Erie New York 36029     7      0         0</span></a>
+<a class="sourceLine" id="cb152-10" data-line-number="10"><span class="co">## 4870 2020-03-19   Erie New York 36029    28      0        21</span></a>
+<a class="sourceLine" id="cb152-11" data-line-number="11"><span class="co">## 5717 2020-03-20   Erie New York 36029    31      0         3</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -913,9 +914,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Setup</p>
 <ul>
 <li><p>Read and subset the New York Times data to contain only New York state data</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb153-2" title="2">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb153-2" data-line-number="2">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a></code></pre></div></li>
 </ul>
 <p><code>aggregate()</code></p>
 <ul>
@@ -927,191 +928,191 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Second argument: source of data – <code>ny_state</code></p></li>
 <li><p>Third argument: the function to be applied to each subset of data – <code>max</code></p></li>
 <li><p>Maximum number of cases by county:</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1">max_cases_by_county &lt;-<span class="st"> </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county, ny_state, max )</a></code></pre></div></li>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1">max_cases_by_county &lt;-<span class="st"> </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county, ny_state, max )</a></code></pre></div></li>
 </ul>
 <p>Exploring the data summary</p>
 <ul>
 <li><p>Subset to some interesting ‘counties’</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">head</span>(max_cases_by_county)</a>
-<a class="sourceLine" id="cb156-2" title="2"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb156-3" title="3"><span class="co">## 1      Albany   581</span></a>
-<a class="sourceLine" id="cb156-4" title="4"><span class="co">## 2    Allegany    28</span></a>
-<a class="sourceLine" id="cb156-5" title="5"><span class="co">## 3      Broome   167</span></a>
-<a class="sourceLine" id="cb156-6" title="6"><span class="co">## 4 Cattaraugus    32</span></a>
-<a class="sourceLine" id="cb156-7" title="7"><span class="co">## 5      Cayuga    36</span></a>
-<a class="sourceLine" id="cb156-8" title="8"><span class="co">## 6  Chautauqua    24</span></a>
-<a class="sourceLine" id="cb156-9" title="9"><span class="kw">subset</span>(</a>
-<a class="sourceLine" id="cb156-10" title="10">    max_cases_by_county,</a>
-<a class="sourceLine" id="cb156-11" title="11">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
-<a class="sourceLine" id="cb156-12" title="12">)</a>
-<a class="sourceLine" id="cb156-13" title="13"><span class="co">##           county  cases</span></a>
-<a class="sourceLine" id="cb156-14" title="14"><span class="co">## 14          Erie   1850</span></a>
-<a class="sourceLine" id="cb156-15" title="15"><span class="co">## 29 New York City 123146</span></a>
-<a class="sourceLine" id="cb156-16" title="16"><span class="co">## 57   Westchester  21828</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="kw">head</span>(max_cases_by_county)</a>
+<a class="sourceLine" id="cb156-2" data-line-number="2"><span class="co">##        county cases</span></a>
+<a class="sourceLine" id="cb156-3" data-line-number="3"><span class="co">## 1      Albany   581</span></a>
+<a class="sourceLine" id="cb156-4" data-line-number="4"><span class="co">## 2    Allegany    28</span></a>
+<a class="sourceLine" id="cb156-5" data-line-number="5"><span class="co">## 3      Broome   167</span></a>
+<a class="sourceLine" id="cb156-6" data-line-number="6"><span class="co">## 4 Cattaraugus    32</span></a>
+<a class="sourceLine" id="cb156-7" data-line-number="7"><span class="co">## 5      Cayuga    36</span></a>
+<a class="sourceLine" id="cb156-8" data-line-number="8"><span class="co">## 6  Chautauqua    24</span></a>
+<a class="sourceLine" id="cb156-9" data-line-number="9"><span class="kw">subset</span>(</a>
+<a class="sourceLine" id="cb156-10" data-line-number="10">    max_cases_by_county,</a>
+<a class="sourceLine" id="cb156-11" data-line-number="11">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
+<a class="sourceLine" id="cb156-12" data-line-number="12">)</a>
+<a class="sourceLine" id="cb156-13" data-line-number="13"><span class="co">##           county  cases</span></a>
+<a class="sourceLine" id="cb156-14" data-line-number="14"><span class="co">## 14          Erie   1850</span></a>
+<a class="sourceLine" id="cb156-15" data-line-number="15"><span class="co">## 29 New York City 123146</span></a>
+<a class="sourceLine" id="cb156-16" data-line-number="16"><span class="co">## 57   Westchester  21828</span></a></code></pre></div></li>
 </ul>
 <p>Help: <code>?aggregate.formula</code></p>
 </div>
 <div id="an-initial-work-flow" class="section level3 unnumbered">
 <h3>An initial work flow</h3>
 <p>Data input</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb157-2" title="2">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="kw">class</span>(us)</a>
-<a class="sourceLine" id="cb158-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
-<a class="sourceLine" id="cb158-3" title="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb158-4" title="4"><span class="co">## [1] 64707     6</span></a>
-<a class="sourceLine" id="cb158-5" title="5"><span class="kw">head</span>(us)</a>
-<a class="sourceLine" id="cb158-6" title="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb158-7" title="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb158-8" title="8"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb158-9" title="9"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb158-10" title="10"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
-<a class="sourceLine" id="cb158-11" title="11"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb158-12" title="12"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb157-2" data-line-number="2">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="kw">class</span>(us)</a>
+<a class="sourceLine" id="cb158-2" data-line-number="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
+<a class="sourceLine" id="cb158-3" data-line-number="3"><span class="kw">dim</span>(us)</a>
+<a class="sourceLine" id="cb158-4" data-line-number="4"><span class="co">## [1] 64707     6</span></a>
+<a class="sourceLine" id="cb158-5" data-line-number="5"><span class="kw">head</span>(us)</a>
+<a class="sourceLine" id="cb158-6" data-line-number="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb158-7" data-line-number="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb158-8" data-line-number="8"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb158-9" data-line-number="9"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb158-10" data-line-number="10"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
+<a class="sourceLine" id="cb158-11" data-line-number="11"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb158-12" data-line-number="12"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div>
 <p>Cleaning</p>
 <ul>
 <li><p><code>date</code> is a plain-old <code>character</code> vector, but should be a <code>Date</code>.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">class</span>(us<span class="op">$</span>date) <span class="co"># oops, should be &#39;Date&#39;</span></a>
-<a class="sourceLine" id="cb159-2" title="2"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="kw">class</span>(us<span class="op">$</span>date) <span class="co"># oops, should be &#39;Date&#39;</span></a>
+<a class="sourceLine" id="cb159-2" data-line-number="2"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div></li>
 <li><p>Update, method 1</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">us<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(us<span class="op">$</span>date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb160-2" title="2"><span class="kw">head</span>(us)</a>
-<a class="sourceLine" id="cb160-3" title="3"><span class="co">##         date    county      state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb160-4" title="4"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb160-5" title="5"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb160-6" title="6"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb160-7" title="7"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
-<a class="sourceLine" id="cb160-8" title="8"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb160-9" title="9"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1">us<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(us<span class="op">$</span>date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb160-2" data-line-number="2"><span class="kw">head</span>(us)</a>
+<a class="sourceLine" id="cb160-3" data-line-number="3"><span class="co">##         date    county      state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb160-4" data-line-number="4"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb160-5" data-line-number="5"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb160-6" data-line-number="6"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb160-7" data-line-number="7"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
+<a class="sourceLine" id="cb160-8" data-line-number="8"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb160-9" data-line-number="9"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div></li>
 <li><p>Update, method 2</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1">us &lt;-<span class="st"> </span><span class="kw">within</span>(us, {</a>
-<a class="sourceLine" id="cb161-2" title="2">    date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb161-3" title="3">})</a>
-<a class="sourceLine" id="cb161-4" title="4"><span class="kw">head</span>(us)</a>
-<a class="sourceLine" id="cb161-5" title="5"><span class="co">##         date    county      state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb161-6" title="6"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb161-7" title="7"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb161-8" title="8"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb161-9" title="9"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
-<a class="sourceLine" id="cb161-10" title="10"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
-<a class="sourceLine" id="cb161-11" title="11"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">us &lt;-<span class="st"> </span><span class="kw">within</span>(us, {</a>
+<a class="sourceLine" id="cb161-2" data-line-number="2">    date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb161-3" data-line-number="3">})</a>
+<a class="sourceLine" id="cb161-4" data-line-number="4"><span class="kw">head</span>(us)</a>
+<a class="sourceLine" id="cb161-5" data-line-number="5"><span class="co">##         date    county      state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb161-6" data-line-number="6"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb161-7" data-line-number="7"><span class="co">## 2 2020-01-22 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb161-8" data-line-number="8"><span class="co">## 3 2020-01-23 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb161-9" data-line-number="9"><span class="co">## 4 2020-01-24      Cook   Illinois 17031     1      0</span></a>
+<a class="sourceLine" id="cb161-10" data-line-number="10"><span class="co">## 5 2020-01-24 Snohomish Washington 53061     1      0</span></a>
+<a class="sourceLine" id="cb161-11" data-line-number="11"><span class="co">## 6 2020-01-25    Orange California  6059     1      0</span></a></code></pre></div></li>
 </ul>
 <p>Interested only in Erie county, New York state</p>
 <ul>
 <li><p>Subset, method 1</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1">row_idx &lt;-<span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
-<a class="sourceLine" id="cb162-2" title="2">erie &lt;-<span class="st"> </span>us[row_idx,]</a>
-<a class="sourceLine" id="cb162-3" title="3"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb162-4" title="4"><span class="co">## [1] 33  6</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1">row_idx &lt;-<span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
+<a class="sourceLine" id="cb162-2" data-line-number="2">erie &lt;-<span class="st"> </span>us[row_idx,]</a>
+<a class="sourceLine" id="cb162-3" data-line-number="3"><span class="kw">dim</span>(erie)</a>
+<a class="sourceLine" id="cb162-4" data-line-number="4"><span class="co">## [1] 33  6</span></a></code></pre></div></li>
 <li><p>Subset, method 2</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
-<a class="sourceLine" id="cb163-2" title="2"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb163-3" title="3"><span class="co">## [1] 33  6</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
+<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="kw">dim</span>(erie)</a>
+<a class="sourceLine" id="cb163-3" data-line-number="3"><span class="co">## [1] 33  6</span></a></code></pre></div></li>
 </ul>
 <p>Manipulation</p>
 <ul>
 <li><p>Goal: calculate <code>new_cases</code> as the difference between succesive days, using <code>diff()</code></p></li>
 <li><p>Remember use of <code>diff()</code></p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="co">## example: `diff()` between successive numbers in a vector</span></a>
-<a class="sourceLine" id="cb164-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">13</span>)</a>
-<a class="sourceLine" id="cb164-3" title="3"><span class="kw">diff</span>(x)</a>
-<a class="sourceLine" id="cb164-4" title="4"><span class="co">## [1] 0 1 1 2 3 5</span></a>
-<a class="sourceLine" id="cb164-5" title="5"></a>
-<a class="sourceLine" id="cb164-6" title="6"><span class="co">## note &#39;diff()&#39; what about an implicit &#39;0&#39; at the start of a sequence?</span></a>
-<a class="sourceLine" id="cb164-7" title="7"><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, x) )</a>
-<a class="sourceLine" id="cb164-8" title="8"><span class="co">## [1] 1 0 1 1 2 3 5</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="co">## example: `diff()` between successive numbers in a vector</span></a>
+<a class="sourceLine" id="cb164-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">13</span>)</a>
+<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="kw">diff</span>(x)</a>
+<a class="sourceLine" id="cb164-4" data-line-number="4"><span class="co">## [1] 0 1 1 2 3 5</span></a>
+<a class="sourceLine" id="cb164-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb164-6" data-line-number="6"><span class="co">## note &#39;diff()&#39; what about an implicit &#39;0&#39; at the start of a sequence?</span></a>
+<a class="sourceLine" id="cb164-7" data-line-number="7"><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, x) )</a>
+<a class="sourceLine" id="cb164-8" data-line-number="8"><span class="co">## [1] 1 0 1 1 2 3 5</span></a></code></pre></div></li>
 <li><p>Update, methods 1 &amp; 2</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="co">## one way...</span></a>
-<a class="sourceLine" id="cb165-2" title="2">erie<span class="op">$</span>new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, erie<span class="op">$</span>cases) )</a>
-<a class="sourceLine" id="cb165-3" title="3"></a>
-<a class="sourceLine" id="cb165-4" title="4"><span class="co">## ...or another</span></a>
-<a class="sourceLine" id="cb165-5" title="5">erie &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
-<a class="sourceLine" id="cb165-6" title="6">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
-<a class="sourceLine" id="cb165-7" title="7">})</a></code></pre></div></li>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="co">## one way...</span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2">erie<span class="op">$</span>new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, erie<span class="op">$</span>cases) )</a>
+<a class="sourceLine" id="cb165-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb165-4" data-line-number="4"><span class="co">## ...or another</span></a>
+<a class="sourceLine" id="cb165-5" data-line-number="5">erie &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
+<a class="sourceLine" id="cb165-6" data-line-number="6">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
+<a class="sourceLine" id="cb165-7" data-line-number="7">})</a></code></pre></div></li>
 </ul>
 <p>Simple visualization</p>
 <ul>
 <li><p>Use a formula to describe the dependent (y-axis) variable as a function of the independent (x-axis) variable – <code>cases ~ date</code></p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1"><span class="kw">plot</span>( cases <span class="op">~</span><span class="st"> </span>date, erie)</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="kw">plot</span>( cases <span class="op">~</span><span class="st"> </span>date, erie)</a></code></pre></div>
 <p><img src="02-DataFrame_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <p>maybe more informative: log-transformed new cases</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, erie, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;New Cases, Erie County&quot;</span> )</a>
-<a class="sourceLine" id="cb167-2" title="2"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
-<a class="sourceLine" id="cb167-3" title="3"><span class="co">## logarithmic plot</span></a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, erie, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;New Cases, Erie County&quot;</span> )</a>
+<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
+<a class="sourceLine" id="cb167-3" data-line-number="3"><span class="co">## logarithmic plot</span></a></code></pre></div>
 <p><img src="02-DataFrame_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p></li>
 <li><p>Help: <code>?plot.formula</code></p></li>
 </ul>
 <p>Summary: calculate maximum (total) number of cases per county in New York state</p>
 <ul>
 <li><p>For Erie county, let’s see how to calculate the maximum (total) number of cases</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1"><span class="kw">max</span>(erie<span class="op">$</span>cases)        <span class="co"># one way...</span></a>
-<a class="sourceLine" id="cb168-2" title="2"><span class="co">## [1] 1850</span></a>
-<a class="sourceLine" id="cb168-3" title="3"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases)) <span class="co"># ... another</span></a>
-<a class="sourceLine" id="cb168-4" title="4"><span class="co">## [1] 1850</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">max</span>(erie<span class="op">$</span>cases)        <span class="co"># one way...</span></a>
+<a class="sourceLine" id="cb168-2" data-line-number="2"><span class="co">## [1] 1850</span></a>
+<a class="sourceLine" id="cb168-3" data-line-number="3"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases)) <span class="co"># ... another</span></a>
+<a class="sourceLine" id="cb168-4" data-line-number="4"><span class="co">## [1] 1850</span></a></code></pre></div></li>
 <li><p>Subset US data to New York state</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a></code></pre></div></li>
 <li><p>Summarize each county in the state using <code>aggregate()</code>.</p>
 <ul>
 <li><p>First argument: summarize <code>cases</code> grouped by <code>county</code> – <code>cases ~ county</code></p></li>
 <li><p>Second argument: data source – <code>ny_state</code></p></li>
 <li><p>Third argument: function to apply to each subset – <code>max</code></p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1">max_cases_by_county &lt;-<span class="st"> </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county, ny_state, max)</a>
-<a class="sourceLine" id="cb170-2" title="2"><span class="kw">head</span>(max_cases_by_county)</a>
-<a class="sourceLine" id="cb170-3" title="3"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb170-4" title="4"><span class="co">## 1      Albany   581</span></a>
-<a class="sourceLine" id="cb170-5" title="5"><span class="co">## 2    Allegany    28</span></a>
-<a class="sourceLine" id="cb170-6" title="6"><span class="co">## 3      Broome   167</span></a>
-<a class="sourceLine" id="cb170-7" title="7"><span class="co">## 4 Cattaraugus    32</span></a>
-<a class="sourceLine" id="cb170-8" title="8"><span class="co">## 5      Cayuga    36</span></a>
-<a class="sourceLine" id="cb170-9" title="9"><span class="co">## 6  Chautauqua    24</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1">max_cases_by_county &lt;-<span class="st"> </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county, ny_state, max)</a>
+<a class="sourceLine" id="cb170-2" data-line-number="2"><span class="kw">head</span>(max_cases_by_county)</a>
+<a class="sourceLine" id="cb170-3" data-line-number="3"><span class="co">##        county cases</span></a>
+<a class="sourceLine" id="cb170-4" data-line-number="4"><span class="co">## 1      Albany   581</span></a>
+<a class="sourceLine" id="cb170-5" data-line-number="5"><span class="co">## 2    Allegany    28</span></a>
+<a class="sourceLine" id="cb170-6" data-line-number="6"><span class="co">## 3      Broome   167</span></a>
+<a class="sourceLine" id="cb170-7" data-line-number="7"><span class="co">## 4 Cattaraugus    32</span></a>
+<a class="sourceLine" id="cb170-8" data-line-number="8"><span class="co">## 5      Cayuga    36</span></a>
+<a class="sourceLine" id="cb170-9" data-line-number="9"><span class="co">## 6  Chautauqua    24</span></a></code></pre></div></li>
 </ul></li>
 <li><p><code>subset()</code> to select counties</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="kw">subset</span>(</a>
-<a class="sourceLine" id="cb171-2" title="2">    max_cases_by_county,</a>
-<a class="sourceLine" id="cb171-3" title="3">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
-<a class="sourceLine" id="cb171-4" title="4">)</a>
-<a class="sourceLine" id="cb171-5" title="5"><span class="co">##           county  cases</span></a>
-<a class="sourceLine" id="cb171-6" title="6"><span class="co">## 14          Erie   1850</span></a>
-<a class="sourceLine" id="cb171-7" title="7"><span class="co">## 29 New York City 123146</span></a>
-<a class="sourceLine" id="cb171-8" title="8"><span class="co">## 57   Westchester  21828</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="kw">subset</span>(</a>
+<a class="sourceLine" id="cb171-2" data-line-number="2">    max_cases_by_county,</a>
+<a class="sourceLine" id="cb171-3" data-line-number="3">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
+<a class="sourceLine" id="cb171-4" data-line-number="4">)</a>
+<a class="sourceLine" id="cb171-5" data-line-number="5"><span class="co">##           county  cases</span></a>
+<a class="sourceLine" id="cb171-6" data-line-number="6"><span class="co">## 14          Erie   1850</span></a>
+<a class="sourceLine" id="cb171-7" data-line-number="7"><span class="co">## 29 New York City 123146</span></a>
+<a class="sourceLine" id="cb171-8" data-line-number="8"><span class="co">## 57   Westchester  21828</span></a></code></pre></div></li>
 </ul>
 <p>Summary: calculate maximum (total) number of cases per state</p>
 <ul>
 <li><p>Use entire data set, <code>us</code></p></li>
 <li><p><code>aggregate()</code> cases by county <em>and</em> state – <code>cases ~ county + state</code></p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1">max_cases_by_county_state &lt;-</a>
-<a class="sourceLine" id="cb172-2" title="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county <span class="op">+</span><span class="st"> </span>state, us, max )</a>
-<a class="sourceLine" id="cb172-3" title="3"><span class="kw">dim</span>(max_cases_by_county_state)</a>
-<a class="sourceLine" id="cb172-4" title="4"><span class="co">## [1] 2767    3</span></a>
-<a class="sourceLine" id="cb172-5" title="5"><span class="kw">head</span>(max_cases_by_county_state)</a>
-<a class="sourceLine" id="cb172-6" title="6"><span class="co">##    county   state cases</span></a>
-<a class="sourceLine" id="cb172-7" title="7"><span class="co">## 1 Autauga Alabama    25</span></a>
-<a class="sourceLine" id="cb172-8" title="8"><span class="co">## 2 Baldwin Alabama   102</span></a>
-<a class="sourceLine" id="cb172-9" title="9"><span class="co">## 3 Barbour Alabama    14</span></a>
-<a class="sourceLine" id="cb172-10" title="10"><span class="co">## 4    Bibb Alabama    24</span></a>
-<a class="sourceLine" id="cb172-11" title="11"><span class="co">## 5  Blount Alabama    18</span></a>
-<a class="sourceLine" id="cb172-12" title="12"><span class="co">## 6 Bullock Alabama     8</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">max_cases_by_county_state &lt;-</a>
+<a class="sourceLine" id="cb172-2" data-line-number="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county <span class="op">+</span><span class="st"> </span>state, us, max )</a>
+<a class="sourceLine" id="cb172-3" data-line-number="3"><span class="kw">dim</span>(max_cases_by_county_state)</a>
+<a class="sourceLine" id="cb172-4" data-line-number="4"><span class="co">## [1] 2767    3</span></a>
+<a class="sourceLine" id="cb172-5" data-line-number="5"><span class="kw">head</span>(max_cases_by_county_state)</a>
+<a class="sourceLine" id="cb172-6" data-line-number="6"><span class="co">##    county   state cases</span></a>
+<a class="sourceLine" id="cb172-7" data-line-number="7"><span class="co">## 1 Autauga Alabama    25</span></a>
+<a class="sourceLine" id="cb172-8" data-line-number="8"><span class="co">## 2 Baldwin Alabama   102</span></a>
+<a class="sourceLine" id="cb172-9" data-line-number="9"><span class="co">## 3 Barbour Alabama    14</span></a>
+<a class="sourceLine" id="cb172-10" data-line-number="10"><span class="co">## 4    Bibb Alabama    24</span></a>
+<a class="sourceLine" id="cb172-11" data-line-number="11"><span class="co">## 5  Blount Alabama    18</span></a>
+<a class="sourceLine" id="cb172-12" data-line-number="12"><span class="co">## 6 Bullock Alabama     8</span></a></code></pre></div></li>
 <li><p><code>aggregate()</code> a second time, using <code>max_cases_by_county_state</code> and aggregtaing by state</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1">max_cases_by_state &lt;-</a>
-<a class="sourceLine" id="cb173-2" title="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>state, max_cases_by_county_state, max )</a></code></pre></div></li>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">max_cases_by_state &lt;-</a>
+<a class="sourceLine" id="cb173-2" data-line-number="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>state, max_cases_by_county_state, max )</a></code></pre></div></li>
 <li><p>Explore the data</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="kw">head</span>(max_cases_by_state)</a>
-<a class="sourceLine" id="cb174-2" title="2"><span class="co">##        state cases</span></a>
-<a class="sourceLine" id="cb174-3" title="3"><span class="co">## 1    Alabama   634</span></a>
-<a class="sourceLine" id="cb174-4" title="4"><span class="co">## 2     Alaska   143</span></a>
-<a class="sourceLine" id="cb174-5" title="5"><span class="co">## 3    Arizona  2264</span></a>
-<a class="sourceLine" id="cb174-6" title="6"><span class="co">## 4   Arkansas   355</span></a>
-<a class="sourceLine" id="cb174-7" title="7"><span class="co">## 5 California 10854</span></a>
-<a class="sourceLine" id="cb174-8" title="8"><span class="co">## 6   Colorado  1549</span></a>
-<a class="sourceLine" id="cb174-9" title="9"><span class="kw">subset</span>(</a>
-<a class="sourceLine" id="cb174-10" title="10">    max_cases_by_state,</a>
-<a class="sourceLine" id="cb174-11" title="11">    state <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;Illinois&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Washington&quot;</span>)</a>
-<a class="sourceLine" id="cb174-12" title="12">)</a>
-<a class="sourceLine" id="cb174-13" title="13"><span class="co">##         state  cases</span></a>
-<a class="sourceLine" id="cb174-14" title="14"><span class="co">## 5  California  10854</span></a>
-<a class="sourceLine" id="cb174-15" title="15"><span class="co">## 15   Illinois  18087</span></a>
-<a class="sourceLine" id="cb174-16" title="16"><span class="co">## 34   New York 123146</span></a>
-<a class="sourceLine" id="cb174-17" title="17"><span class="co">## 52 Washington   4811</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1"><span class="kw">head</span>(max_cases_by_state)</a>
+<a class="sourceLine" id="cb174-2" data-line-number="2"><span class="co">##        state cases</span></a>
+<a class="sourceLine" id="cb174-3" data-line-number="3"><span class="co">## 1    Alabama   634</span></a>
+<a class="sourceLine" id="cb174-4" data-line-number="4"><span class="co">## 2     Alaska   143</span></a>
+<a class="sourceLine" id="cb174-5" data-line-number="5"><span class="co">## 3    Arizona  2264</span></a>
+<a class="sourceLine" id="cb174-6" data-line-number="6"><span class="co">## 4   Arkansas   355</span></a>
+<a class="sourceLine" id="cb174-7" data-line-number="7"><span class="co">## 5 California 10854</span></a>
+<a class="sourceLine" id="cb174-8" data-line-number="8"><span class="co">## 6   Colorado  1549</span></a>
+<a class="sourceLine" id="cb174-9" data-line-number="9"><span class="kw">subset</span>(</a>
+<a class="sourceLine" id="cb174-10" data-line-number="10">    max_cases_by_state,</a>
+<a class="sourceLine" id="cb174-11" data-line-number="11">    state <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;Illinois&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Washington&quot;</span>)</a>
+<a class="sourceLine" id="cb174-12" data-line-number="12">)</a>
+<a class="sourceLine" id="cb174-13" data-line-number="13"><span class="co">##         state  cases</span></a>
+<a class="sourceLine" id="cb174-14" data-line-number="14"><span class="co">## 5  California  10854</span></a>
+<a class="sourceLine" id="cb174-15" data-line-number="15"><span class="co">## 15   Illinois  18087</span></a>
+<a class="sourceLine" id="cb174-16" data-line-number="16"><span class="co">## 34   New York 123146</span></a>
+<a class="sourceLine" id="cb174-17" data-line-number="17"><span class="co">## 52 Washington   4811</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
