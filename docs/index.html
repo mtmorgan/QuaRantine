@@ -5,23 +5,23 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>40 Days and 40 Nights</title>
-  <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta name="description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="40 Days and 40 Nights" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta property="og:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="40 Days and 40 Nights" />
   
-  <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta name="twitter:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   
 
 <meta name="author" content="Martin Morgan" />
@@ -73,7 +73,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -267,28 +267,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We haven’t thought this through much, but roughly we might cover:</p>
 <ul>
 <li><p>Week <a href="one.html#one">1</a>: We’ll start with the basics of installing and using R. We’ll set up <em>R</em> and <em>RStudio</em> on your local computer, or if that doesn’t work use a cloud-based RStudio. We’ll learn the basics of <em>R</em> – numeric, character, logical, and other vectors; variables; and slightly more complicated representations of ‘factors’ and dates. We’ll also use <em>RStudio</em> to write a script that allows us to easily re-create an analysis, illustrating the power concept of <em>reproducible research</em>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">minutes_per_activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">minutes_per_activity <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">## [1] FALSE FALSE  TRUE  TRUE  TRUE</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">activity[minutes_per_activity <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>]</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">## [1] &quot;conference call&quot; &quot;webinar&quot;         &quot;walk&quot;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">minutes_per_activity &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb1-3" title="3">minutes_per_activity <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co">## [1] FALSE FALSE  TRUE  TRUE  TRUE</span></a>
+<a class="sourceLine" id="cb1-5" title="5">activity[minutes_per_activity <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>]</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">## [1] &quot;conference call&quot; &quot;webinar&quot;         &quot;walk&quot;</span></a></code></pre></div></li>
 <li><p>Week <a href="two.html#two">2</a>: The <code>data.frame</code>. This week is all about <em>R</em>’s <code>data.frame</code>, a versatile way of representing and manipulating a table (like an Excel spreadsheet) of data. We’ll learn how to create, write, and read a <code>data.frame</code>; how to go from data in a spreadsheet in Excel to a <code>data.frame</code> in <em>R</em>; and how to perform simple manipulations on a <code>data.frame</code>, like creating a subset of data, summarizing values in a column, and summarizing values in one column based on a grouping variable in another column.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">url =<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">cases &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(cases, county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span> <span class="op">&amp;</span><span class="st"> </span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">tail</span>(erie)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">##             date county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">## 47417 2020-04-10   Erie New York 36029  1409     58</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">## 52744 2020-04-12   Erie New York 36029  1571     75</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">## 55428 2020-04-13   Erie New York 36029  1624     86</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## 58128 2020-04-14   Erie New York 36029  1668     99</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">## 60844 2020-04-15   Erie New York 36029  1751    110</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">url =<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">cases &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a>
+<a class="sourceLine" id="cb2-3" title="3">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(cases, county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span> <span class="op">&amp;</span><span class="st"> </span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">tail</span>(erie)</a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">##             date county    state  fips cases deaths</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">## 50071 2020-04-11   Erie New York 36029  1472     62</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">## 52744 2020-04-12   Erie New York 36029  1571     75</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">## 55428 2020-04-13   Erie New York 36029  1624     86</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">## 58128 2020-04-14   Erie New York 36029  1668     99</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">## 60844 2020-04-15   Erie New York 36029  1751    110</span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">## 63572 2020-04-16   Erie New York 36029  1850    115</span></a></code></pre></div></li>
 <li><p>Week <a href="three.html#three">3</a>: Packages for extending <em>R</em>. A great strength of <em>R</em> is its extensibility through packages. We’ll learn about <a href="https://cran.r-project.org">CRAN</a>, and install and use the ‘tidyverse’ suite of packages. The tidyverse provides us with an alternative set of tools for working with tabular data, and We’ll use publicly available data to explore the spread of COVID-19 in the US. We’ll read, filter, mutate (change), and select subsets of the data, and group data by one column (e.g., ‘state’) to create summaries (e.g., cases per state). We’ll also start to explore data visualization, creating our first plots of the spread of COVID-19.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">## ...additional commands</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">## ...additional commands</span></a></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p></li>
 <li><p>Week <a href="four.html#four">4</a>: Maps. This week will be a specialized topic, tackling relatively advanced challenges associated with spatial visualization.</p></li>
 <li><p>Week <a href="five.html#five">5</a>: Bioinformatic analysis with <a href="https://bioconductor.org">Bioconductor</a>. <em>Bioconductor</em> is a collection of more than 1800 <em>R</em> packages for the statistical analysis and comprehension of high-throughput genomic data. We’ll use <em>Bioconductor</em> to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.</p></li>
