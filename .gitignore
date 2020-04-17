@@ -1,6 +1,6 @@
 .Rproj.user
 .Rhistory
-docs/*\.md
+*\.md
 docs/*\.tex
 QuaRantine.rds
 _bookdown_files

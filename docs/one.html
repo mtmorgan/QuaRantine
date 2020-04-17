@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse." />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-16" />
+<meta name="date" content="2020-04-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,7 +156,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.7" data-path="one.html"><a href="one.html#day-7-saving-data"><i class="fa fa-check"></i><b>1.7</b> Day 7: Saving data</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="two.html"><a href="two.html"><i class="fa fa-check"></i><b>2</b> The data frame</a><ul>
-<li class="chapter" data-level="2.1" data-path="two.html"><a href="two.html#day-8-monday-zoom-check-in"><i class="fa fa-check"></i><b>2.1</b> Day 8 (Monday) Zoom check-in</a></li>
+<li class="chapter" data-level="2.1" data-path="two.html"><a href="two.html#day-8-monday-zoom-check-in"><i class="fa fa-check"></i><b>2.1</b> Day 8 (Monday) Zoom check-in</a><ul>
+<li class="chapter" data-level="" data-path="two.html"><a href="two.html#review-and-troubleshoot-15-minutes"><i class="fa fa-check"></i>Review and troubleshoot (15 minutes)</a></li>
+<li class="chapter" data-level="" data-path="two.html"><a href="two.html#the-data-frame-40-minutes"><i class="fa fa-check"></i>The data frame (40 minutes)</a></li>
+<li class="chapter" data-level="2.1.1" data-path="two.html"><a href="two.html#this-weeks-activities-5-minutes"><i class="fa fa-check"></i><b>2.1.1</b> This week’s activities (5 minutes)</a></li>
+</ul></li>
 <li class="chapter" data-level="2.2" data-path="two.html"><a href="two.html#day-9-creation-and-manipulation"><i class="fa fa-check"></i><b>2.2</b> Day 9: Creation and manipulation</a><ul>
 <li class="chapter" data-level="" data-path="two.html"><a href="two.html#creation"><i class="fa fa-check"></i>Creation</a></li>
 <li class="chapter" data-level="" data-path="two.html"><a href="two.html#column-selection"><i class="fa fa-check"></i>Column selection</a></li>
@@ -1124,7 +1128,7 @@ these by <code>c</code>oncatenating individual values</p>
 <p><img src="images/rstudio_run_button.png" width="80%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1">x =<span class="st"> &quot;Hello world!&quot;</span>; y =<span class="st"> &#39;Today is&#39;</span>; d =<span class="st"> </span><span class="kw">format</span>(<span class="kw">Sys.Date</span>(),<span class="st">&quot;%b %d, %Y&quot;</span>)</a>
 <a class="sourceLine" id="cb92-2" data-line-number="2"><span class="kw">cat</span>(x, y, d, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb92-3" data-line-number="3"><span class="co">## Hello world! Today is Apr 16, 2020</span></a></code></pre></div>
+<a class="sourceLine" id="cb92-3" data-line-number="3"><span class="co">## Hello world! Today is Apr 17, 2020</span></a></code></pre></div>
 <ul>
 <li>Alternatively, use “Run –&gt; Run All” to run an entire script file.</li>
 </ul>
@@ -1136,9 +1140,9 @@ these by <code>c</code>oncatenating individual values</p>
 <a class="sourceLine" id="cb93-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb93-6" data-line-number="6">activity_day_<span class="dv">1</span> &lt;-</a>
 <a class="sourceLine" id="cb93-7" data-line-number="7"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;check e-mail&quot;</span>, <span class="st">&quot;breakfast&quot;</span>, <span class="st">&quot;conference call&quot;</span>, <span class="st">&quot;webinar&quot;</span>, <span class="st">&quot;walk&quot;</span>)</a>
-<a class="sourceLine" id="cb93-8" data-line-number="8">minutes_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb93-9" data-line-number="9">is_work_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb93-10" data-line-number="10">classification_day_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb93-8" data-line-number="8">minutes_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb93-9" data-line-number="9">is_work_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb93-10" data-line-number="10">classification_day_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(</a>
 <a class="sourceLine" id="cb93-11" data-line-number="11">    <span class="kw">c</span>(<span class="st">&quot;connect&quot;</span>, <span class="st">&quot;essential&quot;</span>, <span class="st">&quot;connect&quot;</span>, <span class="st">&quot;consult&quot;</span>, <span class="st">&quot;exercise&quot;</span>),</a>
 <a class="sourceLine" id="cb93-12" data-line-number="12">    <span class="dt">levels =</span> levels</a>
 <a class="sourceLine" id="cb93-13" data-line-number="13">)</a>
