@@ -458,13 +458,7 @@ Second argument can be more complicated, using `{}` to enclose several lines.
       length(diff(x))
       ```
 
-  - The initial value of `x` is sometimes implicit, e.g., prior to the first observation in the COVID data sets there were 0 cases reported. `c()`oncatenate a leading 0 to `x` to include the implicit initial value
-
-      ```{r}
-      diff(c(0, x))
-      ```
-
-- `new_cases` is the `diff()` of successive values of `cases`, with the initial value implicitly 0.
+- `new_cases` is the `diff()` of successive values of `cases`, with an implicit initial value equal to 0.
 
     ```{r}
     with(erie, {
@@ -603,10 +597,10 @@ Manipulation
 
     ```{r}
     ## example: `diff()` between successive numbers in a vector
-    x <- c(1, 1, 2, 3, 5, 7)
+    x <- c(1, 1, 2, 3, 5, 8, 13)
     diff(x)
 
-    ## note 'diff()' what about the implicit '0' at the start of a sequence?
+    ## note 'diff()' what about an implicit '0' at the start of a sequence?
     diff( c(0, x) )
     ```
 
