@@ -6,7 +6,99 @@
 
 ### The data frame (40 minutes) {-}
 
-Concept
+#### Concept {-}
+
+Recall from Day 1:
+
+- Data frames are handy containers for experimental data.
+
+- Like a spreadsheet, a data frame has rows and columns
+
+- The columns of a data frame contain data fields.
+
+  - Each field could refer to a different type of object (numeric, string, etc.)
+  - `height`, `weight`, `age`, etc.
+  - `activity`, `duration`, `is work?`, `level`, `date`, etc.
+
+- The rows of a data frame contain tuples of data
+
+  - Note: you must ensure units are consistent across tuples!
+  
+- Rows and columns can be assigned names.
+
+#### Create a simple data frame {-}
+
+```{r}
+heights <- c(72, 65, 68)
+weights <- c(190, 130, 150)
+ages <-  c(44, 35, 37)
+df <- data.frame(heights, weights, ages)
+df
+```
+
+#### Create a data frame with row and column names {-}
+```{r}
+named_df <- data.frame(heights, weights, ages)
+colnames(named_df) <- c("hgt_inches", "wgt_lbs", "age_years")
+rownames(named_df) <- c("John Doe", "Pat Jones", "Sara Grant")
+named_df
+```
+
+#### Add a row/tuple
+
+For now, use `rbind()`. Later you'll learn about the more intuitive `add_row()` functionality of the `tidyverse` pacakge.
+
+```{r}
+more_heights <- c(61, 68, 70)
+more_weights <- c(101, 134, 175)
+more_ages <-  c(13, 16, 24)
+df_more <- data.frame(more_heights, more_weights, more_ages)
+colnames(df_more) <- c("hgt_inches", "wgt_lbs", "age_years")
+rownames(df_more) <- c("Bob Kane", "Kari Patra", "Sam Groe")
+
+named_df <- rbind(named_df, df_more)
+named_df
+```
+
+#### Delete a row/tuple
+
+Row deletion using row names is a little tricky ....
+
+```{r}
+# suppose the study has some dropouts ....
+dropouts = c("Bob Kane", "John Doe")
+
+named_df <- named_df[! rownames(named_df) %in% dropouts, ]
+
+named_df
+```
+
+Row deletion using row indices is more straightforawrd. Just use negative subsetting  ....
+
+```{r}
+# suppose the study has some dropouts ....
+dropouts = c(2,3)
+
+df # referesh my memory about df contents ....
+
+df <- df[-dropouts, ]
+
+df # items 2 and 3 are dropped!
+```
+
+
+#### Some useful data frame operations
+
+Try these out on your simple data frames `df` and `named_df`:
+
+- `str(df)      # structure (NOT string!)(sorry Python programmers ;)`
+- `dim(df)      # dimensions`
+- `View(df)     # open tabular view of data frame`
+- `head(df)     # first few rows`
+- `tail(df)     # last few rows`
+- `names(df)    # column names`
+- `colnames(df) # column names`
+- `rownames(df) # row names`
 
 Creation
 
