@@ -1108,9 +1108,9 @@ levels <- c("connect", "exercise", "consult", "hobby", "essential")
 
 activity_day_1 <-
     c("check e-mail", "breakfast", "conference call", "webinar", "walk")
-minutes_day_2 <- c(20, 30, 60, 60, 60)
-is_work_day_2 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
-classification_day_2 <- factor(
+minutes_day_1 <- c(20, 30, 60, 60, 60)
+is_work_day_1 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+classification_day_1 <- factor(
     c("connect", "essential", "connect", "consult", "exercise"),
     levels = levels
 )
