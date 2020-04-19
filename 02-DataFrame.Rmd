@@ -465,7 +465,7 @@ imported_activities$date <- as.Date(imported_activities$date, format = "%Y-%m-%d
 imported_activities
 ```
 
-Reading from a remote file (!)
+### Reading from a remote file (!) {-}
 
 - Visit the New York Times [csv file][us-counties.csv] daily tally of COVID-19 cases in all US counties.
 
