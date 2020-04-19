@@ -5,16 +5,363 @@
 ## [CRAN][]
 
 [CRAN]: https://cran.r-project.org
+[readr]: https://cran.r-project.org/package=readr
+[dplyr]: https://cran.r-project.org/package=dplyr
+[ggplot2]: https://cran.r-project.org/package=ggplot2
+[tidyr]: https://cran.r-project.org/package=tidyr
 
-## The '[tidyverse][]' of packages
+## The 'tidyverse' of packages
+
+[readr][] for fast data input
+
+- The `tibble`: a nicer `data.frame`
+
+- Example: US COVID data. N.B., `readr::read_csv()` rather than `read.csv()`
+
+    ```{r}
+    library(readr)
+
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read_csv(url)
+    us
+    ```
+
+- Note that
+
+    - `date` has been deduced correctly
+    - `read_csv()` does not coerce inputs to `factor` (no need to use `stringsAsFactors = FALSE`)
+    - The tibble displays nicely (first ten lines, with an indication of total lines)
+
+
+[dplyr][] for data manipulation
+
+- load
+
+    ```{r}
+    library(dplyr)
+    ```
+
+- The pipe, `%>%`
+
+- Verbs for data transformation
+
+    - A small set of functions that allow very rich data transformation
+    - All have the same first argument -- the `tibble` to be transformed
+    - All allow 'non-standard' evaluation -- use the variable name without quotes `"`.
+
+- `filter()` rows that meet specific criteria
+
+    ```{r}
+    us %>%
+        filter(state == "New York", county == "Erie")
+    ```
+
+- `select()` specific columns
+
+    ```{r}
+    us %>%
+        filter(state == "New York", county == "Erie") %>%
+        select(state, county, date, cases)
+    ```
+
+- Other common verbs (see tomorrow's quarantine)
+
+- `mutate()` (add or update) columns
+- `summarize()` one or more columns
+- `group_by()` one or more variables when performing computations
+- `arrange()` rows based on values in particular column(s); `desc()` in descending order.
+- `count()` the number of times values occur
 
 [tidyverse]: https://www.tidyverse.org/
 
-## Day 16
+## Day 16 Key tidyverse packages: [readr][] and [dplyr][]
 
-## Day 17
+Start a script for today. In the script
 
-## Day 18
+- Load the libraries that we will use
+
+    ```{r}
+    library(readr)
+    library(dplyr)
+    ```
+
+- If _R_ responds with (similarly for [dplyr][])
+
+    ```
+    Error in library(readr) : there is no package called 'readr'
+    ```
+
+  then you'll need to install (just once per _R_ installation) the [readr][] pacakge
+
+    ```{r, eval = FALSE}
+    install.packages("readr", repos = "https://cran.r-project.org")
+    ```
+
+Work through the following commands, adding appropriate lines to your script
+
+- Read US COVID data. N.B., `readr::read_csv()` rather than `read.csv()`
+
+    ```{r}
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read_csv(url)
+    us
+    ```
+
+- `filter()` rows that meet specific criteria
+
+    ```{r}
+    us %>%
+        filter(state == "New York", county == "Erie")
+    ```
+
+- `select()` specific columns
+
+    ```{r}
+    us %>%
+        filter(state == "New York", county == "Erie") %>%
+        select(state, county, date, cases)
+    ```
+
+- `mutate()` (add or update) columns
+
+    ```{r}
+    erie <-
+        us %>%
+        filter(state == "New York", county == "Erie")
+    erie %>%
+        mutate(new_cases = diff(c(0, cases)))
+    ```
+
+- `summarize()` one or more columns
+
+    ```{r}
+    erie %>%
+        mutate(new_cases = diff(c(0, cases))) %>%
+        summarize(
+            duration = n(),
+            total_cases = max(cases),
+            max_new_cases_per_day = max(new_cases),
+            mean_new_cases_per_day = mean(new_cases),
+            median_new_cases_per_day = median(new_cases)
+        )
+    ```
+
+- `group_by()` one or more variables when performing computations
+
+    ```{r}
+    us_county_cases <-
+        us %>%
+        group_by(county, state) %>%
+        summarize(total_cases = max(cases))
+
+    us_state_cases <-
+        us_county_cases %>%
+        group_by(state) %>%
+        summarize(total_cases = sum(total_cases))
+    ```
+
+- `arrange()` based on a particular column; `desc()` in descending order.
+
+    ```{r}
+    us_county_cases %>%
+        arrange(desc(total_cases))
+
+    us_state_cases %>%
+        arrange(desc(total_cases))
+    ```
+
+- `count()` the number of times values occur (duration of the pandemic?)
+
+    ```{r}
+    us %>%
+        count(county, state) %>%
+        arrange(desc(n))
+    ```
+
+## Day 17 Visualization with [ggplot2][]
+
+## Day 18 Worldwide COVID data
+
+Setup
+
+- Start a new script and load the packages we'll use
+
+    ```{r}
+    library(readr)
+    library(dplyr)
+    library(ggplot2)
+    library(tidyr)     # specialized functions for transforming tibbles
+    ```
+
+  These packages should have been installed during previous quarantines.
+
+Source
+
+- CSSE at Johns Hopkins University, available on github
+
+    ```{r}
+    hopkins = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+    csv <- read_csv(hopkins)
+    ```
+
+'Tidy' data
+
+- The data has initial columns describing region, and then a column for each date of the pandemic. There are `r nrow(csv)` rows, corresponding to the different regions covered by the database.
+
+- We want instead to 'pivot' the data, so that each row represents cases in a particular region on a particular date, analogous to the way the US data we have been investigating earlier has been arranged.
+
+- [tidyr][] provides functions for manipulating a `tibble` into 'tidy' format.
+
+- `tidyr::pivot_longer()` takes a 'wide' data frame like `csv`, and allows us to transform it to the 'long' format we are interested in.
+
+    - I discovered how to work with `pivot_longer()` using it's help page `?tidyr::pivot_longer`
+
+    - The first argument represents columns to pivot or, as a convenience when these are negative values, columns we _do not_ want to pivot. We _do not_ want to pivot columns 1 through 4, so this argument will be `-(1:4)`.
+
+    - The `names_to` argument is the column name we want to use to refer to the names of the columns that we _do_ pivot. We'll pivot the columns that have a date in them, so it makes sense to use `names_to = "date"`.
+
+    - The `values_to` argument is the column name we want to use for the pivoted values. Since the values in the main part of `csv` are the number of cases observed, we'll use `values_to = "cases"`
+
+- Here's what we have after pivoting
+
+    ```{r}
+    csv %>%
+        pivot_longer(-(1:4), names_to = "date", values_to = "cases")
+    ```
+
+- We'd like to further clean this up data
+
+    - Format our newly created 'date' column (using `as.Date()`, but with a `format=` argument appropriate for the format of the dates in this data set)
+
+    - Re-name, for convenience, the `County/Region` column as just `country`.
+
+    - Select only columns of interest -- `country`, `date`, `cases`
+    
+    - Some countries have multiple rows, because the data is a provincial or state levels, so we would like to sum all cases, grouped by `country` and `date`
+
+    ```{r}
+    world <-
+        csv %>%
+        pivot_longer(-(1:4), names_to = "date", values_to = "cases") %>%
+        mutate(
+            country = `Country/Region`,
+            date = as.Date(date, format = "%m/%d/%y")
+        ) %>%
+        group_by(country, date) %>%
+        summarize(cases = sum(cases))
+    world
+    ```
+
+- Let's also calculate `new_cases` by country
+
+    - Use `group_by()` to perform the `new_cases` computation for each country
+    - Use `mutate()` to calculate the new variable
+    - Use `ungroup()` to remove the grouping variable, so it doesn't unexpectedly influence other calculations
+    - re-assign the updated `tibble` to the variable `world`
+
+    ```{r}
+    world <-
+        world %>%
+        group_by(country) %>%
+        mutate(new_cases = diff(c(0, cases))) %>%
+        ungroup()
+    ```
+
+Exploration
+
+- Use `group_by()` and `summarize()` to find the maximum (total) number of cases, and `arrange() these in `desc()`ending order
+
+    ```{r}
+    world %>%
+        group_by(country) %>%
+        summarize(n = max(cases)) %>%
+        arrange(desc(n))
+    ```
+
+Visualization
+
+- Start by creating a subset, e.g., the US
+
+    ```{r}
+    country <- "US"
+    us <-
+        world %>%
+        filter(country == "US")
+    ```
+    
+- Use [ggplot2][] to visualize the progression of the pandemic
+
+    ```{r}
+    ggplot(us, aes(date, new_cases)) +
+        scale_y_log10() +
+        geom_point() +
+        geom_smooth() +
+        ggtitle(paste("Country:", country))
+    ```
+
+It seems like it would be convenient to capture our data cleaning and visualization steps into separate functions that can be re-used, e.g., on different days or for different visualizations.
+
+- write a function for data retrieval and cleaning
+
+    ```{r}
+    get_world_data <-
+        function()
+    {
+        ## read data from Hopkins' github repository
+        hopkins = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+        csv <- read_csv(hopkins)
+    
+        ## 'tidy' the data
+        world <-
+            csv %>%
+            pivot_longer(-(1:4), names_to = "date", values_to = "cases") %>%
+            mutate(
+                country = `Country/Region`,
+                date = as.Date(date, format = "%m/%d/%y")
+            )
+    
+        ## sum cases across regions within aa country
+        world <-
+            world %>%
+            group_by(country, date) %>% 
+            summarize(cases = sum(cases))
+    
+        ## add `new_cases`, and return the result
+        world %>%
+            group_by(country) %>%
+            mutate(new_cases = diff(c(0, cases)))
+    }
+    ```
+
+- ...and for plotting by country
+
+    ```{r}
+    plot_country <-
+        function(tbl, view_country = "US")
+    {
+        country_title <- paste("Country:", view_country) 
+    
+        ## subset to just this country
+        country_data <-
+            tbl %>%
+            filter(country == view_country)
+    
+        ## plot
+        country_data %>%
+            ggplot(aes(date, 1 + new_cases)) +
+            scale_y_log10() +
+            geom_point() +
+            geom_smooth() +
+            ggtitle(country_title)
+    }
+    ```
+
+- Note that, because the first argument of `plot_country()` is a tibble, the output of `get_world_data()` can be used as the input of `plot_country()`, and can be piped together, e.g.,
+
+```{r}
+world <- get_world_data()
+world %>% plot_country("Korea, South")
+```
 
 ## Day 19 (Friday) Zoom check-in
 
@@ -22,7 +369,64 @@
 
 ### Next week (25 minutes)
 
-## Day 20
+## Day 20 Exploring the course of pandemic in different regions
+
+Use the data and functions from quarantine day 18 to place the pandemic into quantitative perspective. Start by retrieving the current data
+
+```{r, eval = FALSE}
+world <- get_world_data()
+```
+
+Start with the United States
+
+```{r}
+world %>% plot_country("US")
+```
+
+- When did 'stay at home' orders come into effect? Did they appear to be effective?
+
+- When would the data suggest that the pandemic might be considered 'under control', and country-wide stay-at-home orders might be relaxed?
+
+Explore other countries. 
+
+- The longest trajectory is probably displayed by China
+
+    ```{r}
+    world %>% plot_country("China")
+    ```
+
+- Italy and Spain were hit very hard, and relatively early, by the pandemic
+
+    ```{r}
+    world %>% plot_country("Italy")
+    world %>% plot_country("Spain")
+    ```
+    
+- Austria relaxed quarantine very early, in the middle of April; does that seem like a good idea? 
+
+    ```{r}
+    world %>% plot_country("Austria")
+    ```
+
+- Germany also had strong leadership (e.g., chancellor Angela Merkel provided clear and unambiguous rules for Germans to follow, and then self-isolated when she herself became infected) and an effective screening campaign (e.g., to make effective use of limited testing resources, in some instances pools of samples were screened, and only if the pool indicated infection were the individuals in the pool screened.
+
+    ```{r}
+    world %>% plot_country("Germany")
+    ```
+    
+- At the start of the pandemic, Singapore had excellent surveillance (detecting individuals with symptoms) and contact tracing (identifying and placing in quarantine those individuals coming in contact with the infected individuals. New cases were initially very low, despite proximity to China, and Singapore managed the pandemic through only moderate social distancing (e.g., workers were encouraged to operate in shifts; stores and restaurants remained open). Unfortunately, Singaporeans returning from Europe (after travel restrictions were in place there) introduced new cases that appear to have overwhelmed the surveillance network. Later, the virus spread to large, densely populated migrant work dorms. Singapore's initial success at containing the virus seems to have fallen apart in the face of this wider spread, and more severe restrictions were imposed.
+
+    ```{r}
+    world %>% plot_country("Singapore")
+    ```
+    
+- South Korea had a very 'acute' spike in cases associated with a large church. The response was to deploy very extensive testing and use modern approaches to tracking (e.g., cell phone apps) coupled with transparent accounting. South Korea imposed relatively modest social and economic restrictions. It seems like this has effectively 'flattened the curve' without pausing the economy.
+
+    ```{r}
+    world %>% plot_country("Korea, South")
+    ```
+    
+Where does your own exploration of the data take you?
 
 ## Day 21
 
