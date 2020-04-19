@@ -4,6 +4,10 @@
 
 ### Review and troubleshoot (15 minutes) {-}
 
+Saving and loading objects
+
+Scripts
+
 ### The data frame (40 minutes) {-}
 
 #### Concept {-}
@@ -14,16 +18,16 @@ Recall from Day 1:
 
 - Like a spreadsheet, a data frame has rows and columns
 
-- The columns of a data frame contain data fields.
+- The columns of a data frame contain measurements describing each individual
 
-  - Each field could refer to a different type of object (numeric, string, etc.)
-  - `height`, `weight`, `age`, etc.
-  - `activity`, `duration`, `is work?`, `level`, `date`, etc.
+  - Each measurement could refer to a different type of object (numeric, string, etc.)
+  - Measurements could be physical observations on samples, e.g., `height`, `weight`, `age`, `minutes` an activity lasts, etc.
+  - Measurements might also describe how the row is classified, e.g., `activity`, `is work?`, `classification`, `date`, etc.
 
-- The rows of a data frame contain tuples of data
+- The rows of a data frame represent a 'tuple' of measurements corresponding to an experimental observation, e.g.,
 
   - Note: you must ensure units are consistent across tuples!
-  
+
 - Rows and columns can be assigned names.
 
 #### Create a simple data frame {-}
@@ -36,7 +40,8 @@ df <- data.frame(heights, weights, ages)
 df
 ```
 
-#### Create a data frame with row and column names {-}
+It's possible to update the column names, and to provide row names...
+
 ```{r}
 named_df <- data.frame(heights, weights, ages)
 colnames(named_df) <- c("hgt_inches", "wgt_lbs", "age_years")
@@ -44,50 +49,91 @@ rownames(named_df) <- c("John Doe", "Pat Jones", "Sara Grant")
 named_df
 ```
 
-#### Add a row/tuple
+...but it's often better practice to name columns at time of creation, and to store all information as columns (rather than designating one column as a 'special' row name)
 
-For now, use `rbind()`. Later you'll learn about the more intuitive `add_row()` functionality of the `tidyverse` pacakge.
+- Here's our first attempt
 
-```{r}
-more_heights <- c(61, 68, 70)
-more_weights <- c(101, 134, 175)
-more_ages <-  c(13, 16, 24)
-df_more <- data.frame(more_heights, more_weights, more_ages)
-colnames(df_more) <- c("hgt_inches", "wgt_lbs", "age_years")
-rownames(df_more) <- c("Bob Kane", "Kari Patra", "Sam Groe")
+    ```{r}
+    data.frame(
+        person = c("John Doe", "Pat Jones", "Sara Grant"),
+        hgt_inches = heights, wgt_lbs = weights, age_years = ages
+    )
+    ```
 
-named_df <- rbind(named_df, df_more)
-named_df
-```
+- It's unsatisfactory because by default _R_ treats character vectors as `factor`. We'd like them to plain-old character vectors. To accomplish this, we add the `stringsAsFactors = FALSE` argument
 
-#### Delete a row/tuple
+    ```{r}
+    df <- data.frame(
+        person = c("John Doe", "Pat Jones", "Sara Grant"),
+        hgt_inches = heights, wgt_lbs = weights, age_years = ages,
+        stringsAsFactors = FALSE
+    )
+    df
+    ```
 
-Row deletion using row names is a little tricky ....
+#### Adding and deleting rows {-}
 
-```{r}
-# suppose the study has some dropouts ....
-dropouts = c("Bob Kane", "John Doe")
+Adding rows
 
-named_df <- named_df[! rownames(named_df) %in% dropouts, ]
+- Add a row with `rbind()`
 
-named_df
-```
+    ```{r}
+    more_people <- c("Bob Kane", "Kari Patra", "Sam Groe")
+    more_heights <- c(61, 68, 70)
+    more_weights <- c(101, 134, 175)
+    more_ages <-  c(13, 16, 24)
+    more_df <- data.frame(
+        person = more_people,
+        hgt_inches = more_heights, wgt_lbs = more_weights, age_years = more_ages,
+        stringsAsFactors = FALSE
+    )
 
-Row deletion using row indices is more straightforawrd. Just use negative subsetting  ....
+    df_all <- rbind(df, more_df)
+    df_all
+    ```
 
-```{r}
-# suppose the study has some dropouts ....
-dropouts = c(2,3)
+- _R_ often has more than one way to perform an operation. We'll see `add_rows()` later in the course.
 
-df # referesh my memory about df contents ....
+Delete rows using a logical vector...
 
-df <- df[-dropouts, ]
+- Create a logical or numeric index indicating the rows to be deleted
 
-df # items 2 and 3 are dropped!
-```
+    ```{r}
+    ## suppose the study has some dropouts ....
+    dropouts <- c("Bob Kane", "John Doe")
 
+    ## create a logical vector indicating which rows should be dropped
+    drop <- df_all$person %in% dropouts
 
-#### Some useful data frame operations
+    ## ...but we actually want to know which rows to `keep`
+    keep <- !drop
+    ```
+
+- Subset the data frame with the logical vector indicating the rows we would like to keep
+
+    ```{r}
+    df_all[keep,]
+    ```
+
+...or a numeric vector
+
+- Create a vector containing the rows to be deleted
+
+    ```{r}
+    # suppose the study has some dropouts ....
+    dropouts = c(2, 3)
+    ```
+
+- Use a minus sign `-` to indicated that these rows should be _dropped_, rather than kept
+
+    ```{r}
+    df_all # referesh my memory about df contents ....
+    df_remaining <- df_all[-dropouts, ]
+
+    df_remaining # items 2 and 3 are dropped!
+    ```
+
+#### Some useful data frame operations {-}
 
 Try these out on your simple data frames `df` and `named_df`:
 
@@ -100,9 +146,82 @@ Try these out on your simple data frames `df` and `named_df`:
 - `colnames(df) # column names`
 - `rownames(df) # row names`
 
-Creation
 
-- Data from the second day of quarantine
+#### Writing, reading, and spreadhseets {-}
+
+Saving a `data.frame`
+
+- We _could_ save the `data.frame` as an _R_ object, using the methods from quarantine day 7
+
+- Often, better practice (e.g., to make it easy to share data with others in our lab) is to save data as a text file
+
+- A 'csv' file is one example
+
+    - A plain text file
+    - The first line contains column names
+    - Each line of the text file represents a row of the data frame
+    - Columns within a row are separated by a comma, `,`
+
+- Example: save `df_all` to a temporary file location
+
+    ```{r}
+    file <- tempfile() # temporary file
+    ## file <- file.choose()
+    ## file <- "df_all.csv"
+    ## file <- "/Users/ma38737/MyQuarantine/df_all.csv"
+    write.csv(df_all, file, row.names = FALSE)
+    ```
+
+- now, read the data back in from the temporary location
+
+    ```{r}
+    df_all_from_file <- read.csv(file, stringsAsFactors = FALSE)
+    df_all_from_file
+    ```
+
+_R_ and spreadsheets
+
+- A CSV file is a common way to move data from _R_ to a spreadsheet, and vice versa. Following along with the example above, write `df_all` to a CSV file.
+
+    ```{r, eval = FALSE}
+    file <- "/Users/ma38727/MyQuarantine/df_all.csv" # a location on (my) disk
+    write.csv(df_all, file, row.names = FALSE)
+    ```
+
+- Now open a spreadsheet application like Excel and navigate to the directory containing the file
+
+    ```{r echo = FALSE}
+    knitr::include_graphics('images/Excel-1.png')
+    ```
+
+- ... and open the file
+
+    ```{r echo = FALSE}
+    knitr::include_graphics('images/Excel-2.png')
+    ```
+
+- To go from Excel to _R_, make sure your spreadsheet is a simple rectangular table of rows and columns, without 'merged' cells or fancy column formating, or... i.e., your spreadsheet should be as simple as the one we imported from _R_. Then save the file in CSV format
+
+    ```{r, echo = FALSE}
+    knitr::include_graphics('images/Excel-3.png')
+    ```
+
+- ...and import it into _R_
+
+    ```{r}
+    read.csv(
+        "/Users/ma38727/MyQuarantine/df_all_from_Excel.csv",
+        stringsAsFactors = FALSE
+    )
+    ```
+
+#### An alternative way of working with `data.frame()` {-}
+
+- `with()`: column selection and computation
+- `within()`: update or add columns
+- `subset()`: row and column subset
+
+- Our quarantine log, day 1
 
     ```{r}
     activity <- c("check e-mail", "breakfast", "conference call", "webinar", "walk")
@@ -117,125 +236,13 @@ Creation
 
     dates <- rep("04-14-2020", length(activity))
     date <- as.Date(dates, format = "%m-%d-%Y")
-    ```
 
-- Represent as a `data.frame()`
-
-    ```{r}
-    activities <- data.frame(activity, minutes, is_work, classification, date)
-    activities
-    ```
-
-- Interogate for some basic properties, including `dim()`ensions (number of rows and columns)
-
-    ```{r}
-    class(activities)
-    dim(activities)
-    ```
-
-Column access
-
-- `$`
-- `[[`
-
-Updating or adding columns
-
-Subsetting with `[`
-
-- Subsetting rows
-- Subsetting columns
-- Subsetting rows and columns
-
-Subsetting based on column values
-
-- example
-
-    ```{r}
-    row_idx <- activities$minutes >= 60
-    activities[row_idx,]
-
-    ## same as, but more readable than, ...
-    activities[activities$minutes >= 60,]
-    ```
-
-Binding rows (and columns)
-
-- Activities, day 1
-
-    ```{r}
-    ## 'classification' factor levels
-    levels <- c("connect", "exercise", "consult", "hobby", "essential")
-
-    ## Quarantine log, day 1
-
-    activity_day_1 <-
-        c("check e-mail", "breakfast", "conference call", "webinar", "walk")
-    minutes_day_1 <- c(20, 30, 60, 60, 60)
-    is_work_day_1 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
-    classification_day_1 <- factor(
-        c("connect", "essential", "connect", "consult", "exercise"),
-        levels = levels
+    log <- data.frame(
+        activity, minutes, is_work, classification, date,
+        stringsAsFactors = FALSE
     )
-    date_day_1 <- as.Date(rep("04-14-2020", length(activity_day_1)), "%m-%d-%Y")
-
-    day1 <- data.frame(
-        activity = activity_day_1,
-        minutes = minutes_day_1,
-        is_work = is_work_day_1,
-        classification = classification_day_1,
-        date = date_day_1
-    )
+    log
     ```
-
-- Activities, day 2
-
-    ```{r}
-    activity_day_2 <-
-        c("check e-mail", "breakfast", "conference call", "webinar", "read a book")
-    minutes_day_2 <- c(20, 30, 60, 60, 60)
-    is_work_day_2 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
-    classification_day_2 <- factor(
-        c("connect", "essential", "connect", "consult", "hobby"),
-        levels = levels
-    )
-    date_day_2 <- as.Date(rep("04-15-2020", length(activity_day_2)), "%m-%d-%Y")
-
-    day2 <- data.frame(
-        activity = activity_day_2,
-        minutes = minutes_day_2,
-        is_work = is_work_day_2,
-        classification = classification_day_2,
-        date = date_day_2
-    )
-    ```
-
-- Activities, both days
-
-    ```{r}
-    quarantine_log <- rbind(day1, day2)
-    quarantine_log
-    ```
-
-Writing and reading
-
-- Exmaple: round-trip
-
-    ```{r}
-    file <- tempfile() # temporary file
-    ## file <- file.choose()
-    ## file <- "activities.csv"
-    ## file <- "/Users/ma38737/MyQuarantine/activities.csv"
-    write.csv(quarantine_log, file, row.names = FALSE)
-    read.csv(file)
-    ```
-
-_R_ and spreadsheets
-
-An alternative way of working with `data.frame()`
-
-- `with()`: column selection and computation
-- `within()`: update or add columns
-- `subset()`: row and column subset
 
 Summarization
 
@@ -243,7 +250,7 @@ Summarization
 - Create a new `data.frame()` containing the summary
 
     ```{r}
-    with(quarantine_log, {
+    with(log, {
         data.frame(
             days_in_quarantine = length(unique(date)),
             total_minutes = sum(minutes),
@@ -259,15 +266,15 @@ Summarization by group
 
     ```{r}
     ## minutes per day spent on each activity, from the quarantine_log
-    aggregate(minutes ~ activity, quarantine_log, sum)
+    aggregate(minutes ~ activity, log, sum)
 
     ## minutes per day spent on each clasasification
-    aggregate(minutes ~ classification, quarantine_log, sum)
+    aggregate(minutes ~ classification, log, sum)
 
     ## non-work activities per day
-    aggregate(!is_work ~ date, quarantine_log, sum)
+    aggregate(!is_work ~ date, log, sum)
     ```
-    
+
 ### This week's activities (5 minutes)
 
 Goal: retrieve and summarize COVID 19 cases in Erie county and nationally
@@ -838,7 +845,7 @@ Yesterday we created a plot for Erie county. The steps to create this plot can b
         date = as.Date(date, format = "%Y-%m-%d")
     })
     ```
-    
+
 2. Subset, update, and plot the data for county of interest
 
     ```{r}
@@ -848,7 +855,7 @@ Yesterday we created a plot for Erie county. The steps to create this plot can b
     })
     plot( new_cases ~ date, erie, log = "y", main = "New Cases, Erie County" )
     ```
-    
+
 What if we were interested in a different county? We could repeat (cut-and-paste) step 2, updating and generalizing a little
 
 - Define a new variable to indicate the county we are interested in plotting
@@ -856,15 +863,15 @@ What if we were interested in a different county? We could repeat (cut-and-paste
     ```{r}
     county_of_interest <- "Westchester"
     ```
-    
+
 - `paste()` concatenates its  arguments together into a single character vector. We use this to construct the title of the plot
 
     ```{r}
     main_title <- paste("New Cases,", county_of_interest, "County")
     ```
-    
+
 - Now create and update a subset of the data for the county that we are interested in
-  
+
      ```{r}
     county_data <-
         subset(us, (county == county_of_interest) & (state == "New York"))
@@ -892,8 +899,8 @@ What if we were interested in a different county? We could repeat (cut-and-paste
     })
     plot( new_cases ~ date, county_data, log = "y", main = main_title)
     ```
-    
-It would be tedious and error-prone to copy and paste this code for each county we were interested in. 
+
+It would be tedious and error-prone to copy and paste this code for each county we were interested in.
 
 A better approach is to write a `function` that takes as inputs the `us` data.frame, and the name of the county that we want to plot. Functions are easy to write
 
@@ -914,11 +921,11 @@ A better approach is to write a `function` that takes as inputs the `us` data.fr
         county_data <- within(county_data, {
             new_cases <- diff( c(0, cases) )
         })
-        
+
         plot( new_cases ~ date, county_data, log = "y", main = main_title)
     }
     ```
-    
+
 - Normally, the last evaluated line of the code (the `plot()` statement in our example) is returned from the function and can be captured by a variable. In our specific case, `plot()` creates the plot as a _side effect_, and the return value is actually the special symbol `NULL`.
 
 - Here's the full definition
@@ -933,11 +940,11 @@ A better approach is to write a `function` that takes as inputs the `us` data.fr
         county_data <- within(county_data, {
             new_cases <- diff( c(0, cases) )
         })
-        
+
         plot( new_cases ~ date, county_data, log = "y", main = main_title)
     }
     ```
-    
+
 - Run the code defining the function in the _R_ console, then use it to plot different counties:
 
     ```{r}
@@ -961,14 +968,14 @@ Hmm, come to think of it, we might want to write a simple function to get and cl
         })
     }
     ```
-    
+
 - Verify that it is now just two lines to plot county-level data
 
     ```{r}
     us <- get_US_data()
     plot_county(us, "Erie")
     ```
-    
+
 - How could you generalize `plot_county()` to plot county-level data for a county in any state? Hint: add a `state = ` argument, perhaps using default values
 
     ```{r}
