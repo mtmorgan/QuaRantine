@@ -275,7 +275,7 @@ Summarization by group
     aggregate(!is_work ~ date, log, sum)
     ```
 
-### This week's activities (5 minutes)
+### This week's activities (5 minutes) {-}
 
 Goal: retrieve and summarize COVID 19 cases in Erie county and nationally
 
@@ -525,7 +525,7 @@ imported_activities
 
 ### `with()` {-}
 
-Use `with()` to simply column references
+Use `with()` to simplify column references
 
 - Goal: calculate maximum number of cases in the Erie county data subset
 
@@ -637,15 +637,17 @@ Help: `?aggregate.formula`
 
 Data input
 
-```{r, eval = FALSE}
-url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
-us <- read.csv(url, stringsAsFactors = FALSE)
-```
-```{r}
-class(us)
-dim(us)
-head(us)
-```
+- From a remote location
+
+    ```{r, eval = FALSE}
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read.csv(url, stringsAsFactors = FALSE)
+    ```
+    ```{r}
+    class(us)
+    dim(us)
+    head(us)
+    ```
 
 Cleaning
 
@@ -671,7 +673,7 @@ Cleaning
     head(us)
     ```
 
-Interested only in Erie county, New York state
+Subset to only Erie county, New York state
 
 - Subset, method 1
 
@@ -698,12 +700,9 @@ Manipulation
     ## example: `diff()` between successive numbers in a vector
     x <- c(1, 1, 2, 3, 5, 8, 13)
     diff(x)
-
-    ## note 'diff()' what about an implicit '0' at the start of a sequence?
-    diff( c(0, x) )
     ```
 
-- Update, methods 1 & 2
+- Update, methods 1 & 2 (prepend a `0` when using `diff()`, to get the intial number of new cases)
 
     ```{r}
     ## one way...
@@ -783,6 +782,34 @@ Summary: calculate maximum (total) number of cases per state
     ```
 
 ## Day 12 (Friday) Zoom check-in
+
+### Review and troubleshoot {-}
+
+```{r}
+## retrieve and clean the current data set
+url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+us <- read.csv(url, stringsAsFactors = FALSE)
+us <- within(us, {
+    date = as.Date(date, format = "%Y-%m-%d")
+})
+
+## subset
+erie <- subset(us, (county == "Erie") & (state == "New York"))
+
+## manipulate
+erie <- within(erie, {
+    new_cases <- diff( c(0, cases) )
+})
+
+## record of cases to date
+erie
+
+## aggregate() cases in each county to find total (max) number
+ny_state <- subset(us, state == "New York")
+head( aggregate(cases ~ county, ny_state, max) )
+```
+
+### Visualization and functions {-}
 
 ## Day 13: Basic visualization
 
@@ -964,7 +991,7 @@ Hmm, come to think of it, we might want to write a simple function to get and cl
         url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
         us <- read.csv(url, stringsAsFactors = FALSE)
         within(us, {
-        date = as.Date(date, format = "%Y-%m-%d")
+            date = as.Date(date, format = "%Y-%m-%d")
         })
     }
     ```
