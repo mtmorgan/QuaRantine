@@ -2,7 +2,7 @@
 
 ## Day 15 (Monday) Zoom check-in
 
-## [CRAN][]
+### [CRAN][]
 
 [CRAN]: https://cran.r-project.org
 [readr]: https://cran.r-project.org/package=readr
@@ -10,7 +10,7 @@
 [ggplot2]: https://cran.r-project.org/package=ggplot2
 [tidyr]: https://cran.r-project.org/package=tidyr
 
-## The 'tidyverse' of packages
+### The 'tidyverse' of packages
 
 [readr][] for fast data input
 
