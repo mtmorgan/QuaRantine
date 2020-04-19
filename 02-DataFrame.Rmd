@@ -708,22 +708,6 @@ Manipulation
     })
     ```
 
-Simple visualization
-
-- Use a formula to describe the dependent (y-axis) variable as a function of the independent (x-axis) variable -- `cases ~ date`
-
-    ```{r}
-    plot( cases ~ date, erie)
-    ```
-
-  maybe more informative: log-transformed new cases
-
-    ```{r}
-    plot( new_cases ~ date, erie, log = "y", main = "New Cases, Erie County" )
-    ```
-
-- Help: `?plot.formula`
-
 Summary: calculate maximum (total) number of cases per county in New York state
 
 - For Erie county, let's see how to calculate the maximum (total) number of cases
@@ -793,8 +777,204 @@ Summary: calculate maximum (total) number of cases per state
 
 ## Day 12 (Friday) Zoom check-in
 
-## Day 13:
+## Day 13: Basic visualization
 
-## Day 14
+Let's get the current Erie county data, and create the `new_cases` column
 
-Self-directed activities.
+```{r}
+## retrieve and clean the current data set
+url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+us <- read.csv(url, stringsAsFactors = FALSE)
+us <- within(us, {
+    date = as.Date(date, format = "%Y-%m-%d")
+})
+
+## get the Erie county subset
+erie <- subset(us, (county == "Erie") & (state == "New York"))
+
+## add the `new_cases` column
+erie <- within(erie, {
+    new_cases <- diff( c(0, cases) )
+})
+```
+
+Simple visualization
+
+- We'll use the `plot()` function to create a visualization of the progression of COVID cases in Erie county.
+
+- `plot()` can be used with a `formula`, similar to how we used `aggregate()`.
+
+- The `formula` describes the independent (y-axis) variable as a function of the dependent (x-axis) variable
+
+- For our case, the formula will be `cases ~ date`, i.e., plot the number of cases on the y-axis, and date on the x-axis.
+
+- As with `aggregate()`, we need to provide, in the second argument, the `data.frame` where the variables to be plotted can be found.
+
+- Ok, here we go...
+
+    ```{r}
+    plot( cases ~ date, erie)
+    ```
+
+- It might be maybe more informative to plot new cases (so that we can see more easily whether social distancing and other measures are having an effect on the spread of COVID cases. Using log-transformed new cases helps to convey the proportional increase
+
+    ```{r}
+    plot( new_cases ~ date, erie, log = "y", main = "New Cases, Erie County" )
+    ```
+
+- See `?plot.formula` for some options available when using the formula interface to plot. Additional arguments are described on the help page `?help.default`.
+
+
+## Day 14: Functions
+
+Yesterday we created a plot for Erie county. The steps to create this plot can be separated into two parts
+
+1. Get the full data
+
+    ```{r}
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read.csv(url, stringsAsFactors = FALSE)
+    us <- within(us, {
+        date = as.Date(date, format = "%Y-%m-%d")
+    })
+    ```
+    
+2. Subset, update, and plot the data for county of interest
+
+    ```{r}
+    erie <- subset(us, (county == "Erie") & (state == "New York"))
+    erie <- within(erie, {
+        new_cases <- diff( c(0, cases) )
+    })
+    plot( new_cases ~ date, erie, log = "y", main = "New Cases, Erie County" )
+    ```
+    
+What if we were interested in a different county? We could repeat (cut-and-paste) step 2, updating and generalizing a little
+
+- Define a new variable to indicate the county we are interested in plotting
+
+    ```{r}
+    county_of_interest <- "Westchester"
+    ```
+    
+- `paste()` concatenates its  arguments together into a single character vector. We use this to construct the title of the plot
+
+    ```{r}
+    main_title <- paste("New Cases,", county_of_interest, "County")
+    ```
+    
+- Now create and update a subset of the data for the county that we are interested in
+  
+     ```{r}
+    county_data <-
+        subset(us, (county == county_of_interest) & (state == "New York"))
+    county_data <- within(county_data, {
+        new_cases <- diff( c(0, cases) )
+    })
+    ```
+
+- ... and finally plot the county data
+
+    ```{r}
+    plot( new_cases ~ date, county_data, log = "y", main = main_title)
+    ```
+
+- Here is the generalization
+
+    ```{r, eval = FALSE}
+    county_of_interest <- "Westchester"
+
+    main_title <- paste("New Cases,", county_of_interest, "County")
+    county_data <-
+        subset(us_data, (county == county_of_interest) & (state == "New York"))
+    county_data <- within(county_data, {
+        new_cases <- diff( c(0, cases) )
+    })
+    plot( new_cases ~ date, county_data, log = "y", main = main_title)
+    ```
+    
+It would be tedious and error-prone to copy and paste this code for each county we were interested in. 
+
+A better approach is to write a `function` that takes as inputs the `us` data.frame, and the name of the county that we want to plot. Functions are easy to write
+
+- Create a variable to contain the function, use the keyword `function` and then the arguments you want to pass in.
+
+    ```{r, eval = FALSE}
+    plot_county <-
+        function(us_data, county_of_interest)
+    ```
+
+- ... then provide the 'body' of the function between curly braces
+
+    ```{r, eval = FALSE}
+    {
+        main_title <- paste("New Cases,", county_of_interest, "County")
+        county_data <-
+            subset(us_data, (county == county_of_interest) & (state == "New York"))
+        county_data <- within(county_data, {
+            new_cases <- diff( c(0, cases) )
+        })
+        
+        plot( new_cases ~ date, county_data, log = "y", main = main_title)
+    }
+    ```
+    
+- Normally, the last evaluated line of the code (the `plot()` statement in our example) is returned from the function and can be captured by a variable. In our specific case, `plot()` creates the plot as a _side effect_, and the return value is actually the special symbol `NULL`.
+
+- Here's the full definition
+
+    ```{r}
+    plot_county <-
+        function(us_data, county_of_interest)
+    {
+        main_title <- paste("New Cases,", county_of_interest, "County")
+        county_data <-
+            subset(us_data, (county == county_of_interest) & (state == "New York"))
+        county_data <- within(county_data, {
+            new_cases <- diff( c(0, cases) )
+        })
+        
+        plot( new_cases ~ date, county_data, log = "y", main = main_title)
+    }
+    ```
+    
+- Run the code defining the function in the _R_ console, then use it to plot different counties:
+
+    ```{r}
+    plot_county(us, "Erie")
+    plot_county(us, "Westchester")
+    ```
+
+Hmm, come to think of it, we might want to write a simple function to get and clean the US data.
+
+- Get and clean the US data; we don't need any arguments, and the return value (the last line of code evaluated) is the cleaned data
+
+
+    ```{r}
+    get_US_data <-
+        function()
+    {
+        url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+        us <- read.csv(url, stringsAsFactors = FALSE)
+        within(us, {
+        date = as.Date(date, format = "%Y-%m-%d")
+        })
+    }
+    ```
+    
+- Verify that it is now just two lines to plot county-level data
+
+    ```{r}
+    us <- get_US_data()
+    plot_county(us, "Erie")
+    ```
+    
+- How could you generalize `plot_county()` to plot county-level data for a county in any state? Hint: add a `state = ` argument, perhaps using default values
+
+    ```{r}
+    plot_county <-
+        function(us_data, county = "Erie", state = "New York")
+    {
+        ## your code here!
+    }
+    ```
