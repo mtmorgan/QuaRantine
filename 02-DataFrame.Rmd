@@ -2,6 +2,14 @@
 
 ## Day 8 (Monday) Zoom check-in
 
+### Logistics {-}
+
+- Remember to use the [QuaRantine][] Microsoft Team. Your Roswell credentials are required, and you must have been invited (by Adam.Kisailus at RoswellPark.org)
+
+- We're thinking of having a 'networking' hour after Friday's class (so 3pm and after) where we'll break into smaller groups (if necessary) and provide an opportunity for people to turn on their video and audio so that we can increase the amount of intereaction. Likely the first networking hour will be a round of introductions / what you hope to get out of the course / etc., and maybe brief discussion of topics arising.
+
+[QuaRantine]: https://teams.microsoft.com/l/channel/19%3a44e8ed2b03db4d28bac6a212ed67717d%40thread.tacv2/General?groupId=02d8c183-5110-4504-b201-ace342eb6e2b&tenantId=08beaa21-c9ff-428a-b8f5-53c03dad1941
+
 ### Review and troubleshoot (15 minutes) {-}
 
 Saving and loading objects
