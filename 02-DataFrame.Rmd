@@ -429,7 +429,7 @@ Create a file path to store a 'csv' file. From day 7, the path could be temporar
 ## could be any of these...
 ##
 ## interactive_file_path <- file.choose(new = TRUE)
-## getcwd()
+## getwd()
 ## relative_file_path <- "my_activity.rds"
 ## absolute_file_path_on_macOS <- "/Users/ma38727/my_activity.rda"
 ##

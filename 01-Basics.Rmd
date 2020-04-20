@@ -1193,7 +1193,7 @@ Individual variables can be saved to a file.
 
 
     ```{r, eval = FALSE}
-    getcwd()
+    getwd()
     relative_file_path <- "my_activity.rds"
     absolute_file_path_on_macOS <- "/Users/ma38727/my_activity.rda"
     ```
