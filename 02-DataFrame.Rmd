@@ -216,8 +216,8 @@ _R_ and spreadsheets
 
 - ...and import it into _R_
 
-    ```{r}
-    read.csv(
+    ```{r, eval = FALSE}
+    df_all_from_Excel <- read.csv(
         "/Users/ma38727/MyQuarantine/df_all_from_Excel.csv",
         stringsAsFactors = FALSE
     )
@@ -791,7 +791,7 @@ Summary: calculate maximum (total) number of cases per state
 
 ## Day 12 (Friday) Zoom check-in
 
-### Review and troubleshoot {-}
+### Review and troubleshoot (20 minutes) {-}
 
 ```{r}
 ## retrieve and clean the current data set
@@ -817,7 +817,79 @@ ny_state <- subset(us, state == "New York")
 head( aggregate(cases ~ county, ny_state, max) )
 ```
 
-### Visualization and functions {-}
+### Visualization (20 minutes) {-}
+
+`plot` with a `formula` argument
+
+- `formula =`: use `~` (tilde) to describe the relationship to be plotted -- `y-axis-variable ~ x-axis-variable`
+- `data =`: `data.frame` containing the variables to be plotted
+
+    ```{r}
+    plot( new_cases ~ date, erie )
+    ```
+
+- Additional arguments control, e.g., point shape used for plotting (`pch = `), log-transformation of axes (` log =`), title (`main = `)
+
+    ```{r}
+    plot( new_cases ~ date, erie, log = "y", main = "Erie County" )
+    ```
+
+Help!
+
+- `?plot.formula`
+- `?plot.default`
+
+### Functions (20 minutes) {-}
+
+Anatomy of a function
+
+- _Symbol_ representing the variable that will be used to hold the function
+
+    ```{r, eval = FALSE}
+    plot_county <- ...
+    ```
+
+- `function` key word, followed by required (no default value) and optional arguments
+
+    ```{r, eval = FALSE}
+    plot_county <-
+        function(us_data, state = "New York", county = "Erie")
+    ```
+    
+- `body` defining the what the function is supposed to do, enclosed in braces `{`, `}`. The body uses variables passed in as arguments, as well as other functions in base _R_.
+
+    ```{r}
+    plot_county <-
+        function(us_data, which_state = "New York", which_county = "Erie")
+    {
+        ## subset to state and county
+        county <- subset(us_data, (state == which_state) & (county == which_county))
+
+        ## calculate new_cases
+        county <- within(county, {
+            new_cases <- diff( c(0, cases) )
+        })
+
+        ## create title and plot
+        title <- paste0(which_county, ", ", which_state)
+        plot( new_cases ~ date, county, log = "y", main = title )
+    }
+    ```
+    
+Use
+
+- Provide all arguments...
+
+    ```{r}
+    plot_county(us, "New York", "Westchester")
+    ```
+    
+- ... or use one or more defaults
+
+    ```{r}
+    plot_county(us, which_county = "Erie")
+    plot_county(us, "Washington", "King") # Seattle
+    ```
 
 ## Day 13: Basic visualization
 
