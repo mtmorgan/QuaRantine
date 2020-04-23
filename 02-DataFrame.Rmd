@@ -955,24 +955,182 @@ _R_ has many built-in statistical functions. Some of the more commonly used are 
   - Display distributions over different values of a variable
 
 #### Plotting Packages in _R_ {-}
-- 3 Main Plotting Packages
+
+3 Main Plotting Packages
+
   - Base graphics, lattice, and ggplot2
   
-- ggplot2
- - The "Cadillac" of plotting packages.
- - Part of the "tidyverse"
- - Beautiful plots but complex.
- 
-- Words of wisdom on using plotting pacakges
-  - A good approach is to learn by doing but <i>don't start from scratch</i>
-  - Find an example that is similar in appearance to what you are trying to achieve - many _R_ gallaeries are available on the net.
-  - When you find something you like, grab the code and modify it to use your own data.
-  - Fine tune things like labels and fonts at the end, after you are sure you like the way the data is being displayed.
-  
-#### Some example plots in _R_ {}
+ggplot2
 
-  
+- The "Cadillac" of plotting packages.
+- Part of the "tidyverse"
+- Beautiful plots but complex.
  
+Words of wisdom on using plotting pacakges
+
+- A good approach is to learn by doing but <i>don't start from scratch</i>
+- Find an example that is similar in appearance to what you are trying to achieve - many _R_ gallaeries are available on the net.
+- When you find something you like, grab the code and modify it to use your own data.
+- Fine tune things like labels and fonts at the end, after you are sure you like the way the data is being displayed.
+  
+#### Some example plots in _R_ {-}
+
+Many of these are based on the [Diamonds][] dataset. Others are based on the `mtcars` dataset and this requires a bit of cleaning in preparation for the corresponding plots:
+
+```{r}
+data("mtcars")
+
+# convert gear to a factor-level object
+mtcars$gear = factor(mtcars$gear, 
+                     levels = c(3,4,5),
+                     labels = c("3 gears",
+                                "4 gears",
+                                "5 gears"))
+
+# convert cyl to a factor-level object
+mtcars$cyl = factor(mtcars$cyl, 
+                    levels = c(4,6,8),
+                    labels = c("4 cyl",
+                               "6 cyl",
+                               "8 cyl"))
+```
+
+- Scatterplot using Base Graphics
+ 
+```{r}
+library(ggplot2) # for diamonds dataset
+data("diamonds")
+
+# using base graphics plot() function
+plot(formula = price ~ carat,  # price vs. carat
+        data = diamonds,
+        col  = "slategray",
+        pch  = 20,
+        main = "Diamond Price vs. Size")
+```
+ 
+- Scatterplot using ggplot
+
+```{r}
+library(ggplot2)
+data("diamonds")
+ggplot(diamonds,
+    aes(x=carat, y=price, colour=clarity)) +
+    geom_point()
+```
+ 
+- Scatterplot by Category (using ggplot)
+
+```{r}
+library(ggplot2)
+data("diamonds")
+ggplot(diamonds) +
+    geom_point(aes(x=carat, y=price, colour=cut)) +
+    scale_y_log10()+
+    facet_wrap(~cut)+
+    ggtitle("Diamonds: Carat vs. Price by Cut")
+```
+
+- Scatterplot by Category with Regression Lines (using ggplot2)
+
+```{r}
+library(ggplot2)
+ggplot(mtcars, aes(wt,mpg,color=cyl))+
+    geom_point()+
+    geom_smooth(method="lm")+
+    labs(title="Regression of MPG on Weight by # Cylinders",
+         x = "Weight",
+         y = "Miles per Gallon",
+         color = "Cylinders")
+```
+         
+- Bar Plot using Base Graphics
+
+```{r}
+library(ggplot2) # for diamonds dataset
+data("diamonds")
+ideal_cut_colors = diamonds[diamonds$cut == "Ideal", "color"]
+# using base graphics barplot() function
+barplot(table(ideal_cut_colors), 
+        xlab = "color",
+        ylab = "count",
+        main = "Ideal cut diamonds by Color",
+        col = "limegreen")
+```
+
+  - `limegreen` is one of many cool color choices supported by R. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a nice 8-page compendium!
+  
+- Frequency Histogram using Base Graphics
+  - The `MASS` library provides datasets for Venables and Ripley's MASS textbook
+  
+```{r}
+library(MASS) 
+# using the base graphics hist() function
+hist(Cars93$RPM,
+     xlab = "engine RPM",
+     main = "Frequency historgram of engine RPM",
+     col = "skyblue")
+```
+
+- Density Plot using Base Graphics
+ 
+```{r}
+library(MASS) 
+plot(density(Cars93$RPM),
+     xlab = "engine RPM",
+     main = "Frequency historgram of engine RPM",
+     col = "firebrick")
+```
+
+- Density Plot using ggplot2
+
+  - The `qplot()` function is a "quick plot" wrapper for `ggplot()`.
+  
+  - It uses an interface that is similar to the `plot()` function of the base graphics package.
+
+```{r}
+library(ggplot2) 
+data("mtcars")
+
+mtcars$gear = factor(mtcars$gear, 
+                     levels = c(3,4,5),
+                     labels = c("3 gears",
+                                "4 gears",
+                                "5 gears"))
+
+qplot(mpg,
+      data = mtcars,
+      geom = "density",
+      fill = gear, alpha=I(0.5),
+      main = "Distribution of Gas Mileage",
+      xlab = "Miles per Gallon",
+      ylab = "Density")
+
+```
+
+- Box-and-Whisker Plot using Base Graphics
+```{r}
+boxplot(formula = mpg ~ gear,
+        data = mtcars,
+        main = "Mileage by # of Gears",
+        xlab = "Num. Gears",
+        ylab = "Miles per Gallon",
+        col = c("tomato", "forestgreen", "dodgerblue"))
+```
+
+- Box-and-Whisker Plot using ggplot
+```{r}
+library(ggplot2)
+ggplot(data = mtcars,
+       aes(gear,mpg,fill=gear))+
+        geom_boxplot()+
+        labs(title="Mileage by # of Gears",
+             x = "",
+             y = "Miles per Gallon")
+```
+
+[Diamonds]: https://ggplot2.tidyverse.org/reference/diamonds.html
+
 ## Day 13: Basic visualization
 
 Let's get the current Erie county data, and create the `new_cases` column

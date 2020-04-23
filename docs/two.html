@@ -755,7 +755,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="kw">class</span>(us)</a>
 <a class="sourceLine" id="cb145-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
 <a class="sourceLine" id="cb145-3" title="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb145-4" title="4"><span class="co">## [1] 81339     6</span></a>
+<a class="sourceLine" id="cb145-4" title="4"><span class="co">## [1] 81340     6</span></a>
 <a class="sourceLine" id="cb145-5" title="5"><span class="kw">head</span>(us)</a>
 <a class="sourceLine" id="cb145-6" title="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
 <a class="sourceLine" id="cb145-7" title="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
@@ -962,7 +962,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">class</span>(us)</a>
 <a class="sourceLine" id="cb159-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
 <a class="sourceLine" id="cb159-3" title="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb159-4" title="4"><span class="co">## [1] 81339     6</span></a>
+<a class="sourceLine" id="cb159-4" title="4"><span class="co">## [1] 81340     6</span></a>
 <a class="sourceLine" id="cb159-5" title="5"><span class="kw">head</span>(us)</a>
 <a class="sourceLine" id="cb159-6" title="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
 <a class="sourceLine" id="cb159-7" title="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
@@ -1070,7 +1070,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1">max_cases_by_county_state &lt;-</a>
 <a class="sourceLine" id="cb171-2" title="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county <span class="op">+</span><span class="st"> </span>state, us, max )</a>
 <a class="sourceLine" id="cb171-3" title="3"><span class="kw">dim</span>(max_cases_by_county_state)</a>
-<a class="sourceLine" id="cb171-4" title="4"><span class="co">## [1] 2824    3</span></a>
+<a class="sourceLine" id="cb171-4" title="4"><span class="co">## [1] 2825    3</span></a>
 <a class="sourceLine" id="cb171-5" title="5"><span class="kw">head</span>(max_cases_by_county_state)</a>
 <a class="sourceLine" id="cb171-6" title="6"><span class="co">##    county   state cases</span></a>
 <a class="sourceLine" id="cb171-7" title="7"><span class="co">## 1 Autauga Alabama    32</span></a>
@@ -1308,46 +1308,189 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="plotting-packages-in-r" class="section level4 unnumbered">
 <h4>Plotting Packages in <em>R</em></h4>
-<ul>
-<li><p>3 Main Plotting Packages</p>
+<p>3 Main Plotting Packages</p>
 <ul>
 <li>Base graphics, lattice, and ggplot2</li>
-</ul></li>
-<li><p>ggplot2</p></li>
-<li><p>The “Cadillac” of plotting packages.</p></li>
-<li><p>Part of the “tidyverse”</p></li>
-<li><p>Beautiful plots but complex.</p></li>
-<li><p>Words of wisdom on using plotting pacakges</p>
+</ul>
+<p>ggplot2</p>
+<ul>
+<li>The “Cadillac” of plotting packages.</li>
+<li>Part of the “tidyverse”</li>
+<li>Beautiful plots but complex.</li>
+</ul>
+<p>Words of wisdom on using plotting pacakges</p>
 <ul>
 <li>A good approach is to learn by doing but <i>don’t start from scratch</i></li>
 <li>Find an example that is similar in appearance to what you are trying to achieve - many <em>R</em> gallaeries are available on the net.</li>
 <li>When you find something you like, grab the code and modify it to use your own data.</li>
 <li>Fine tune things like labels and fonts at the end, after you are sure you like the way the data is being displayed.</li>
-</ul></li>
 </ul>
 </div>
-<div id="some-example-plots-in-r" class="section level4">
-<h4><span class="header-section-number">2.5.2.1</span> Some example plots in <em>R</em></h4>
+<div id="some-example-plots-in-r" class="section level4 unnumbered">
+<h4>Some example plots in <em>R</em></h4>
+<p>Many of these are based on the <a href="https://ggplot2.tidyverse.org/reference/diamonds.html">Diamonds</a> dataset. Others are based on the <code>mtcars</code> dataset and this requires a bit of cleaning in preparation for the corresponding plots:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="kw">data</span>(<span class="st">&quot;mtcars&quot;</span>)</a>
+<a class="sourceLine" id="cb186-2" title="2"></a>
+<a class="sourceLine" id="cb186-3" title="3"><span class="co"># convert gear to a factor-level object</span></a>
+<a class="sourceLine" id="cb186-4" title="4">mtcars<span class="op">$</span>gear =<span class="st"> </span><span class="kw">factor</span>(mtcars<span class="op">$</span>gear, </a>
+<a class="sourceLine" id="cb186-5" title="5">                     <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb186-6" title="6">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;3 gears&quot;</span>,</a>
+<a class="sourceLine" id="cb186-7" title="7">                                <span class="st">&quot;4 gears&quot;</span>,</a>
+<a class="sourceLine" id="cb186-8" title="8">                                <span class="st">&quot;5 gears&quot;</span>))</a>
+<a class="sourceLine" id="cb186-9" title="9"></a>
+<a class="sourceLine" id="cb186-10" title="10"><span class="co"># convert cyl to a factor-level object</span></a>
+<a class="sourceLine" id="cb186-11" title="11">mtcars<span class="op">$</span>cyl =<span class="st"> </span><span class="kw">factor</span>(mtcars<span class="op">$</span>cyl, </a>
+<a class="sourceLine" id="cb186-12" title="12">                    <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>),</a>
+<a class="sourceLine" id="cb186-13" title="13">                    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;4 cyl&quot;</span>,</a>
+<a class="sourceLine" id="cb186-14" title="14">                               <span class="st">&quot;6 cyl&quot;</span>,</a>
+<a class="sourceLine" id="cb186-15" title="15">                               <span class="st">&quot;8 cyl&quot;</span>))</a></code></pre></div>
+<ul>
+<li>Scatterplot using Base Graphics</li>
+</ul>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="kw">library</span>(ggplot2) <span class="co"># for diamonds dataset</span></a>
+<a class="sourceLine" id="cb187-2" title="2"><span class="kw">data</span>(<span class="st">&quot;diamonds&quot;</span>)</a>
+<a class="sourceLine" id="cb187-3" title="3"></a>
+<a class="sourceLine" id="cb187-4" title="4"><span class="co"># using base graphics plot() function</span></a>
+<a class="sourceLine" id="cb187-5" title="5"><span class="kw">plot</span>(<span class="dt">formula =</span> price <span class="op">~</span><span class="st"> </span>carat,  <span class="co"># price vs. carat</span></a>
+<a class="sourceLine" id="cb187-6" title="6">        <span class="dt">data =</span> diamonds,</a>
+<a class="sourceLine" id="cb187-7" title="7">        <span class="dt">col  =</span> <span class="st">&quot;slategray&quot;</span>,</a>
+<a class="sourceLine" id="cb187-8" title="8">        <span class="dt">pch  =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb187-9" title="9">        <span class="dt">main =</span> <span class="st">&quot;Diamond Price vs. Size&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<ul>
+<li>Scatterplot using ggplot</li>
+</ul>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb188-2" title="2"><span class="kw">data</span>(<span class="st">&quot;diamonds&quot;</span>)</a>
+<a class="sourceLine" id="cb188-3" title="3"><span class="kw">ggplot</span>(diamonds,</a>
+<a class="sourceLine" id="cb188-4" title="4">    <span class="kw">aes</span>(<span class="dt">x=</span>carat, <span class="dt">y=</span>price, <span class="dt">colour=</span>clarity)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb188-5" title="5"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<ul>
+<li>Scatterplot by Category (using ggplot)</li>
+</ul>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb189-2" title="2"><span class="kw">data</span>(<span class="st">&quot;diamonds&quot;</span>)</a>
+<a class="sourceLine" id="cb189-3" title="3"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>carat, <span class="dt">y=</span>price, <span class="dt">colour=</span>cut)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-5" title="5"><span class="st">    </span><span class="kw">scale_y_log10</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb189-6" title="6"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>cut)<span class="op">+</span></a>
+<a class="sourceLine" id="cb189-7" title="7"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Diamonds: Carat vs. Price by Cut&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<ul>
+<li>Scatterplot by Category with Regression Lines (using ggplot2)</li>
+</ul>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb190-2" title="2"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt,mpg,<span class="dt">color=</span>cyl))<span class="op">+</span></a>
+<a class="sourceLine" id="cb190-3" title="3"><span class="st">    </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb190-4" title="4"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb190-5" title="5"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Regression of MPG on Weight by # Cylinders&quot;</span>,</a>
+<a class="sourceLine" id="cb190-6" title="6">         <span class="dt">x =</span> <span class="st">&quot;Weight&quot;</span>,</a>
+<a class="sourceLine" id="cb190-7" title="7">         <span class="dt">y =</span> <span class="st">&quot;Miles per Gallon&quot;</span>,</a>
+<a class="sourceLine" id="cb190-8" title="8">         <span class="dt">color =</span> <span class="st">&quot;Cylinders&quot;</span>)</a>
+<a class="sourceLine" id="cb190-9" title="9"><span class="co">## `geom_smooth()` using formula &#39;y ~ x&#39;</span></a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<ul>
+<li>Bar Plot using Base Graphics</li>
+</ul>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">library</span>(ggplot2) <span class="co"># for diamonds dataset</span></a>
+<a class="sourceLine" id="cb191-2" title="2"><span class="kw">data</span>(<span class="st">&quot;diamonds&quot;</span>)</a>
+<a class="sourceLine" id="cb191-3" title="3">ideal_cut_colors =<span class="st"> </span>diamonds[diamonds<span class="op">$</span>cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>, <span class="st">&quot;color&quot;</span>]</a>
+<a class="sourceLine" id="cb191-4" title="4"><span class="co"># using base graphics barplot() function</span></a>
+<a class="sourceLine" id="cb191-5" title="5"><span class="kw">barplot</span>(<span class="kw">table</span>(ideal_cut_colors), </a>
+<a class="sourceLine" id="cb191-6" title="6">        <span class="dt">xlab =</span> <span class="st">&quot;color&quot;</span>,</a>
+<a class="sourceLine" id="cb191-7" title="7">        <span class="dt">ylab =</span> <span class="st">&quot;count&quot;</span>,</a>
+<a class="sourceLine" id="cb191-8" title="8">        <span class="dt">main =</span> <span class="st">&quot;Ideal cut diamonds by Color&quot;</span>,</a>
+<a class="sourceLine" id="cb191-9" title="9">        <span class="dt">col =</span> <span class="st">&quot;limegreen&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<ul>
+<li><p><code>limegreen</code> is one of many cool color choices supported by R. See <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" class="uri">http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf</a> for a nice 8-page compendium!</p></li>
+<li><p>Frequency Histogram using Base Graphics</p>
+<ul>
+<li>The <code>MASS</code> library provides datasets for Venables and Ripley’s MASS textbook</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1"><span class="kw">library</span>(MASS) </a>
+<a class="sourceLine" id="cb192-2" title="2"><span class="co"># using the base graphics hist() function</span></a>
+<a class="sourceLine" id="cb192-3" title="3"><span class="kw">hist</span>(Cars93<span class="op">$</span>RPM,</a>
+<a class="sourceLine" id="cb192-4" title="4">     <span class="dt">xlab =</span> <span class="st">&quot;engine RPM&quot;</span>,</a>
+<a class="sourceLine" id="cb192-5" title="5">     <span class="dt">main =</span> <span class="st">&quot;Frequency historgram of engine RPM&quot;</span>,</a>
+<a class="sourceLine" id="cb192-6" title="6">     <span class="dt">col =</span> <span class="st">&quot;skyblue&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<ul>
+<li>Density Plot using Base Graphics</li>
+</ul>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1"><span class="kw">library</span>(MASS) </a>
+<a class="sourceLine" id="cb193-2" title="2"><span class="kw">plot</span>(<span class="kw">density</span>(Cars93<span class="op">$</span>RPM),</a>
+<a class="sourceLine" id="cb193-3" title="3">     <span class="dt">xlab =</span> <span class="st">&quot;engine RPM&quot;</span>,</a>
+<a class="sourceLine" id="cb193-4" title="4">     <span class="dt">main =</span> <span class="st">&quot;Frequency historgram of engine RPM&quot;</span>,</a>
+<a class="sourceLine" id="cb193-5" title="5">     <span class="dt">col =</span> <span class="st">&quot;firebrick&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<ul>
+<li><p>Density Plot using ggplot2</p>
+<ul>
+<li><p>The <code>qplot()</code> function is a “quick plot” wrapper for <code>ggplot()</code>.</p></li>
+<li><p>It uses an interface that is similar to the <code>plot()</code> function of the base graphics package.</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1"><span class="kw">library</span>(ggplot2) </a>
+<a class="sourceLine" id="cb194-2" title="2"><span class="kw">data</span>(<span class="st">&quot;mtcars&quot;</span>)</a>
+<a class="sourceLine" id="cb194-3" title="3"></a>
+<a class="sourceLine" id="cb194-4" title="4">mtcars<span class="op">$</span>gear =<span class="st"> </span><span class="kw">factor</span>(mtcars<span class="op">$</span>gear, </a>
+<a class="sourceLine" id="cb194-5" title="5">                     <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb194-6" title="6">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;3 gears&quot;</span>,</a>
+<a class="sourceLine" id="cb194-7" title="7">                                <span class="st">&quot;4 gears&quot;</span>,</a>
+<a class="sourceLine" id="cb194-8" title="8">                                <span class="st">&quot;5 gears&quot;</span>))</a>
+<a class="sourceLine" id="cb194-9" title="9"></a>
+<a class="sourceLine" id="cb194-10" title="10"><span class="kw">qplot</span>(mpg,</a>
+<a class="sourceLine" id="cb194-11" title="11">      <span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb194-12" title="12">      <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>,</a>
+<a class="sourceLine" id="cb194-13" title="13">      <span class="dt">fill =</span> gear, <span class="dt">alpha=</span><span class="kw">I</span>(<span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb194-14" title="14">      <span class="dt">main =</span> <span class="st">&quot;Distribution of Gas Mileage&quot;</span>,</a>
+<a class="sourceLine" id="cb194-15" title="15">      <span class="dt">xlab =</span> <span class="st">&quot;Miles per Gallon&quot;</span>,</a>
+<a class="sourceLine" id="cb194-16" title="16">      <span class="dt">ylab =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<ul>
+<li>Box-and-Whisker Plot using Base Graphics</li>
+</ul>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="kw">boxplot</span>(<span class="dt">formula =</span> mpg <span class="op">~</span><span class="st"> </span>gear,</a>
+<a class="sourceLine" id="cb195-2" title="2">        <span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb195-3" title="3">        <span class="dt">main =</span> <span class="st">&quot;Mileage by # of Gears&quot;</span>,</a>
+<a class="sourceLine" id="cb195-4" title="4">        <span class="dt">xlab =</span> <span class="st">&quot;Num. Gears&quot;</span>,</a>
+<a class="sourceLine" id="cb195-5" title="5">        <span class="dt">ylab =</span> <span class="st">&quot;Miles per Gallon&quot;</span>,</a>
+<a class="sourceLine" id="cb195-6" title="6">        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;tomato&quot;</span>, <span class="st">&quot;forestgreen&quot;</span>, <span class="st">&quot;dodgerblue&quot;</span>))</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<ul>
+<li>Box-and-Whisker Plot using ggplot</li>
+</ul>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb196-2" title="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb196-3" title="3">       <span class="kw">aes</span>(gear,mpg,<span class="dt">fill=</span>gear))<span class="op">+</span></a>
+<a class="sourceLine" id="cb196-4" title="4"><span class="st">        </span><span class="kw">geom_boxplot</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb196-5" title="5"><span class="st">        </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Mileage by # of Gears&quot;</span>,</a>
+<a class="sourceLine" id="cb196-6" title="6">             <span class="dt">x =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb196-7" title="7">             <span class="dt">y =</span> <span class="st">&quot;Miles per Gallon&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 </div>
 </div>
 </div>
 <div id="day-13-basic-visualization" class="section level2">
 <h2><span class="header-section-number">2.6</span> Day 13: Basic visualization</h2>
 <p>Let’s get the current Erie county data, and create the <code>new_cases</code> column</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="co">## retrieve and clean the current data set</span></a>
-<a class="sourceLine" id="cb186-2" title="2">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb186-3" title="3">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb186-4" title="4">us &lt;-<span class="st"> </span><span class="kw">within</span>(us, {</a>
-<a class="sourceLine" id="cb186-5" title="5">    date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb186-6" title="6">})</a>
-<a class="sourceLine" id="cb186-7" title="7"></a>
-<a class="sourceLine" id="cb186-8" title="8"><span class="co">## get the Erie county subset</span></a>
-<a class="sourceLine" id="cb186-9" title="9">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
-<a class="sourceLine" id="cb186-10" title="10"></a>
-<a class="sourceLine" id="cb186-11" title="11"><span class="co">## add the `new_cases` column</span></a>
-<a class="sourceLine" id="cb186-12" title="12">erie &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
-<a class="sourceLine" id="cb186-13" title="13">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
-<a class="sourceLine" id="cb186-14" title="14">})</a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="co">## retrieve and clean the current data set</span></a>
+<a class="sourceLine" id="cb197-2" title="2">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb197-3" title="3">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb197-4" title="4">us &lt;-<span class="st"> </span><span class="kw">within</span>(us, {</a>
+<a class="sourceLine" id="cb197-5" title="5">    date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb197-6" title="6">})</a>
+<a class="sourceLine" id="cb197-7" title="7"></a>
+<a class="sourceLine" id="cb197-8" title="8"><span class="co">## get the Erie county subset</span></a>
+<a class="sourceLine" id="cb197-9" title="9">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
+<a class="sourceLine" id="cb197-10" title="10"></a>
+<a class="sourceLine" id="cb197-11" title="11"><span class="co">## add the `new_cases` column</span></a>
+<a class="sourceLine" id="cb197-12" title="12">erie &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
+<a class="sourceLine" id="cb197-13" title="13">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
+<a class="sourceLine" id="cb197-14" title="14">})</a></code></pre></div>
 <p>Simple visualization</p>
 <ul>
 <li><p>We’ll use the <code>plot()</code> function to create a visualization of the progression of COVID cases in Erie county.</p></li>
@@ -1356,13 +1499,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>For our case, the formula will be <code>cases ~ date</code>, i.e., plot the number of cases on the y-axis, and date on the x-axis.</p></li>
 <li><p>As with <code>aggregate()</code>, we need to provide, in the second argument, the <code>data.frame</code> where the variables to be plotted can be found.</p></li>
 <li><p>Ok, here we go…</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="kw">plot</span>( cases <span class="op">~</span><span class="st"> </span>date, erie)</a></code></pre></div>
-<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1"><span class="kw">plot</span>( cases <span class="op">~</span><span class="st"> </span>date, erie)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p></li>
 <li><p>It might be maybe more informative to plot new cases (so that we can see more easily whether social distancing and other measures are having an effect on the spread of COVID cases. Using log-transformed new cases helps to convey the proportional increase</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, erie, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;New Cases, Erie County&quot;</span> )</a>
-<a class="sourceLine" id="cb188-2" title="2"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
-<a class="sourceLine" id="cb188-3" title="3"><span class="co">## logarithmic plot</span></a></code></pre></div>
-<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, erie, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;New Cases, Erie County&quot;</span> )</a>
+<a class="sourceLine" id="cb199-2" title="2"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
+<a class="sourceLine" id="cb199-3" title="3"><span class="co">## logarithmic plot</span></a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p></li>
 <li><p>See <code>?plot.formula</code> for some options available when using the formula interface to plot. Additional arguments are described on the help page <code>?help.default</code>.</p></li>
 </ul>
 </div>
@@ -1371,110 +1514,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Yesterday we created a plot for Erie county. The steps to create this plot can be separated into two parts</p>
 <ol style="list-style-type: decimal">
 <li><p>Get the full data</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb189-2" title="2">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb189-3" title="3">us &lt;-<span class="st"> </span><span class="kw">within</span>(us, {</a>
-<a class="sourceLine" id="cb189-4" title="4">    date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb189-5" title="5">})</a></code></pre></div></li>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb200-2" title="2">us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb200-3" title="3">us &lt;-<span class="st"> </span><span class="kw">within</span>(us, {</a>
+<a class="sourceLine" id="cb200-4" title="4">    date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb200-5" title="5">})</a></code></pre></div></li>
 <li><p>Subset, update, and plot the data for county of interest</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
-<a class="sourceLine" id="cb190-2" title="2">erie &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
-<a class="sourceLine" id="cb190-3" title="3">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
-<a class="sourceLine" id="cb190-4" title="4">})</a>
-<a class="sourceLine" id="cb190-5" title="5"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, erie, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;New Cases, Erie County&quot;</span> )</a>
-<a class="sourceLine" id="cb190-6" title="6"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
-<a class="sourceLine" id="cb190-7" title="7"><span class="co">## logarithmic plot</span></a></code></pre></div>
-<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
+<a class="sourceLine" id="cb201-2" title="2">erie &lt;-<span class="st"> </span><span class="kw">within</span>(erie, {</a>
+<a class="sourceLine" id="cb201-3" title="3">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
+<a class="sourceLine" id="cb201-4" title="4">})</a>
+<a class="sourceLine" id="cb201-5" title="5"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, erie, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;New Cases, Erie County&quot;</span> )</a>
+<a class="sourceLine" id="cb201-6" title="6"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
+<a class="sourceLine" id="cb201-7" title="7"><span class="co">## logarithmic plot</span></a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p></li>
 </ol>
 <p>What if we were interested in a different county? We could repeat (cut-and-paste) step 2, updating and generalizing a little</p>
 <ul>
 <li><p>Define a new variable to indicate the county we are interested in plotting</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">county_of_interest &lt;-<span class="st"> &quot;Westchester&quot;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1">county_of_interest &lt;-<span class="st"> &quot;Westchester&quot;</span></a></code></pre></div></li>
 <li><p><code>paste()</code> concatenates its arguments together into a single character vector. We use this to construct the title of the plot</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1">main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a></code></pre></div></li>
 <li><p>Now create and update a subset of the data for the county that we are interested in</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">    county_data &lt;-</a>
-<a class="sourceLine" id="cb193-2" title="2"><span class="st">   </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
-<a class="sourceLine" id="cb193-3" title="3">    county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
-<a class="sourceLine" id="cb193-4" title="4">   new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
-<a class="sourceLine" id="cb193-5" title="5">    })</a></code></pre></div></li>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1">    county_data &lt;-</a>
+<a class="sourceLine" id="cb204-2" title="2"><span class="st">   </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
+<a class="sourceLine" id="cb204-3" title="3">    county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
+<a class="sourceLine" id="cb204-4" title="4">   new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
+<a class="sourceLine" id="cb204-5" title="5">    })</a></code></pre></div></li>
 <li><p>… and finally plot the county data</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a></code></pre></div>
-<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p></li>
 <li><p>Here is the generalization</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1">county_of_interest &lt;-<span class="st"> &quot;Westchester&quot;</span></a>
-<a class="sourceLine" id="cb195-2" title="2"></a>
-<a class="sourceLine" id="cb195-3" title="3">main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a>
-<a class="sourceLine" id="cb195-4" title="4">county_data &lt;-</a>
-<a class="sourceLine" id="cb195-5" title="5"><span class="st">    </span><span class="kw">subset</span>(us_data, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
-<a class="sourceLine" id="cb195-6" title="6">county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
-<a class="sourceLine" id="cb195-7" title="7">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
-<a class="sourceLine" id="cb195-8" title="8">})</a>
-<a class="sourceLine" id="cb195-9" title="9"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a></code></pre></div></li>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1">county_of_interest &lt;-<span class="st"> &quot;Westchester&quot;</span></a>
+<a class="sourceLine" id="cb206-2" title="2"></a>
+<a class="sourceLine" id="cb206-3" title="3">main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a>
+<a class="sourceLine" id="cb206-4" title="4">county_data &lt;-</a>
+<a class="sourceLine" id="cb206-5" title="5"><span class="st">    </span><span class="kw">subset</span>(us_data, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
+<a class="sourceLine" id="cb206-6" title="6">county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
+<a class="sourceLine" id="cb206-7" title="7">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
+<a class="sourceLine" id="cb206-8" title="8">})</a>
+<a class="sourceLine" id="cb206-9" title="9"><span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a></code></pre></div></li>
 </ul>
 <p>It would be tedious and error-prone to copy and paste this code for each county we were interested in.</p>
 <p>A better approach is to write a <code>function</code> that takes as inputs the <code>us</code> data.frame, and the name of the county that we want to plot. Functions are easy to write</p>
 <ul>
 <li><p>Create a variable to contain the function, use the keyword <code>function</code> and then the arguments you want to pass in.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1">plot_county &lt;-</a>
-<a class="sourceLine" id="cb196-2" title="2"><span class="st">    </span><span class="cf">function</span>(us_data, county_of_interest)</a></code></pre></div></li>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" title="1">plot_county &lt;-</a>
+<a class="sourceLine" id="cb207-2" title="2"><span class="st">    </span><span class="cf">function</span>(us_data, county_of_interest)</a></code></pre></div></li>
 <li><p>… then provide the ‘body’ of the function between curly braces</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1">{</a>
-<a class="sourceLine" id="cb197-2" title="2">    main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a>
-<a class="sourceLine" id="cb197-3" title="3">    county_data &lt;-</a>
-<a class="sourceLine" id="cb197-4" title="4"><span class="st">        </span><span class="kw">subset</span>(us_data, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
-<a class="sourceLine" id="cb197-5" title="5">    county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
-<a class="sourceLine" id="cb197-6" title="6">        new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
-<a class="sourceLine" id="cb197-7" title="7">    })</a>
-<a class="sourceLine" id="cb197-8" title="8"></a>
-<a class="sourceLine" id="cb197-9" title="9">    <span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a>
-<a class="sourceLine" id="cb197-10" title="10">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1">{</a>
+<a class="sourceLine" id="cb208-2" title="2">    main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a>
+<a class="sourceLine" id="cb208-3" title="3">    county_data &lt;-</a>
+<a class="sourceLine" id="cb208-4" title="4"><span class="st">        </span><span class="kw">subset</span>(us_data, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
+<a class="sourceLine" id="cb208-5" title="5">    county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
+<a class="sourceLine" id="cb208-6" title="6">        new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
+<a class="sourceLine" id="cb208-7" title="7">    })</a>
+<a class="sourceLine" id="cb208-8" title="8"></a>
+<a class="sourceLine" id="cb208-9" title="9">    <span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a>
+<a class="sourceLine" id="cb208-10" title="10">}</a></code></pre></div></li>
 <li><p>Normally, the last evaluated line of the code (the <code>plot()</code> statement in our example) is returned from the function and can be captured by a variable. In our specific case, <code>plot()</code> creates the plot as a <em>side effect</em>, and the return value is actually the special symbol <code>NULL</code>.</p></li>
 <li><p>Here’s the full definition</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1">plot_county &lt;-</a>
-<a class="sourceLine" id="cb198-2" title="2"><span class="st">    </span><span class="cf">function</span>(us_data, county_of_interest)</a>
-<a class="sourceLine" id="cb198-3" title="3">{</a>
-<a class="sourceLine" id="cb198-4" title="4">    main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a>
-<a class="sourceLine" id="cb198-5" title="5">    county_data &lt;-</a>
-<a class="sourceLine" id="cb198-6" title="6"><span class="st">        </span><span class="kw">subset</span>(us_data, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
-<a class="sourceLine" id="cb198-7" title="7">    county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
-<a class="sourceLine" id="cb198-8" title="8">        new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
-<a class="sourceLine" id="cb198-9" title="9">    })</a>
-<a class="sourceLine" id="cb198-10" title="10"></a>
-<a class="sourceLine" id="cb198-11" title="11">    <span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a>
-<a class="sourceLine" id="cb198-12" title="12">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" title="1">plot_county &lt;-</a>
+<a class="sourceLine" id="cb209-2" title="2"><span class="st">    </span><span class="cf">function</span>(us_data, county_of_interest)</a>
+<a class="sourceLine" id="cb209-3" title="3">{</a>
+<a class="sourceLine" id="cb209-4" title="4">    main_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;New Cases,&quot;</span>, county_of_interest, <span class="st">&quot;County&quot;</span>)</a>
+<a class="sourceLine" id="cb209-5" title="5">    county_data &lt;-</a>
+<a class="sourceLine" id="cb209-6" title="6"><span class="st">        </span><span class="kw">subset</span>(us_data, (county <span class="op">==</span><span class="st"> </span>county_of_interest) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
+<a class="sourceLine" id="cb209-7" title="7">    county_data &lt;-<span class="st"> </span><span class="kw">within</span>(county_data, {</a>
+<a class="sourceLine" id="cb209-8" title="8">        new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>( <span class="kw">c</span>(<span class="dv">0</span>, cases) )</a>
+<a class="sourceLine" id="cb209-9" title="9">    })</a>
+<a class="sourceLine" id="cb209-10" title="10"></a>
+<a class="sourceLine" id="cb209-11" title="11">    <span class="kw">plot</span>( new_cases <span class="op">~</span><span class="st"> </span>date, county_data, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">main =</span> main_title)</a>
+<a class="sourceLine" id="cb209-12" title="12">}</a></code></pre></div></li>
 <li><p>Run the code defining the function in the <em>R</em> console, then use it to plot different counties:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="kw">plot_county</span>(us, <span class="st">&quot;Erie&quot;</span>)</a>
-<a class="sourceLine" id="cb199-2" title="2"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
-<a class="sourceLine" id="cb199-3" title="3"><span class="co">## logarithmic plot</span></a></code></pre></div>
-<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1"><span class="kw">plot_county</span>(us, <span class="st">&quot;Westchester&quot;</span>)</a></code></pre></div>
-<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-91-2.png" width="672" /></p></li>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1"><span class="kw">plot_county</span>(us, <span class="st">&quot;Erie&quot;</span>)</a>
+<a class="sourceLine" id="cb210-2" title="2"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
+<a class="sourceLine" id="cb210-3" title="3"><span class="co">## logarithmic plot</span></a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" title="1"><span class="kw">plot_county</span>(us, <span class="st">&quot;Westchester&quot;</span>)</a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-102-2.png" width="672" /></p></li>
 </ul>
 <p>Hmm, come to think of it, we might want to write a simple function to get and clean the US data.</p>
 <ul>
 <li><p>Get and clean the US data; we don’t need any arguments, and the return value (the last line of code evaluated) is the cleaned data</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1">get_US_data &lt;-</a>
-<a class="sourceLine" id="cb201-2" title="2"><span class="st">    </span><span class="cf">function</span>()</a>
-<a class="sourceLine" id="cb201-3" title="3">{</a>
-<a class="sourceLine" id="cb201-4" title="4">    url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb201-5" title="5">    us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb201-6" title="6">    <span class="kw">within</span>(us, {</a>
-<a class="sourceLine" id="cb201-7" title="7">        date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb201-8" title="8">    })</a>
-<a class="sourceLine" id="cb201-9" title="9">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1">get_US_data &lt;-</a>
+<a class="sourceLine" id="cb212-2" title="2"><span class="st">    </span><span class="cf">function</span>()</a>
+<a class="sourceLine" id="cb212-3" title="3">{</a>
+<a class="sourceLine" id="cb212-4" title="4">    url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb212-5" title="5">    us &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb212-6" title="6">    <span class="kw">within</span>(us, {</a>
+<a class="sourceLine" id="cb212-7" title="7">        date =<span class="st"> </span><span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb212-8" title="8">    })</a>
+<a class="sourceLine" id="cb212-9" title="9">}</a></code></pre></div></li>
 <li><p>Verify that it is now just two lines to plot county-level data</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1">us &lt;-<span class="st"> </span><span class="kw">get_US_data</span>()</a>
-<a class="sourceLine" id="cb202-2" title="2"><span class="kw">plot_county</span>(us, <span class="st">&quot;Erie&quot;</span>)</a>
-<a class="sourceLine" id="cb202-3" title="3"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
-<a class="sourceLine" id="cb202-4" title="4"><span class="co">## logarithmic plot</span></a></code></pre></div>
-<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" title="1">us &lt;-<span class="st"> </span><span class="kw">get_US_data</span>()</a>
+<a class="sourceLine" id="cb213-2" title="2"><span class="kw">plot_county</span>(us, <span class="st">&quot;Erie&quot;</span>)</a>
+<a class="sourceLine" id="cb213-3" title="3"><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 3 y values &lt;= 0 omitted from</span></a>
+<a class="sourceLine" id="cb213-4" title="4"><span class="co">## logarithmic plot</span></a></code></pre></div>
+<p><img src="02-DataFrame_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p></li>
 <li><p>How could you generalize <code>plot_county()</code> to plot county-level data for a county in any state? Hint: add a <code>state =</code> argument, perhaps using default values</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1">plot_county &lt;-</a>
-<a class="sourceLine" id="cb203-2" title="2"><span class="st">    </span><span class="cf">function</span>(us_data, <span class="dt">county =</span> <span class="st">&quot;Erie&quot;</span>, <span class="dt">state =</span> <span class="st">&quot;New York&quot;</span>)</a>
-<a class="sourceLine" id="cb203-3" title="3">{</a>
-<a class="sourceLine" id="cb203-4" title="4">    <span class="co">## your code here!</span></a>
-<a class="sourceLine" id="cb203-5" title="5">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1">plot_county &lt;-</a>
+<a class="sourceLine" id="cb214-2" title="2"><span class="st">    </span><span class="cf">function</span>(us_data, <span class="dt">county =</span> <span class="st">&quot;Erie&quot;</span>, <span class="dt">state =</span> <span class="st">&quot;New York&quot;</span>)</a>
+<a class="sourceLine" id="cb214-3" title="3">{</a>
+<a class="sourceLine" id="cb214-4" title="4">    <span class="co">## your code here!</span></a>
+<a class="sourceLine" id="cb214-5" title="5">}</a></code></pre></div></li>
 </ul>
 
 </div>
