@@ -1,6 +1,8 @@
 --- 
 title: "40 Days and 40 Nights"
-author: ["Martin Morgan", "L. Shawn Matott"]
+author: 
+    - Martin Morgan^[Roswell Park Comprehensive Cancer Center, Martin.Morgan@RoswellPark.org]
+    - L. Shawn Matott^[Roswell Park Comprehensive Cancer Center]
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -82,7 +84,7 @@ We haven't thought this through much, but roughly we might cover:
       ggtitle("Erie County, New York")
   ```
 
-- Week \@ref(four): Maps. This week will be a specialized topic, tackling relatively advanced challenges associated with spatial visualization. 
+- Week \@ref(four): Machine learning. This week will develop basic machine learning models for exploring data. 
 
 - Week \@ref(five): Bioinformatic analysis with [Bioconductor][]. _Bioconductor_ is a collection of more than 1800 _R_ packages for the statistical analysis and comprehension of high-throughput genomic data. We'll use _Bioconductor_ to look at COVID-19 genome sequences, and to explore emerging genomic data relevant to the virus.
 

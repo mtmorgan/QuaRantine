@@ -2,7 +2,9 @@
 
 ## Day 15 (Monday) Zoom check-in
 
-### [CRAN][]
+### [CRAN][] {-}
+
+### Installing and attaching packages {-}
 
 [CRAN]: https://cran.r-project.org
 [readr]: https://cran.r-project.org/package=readr
@@ -10,7 +12,7 @@
 [ggplot2]: https://cran.r-project.org/package=ggplot2
 [tidyr]: https://cran.r-project.org/package=tidyr
 
-### The 'tidyverse' of packages
+### The 'tidyverse' of packages {-}
 
 [readr][] for fast data input
 
@@ -68,7 +70,7 @@
 
 - `mutate()` (add or update) columns
 - `summarize()` one or more columns
-- `group_by()` one or more variables when performing computations
+- `group_by()` one or more variables when performing computations. `ungroup()` removes the grouping.
 - `arrange()` rows based on values in particular column(s); `desc()` in descending order.
 - `count()` the number of times values occur
 
@@ -214,7 +216,7 @@ Source
 
 - `tidyr::pivot_longer()` takes a 'wide' data frame like `csv`, and allows us to transform it to the 'long' format we are interested in.
 
-    - I discovered how to work with `pivot_longer()` using it's help page `?tidyr::pivot_longer`
+    - I discovered how to work with `pivot_longer()` using its help page `?tidyr::pivot_longer`
 
     - The first argument represents columns to pivot or, as a convenience when these are negative values, columns we _do not_ want to pivot. We _do not_ want to pivot columns 1 through 4, so this argument will be `-(1:4)`.
 
@@ -329,7 +331,8 @@ It seems like it would be convenient to capture our data cleaning and visualizat
         ## add `new_cases`, and return the result
         world %>%
             group_by(country) %>%
-            mutate(new_cases = diff(c(0, cases)))
+            mutate(new_cases = diff(c(0, cases))) %>%
+            ungroup()
     }
     ```
 
@@ -359,10 +362,10 @@ It seems like it would be convenient to capture our data cleaning and visualizat
 
 - Note that, because the first argument of `plot_country()` is a tibble, the output of `get_world_data()` can be used as the input of `plot_country()`, and can be piped together, e.g.,
 
-```{r}
-world <- get_world_data()
-world %>% plot_country("Korea, South")
-```
+    ```{r}
+    world <- get_world_data()
+    world %>% plot_country("Korea, South")
+    ```
 
 ## Day 19 (Friday) Zoom check-in
 
@@ -409,7 +412,7 @@ Explore other countries.
     world %>% plot_country("Austria")
     ```
 
-- Germany also had strong leadership (e.g., chancellor Angela Merkel provided clear and unambiguous rules for Germans to follow, and then self-isolated when she herself became infected) and an effective screening campaign (e.g., to make effective use of limited testing resources, in some instances pools of samples were screened, and only if the pool indicated infection were the individuals in the pool screened.
+- Germany also had strong leadership (e.g., chancellor Angela Merkel provided clear and unambiguous rules for Germans to follow, and then self-isolated when her doctor, whom she had recently visited, tested positive) and an effective screening campaign (e.g., to make effective use of limited testing resources, in some instances pools of samples were screened, and only if the pool indicated infection were the individuals in the pool screened.
 
     ```{r}
     world %>% plot_country("Germany")

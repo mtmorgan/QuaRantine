@@ -1,4 +1,4 @@
-# Maps and spatial statistics {#four}
+# Machine learning {#four}
 
 ## Day 22 (Monday) Zoom check-in
 
