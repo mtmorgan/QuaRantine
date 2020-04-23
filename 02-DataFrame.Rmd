@@ -963,6 +963,16 @@ _R_ has many built-in statistical functions. Some of the more commonly used are 
  - Part of the "tidyverse"
  - Beautiful plots but complex.
  
+- Words of wisdom on using plotting pacakges
+  - A good approach is to learn by doing but <i>don't start from scratch</i>
+  - Find an example that is similar in appearance to what you are trying to achieve - many _R_ gallaeries are available on the net.
+  - When you find something you like, grab the code and modify it to use your own data.
+  - Fine tune things like labels and fonts at the end, after you are sure you like the way the data is being displayed.
+  
+#### Some example plots in _R_ {}
+
+  
+ 
 ## Day 13: Basic visualization
 
 Let's get the current Erie county data, and create the `new_cases` column
