@@ -891,6 +891,78 @@ Use
     plot_county(us, "Washington", "King") # Seattle
     ```
 
+### User-Defined Functions in _R_
+
+Basic structure:
+
+```{}
+my_function_name <- function(arg1, arg2, ...)
+{
+   statements
+   
+   return(object)
+}
+```
+
+A conrete example:
+
+```{r}
+
+# declare a function to convert temperatures
+toFahrenheit <- function(celsius)
+{
+  f <- (9/5) * celsius + 32
+  return(f)
+}
+
+# invoke the function
+temps <- c(20:25)
+toFahrenheit(temps)
+
+```
+
+Functions can be loaded from a separate file using the `source` command. Enter the temperature conversion function into an _R_ script and save as `myFunctions.R`.
+
+```{r}
+setwd("C:\\Matott\\MyQuarantine")
+my_R_funcs <- file.path(getwd(), "myFunctions.R")
+source(my_R_funcs)
+toFahrenheit(c(40,45,78,92,12,34))
+```
+
+#### Statistical functions in _R_ {-}
+_R_ has many built-in statistical functions. Some of the more commonly used are listed below:
+
+- `mean()    # average`
+- `median()  # median (middle value of sorted data)`
+- `range()   # max - min`
+- `var()     # variance`
+- `sd()      # standard deviation`
+- `summary() # prints a combination of useful measures`
+
+### Plotting Data Using _R_
+
+#### Review of Plot Types {-}
+- Pie Chart
+  - Display proportions of different values for some variable
+- Bar Plot
+  - Display counts of values for categorical variables
+- Histogram, Density Plot
+  - Display counts of values for a binned, numeric variable
+- Scatter Plot
+  - Display y vs. x
+- Box Plot
+  - Display distributions over different values of a variable
+
+#### Plotting Packages in _R_ {-}
+- 3 Main Plotting Packages
+  - Base graphics, lattice, and ggplot2
+  
+- ggplot2
+ - The "Cadillac" of plotting packages.
+ - Part of the "tidyverse"
+ - Beautiful plots but complex.
+ 
 ## Day 13: Basic visualization
 
 Let's get the current Erie county data, and create the `new_cases` column
