@@ -817,81 +817,7 @@ ny_state <- subset(us, state == "New York")
 head( aggregate(cases ~ county, ny_state, max) )
 ```
 
-### Visualization (20 minutes) {-}
-
-`plot` with a `formula` argument
-
-- `formula =`: use `~` (tilde) to describe the relationship to be plotted -- `y-axis-variable ~ x-axis-variable`
-- `data =`: `data.frame` containing the variables to be plotted
-
-    ```{r}
-    plot( new_cases ~ date, erie )
-    ```
-
-- Additional arguments control, e.g., point shape used for plotting (`pch = `), log-transformation of axes (` log =`), title (`main = `)
-
-    ```{r}
-    plot( new_cases ~ date, erie, log = "y", main = "Erie County" )
-    ```
-
-Help!
-
-- `?plot.formula`
-- `?plot.default`
-
-### Functions (20 minutes) {-}
-
-Anatomy of a function
-
-- _Symbol_ representing the variable that will be used to hold the function
-
-    ```{r, eval = FALSE}
-    plot_county <- ...
-    ```
-
-- `function` key word, followed by required (no default value) and optional arguments
-
-    ```{r, eval = FALSE}
-    plot_county <-
-        function(us_data, state = "New York", county = "Erie")
-    ```
-    
-- `body` defining the what the function is supposed to do, enclosed in braces `{`, `}`. The body uses variables passed in as arguments, as well as other functions in base _R_.
-
-    ```{r}
-    plot_county <-
-        function(us_data, which_state = "New York", which_county = "Erie")
-    {
-        ## subset to state and county
-        county <- subset(us_data, (state == which_state) & (county == which_county))
-
-        ## calculate new_cases
-        county <- within(county, {
-            new_cases <- diff( c(0, cases) )
-        })
-
-        ## create title and plot
-        title <- paste0(which_county, ", ", which_state)
-        plot( new_cases ~ date, county, log = "y", main = title )
-    }
-    ```
-    
-Use
-
-- Provide all arguments...
-
-    ```{r}
-    plot_county(us, "New York", "Westchester")
-    ```
-    
-- ... or use one or more defaults
-
-    ```{r}
-    plot_county(us, which_county = "Erie")
-    plot_county(us, "Washington", "King") # Seattle
-    ```
-
-### User-Defined Functions in _R_
+### User-defined functions {-}
 
 Basic structure:
 
@@ -899,7 +825,7 @@ Basic structure:
 my_function_name <- function(arg1, arg2, ...)
 {
    statements
-   
+
    return(object)
 }
 ```
@@ -907,7 +833,6 @@ my_function_name <- function(arg1, arg2, ...)
 A conrete example:
 
 ```{r}
-
 # declare a function to convert temperatures
 toFahrenheit <- function(celsius)
 {
@@ -918,19 +843,21 @@ toFahrenheit <- function(celsius)
 # invoke the function
 temps <- c(20:25)
 toFahrenheit(temps)
-
 ```
 
 Functions can be loaded from a separate file using the `source` command. Enter the temperature conversion function into an _R_ script and save as `myFunctions.R`.
 
-```{r}
-setwd("C:\\Matott\\MyQuarantine")
-my_R_funcs <- file.path(getwd(), "myFunctions.R")
+```{r, eval = FALSE}
+my_R_funcs <-
+    file.path("C:\\Matott\\MyQuarantine", "myFunctions.R")
 source(my_R_funcs)
-toFahrenheit(c(40,45,78,92,12,34))
+```
+```{r}
+toFahrenheit(c(40, 45, 78, 92, 12, 34))
 ```
 
 #### Statistical functions in _R_ {-}
+
 _R_ has many built-in statistical functions. Some of the more commonly used are listed below:
 
 - `mean()    # average`
@@ -940,40 +867,41 @@ _R_ has many built-in statistical functions. Some of the more commonly used are 
 - `sd()      # standard deviation`
 - `summary() # prints a combination of useful measures`
 
-### Plotting Data Using _R_
+### Plotting data {-}
 
 #### Review of Plot Types {-}
-- Pie Chart
+
+- Pie chart
   - Display proportions of different values for some variable
-- Bar Plot
+- Bar plot
   - Display counts of values for categorical variables
-- Histogram, Density Plot
+- Histogram, density plot
   - Display counts of values for a binned, numeric variable
-- Scatter Plot
+- Scatter plot
   - Display y vs. x
-- Box Plot
+- Box plot
   - Display distributions over different values of a variable
 
-#### Plotting Packages in _R_ {-}
+#### Plotting packages {-}
 
 3 Main Plotting Packages
 
   - Base graphics, lattice, and ggplot2
-  
+
 ggplot2
 
 - The "Cadillac" of plotting packages.
 - Part of the "tidyverse"
-- Beautiful plots but complex.
- 
-Words of wisdom on using plotting pacakges
+- Beautiful plots
+
+Words of wisdom on using plotting packages
 
 - A good approach is to learn by doing but <i>don't start from scratch</i>
-- Find an example that is similar in appearance to what you are trying to achieve - many _R_ gallaeries are available on the net.
+- Find an example that is similar in appearance to what you are trying to achieve - many _R_ galleries are available on the net.
 - When you find something you like, grab the code and modify it to use your own data.
 - Fine tune things like labels and fonts at the end, after you are sure you like the way the data is being displayed.
-  
-#### Some example plots in _R_ {-}
+
+#### Some example plots {-}
 
 Many of these are based on the [Diamonds][] dataset. Others are based on the `mtcars` dataset and this requires a bit of cleaning in preparation for the corresponding plots:
 
@@ -981,153 +909,155 @@ Many of these are based on the [Diamonds][] dataset. Others are based on the `mt
 data("mtcars")
 
 # convert gear to a factor-level object
-mtcars$gear = factor(mtcars$gear, 
-                     levels = c(3,4,5),
-                     labels = c("3 gears",
-                                "4 gears",
-                                "5 gears"))
+mtcars$gear = factor(
+    mtcars$gear,
+    levels = c(3, 4, 5),
+    labels = c("3 gears", "4 gears", "5 gears")
+)
 
 # convert cyl to a factor-level object
-mtcars$cyl = factor(mtcars$cyl, 
-                    levels = c(4,6,8),
-                    labels = c("4 cyl",
-                               "6 cyl",
-                               "8 cyl"))
+mtcars$cyl = factor(
+    mtcars$cyl,
+    levels = c(4, 6, 8),
+    labels = c("4 cyl", "6 cyl", "8 cyl")
+)
 ```
 
-- Scatterplot using Base Graphics
- 
-```{r}
-library(ggplot2) # for diamonds dataset
-data("diamonds")
+- Scatterplot using base graphics
 
-# using base graphics plot() function
-plot(formula = price ~ carat,  # price vs. carat
-        data = diamonds,
-        col  = "slategray",
-        pch  = 20,
-        main = "Diamond Price vs. Size")
-```
- 
+    ```{r}
+    library(ggplot2) # for diamonds dataset
+    data("diamonds")
+
+    # using base graphics plot() function
+    plot(formula = price ~ carat,  # price vs. carat
+            data = diamonds,
+            col  = "slategray",
+            pch  = 20,
+            main = "Diamond Price vs. Size"
+    )
+    ```
+
 - Scatterplot using ggplot
 
-```{r}
-library(ggplot2)
-data("diamonds")
-ggplot(diamonds,
-    aes(x=carat, y=price, colour=clarity)) +
-    geom_point()
-```
- 
-- Scatterplot by Category (using ggplot)
+    ```{r}
+    library(ggplot2)
+    data("diamonds")
+    ggplot(diamonds,
+        aes(x=carat, y=price, colour=clarity)) +
+        geom_point()
+    ```
 
-```{r}
-library(ggplot2)
-data("diamonds")
-ggplot(diamonds) +
-    geom_point(aes(x=carat, y=price, colour=cut)) +
-    scale_y_log10()+
-    facet_wrap(~cut)+
-    ggtitle("Diamonds: Carat vs. Price by Cut")
-```
+- Scatterplot by category (using ggplot)
 
-- Scatterplot by Category with Regression Lines (using ggplot2)
+    ```{r}
+    library(ggplot2)
+    data("diamonds")
+    ggplot(diamonds) +
+        geom_point(aes(x=carat, y=price, colour=cut)) +
+        scale_y_log10()+
+        facet_wrap(~cut)+
+        ggtitle("Diamonds: Carat vs. Price by Cut")
+    ```
 
-```{r}
-library(ggplot2)
-ggplot(mtcars, aes(wt,mpg,color=cyl))+
-    geom_point()+
-    geom_smooth(method="lm")+
-    labs(title="Regression of MPG on Weight by # Cylinders",
-         x = "Weight",
-         y = "Miles per Gallon",
-         color = "Cylinders")
-```
-         
+- Scatterplot by category with regression lines (using ggplot2)
+
+    ```{r}
+    library(ggplot2)
+    ggplot(mtcars, aes(wt, mpg, color=cyl))+
+        geom_point()+
+        geom_smooth(method="lm")+
+        labs(title="Regression of MPG on Weight by # Cylinders",
+             x = "Weight",
+             y = "Miles per Gallon",
+             color = "Cylinders")
+    ```
+
 - Bar Plot using Base Graphics
 
-```{r}
-library(ggplot2) # for diamonds dataset
-data("diamonds")
-ideal_cut_colors = diamonds[diamonds$cut == "Ideal", "color"]
-# using base graphics barplot() function
-barplot(table(ideal_cut_colors), 
-        xlab = "color",
-        ylab = "count",
-        main = "Ideal cut diamonds by Color",
-        col = "limegreen")
-```
+    ```{r}
+    library(ggplot2) # for diamonds dataset
+    data("diamonds")
+    ideal_cut_colors = diamonds[diamonds$cut == "Ideal", "color"]
+    # using base graphics barplot() function
+    barplot(table(ideal_cut_colors),
+            xlab = "color",
+            ylab = "count",
+            main = "Ideal cut diamonds by Color",
+            col = "limegreen")
+    ```
 
   - `limegreen` is one of many cool color choices supported by R. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a nice 8-page compendium!
-  
-- Frequency Histogram using Base Graphics
+
+- Frequency histogram using base graphics
   - The `MASS` library provides datasets for Venables and Ripley's MASS textbook
-  
-```{r}
-library(MASS) 
-# using the base graphics hist() function
-hist(Cars93$RPM,
-     xlab = "engine RPM",
-     main = "Frequency historgram of engine RPM",
-     col = "skyblue")
-```
 
-- Density Plot using Base Graphics
- 
-```{r}
-library(MASS) 
-plot(density(Cars93$RPM),
-     xlab = "engine RPM",
-     main = "Frequency historgram of engine RPM",
-     col = "firebrick")
-```
+    ```{r}
+    library(MASS)
+    # using the base graphics hist() function
+    hist(Cars93$RPM,
+         xlab = "engine RPM",
+         main = "Frequency historgram of engine RPM",
+         col = "skyblue")
+    ```
 
-- Density Plot using ggplot2
+- Density plot using base graphics
+
+    ```{r}
+    library(MASS)
+    plot(density(Cars93$RPM),
+         xlab = "engine RPM",
+         main = "Frequency historgram of engine RPM",
+         col = "firebrick")
+    ```
+
+- Density plot using ggplot2
 
   - The `qplot()` function is a "quick plot" wrapper for `ggplot()`.
-  
+
   - It uses an interface that is similar to the `plot()` function of the base graphics package.
 
-```{r}
-library(ggplot2) 
-data("mtcars")
+    ```{r}
+    library(ggplot2)
+    data("mtcars")
 
-mtcars$gear = factor(mtcars$gear, 
-                     levels = c(3,4,5),
-                     labels = c("3 gears",
-                                "4 gears",
-                                "5 gears"))
+    mtcars$gear = factor(
+        mtcars$gear,
+        levels = c(3, 4, 5),
+        labels = c("3 gears", "4 gears", "5 gears")
+    )
 
-qplot(mpg,
-      data = mtcars,
-      geom = "density",
-      fill = gear, alpha=I(0.5),
-      main = "Distribution of Gas Mileage",
-      xlab = "Miles per Gallon",
-      ylab = "Density")
+    qplot(mpg,
+          data = mtcars,
+          geom = "density",
+          fill = gear, alpha=I(0.5),
+          main = "Distribution of Gas Mileage",
+          xlab = "Miles per Gallon",
+          ylab = "Density")
+    ```
 
-```
+- Box-and-whisker plot using base graphics
 
-- Box-and-Whisker Plot using Base Graphics
-```{r}
-boxplot(formula = mpg ~ gear,
-        data = mtcars,
-        main = "Mileage by # of Gears",
-        xlab = "Num. Gears",
-        ylab = "Miles per Gallon",
-        col = c("tomato", "forestgreen", "dodgerblue"))
-```
+    ```{r}
+    boxplot(formula = mpg ~ gear,
+            data = mtcars,
+            main = "Mileage by # of Gears",
+            xlab = "Num. Gears",
+            ylab = "Miles per Gallon",
+            col = c("tomato", "forestgreen", "dodgerblue"))
+    ```
 
-- Box-and-Whisker Plot using ggplot
-```{r}
-library(ggplot2)
-ggplot(data = mtcars,
-       aes(gear,mpg,fill=gear))+
-        geom_boxplot()+
-        labs(title="Mileage by # of Gears",
-             x = "",
-             y = "Miles per Gallon")
-```
+- Box-and-whisker plot using ggplot
+
+    ```{r}
+    library(ggplot2)
+    ggplot(data = mtcars,
+           aes(gear, mpg, fill=gear))+
+            geom_boxplot()+
+            labs(title="Mileage by # of Gears",
+                 x = "",
+                 y = "Miles per Gallon")
+    ```
 
 [Diamonds]: https://ggplot2.tidyverse.org/reference/diamonds.html
 
