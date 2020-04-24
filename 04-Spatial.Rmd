@@ -1,12 +1,38 @@
 # Machine learning {#four}
 
+This week you will learn about machine learning for classification using _R_. Objectives are:
+
+- To provide an overview of the underlying concepts of
+machine learning for classification.
+
+- To provide an introduction to some popular
+classification algorithms.
+
+- To explore these classification algorithms using various packages in _R_.
+
+- To choose a classification algorithm and apply it to the statewide COVID-19 dataset.
+
 ## Day 22 (Monday) Zoom check-in
+
+Here is an overview of what we'll cover in today's Zoom session:
+
+- Overview of Machine Learning for Classification (10 minutes)
+
+- Introduction to the Random Forests algorithm (10 minutes)
+
+- A Random Forests Example in _R_ using Radiomics Data (25 minutes)
 
 ## Day 23
 
+For today's independent work you will learn about the Support Support Vector Machine (SVM) algorithm and apply it to the radiomics data that you worked with on Monday.
+
 ## Day 24
 
+For today's independent work you will learn about the K-nearest neighbors (KNN) algorithm and apply it to the radiomics data.
+
 ## Day 25
+
+For today's independent work you will learn about artificial neural networks (ANN). You will attempt to add Keras and TensorFlow support to your R/RStudio installation. If this turns out to be too dofficult, you will learn some "remote computing" alternatives that you can use in lieu of a local _R/Kera/TensorFlow_ installation. Finally, you'll apply `R-Keras-TensorFlow` to the radiomics example that you've been working with during the week.  
 
 ## Day 26 (Friday) Zoom check-in
 
