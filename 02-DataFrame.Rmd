@@ -893,6 +893,7 @@ ggplot2
 - The "Cadillac" of plotting packages.
 - Part of the "tidyverse"
 - Beautiful plots
+- To install: `install.packages('ggplot2')`
 
 Words of wisdom on using plotting packages
 
@@ -1019,13 +1020,6 @@ mtcars$cyl = factor(
 
     ```{r}
     library(ggplot2)
-    data("mtcars")
-
-    mtcars$gear = factor(
-        mtcars$gear,
-        levels = c(3, 4, 5),
-        labels = c("3 gears", "4 gears", "5 gears")
-    )
 
     qplot(mpg,
           data = mtcars,
