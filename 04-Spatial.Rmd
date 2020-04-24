@@ -16,11 +16,57 @@ classification algorithms.
 
 Here is an overview of what we'll cover in today's Zoom session:
 
-- Overview of Machine Learning for Classification (10 minutes)
+- Overview of Machine Learning for Classification (30 minutes)
 
-- Introduction to the Random Forests algorithm (10 minutes)
+- Introduction to the Random Forests algorithm (5 minutes)
 
 - A Random Forests Example in _R_ using Radiomics Data (25 minutes)
+
+### A Machine Learning Primer
+
+Machine Learning (ML) may be defined as using computers to make inferences about data.
+
+- A mapping of inputs to outputs, Y = f(<b>X<b> , <b>β<b>)
+
+- <i>ML for Classification</i> refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)
+
+  - For example, predicting health risk (mild, moderate, severe) based on patient data (height, weight, age, smoker?)
+
+  – Predictions are typically expressed as a vector of probabilities.
+  
+    – e.g. Pr(cancerous) vs. Pr(benign)
+
+The diagram below illustrates the concept in terms of a "black box" model that converts inputs into predictions.
+
+```{r echo=FALSE}
+# insert ML figure
+```
+
+### Machine Learning Terminology
+
+#### Features {-}
+
+#### Parameters {-}
+
+#### Labels {-}
+
+#### Training Data {-}
+
+#### Training {-}
+
+#### Classification Accuracy {-}
+
+#### Confusion Matrix {-}
+
+#### ROC Curve {-}
+
+#### AUC - Area Under the Curve {-}
+
+### The Machine Learning Process
+
+### The Random Forests Algorithm
+
+### A Random Forests Example
 
 ## Day 23
 
