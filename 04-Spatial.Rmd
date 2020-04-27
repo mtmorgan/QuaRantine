@@ -20,7 +20,7 @@ Here is an overview of what we'll cover in today's Zoom session:
 
 - Introduction to the Random Forests algorithm (5 minutes)
 
-- A Random Forests Example in _R_ using Radiomics Data (25 minutes)
+- A Random Forests Example in _R_ using COVID-19 Data (25 minutes)
 
 ### A Machine Learning Primer
 
@@ -31,38 +31,119 @@ Machine Learning (ML) may be defined as using computers to make inferences about
 - <i>ML for Classification</i> refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)
 
   - For example, predicting health risk (mild, moderate, severe) based on patient data (height, weight, age, smoker?)
+  
+  - Or predicting [pandemic severity index][] (psi) of COVID-19 in a state based on statewide population data.
+
+```{r echo=FALSE}
+cats=c(1:5)
+frate=c("< 0.1%  ", "0.1% - 0.5%  ", "0.5% - 1.0%  ", "1.0% - 2.0%  ", "> 2.0%  ")
+example=c("seasonal flu", "Asian flu", "n/a", "n/a", "Spanish flu")
+df = data.frame(Category=cats, Death.Rate=frate, Example=example)
+print(df, row.names = FALSE, right = FALSE)
+```
 
   – Predictions are typically expressed as a vector of probabilities.
   
     – e.g. Pr(cancerous) vs. Pr(benign)
+    
+    - e.g. Pr(psi=1), Pr(psi=2), ..., Pr(psi=5)
 
+#### A "Black Box" View of Machine Learning {-}
 The diagram below illustrates the concept in terms of a "black box" model that converts inputs into predictions.
 
-```{r echo=FALSE}
-# insert ML figure
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_black_box_generic.png')
 ```
 
-### Machine Learning Terminology
+#### A "Black Box" Example {-}
 
-#### Features {-}
+The diagram below illustrates a "black box" model that converts height, weight, and age into a prediction of whether or not the individual is male or female.
 
-#### Parameters {-}
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_black_box_example.png')
+```
 
-#### Labels {-}
+#### Some Important Machine Learning Terms {-}
 
-#### Training Data {-}
+The above example highlights some important machine learning terminology:
 
-#### Training {-}
+- <b>Features</b> (<b>X</b>): the inputs (also known as descriptive attributes or explanatory variables) to the algorithm.
 
-#### Classification Accuracy {-}
+- <b>Parameters</b> (<b>$\beta$</b>): these are internal variables of the selected machine learning algorithm and are also known as coefficients or training weights. Algorithm parameters need to be adjusted to minimize the deviation between predictions and observations.
 
-#### Confusion Matrix {-}
+- <b>Labels</b> (<b>Y</b>): these are the outputs of the algorithm (i.e. the categories you are attempting to predict).
 
-#### ROC Curve {-}
+- <b>Training Data</b>: this is a data sets containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.
 
-#### AUC - Area Under the Curve {-}
+- <b>Training</b>: this is the process of adjusting algorithm paramters (<b>$/beta$</b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimations.
 
-### The Machine Learning Process
+An example set of training data that could be used in the gender prediction example is given below:
+
+```{r echo=FALSE}
+h=c(1.69,1.74,1.92,1.80,1.59,1.85,1.75,1.96,1.85,1.78,1.74,1.81,1.73)
+w=c(62,76,82,100,47,75,63,83,39,58,70,57,78)
+a=c(30,27,25,41,24,26,33,33,32,28,30,26,32)
+g=c("male","female","male","male","female","male","female","male","male","female","female","female","male")
+
+df = data.frame(height_m=h,weight_kg=w,age_y=a,gender=g)
+print(df, row.names = FALSE, right = FALSE)
+```
+
+Upon completion of training, it is important to evaluate the quality of the model and it's skill or ability at making correct predictions. Some terms related to this evaluation process are defined below:
+
+- <b>Classification Accuracy</b>: this is the ratio of correct predictions to the total predictions when validating a trained classification algorithm.
+
+- <b>Confusion Matrix</b>: this is a more detailed summary (relative to classification accuracy) of the performance of a classification algorithm. The diagonals of the matrix count how often the algorithm yielded the correct classification for each class. The off-diagonal entries count how often the algorithm confused one class with another.
+
+The figure below illustrates the classification accuracy and confusion matrix for an example that attempts to classify images of fruits.
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_ca_fruits_example.png')
+```
+
+- <b> ROC curve</b>: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a "non-informative" model (i.e. a model that makes a uniform random guess). As such, we'd like the blue curve to be as far above the read curve as possible.
+
+```{r echo = FALSE, fig.align="center"}
+knitr::include_graphics('images/ml_roc_curve_example.png')
+```
+
+- <b>AUC</b>: this stands for "area under curve" and is the area under the ROC curve. In the previous figure, the AUC would be the area under the dashed blue curve. Values of AUC quantify the degree to which an ROC curve lies above (or below) the red "non-informative" curve. Some interesting AUC values:
+
+  - AUC = 0.0: the model is always wrong (with respect to TP vs. FP)
+  
+  - AUC = 0.5: the model is no better than guessing (i.e. the model matches the red "non-informative" curve in the figure)
+  
+  - AUC = 1.0: the model is always right (with respect to TP vs. FP)
+
+#### The Machine Learning Process {-}
+
+Now that we've defined some of the important machine learning terminology let's take a 30,000 foot view at the overall machine learning process. This is a general description of the process that you'll want to follow each time you build and use a machine learning model. The process is illustrated in the figure below (with credit to [Jinesh Maloo][]):
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_process_maloo.png')
+```
+
+- Step 1: Prepare labeled data for training and validation.
+
+- Step 2: Select a machine learning algorithm (i.e. model).
+
+- Step 3: Train the model.
+
+- Step 4: Evaluate model performance.
+
+- If model is useful:
+
+  - Step 5: Apply to unlabled data.
+  
+- Else (needs improvement):
+
+  - Collect more data (go back to Step 1).
+  
+  - Revise model (go back to Step 2)
+
+[pandemic severity index]: https://en.wikipedia.org/wiki/Pandemic_severity_index
+
+[Jinesh Maloo]: https://blog.usejournal.com/machine-learning-for-beginners-from-zero-level-8be5b89bf77c
 
 ### The Random Forests Algorithm
 
