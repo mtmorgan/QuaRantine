@@ -2,50 +2,204 @@
 
 ## Day 15 (Monday) Zoom check-in
 
-### [CRAN][] {-}
+### Review and troubleshoot (15 minutes) {-}
 
-### Installing and attaching packages {-}
+Over the weekend, I wrote two functions. The first retrieves and 'cleans' the US data set.
+
+```{r}
+get_US_data <-
+    function()
+{
+    ## retrieve data from the internet
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read.csv(url, stringsAsFactors = FALSE)
+
+    ## update 'date' from character vector to 'Date'.  this is the
+    ## last line of executed code in the function, so the return
+    ## value (the updated 'us' object) is returned by the functino
+    within(us, {
+        date = as.Date(date, format = "%Y-%m-%d")
+    })
+}
+```
+
+The second plots data for a particular county and state
+
+```{r}
+plot_county <-
+    function(us_data, county_of_interest = "Erie", state_of_interest = "New York")
+{
+    ## create the title for the plot
+    main_title <- paste(
+        "New Cases,", county_of_interest, "County", state_of_interest
+    )
+
+    ## subset the us data to just the county and state of interest
+    county_data <- subset(
+        us_data,
+        (county == county_of_interest) & (state == state_of_interest)
+    )
+
+    ## calculate new cases for particular county and state
+    county_data <- within(county_data, {
+        new_cases <- diff( c(0, cases) )
+    })
+
+    ## plot
+    plot( new_cases ~ date, county_data, log = "y", main = main_title)
+}
+```
+
+I lived in Seattle (King County, Washington), for a while, and this is where the first serious outbreak occurred. Here's the relevant data:
+
+```{r}
+us <- get_US_data()
+plot_county(us, "King", "Washington")
+```
+
+### Packages (20 minutes) {-}
+
+Base _R_
+
+- _R_ consists of 'packages' that implement different functionality. Each package contains _functions_ that we can use, and perhaps data sets (like the `mtcars`) data set from Friday's presentation) and other resources.
+
+- _R_ comes with several 'base' packages installed, and these are available in a new _R_ session.
+
+- Discover packages that are currently available using the `search()` function. This shows that the 'stats', 'graphics', 'grDevices', 'utils', 'datasets', 'methods', and 'base' packages, among others, are available in our current _R_ session.
+
+    ```{r, eval = FALSE}
+    > search()
+    ## [1] ".GlobalEnv"        "package:stats"     "package:graphics"
+    ## [4] "package:grDevices" "package:utils"     "package:datasets"
+    ## [7] "package:methods"   "Autoloads"         "package:base"
+    ```
+    
+- When we create a variable like
+
+    ```{r}
+    x <- c(1, 2, 3)
+    ```
+    
+  _R_ creates a new _symbol_ in the `.GlobalEnv` location on the search path.
+  
+- When we evaluate a function like `length(x)`...
+
+  - _R_ searches for the function `length()` along the `search()` path. It doesn't find `length()` in the `.GlobalEnv` (because we didn't define it there), or in the 'stats', 'graphics', ... packages. Eventually, _R_ finds the definition of `length` in the 'base' package.
+  
+  - _R_ then looks for the definition of `x`, finds it in the
+    `.GlobalEnv`.
+    
+  - Finally, _R_ applies the definition of `length` found in the base package to the value of `x` found in the `.GlobalEnv`.
+
+Contributed packages
+
+- _R_ would be pretty limited if it could only do things that are defined in the base packages.
+  
+- It is 'easy' to write a package, and to make the package available for others to use.
+  
+- A major repository of contributed packages is [CRAN][] -- the Comprehensive _R_ Archive Network. There are more than 15,000 packages in CRAN.
+  
+- Many CRAN packages are arranged in [task views][] that highlight the most useful packages.
+
+Installing and attaching packages
+
+- There are too many packages for all to be distributed with _R_, so it is necessary to _install_ contributed packages that you might find interesting.
+  
+- once a package is installed (you only need to install a package once), it can be 'loaded' and 'attached' to the search path using
+  `library()`.
+  
+- As an exercise, try to attach the 'readr', 'dplyr', and 'ggplot2' packages
+  
+    ```{r, message = FALSE}
+    library(readr)
+    library(dplyr)
+    library(ggplot2)
+    ```
+
+- If any of these fails with a message like
+
+    ```{r, eval = FALSE}
+    library("dplyr")
+    ## Error in library("dplyr") : there is no package called 'dplyr'
+    ```
+
+  it means that the package has not been installed (or that you have a typo in the name of the library!)
+  
+- Install any package that failed when `library()` was called with
+
+    ```{r, eval = FALSE}
+    install.packages(c("readr", "dplyr"), repos = "https://cran.r-project.org")
+    ```
+    
+  Alternatively, use the _RStudio_ interface to select (in the lower right panel, by default) the 'Packages' tab, 'Install' button.
+  
+    ```{r echo = FALSE}
+    knitr::include_graphics('images/RStudio-install.png')
+    ```
+  
+- One package may use functions from one or more other packages, so when you install, for instance 'dplyr', you may actually install _several_ packages.
+  
 
 [CRAN]: https://cran.r-project.org
+[task views]: https://cran.r-project.org/web/views/
 [readr]: https://cran.r-project.org/package=readr
 [dplyr]: https://cran.r-project.org/package=dplyr
 [ggplot2]: https://cran.r-project.org/package=ggplot2
 [tidyr]: https://cran.r-project.org/package=tidyr
 
-### The 'tidyverse' of packages {-}
+### The 'tidyverse' of packages (20 minutes) {-}
+
+The 'tidyverse' of packages provides a very powerful paradigm for working with data.
+
+- Based on the idea that a first step in data analysis is to transform the data into a standard format. Subsequent steps can then be accomplished in a much more straight-forward way, using a small set of functions.
+  
+- Hadley Wickham's '[Tidy Data][]' paper provides a kind of manifesto for what constitutes tidy data:
+
+    1. Each variable forms a column.
+    2. Each observation forms a row.
+    3. Each type of observational unit forms a table
+    
+- We'll look at the [readr][] package for data input, and the [dplyr][] package for essential data manipulation.
+
+[Tidy Data]: https://vita.had.co.nz/papers/tidy-data.pdf
 
 [readr][] for fast data input
 
-- The `tibble`: a nicer `data.frame`
+- Load (install if necessary!) and attach the [readr][] package
+
+    ```{r, message = FALSE}
+    library(readr)
+
+    ## if it fails to load, try
+    ##     install.packages("readr", repos = "https://cran.r-project.org")
+    ```
 
 - Example: US COVID data. N.B., `readr::read_csv()` rather than `read.csv()`
 
     ```{r}
-    library(readr)
-
     url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
     us <- read_csv(url)
     us
     ```
 
+- The `us` data is now represented as a `tibble`: a nicer `data.frame`
+
 - Note that
 
     - `date` has been deduced correctly
-    - `read_csv()` does not coerce inputs to `factor` (no need to use `stringsAsFactors = FALSE`)
+    - `read_csv()` does not coerce inputs to `factor` (no need to use
+      `stringsAsFactors = FALSE`)
     - The tibble displays nicely (first ten lines, with an indication of total lines)
-
 
 [dplyr][] for data manipulation
 
-- load
+- Load and attach the [dplyr][] package.
 
-    ```{r}
+    ```{r, message = FALSE}
     library(dplyr)
     ```
 
-- The pipe, `%>%`
-
-- Verbs for data transformation
+- [dplyr][] implements a small number of _verbs_ for data transformation
 
     - A small set of functions that allow very rich data transformation
     - All have the same first argument -- the `tibble` to be transformed
@@ -54,9 +208,19 @@
 - `filter()` rows that meet specific criteria
 
     ```{r}
+    filter(us, state == "New York", county == "Erie")
+    ```
+
+- [dplyr][] uses the 'pipe' `%>%` as a way to chain data and functions together
+
+    ```{r}
     us %>%
         filter(state == "New York", county == "Erie")
     ```
+    
+  - The pipe works by transforming whatever is on the left-hand side of the `%>%` to the first argument of the function on the right-hand side.
+    
+  - Like `filter()`, most [dplyr][] functions take as their first argument a tibble, and return a tibble. So the functions can be chained together, as in the following example.
 
 - `select()` specific columns
 
@@ -66,13 +230,21 @@
         select(state, county, date, cases)
     ```
 
-- Other common verbs (see tomorrow's quarantine)
+Other common verbs (see tomorrow's quarantine)
 
 - `mutate()` (add or update) columns
 - `summarize()` one or more columns
 - `group_by()` one or more variables when performing computations. `ungroup()` removes the grouping.
 - `arrange()` rows based on values in particular column(s); `desc()` in descending order.
 - `count()` the number of times values occur
+
+Other 'tidyverse' packages
+
+- Packages adopting the 'tidy' approach to data representation and management are sometimes referred to as the [tidyverse][].
+  
+- [ggplot2][] implements high-quality data visualization in a way consistent with tidy data representations.
+  
+- The [tidyr][] package implements functions that help to transform data to 'tidy' format; we'll use `pivot_longer()` later in the week.
 
 [tidyverse]: https://www.tidyverse.org/
 
