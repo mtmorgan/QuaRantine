@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse.</p>" />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-24" />
+<meta name="date" content="2020-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,7 +204,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="three.html"><a href="three.html#day-21"><i class="fa fa-check"></i><b>3.7</b> Day 21</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="four.html"><a href="four.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
-<li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a></li>
+<li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.1</b> A Machine Learning Primer</a></li>
+<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forests-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forests Algorithm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-random-forests-example"><i class="fa fa-check"></i><b>4.1.3</b> A Random Forests Example</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
 <li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
 <li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25"><i class="fa fa-check"></i><b>4.4</b> Day 25</a></li>
@@ -257,17 +261,138 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="four" class="section level1">
 <h1><span class="header-section-number">Week 4</span> Machine learning</h1>
+<p>This week you will learn about machine learning for classification using <em>R</em>. Objectives are:</p>
+<ul>
+<li><p>To provide an overview of the underlying concepts of
+machine learning for classification.</p></li>
+<li><p>To provide an introduction to some popular
+classification algorithms.</p></li>
+<li><p>To explore these classification algorithms using various packages in <em>R</em>.</p></li>
+<li><p>To choose a classification algorithm and apply it to the statewide COVID-19 dataset.</p></li>
+</ul>
 <div id="day-22-monday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">4.1</span> Day 22 (Monday) Zoom check-in</h2>
+<p>Here is an overview of what we’ll cover in today’s Zoom session:</p>
+<ul>
+<li><p>Overview of Machine Learning for Classification (30 minutes)</p></li>
+<li><p>Introduction to the Random Forests algorithm (5 minutes)</p></li>
+<li><p>A Random Forests Example in <em>R</em> using COVID-19 Data (25 minutes)</p></li>
+</ul>
+<div id="a-machine-learning-primer" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> A Machine Learning Primer</h3>
+<p>Machine Learning (ML) may be defined as using computers to make inferences about data.</p>
+<ul>
+<li><p>A mapping of inputs to outputs, Y = f(<b>X<b> , <b>β<b>)</p></li>
+<li><p><i>ML for Classification</i> refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)</p>
+<ul>
+<li><p>For example, predicting health risk (mild, moderate, severe) based on patient data (height, weight, age, smoker?)</p></li>
+<li><p>Or predicting <a href="https://en.wikipedia.org/wiki/Pandemic_severity_index">pandemic severity index</a> (psi) of COVID-19 in a state based on statewide population data.</p></li>
+</ul></li>
+</ul>
+<pre><code>##  Category Death.Rate    Example     
+##  1        &lt; 0.1%        seasonal flu
+##  2        0.1% - 0.5%   Asian flu   
+##  3        0.5% - 1.0%   n/a         
+##  4        1.0% - 2.0%   n/a         
+##  5        &gt; 2.0%        Spanish flu</code></pre>
+<p>– Predictions are typically expressed as a vector of probabilities.</p>
+<pre><code>– e.g. Pr(cancerous) vs. Pr(benign)
+
+- e.g. Pr(psi=1), Pr(psi=2), ..., Pr(psi=5)</code></pre>
+<div id="a-black-box-view-of-machine-learning" class="section level4 unnumbered">
+<h4>A “Black Box” View of Machine Learning</h4>
+<p>The diagram below illustrates the concept in terms of a “black box” model that converts inputs into predictions.</p>
+<p><img src="images/ml_black_box_generic.png" width="50%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a-black-box-example" class="section level4 unnumbered">
+<h4>A “Black Box” Example</h4>
+<p>The diagram below illustrates a “black box” model that converts height, weight, and age into a prediction of whether or not the individual is male or female.</p>
+<p><img src="images/ml_black_box_example.png" width="50%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="some-important-machine-learning-terms" class="section level4 unnumbered">
+<h4>Some Important Machine Learning Terms</h4>
+<p>The above example highlights some important machine learning terminology:</p>
+<ul>
+<li><p><b>Features</b> (<b>X</b>): the inputs (also known as descriptive attributes or explanatory variables) to the algorithm.</p></li>
+<li><p><b>Parameters</b> (<b><span class="math inline">\(\beta\)</span></b>): these are internal variables of the selected machine learning algorithm and are also known as coefficients or training weights. Algorithm parameters need to be adjusted to minimize the deviation between predictions and observations.</p></li>
+<li><p><b>Labels</b> (<b>Y</b>): these are the outputs of the algorithm (i.e. the categories you are attempting to predict).</p></li>
+<li><p><b>Training Data</b>: this is a data sets containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.</p></li>
+<li><p><b>Training</b>: this is the process of adjusting algorithm paramters (<b><span class="math inline">\(/beta\)</span></b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimations.</p></li>
+</ul>
+<p>An example set of training data that could be used in the gender prediction example is given below:</p>
+<pre><code>##  height_m weight_kg age_y gender
+##  1.69      62       30    male  
+##  1.74      76       27    female
+##  1.92      82       25    male  
+##  1.80     100       41    male  
+##  1.59      47       24    female
+##  1.85      75       26    male  
+##  1.75      63       33    female
+##  1.96      83       33    male  
+##  1.85      39       32    male  
+##  1.78      58       28    female
+##  1.74      70       30    female
+##  1.81      57       26    female
+##  1.73      78       32    male</code></pre>
+<p>Upon completion of training, it is important to evaluate the quality of the model and it’s skill or ability at making correct predictions. Some terms related to this evaluation process are defined below:</p>
+<ul>
+<li><p><b>Classification Accuracy</b>: this is the ratio of correct predictions to the total predictions when validating a trained classification algorithm.</p></li>
+<li><p><b>Confusion Matrix</b>: this is a more detailed summary (relative to classification accuracy) of the performance of a classification algorithm. The diagonals of the matrix count how often the algorithm yielded the correct classification for each class. The off-diagonal entries count how often the algorithm confused one class with another.</p></li>
+</ul>
+<p>The figure below illustrates the classification accuracy and confusion matrix for an example that attempts to classify images of fruits.</p>
+<p><img src="images/ml_ca_fruits_example.png" width="50%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><b> ROC curve</b>: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a “non-informative” model (i.e. a model that makes a uniform random guess). As such, we’d like the blue curve to be as far above the read curve as possible.</li>
+</ul>
+<p><img src="images/ml_roc_curve_example.png" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p><b>AUC</b>: this stands for “area under curve” and is the area under the ROC curve. In the previous figure, the AUC would be the area under the dashed blue curve. Values of AUC quantify the degree to which an ROC curve lies above (or below) the red “non-informative” curve. Some interesting AUC values:</p>
+<ul>
+<li><p>AUC = 0.0: the model is always wrong (with respect to TP vs. FP)</p></li>
+<li><p>AUC = 0.5: the model is no better than guessing (i.e. the model matches the red “non-informative” curve in the figure)</p></li>
+<li><p>AUC = 1.0: the model is always right (with respect to TP vs. FP)</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="the-machine-learning-process" class="section level4 unnumbered">
+<h4>The Machine Learning Process</h4>
+<p>Now that we’ve defined some of the important machine learning terminology let’s take a 30,000 foot view at the overall machine learning process. This is a general description of the process that you’ll want to follow each time you build and use a machine learning model. The process is illustrated in the figure below (with credit to <a href="https://blog.usejournal.com/machine-learning-for-beginners-from-zero-level-8be5b89bf77c">Jinesh Maloo</a>):</p>
+<p><img src="images/ml_process_maloo.png" width="50%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Step 1: Prepare labeled data for training and validation.</p></li>
+<li><p>Step 2: Select a machine learning algorithm (i.e. model).</p></li>
+<li><p>Step 3: Train the model.</p></li>
+<li><p>Step 4: Evaluate model performance.</p></li>
+<li><p>If model is useful:</p>
+<ul>
+<li>Step 5: Apply to unlabled data.</li>
+</ul></li>
+<li><p>Else (needs improvement):</p>
+<ul>
+<li><p>Collect more data (go back to Step 1).</p></li>
+<li><p>Revise model (go back to Step 2)</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="the-random-forests-algorithm" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> The Random Forests Algorithm</h3>
+</div>
+<div id="a-random-forests-example" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> A Random Forests Example</h3>
+</div>
 </div>
 <div id="day-23" class="section level2">
 <h2><span class="header-section-number">4.2</span> Day 23</h2>
+<p>For today’s independent work you will learn about the Support Support Vector Machine (SVM) algorithm and apply it to the radiomics data that you worked with on Monday.</p>
 </div>
 <div id="day-24" class="section level2">
 <h2><span class="header-section-number">4.3</span> Day 24</h2>
+<p>For today’s independent work you will learn about the K-nearest neighbors (KNN) algorithm and apply it to the radiomics data.</p>
 </div>
 <div id="day-25" class="section level2">
 <h2><span class="header-section-number">4.4</span> Day 25</h2>
+<p>For today’s independent work you will learn about artificial neural networks (ANN). You will attempt to add Keras and TensorFlow support to your R/RStudio installation. If this turns out to be too dofficult, you will learn some “remote computing” alternatives that you can use in lieu of a local <em>R/Kera/TensorFlow</em> installation. Finally, you’ll apply <code>R-Keras-TensorFlow</code> to the radiomics example that you’ve been working with during the week.</p>
 </div>
 <div id="day-26-friday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">4.5</span> Day 26 (Friday) Zoom check-in</h2>
@@ -343,6 +468,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse.</p>" />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-24" />
+<meta name="date" content="2020-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,7 +204,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="three.html"><a href="three.html#day-21"><i class="fa fa-check"></i><b>3.7</b> Day 21</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="four.html"><a href="four.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
-<li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a></li>
+<li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.1</b> A Machine Learning Primer</a></li>
+<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forests-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forests Algorithm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-random-forests-example"><i class="fa fa-check"></i><b>4.1.3</b> A Random Forests Example</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
 <li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
 <li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25"><i class="fa fa-check"></i><b>4.4</b> Day 25</a></li>
@@ -259,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">40 Days and 40 Nights</h1>
 <p class="author"><em>Martin Morgan<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></em></p>
 <p class="author"><em>L. Shawn Matott<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></em></p>
-<p class="date"><em>2020-04-24</em></p>
+<p class="date"><em>2020-04-27</em></p>
 </div>
 <div id="motivation" class="section level1 unnumbered">
 <h1>Motivation</h1>
@@ -288,12 +292,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-3" title="3">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(cases, county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span> <span class="op">&amp;</span><span class="st"> </span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="kw">tail</span>(erie)</a>
 <a class="sourceLine" id="cb2-5" title="5"><span class="co">##             date county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">## 66314 2020-04-17   Erie New York 36029  1929    115</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">## 69072 2020-04-18   Erie New York 36029  1997    115</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">## 71840 2020-04-19   Erie New York 36029  2070    146</span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">## 74617 2020-04-20   Erie New York 36029  2109    153</span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">## 77398 2020-04-21   Erie New York 36029  2147    161</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">## 80188 2020-04-22   Erie New York 36029  2233    174</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">## 77398 2020-04-21   Erie New York 36029  2147    161</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">## 80188 2020-04-22   Erie New York 36029  2233    174</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">## 82989 2020-04-23   Erie New York 36029  2450    179</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">## 85793 2020-04-24   Erie New York 36029  2603    184</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">## 88609 2020-04-25   Erie New York 36029  2773    199</span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">## 91427 2020-04-26   Erie New York 36029  2954    205</span></a></code></pre></div></li>
 <li><p>Week <a href="three.html#three">3</a>: Packages for extending <em>R</em>. A great strength of <em>R</em> is its extensibility through packages. We’ll learn about <a href="https://cran.r-project.org">CRAN</a>, and install and use the ‘tidyverse’ suite of packages. The tidyverse provides us with an alternative set of tools for working with tabular data, and We’ll use publicly available data to explore the spread of COVID-19 in the US. We’ll read, filter, mutate (change), and select subsets of the data, and group data by one column (e.g., ‘state’) to create summaries (e.g., cases per state). We’ll also start to explore data visualization, creating our first plots of the spread of COVID-19.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="kw">library</span>(ggplot2)</a>
@@ -369,6 +373,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
