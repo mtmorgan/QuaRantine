@@ -49,6 +49,7 @@ print(df, row.names = FALSE, right = FALSE)
     - e.g. Pr(PSI=1), Pr(PSI=2), ..., Pr(PSI=5)
 
 #### A "Black Box" View of Machine Learning {-}
+
 The diagram below illustrates the concept in terms of a "black box" model that converts inputs into predictions.
 
 ```{r echo = FALSE, fig.align="center", out.width="50%"}
@@ -57,7 +58,7 @@ knitr::include_graphics('images/ml_black_box_generic.png')
 
 #### A "Black Box" Example {-}
 
-The diagram below illustrates a "black box" model that converts height, weight, and age into a prediction of whether or not the individual is male or female.
+The diagram below illustrates a more concrete "black box" model that converts height, weight, and age into a prediction of whether or not the individual is male or female.
 
 ```{r echo = FALSE, fig.align="center", out.width="50%"}
 knitr::include_graphics('images/ml_black_box_example.png')
@@ -73,7 +74,7 @@ The above example highlights some important machine learning terminology:
 
 - <b>Labels</b> (<b>Y</b>): these are the outputs of the algorithm (i.e. the categories you are attempting to predict).
 
-- <b>Training Data</b>: this is a data sets containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.
+- <b>Training Data</b>: this is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.
 
 - <b>Training</b>: this is the process of adjusting algorithm paramters (<b>$\beta$</b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimations.
 
@@ -91,29 +92,15 @@ print(df, row.names = FALSE, right = FALSE)
 
 Upon completion of training, it is important to evaluate the quality of the model and it's skill or ability at making correct predictions. Some terms related to this evaluation process are defined below:
 
-- <b>Classification Accuracy</b>: this is the ratio of correct predictions to the total predictions when validating a trained classification algorithm.
+- <b>Classification Accuracy</b>: Classification accuracy is the ratio of correct predictions to the total predictions when validating a trained classification algorithm.
 
-- <b>Confusion Matrix</b>: this is a more detailed summary (relative to classification accuracy) of the performance of a classification algorithm. The diagonals of the matrix count how often the algorithm yielded the correct classification for each class. The off-diagonal entries count how often the algorithm confused one class with another.
+- <b>Confusion Matrix</b>: The confusion matrix is a more detailed summary (relative to classification accuracy) of the performance of a classification algorithm. The diagonals of the confusion matrix count how often the algorithm yields the correct classification for each class. The off-diagonal entries count how often the algorithm confuses one class with another.
 
 The figure below illustrates the classification accuracy and confusion matrix for an example that attempts to classify images of fruits.
 
 ```{r echo = FALSE, fig.align="center", out.width="50%"}
 knitr::include_graphics('images/ml_ca_fruits_example.png')
 ```
-
-- <b> ROC curve</b>: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a "non-informative" model (i.e. a model that makes a uniform random guess). As such, we'd like the blue curve to be as far above the red curve as possible.
-
-```{r echo = FALSE, fig.align="center", , out.width="75%"}
-knitr::include_graphics('images/ml_roc_curve_example.png')
-```
-
-- <b>AUC</b>: this stands for "area under curve" and is the area under the ROC curve. In the previous figure, the AUC would be the area under the dashed blue curve. Values of AUC quantify the degree to which an ROC curve lies above (or below) the red "non-informative" curve. Some interesting AUC values:
-
-  - AUC = 0.0: the model is always wrong (with respect to TP vs. FP)
-  
-  - AUC = 0.5: the model is no better than guessing (i.e. the model matches the red "non-informative" curve in the figure)
-  
-  - AUC = 1.0: the model is always right (with respect to TP vs. FP)
 
 #### The Machine Learning Process {-}
 
@@ -179,7 +166,9 @@ The job of the random forest algorithm is to determine the optimal set of trees 
 
 [Bradley Boehmke at the University of Cincinnati]: https://uc-r.github.io/random_forests
 
-### Preparing a COVID-19 Dataset for Machine Learning {-}
+<hr>
+
+### Preparing a COVID-19 Dataset for Machine Learning
 
 We'd like to predict the severity of COVID-19 in a given state using statewide <i>feature</i> data like population, urban density, number of hospital beds, date of stay at home order, etc. We've already seen that we can get the information about cases and deaths from the New York Times github page. However, gathering corresponding statewide feature data requires quite a bit of hunting through various public websites. Consequently, we're going to skip over the painstaking process of marshalling the feature data and just provide you with a dataset that is already nice and prepped for machine learning.  
 
@@ -260,11 +249,16 @@ Click on the links above to download the data and metadata files that you'll nee
 
 [nytimes github repo]: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
 
+<hr>
+
 ### A Random Forest Example Using COVID-19 Data
 
 Let's apply the random forest algorithm to the COVID-19 dataset. We'll build out the required _R_ code in sections. To get started, open a new _R_ script in _RStudio_ and name it `covid_19_rf.R`. Enter the code below:
 
 ```{r}
+#
+# Machine Learning - Part 1
+#
 library(randomForest)
 library(readr)
 
@@ -281,7 +275,7 @@ mdf = read_csv(metadata_file)
 mdf
 ```
 
-Enter the code above and try to run it. You may get an errors about missing the `randomForest` package. You can install it from the RStudio console (see below) or using the installer in the RStudio `packages` pane.
+Try to run the code. You may get an error about missing the `randomForest` package. You can install it from the RStudio console (see below) or using the installer in the RStudio `packages` pane.
 
 ```{r eval=FALSE}
 install.packages("randomForest")
@@ -290,6 +284,9 @@ install.packages("randomForest")
 Now we've loaded the data and metadata file. Let's pick a subset of 5 of the features and use them to try and predict the pandemic severity index (i.e. `Y04`):
 
 ```{r}
+#
+# Machine Learning - Part 2
+#
 library(dplyr)
 
 # describe all possible features and labels
@@ -307,9 +304,12 @@ filter(mdf, Code %in% my_xy)
 rf_df = select(df, all_of(my_xy))
 ```
 
-Now we’ll add code to train a basic Random Forest model:
+Now we’ll add code to create and train a basic Random Forest model:
 
 ```{r}
+#
+# Machine Learning - Part 3
+#
 # split into train (75%) and test (25%) datasets
 train = rf_df[seq(1,nrow(rf_df), by = 4),]
 train = rbind(train, rf_df[seq(2,nrow(rf_df), by = 4),])
@@ -323,9 +323,57 @@ print(model) # show results, includes confusion matrix
 importance(model) # measure of parameter importance
 ```
 
-Taking a look at the results we see and error rate of >50%. The classification accuracy for the training dataset is `100% - error rate` - so not a very good model. Further we can see some systematic failures in the confusion matrix. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.
+Taking a look at the results, we see an error rate of more than 50%. The classification accuracy for the training dataset is `100% - error rate` - so it's not a very good model. Further we can see some systematic failures in the confusion matrix. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.
 
-It's also good practice to examine the ROC and AUC metrics. For a problem with multiple classes (as opposed to a binary True/False or Yes/No problem) we can compute the ROC curve curve and AUC measures using a “one vs all” approach:
+## Day 23
+
+For today's independent work you will learn about the Support Support Vector Machine (SVM) algorithm and apply it to the COVID-19 data that you worked with on Monday.
+
+## Day 24
+
+For today's independent work you will learn about the K-nearest neighbors (KNN) algorithm and apply it to the COVID-19 data.
+
+## Day 25
+
+For today's independent work you will learn about artificial neural networks (ANN). You will attempt to add Keras and TensorFlow support to your R/RStudio installation. If this turns out to be too dofficult, you will learn some "remote computing" alternatives that you can use in lieu of a local _R/Kera/TensorFlow_ installation. Finally, you'll apply `R-Keras-TensorFlow` to the COVID-19 example that you've been working with during the week.  
+
+## Day 26 (Friday) Zoom check-in
+
+Today we'll check how you're doing with using machine learning in _R_. Then we'll get you prepared for weekend activities, where you'll continue to explore modeling using the COVID-19 dataset. 
+
+### Review and trouble shoot (25 minutes)
+
+- Has everyone had a chance to try out at least one of the machine learning algorithms?
+
+- Has anyone tried additional or alternative combinations of features?
+
+- What is the best classification accuracy that you have been able to obtain?
+
+- What parameters appear to be the most important?
+
+- Has anyone attempted the Keras/TensorFlow example? How did that go?
+
+### This weekend (25 minutes)
+
+#### ROC/AUC - Another Measure of Machine Learning Performance {-}
+
+We've already seen how classification accuracy and the confusion matrix give an indication of the performance of a trained machine learning algorithm. It's also good practice to examine the "ROC curve" and related "AUC" metrics. 
+
+- <b> ROC curve</b>: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a "non-informative" model (i.e. a model that makes a uniform random guess). As such, we'd like the blue curve to be as far above the red curve as possible.
+
+```{r echo = FALSE, fig.align="center", , out.width="75%"}
+knitr::include_graphics('images/ml_roc_curve_example.png')
+```
+
+- <b>AUC</b>: AUC stands for "area under curve" and is the area under the ROC curve. In the previous figure, the AUC would be the area under the dashed blue curve. Values of AUC quantify the degree to which an ROC curve lies above (or below) the "non-informative" curve. Some interesting AUC values:
+
+  - AUC = 0.0: the model is always wrong (with respect to TP vs. FP)
+  
+  - AUC = 0.5: the model is no better than guessing (i.e. the model matches the red "non-informative" curve in the figure)
+  
+  - AUC = 1.0: the model is always right (with respect to TP vs. FP)
+
+For a problem with multiple classes (as opposed to a binary True/False, Male/Female, or Yes/No problem) we can compute the ROC curve curve and AUC measures using a “one vs. all” approach:
 
 - First, extract predicted probabilities from the RF model (the scores).
 
@@ -335,65 +383,108 @@ It's also good practice to examine the ROC and AUC metrics. For a problem with m
 
   - `prediction()`: retrieve scores
 
-  - `performance()`: generates TPR, FPR, and AUC measure through two separate calls
+  - `performance()`: generates TPR, FPR, and AUC measures through two separate calls
 
-Unfortunately, the calculation is fairly involved and uses a looping structure (i.e. a `for` loop) to assemble the plot and auc values:
+The ROC/AUC calculation is fairly involved so we'll create a helper function for it and then incorporate the helper function into our machine learning scripts. 
 
 ```{r}
-library(ROCR)
+#
+# Part 4 - ROC/AUC
+#
 
-# compute ROC/AUC using test dataset
-x_test = select(test, all_of(my_x))
-y_test = select(test, all_of(my_y))
-probs = predict(model, x_test, type='prob')
-lvls = unique(as.character(y_test[[1]])) # category names
-# up to 8 colors needed
-cols = c("red","orange","yellow","green",
-         "blue","indigo","violet","black")
-for(i in 1:length(lvls)) # for each category
-{
-  actual = as.numeric(y_test[[1]] == lvls[i])
-  score = probs[,i]
-  
-  pred = prediction(score, actual)
-  perf = performance(pred, "tpr", "fpr")
-  if(i == 1){
-    plot(perf, main="ROC Curve", col=cols[i])
-  }
-  else {
-    plot(perf, main="ROC Curve", col=cols[i], add = TRUE)
-  }
-  
-  # calculate the AUC and print
-  auc = performance(pred, measure="auc")
-  auc = as.numeric(auc@y.values)
-  cat('AUC for PSI of ',lvls[i], ' = ', auc, '\n')
+# roc_one_vs_all()
+#   A helper function to compute one vs. all ROC/AUC for a given level (i)
+roc_one_vs_all <- function(i) {
+    actual <- as.numeric(y_test[[1]] == i)
+    score <- probs[,i]
+    
+    pred <- ROCR::prediction(score, actual)
+    perf <- ROCR::performance(pred, "tpr", "fpr")
+    
+    ROCR::plot(perf, 
+         main="ROC Curve", 
+         col=cols[as.numeric(i)], 
+         add = i != lvls[[1]])
+    
+    # calculate the AUC and print
+    auc_i <- ROCR::performance(pred, measure="auc")
+    as.numeric(auc_i@y.values)
 }
-legend("bottomright",legend=paste("PSI =",lvls), col=cols, lty=1, 
-       cex=1.0) # adjust cex to scale the legend
-lines(x=c(0,1),y=c(0,1),lty=2) # add threshold for non-informative 
+
+# prepare data for computing ROC/AUC
+x_test <- select(test, all_of(my_x))
+y_test <- select(test, all_of(my_y))
+probs  <- predict(model, x_test, type='prob')
+lvls   <- unique(as.character(y_test[[1]]))
+cols   <- c("red","orange","yellow","green",
+           "blue","purple","violet","black")
+
+# vapply helper function across levels
+auc <- vapply(lvls, roc_one_vs_all, numeric(1))
+
+# tack on legend and non-informative line
+legend("bottomright",
+       legend=paste("PSI =",lvls), 
+       col=cols[as.numeric(lvls)], 
+       lty=1, 
+       cex=1.0)
+lines(x=c(0,1),
+      y=c(0,1),
+      lty=2)
+
+# display AUC metrics
+tibble(lvls, auc)
 ```
 
-## Day 23
-
-For today's independent work you will learn about the Support Support Vector Machine (SVM) algorithm and apply it to the radiomics data that you worked with on Monday.
-
-## Day 24
-
-For today's independent work you will learn about the K-nearest neighbors (KNN) algorithm and apply it to the radiomics data.
-
-## Day 25
-
-For today's independent work you will learn about artificial neural networks (ANN). You will attempt to add Keras and TensorFlow support to your R/RStudio installation. If this turns out to be too dofficult, you will learn some "remote computing" alternatives that you can use in lieu of a local _R/Kera/TensorFlow_ installation. Finally, you'll apply `R-Keras-TensorFlow` to the radiomics example that you've been working with during the week.  
-
-## Day 26 (Friday) Zoom check-in
-
-### Review and trouble shoot (25 minutes)
-
-### Next week (25 minutes)
+Assuming you've been following along with the daily activities, you can add this `Part 4` code to any of your algorithm scripts (e.g. `covid_19_rf.R`, `covid_19_knn.R`, `covid_19_svm.R`, etc.). 
 
 ## Day 27
 
+Today you'll explore different combinations of features in your COVID-19 model. 
+
+- Select another 5 features and adjust `Part 2` and `Part 3` of your `covid_19_rf.R` script. In `Part 2` you'll need to adjust the `my_x` variable and in `Part 3` you'll need to adjust the model formula (e.g. `Y04 ~ X01 + ....`). Re-run the script and record the error rate, confusion matrix, and measures of parameter importance.
+
+- Repeat the above step after adding an additional 5 features.
+
+- How does the performance of the model change as more features are included? 
+
+- Does any particular parameter stand out in terms of importance? 
+
+- What does the most important parameter correspond to in termo of the metadata?
+
 ## Day 28
 
-Self-directed activities.
+Today you'll explore making some tweaks to the random forest model to see if you can improve its performance on the COVID-19 dataset. The algorithm parameters that you'll be adjusting are described below:
+
+- `ntree` : The number of trees to grow. Default is 500.
+
+- `mtry` : The number of variables randomly sampled as candidates at each split. Default is `sqrt(p)` where `p` is the number of features included in the model.
+
+Let's perform some numerical experiments to explore how these algorithm parameters effect model performance:
+
+- Setup a random forest model that has at least 16 features (see instructions from yesterday's activity). 
+
+- In `Part 3` of your `covid_19_rf.R` script, add the following arguments to the `randomForest()` function:
+
+  - `ntree = 1000`
+
+  - `mtry = 8`
+
+- Re-run the script and record the error rate, confusion matrix, and measures of parameter importance.
+
+- Repeat the above process using:
+
+  - `ntree = 2000`
+  
+  - `mtry = 2`
+
+- Does adjusting the parameters effect the model performance? If so, what observations can you make?
+
+- Can you think of a "better" way to evaluate the influence of algorithm parameters?
+
+
+
+
+
+
+
