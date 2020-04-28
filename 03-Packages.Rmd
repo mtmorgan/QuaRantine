@@ -2,50 +2,204 @@
 
 ## Day 15 (Monday) Zoom check-in
 
-### [CRAN][] {-}
+### Review and troubleshoot (15 minutes) {-}
 
-### Installing and attaching packages {-}
+Over the weekend, I wrote two functions. The first retrieves and 'cleans' the US data set.
+
+```{r}
+get_US_data <-
+    function()
+{
+    ## retrieve data from the internet
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    us <- read.csv(url, stringsAsFactors = FALSE)
+
+    ## update 'date' from character vector to 'Date'.  this is the
+    ## last line of executed code in the function, so the return
+    ## value (the updated 'us' object) is returned by the functino
+    within(us, {
+        date = as.Date(date, format = "%Y-%m-%d")
+    })
+}
+```
+
+The second plots data for a particular county and state
+
+```{r}
+plot_county <-
+    function(us_data, county_of_interest = "Erie", state_of_interest = "New York")
+{
+    ## create the title for the plot
+    main_title <- paste(
+        "New Cases,", county_of_interest, "County", state_of_interest
+    )
+
+    ## subset the us data to just the county and state of interest
+    county_data <- subset(
+        us_data,
+        (county == county_of_interest) & (state == state_of_interest)
+    )
+
+    ## calculate new cases for particular county and state
+    county_data <- within(county_data, {
+        new_cases <- diff( c(0, cases) )
+    })
+
+    ## plot
+    plot( new_cases ~ date, county_data, log = "y", main = main_title)
+}
+```
+
+I lived in Seattle (King County, Washington), for a while, and this is where the first serious outbreak occurred. Here's the relevant data:
+
+```{r}
+us <- get_US_data()
+plot_county(us, "King", "Washington")
+```
+
+### Packages (20 minutes) {-}
+
+Base _R_
+
+- _R_ consists of 'packages' that implement different functionality. Each package contains _functions_ that we can use, and perhaps data sets (like the `mtcars`) data set from Friday's presentation) and other resources.
+
+- _R_ comes with several 'base' packages installed, and these are available in a new _R_ session.
+
+- Discover packages that are currently available using the `search()` function. This shows that the 'stats', 'graphics', 'grDevices', 'utils', 'datasets', 'methods', and 'base' packages, among others, are available in our current _R_ session.
+
+    ```{r, eval = FALSE}
+    > search()
+    ## [1] ".GlobalEnv"        "package:stats"     "package:graphics"
+    ## [4] "package:grDevices" "package:utils"     "package:datasets"
+    ## [7] "package:methods"   "Autoloads"         "package:base"
+    ```
+    
+- When we create a variable like
+
+    ```{r}
+    x <- c(1, 2, 3)
+    ```
+    
+  _R_ creates a new _symbol_ in the `.GlobalEnv` location on the search path.
+  
+- When we evaluate a function like `length(x)`...
+
+  - _R_ searches for the function `length()` along the `search()` path. It doesn't find `length()` in the `.GlobalEnv` (because we didn't define it there), or in the 'stats', 'graphics', ... packages. Eventually, _R_ finds the definition of `length` in the 'base' package.
+  
+  - _R_ then looks for the definition of `x`, finds it in the
+    `.GlobalEnv`.
+    
+  - Finally, _R_ applies the definition of `length` found in the base package to the value of `x` found in the `.GlobalEnv`.
+
+Contributed packages
+
+- _R_ would be pretty limited if it could only do things that are defined in the base packages.
+  
+- It is 'easy' to write a package, and to make the package available for others to use.
+  
+- A major repository of contributed packages is [CRAN][] -- the Comprehensive _R_ Archive Network. There are more than 15,000 packages in CRAN.
+  
+- Many CRAN packages are arranged in [task views][] that highlight the most useful packages.
+
+Installing and attaching packages
+
+- There are too many packages for all to be distributed with _R_, so it is necessary to _install_ contributed packages that you might find interesting.
+  
+- once a package is installed (you only need to install a package once), it can be 'loaded' and 'attached' to the search path using
+  `library()`.
+  
+- As an exercise, try to attach the 'readr', 'dplyr', and 'ggplot2' packages
+  
+    ```{r, message = FALSE}
+    library(readr)
+    library(dplyr)
+    library(ggplot2)
+    ```
+
+- If any of these fails with a message like
+
+    ```{r, eval = FALSE}
+    library("dplyr")
+    ## Error in library("dplyr") : there is no package called 'dplyr'
+    ```
+
+  it means that the package has not been installed (or that you have a typo in the name of the library!)
+  
+- Install any package that failed when `library()` was called with
+
+    ```{r, eval = FALSE}
+    install.packages(c("readr", "dplyr"), repos = "https://cran.r-project.org")
+    ```
+    
+  Alternatively, use the _RStudio_ interface to select (in the lower right panel, by default) the 'Packages' tab, 'Install' button.
+  
+    ```{r echo = FALSE}
+    knitr::include_graphics('images/RStudio-install.png')
+    ```
+  
+- One package may use functions from one or more other packages, so when you install, for instance 'dplyr', you may actually install _several_ packages.
+  
 
 [CRAN]: https://cran.r-project.org
+[task views]: https://cran.r-project.org/web/views/
 [readr]: https://cran.r-project.org/package=readr
 [dplyr]: https://cran.r-project.org/package=dplyr
 [ggplot2]: https://cran.r-project.org/package=ggplot2
 [tidyr]: https://cran.r-project.org/package=tidyr
 
-### The 'tidyverse' of packages {-}
+### The 'tidyverse' of packages (20 minutes) {-}
+
+The 'tidyverse' of packages provides a very powerful paradigm for working with data.
+
+- Based on the idea that a first step in data analysis is to transform the data into a standard format. Subsequent steps can then be accomplished in a much more straight-forward way, using a small set of functions.
+  
+- Hadley Wickham's '[Tidy Data][]' paper provides a kind of manifesto for what constitutes tidy data:
+
+    1. Each variable forms a column.
+    2. Each observation forms a row.
+    3. Each type of observational unit forms a table
+    
+- We'll look at the [readr][] package for data input, and the [dplyr][] package for essential data manipulation.
+
+[Tidy Data]: https://vita.had.co.nz/papers/tidy-data.pdf
 
 [readr][] for fast data input
 
-- The `tibble`: a nicer `data.frame`
+- Load (install if necessary!) and attach the [readr][] package
+
+    ```{r, message = FALSE}
+    library(readr)
+
+    ## if it fails to load, try
+    ##     install.packages("readr", repos = "https://cran.r-project.org")
+    ```
 
 - Example: US COVID data. N.B., `readr::read_csv()` rather than `read.csv()`
 
     ```{r}
-    library(readr)
-
     url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
     us <- read_csv(url)
     us
     ```
 
+- The `us` data is now represented as a `tibble`: a nicer `data.frame`
+
 - Note that
 
     - `date` has been deduced correctly
-    - `read_csv()` does not coerce inputs to `factor` (no need to use `stringsAsFactors = FALSE`)
+    - `read_csv()` does not coerce inputs to `factor` (no need to use
+      `stringsAsFactors = FALSE`)
     - The tibble displays nicely (first ten lines, with an indication of total lines)
-
 
 [dplyr][] for data manipulation
 
-- load
+- Load and attach the [dplyr][] package.
 
-    ```{r}
+    ```{r, message = FALSE}
     library(dplyr)
     ```
 
-- The pipe, `%>%`
-
-- Verbs for data transformation
+- [dplyr][] implements a small number of _verbs_ for data transformation
 
     - A small set of functions that allow very rich data transformation
     - All have the same first argument -- the `tibble` to be transformed
@@ -54,9 +208,19 @@
 - `filter()` rows that meet specific criteria
 
     ```{r}
+    filter(us, state == "New York", county == "Erie")
+    ```
+
+- [dplyr][] uses the 'pipe' `%>%` as a way to chain data and functions together
+
+    ```{r}
     us %>%
         filter(state == "New York", county == "Erie")
     ```
+    
+  - The pipe works by transforming whatever is on the left-hand side of the `%>%` to the first argument of the function on the right-hand side.
+    
+  - Like `filter()`, most [dplyr][] functions take as their first argument a tibble, and return a tibble. So the functions can be chained together, as in the following example.
 
 - `select()` specific columns
 
@@ -66,13 +230,21 @@
         select(state, county, date, cases)
     ```
 
-- Other common verbs (see tomorrow's quarantine)
+Other common verbs (see tomorrow's quarantine)
 
 - `mutate()` (add or update) columns
 - `summarize()` one or more columns
 - `group_by()` one or more variables when performing computations. `ungroup()` removes the grouping.
 - `arrange()` rows based on values in particular column(s); `desc()` in descending order.
 - `count()` the number of times values occur
+
+Other 'tidyverse' packages
+
+- Packages adopting the 'tidy' approach to data representation and management are sometimes referred to as the [tidyverse][].
+  
+- [ggplot2][] implements high-quality data visualization in a way consistent with tidy data representations.
+  
+- The [tidyr][] package implements functions that help to transform data to 'tidy' format; we'll use `pivot_longer()` later in the week.
 
 [tidyverse]: https://www.tidyverse.org/
 
@@ -181,6 +353,321 @@ Work through the following commands, adding appropriate lines to your script
     ```
 
 ## Day 17 Visualization with [ggplot2][]
+
+### Setup {-}
+
+Load packages we'll use today
+
+```{r, message = FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+Remember that packages need to be installed before loading; if you see...
+
+```{r, eval = FALSE}
+> library(ggplot2)
+## Error in library(ggplot2) : there is no package called 'ggplot2'
+```
+
+...then you'll need to install the package and try again
+
+```{r, eval = FALSE}
+install.packages("ggplot2", repos = "https://cran.r-project.org")
+library(ggplot2)
+```
+
+Input data using `readr::read_csv()`
+
+```{r}
+url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+us <- read_csv(url)
+```
+
+Create the Erie county subset, with columns `new_cases` and `new_deaths`
+
+```{r}
+erie <-
+    us %>%
+    filter(county == "Erie", state == "New York") %>%
+    mutate(
+        new_cases = diff(c(0, cases)),
+        new_deaths = diff(c(0, deaths))
+    )
+```
+
+### [ggplot2][] essentials {-}
+
+The 'gg' in [ggplot2][]
+
+- '[Grammar of Graphics][]' -- a formal, scholarly system for describing and creating graphics.
+
+- See the [usage guide][], and the [data visualization][] chapter of [R for Data Science][].
+
+- The [reference][] section of the usage guide provides a good entry point
+
+[Grammar of Graphics]: https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448
+[usage guide]: https://ggplot2.tidyverse.org/
+[reference]: https://ggplot2.tidyverse.org/reference/index.html
+[data visualization]: https://r4ds.had.co.nz/data-visualisation.html
+[R for Data Science]: https://r4ds.had.co.nz/
+
+A first plot
+
+- Specify the data to use. Do this by (a) providing the tibble containing the data (`erie`) and (b) communicating the 'aesthetics' of the overall graph by specifying the `x` and `y` data columns -- `ggplot(erie, aes(x = date, y = new_cases))`
+
+- Add a `geom_` describing the geometric object used to represent the data, e.g., use `geom_point()` to represent the data as points.
+
+    ```{r}
+    ggplot(erie, aes(date, cases)) +
+        geom_point()
+    ```
+
+- Note that the plot is assembled by adding elements using a simple `+`. Connect the points with `geom_line()`.
+
+    ```{r}
+    ggplot(erie, aes(date, cases)) +
+        geom_point() +
+        geom_line()
+    ```
+
+- Plots can actually be captured in a variable, e.g., `p`
+
+    ```{r}
+    p <- ggplot(erie, aes(date, cases)) +
+        geom_point()
+    ```
+    
+  ... and then updated and displayed
+  
+    ```{r}
+    p +
+        xlab("Date (2020)") +
+        ylab("Cummulative cases") +
+        ggtitle("Cases, Erie County, New York")
+    ```
+
+- Arguments to each `geom` influece how the geometry is displayed, e.g.,
+
+    ```{r}
+    p +
+        geom_line(color = "blue")
+    ```
+
+### COVID-19 in Erie county {-}
+
+New cases
+
+- Create a base plot using `new_cases)`
+
+    ```{r}
+    p <- ggplot(erie, aes(date, new_cases)) +
+        geom_point()
+    ```
+    
+- Visualize on a linear and a log-transformed y-axis
+
+    ```{r}
+    p # linear
+    p + scale_y_log10()
+    ```
+    
+  Add a smoothed line to the plot. By default the smoothed line is a local regression appropriate for exploratory data analysis. Note the confidence bands displayed in the plot, and how they convey a measure of certainty about the fit.
+  
+    ```{r}
+    p +
+        scale_y_log10() +
+        geom_smooth()
+    ```
+
+- Reflect on the presentation of data, especially how log-transformation and a  clarifies our impression of the local progress of the pandemic. 
+
+- The local regression used by `geom_smooth()` can be replaced by a linear regressin with `geom_smooth(method = "lm")`. Create this plot and reflect on the assumptions and suitability of a linear model for this data.
+
+New cases and mortality
+
+- It's easy to separately plot `deaths` by updating the aesthetic in `ggplot()`
+
+    ```{r}
+    ggplot(erie, aes(date, deaths)) +
+        scale_y_log10() +
+        geom_point()
+    ```
+
+- What about ploting cases and deaths? Move the `aes()` argument to the individual geometries. Use different colors for each geometry
+
+    ```{r}
+    ggplot(erie) +
+        scale_y_log10() +
+        geom_point(aes(date, cases), shape = "|", color = "blue") + 
+        geom_line(aes(date, cases), color = "blue") +
+        geom_point(aes(date, deaths), shape = "|") +
+        geom_line(aes(date, deaths))
+    ```
+    
+  Deaths lag behind cases by a week or so.
+  
+'Long' data and an alternative approach to plotting multiple curves.
+
+- Let's simplify the data to just the columns of interest for this exercise
+
+    ```{r}
+    simple <-
+        erie %>%
+        select(date, cases, deaths)
+    simple
+    ```
+
+- Use `tidyr::pivot_longer()` to transform the two columns 'cases' and 'deaths' into a column that indicates 'name' and 'value'; 'name' is 'cases' when the corresponding 'value' came from the 'cases' column, and similarly for 'deaths'. See the help page `?tidyr::pivot_longer` and tomorrow's exercises for more on `pivot_longer()`.
+
+    ```{r}
+    longer <-
+        simple %>%
+        pivot_longer(
+            c("cases", "deaths"),
+            names_to = "metric",
+            values_to = "count"
+        )
+    longer
+    ```
+    
+- Plot `date` and `value, coloring points by `name`
+
+    ```{r}
+    ggplot(longer, aes(date, count, color = metric)) +
+        scale_y_log10() +
+        geom_point()
+    ```
+
+### COVID-19 in New York State {-}
+
+We'll explore 'facet' visualizations, which create a panel of related plots
+
+Setup
+
+- From the US data, extract Erie and Westchester counties and New York City. Use `coi` ('counties of interest') as a variable to hold this data
+
+    ```{r}
+    coi <-
+        us %>%
+        filter(
+            county %in% c("Erie", "Westchester", "New York City"),
+            state == "New York"
+        ) %>%
+        select(date, county, cases, deaths)
+    coi
+    ```
+
+- Pivot `cases` and `deaths` into long form
+
+    ```{r}
+    coi_longer <-
+        coi %>%
+        pivot_longer(
+            c("cases", "deaths"),
+            names_to = "metric",
+            values_to = "count"
+        )
+    coi_longer
+    ```
+
+Visualization
+    
+- We can plot cases and deaths of each county...
+
+    ```{r}
+    p <-
+        ggplot(coi_longer, aes(date, count, color = metric)) +
+        scale_y_log10() +
+        geom_point()
+    p
+    ```
+    
+  ... but this is too confusing.
+  
+- Separate each county into a facet
+
+    ```{r}
+    p + facet_grid(rows=vars(county))
+    ```
+  Note the common scales on the x and y axes.
+
+- Plotting counties as 'rows' of the graph emphasize temporal comparisons -- e.g., the earlier onset of the pandemic in Westchester and New York City compared to Erie, and perhaps longer lag between new cases and deaths in Westchester.
+
+- Plotting countes as 'columns' emphasizes comparison between number of cases and deaths -- there are many more cases in New York City than in Erie County.
+
+    ```{r}
+    p + facet_grid(cols=vars(county))
+    ```
+    
+### COVID-19 nationally {-}
+
+Setup
+
+- Summarize the total (maximum) number of cases in each county and state
+
+    ```{r}
+    county_summary <-
+        us %>%
+        group_by(county, state) %>%
+        summarize(
+            cases = max(cases),
+            deaths = max(deaths)
+        )
+    county_summary
+    ```
+
+- Now summarize the number of cases per state
+
+    ```{r}
+    state_summary <-
+        county_summary %>%
+        group_by(state) %>%
+        summarize(
+            cases = sum(cases),
+            deaths = sum(deaths)
+        ) %>%
+        arrange(desc(cases))
+    state_summary
+    ```
+    
+- Plot the relationship between cases and deaths as a scatter plot
+
+    ```{r}
+    ggplot(state_summary, aes(cases, deaths)) +
+        scale_x_log10() +
+        scale_y_log10() +
+        geom_point()
+    ```
+
+- Create a 'long' version of the state summary. The transformations include making 'state' a factor with the 'levels' ordered from most- to least-affected state. This is a 'trick' so that states are ordered, when displayed, from most to least affected. The transformations also choose only the 20 most-affected states using `head(20)`.
+
+    ```{r}
+    state_longer <-
+        state_summary %>%
+        mutate(
+            ## this 'trick' causes 'state' to be ordered from most to
+            ## least cases, rather than alphabetically
+            state = factor(state, levels = state)
+        ) %>%
+        head(20) %>% # look at the 20 states with the most cases
+        pivot_longer(
+            c("cases", "deaths"),
+            names_to = "metric",
+            values_to = "count"
+        )
+    state_longer
+    ```
+
+- Use a dot plot to provide an alternative representation that is more easy to associated statsistics with individual states
+
+    ```{r}
+    ggplot(state_longer, aes(x = count, y = state, color = metric)) +
+        scale_x_log10() +
+        geom_point()
+    ```
 
 ## Day 18 Worldwide COVID data
 

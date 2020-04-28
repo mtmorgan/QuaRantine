@@ -58,3 +58,11 @@
    Navigate back to the original directory by clicking on the three dots `...` in the `Files` tab and enter `/cloud/project`.
 
    Remember that the temporary file path is, well, temporary, and when you start a new _R_ session (or maybe restart your cloud session) the temporary path and anything saved there may no longer be available
+
+1. When I try to install a package, _R_ says a binary version exists but a newer version exists 'from source'. Do I want to install the binary version or the source version?
+
+  Usually, the answer is to install the older binary version.
+
+  The newer source version likely represents a bug fix or implements new features in the package, so at first blush it seems preferable. However, installing source versions of packages often require additional software that is not necessarily easy to install and maintain. You might spend a considerable amount of time configuring your system and working through arcane error messages to get the 'latest' source version.
+  
+  Almost always, the updated binary version becomes available in a day or so, and the best strategy is to install the old binary version now, and re-install the package the next time you remember, in a week or so.
