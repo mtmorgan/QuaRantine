@@ -213,15 +213,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.1</b> A Machine Learning Primer</a></li>
 <li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forest-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forest Algorithm</a></li>
-<li class="chapter" data-level="" data-path="four.html"><a href="four.html#preparing-a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i>Preparing a COVID-19 Dataset for Machine Learning</a></li>
-<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-random-forest-example-using-covid-19-data"><i class="fa fa-check"></i><b>4.1.3</b> A Random Forest Example Using COVID-19 Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#preparing-a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i><b>4.1.3</b> Preparing a COVID-19 Dataset for Machine Learning</a></li>
+<li class="chapter" data-level="4.1.4" data-path="four.html"><a href="four.html#a-random-forest-example-using-covid-19-data"><i class="fa fa-check"></i><b>4.1.4</b> A Random Forest Example Using COVID-19 Data</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
 <li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
 <li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25"><i class="fa fa-check"></i><b>4.4</b> Day 25</a></li>
 <li class="chapter" data-level="4.5" data-path="four.html"><a href="four.html#day-26-friday-zoom-check-in"><i class="fa fa-check"></i><b>4.5</b> Day 26 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="four.html"><a href="four.html#review-and-trouble-shoot-25-minutes-1"><i class="fa fa-check"></i><b>4.5.1</b> Review and trouble shoot (25 minutes)</a></li>
-<li class="chapter" data-level="4.5.2" data-path="four.html"><a href="four.html#next-week-25-minutes-1"><i class="fa fa-check"></i><b>4.5.2</b> Next week (25 minutes)</a></li>
+<li class="chapter" data-level="4.5.2" data-path="four.html"><a href="four.html#this-weekend-25-minutes"><i class="fa fa-check"></i><b>4.5.2</b> This weekend (25 minutes)</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="four.html"><a href="four.html#day-27"><i class="fa fa-check"></i><b>4.6</b> Day 27</a></li>
 <li class="chapter" data-level="4.7" data-path="four.html"><a href="four.html#day-28"><i class="fa fa-check"></i><b>4.7</b> Day 28</a></li>
@@ -233,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="five.html"><a href="five.html#day-32"><i class="fa fa-check"></i><b>5.4</b> Day 32</a></li>
 <li class="chapter" data-level="5.5" data-path="five.html"><a href="five.html#day-33-friday-zoom-check-in"><i class="fa fa-check"></i><b>5.5</b> Day 33 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="five.html"><a href="five.html#review-and-trouble-shoot-25-minutes-2"><i class="fa fa-check"></i><b>5.5.1</b> Review and trouble shoot (25 minutes)</a></li>
-<li class="chapter" data-level="5.5.2" data-path="five.html"><a href="five.html#next-week-25-minutes-2"><i class="fa fa-check"></i><b>5.5.2</b> Next week (25 minutes)</a></li>
+<li class="chapter" data-level="5.5.2" data-path="five.html"><a href="five.html#next-week-25-minutes-1"><i class="fa fa-check"></i><b>5.5.2</b> Next week (25 minutes)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="five.html"><a href="five.html#day-34"><i class="fa fa-check"></i><b>5.6</b> Day 34</a></li>
 <li class="chapter" data-level="5.7" data-path="five.html"><a href="five.html#day-35"><i class="fa fa-check"></i><b>5.7</b> Day 35</a></li>
@@ -764,7 +764,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="kw">class</span>(us)</a>
 <a class="sourceLine" id="cb145-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
 <a class="sourceLine" id="cb145-3" title="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb145-4" title="4"><span class="co">## [1] 92592     6</span></a>
+<a class="sourceLine" id="cb145-4" title="4"><span class="co">## [1] 95420     6</span></a>
 <a class="sourceLine" id="cb145-5" title="5"><span class="kw">head</span>(us)</a>
 <a class="sourceLine" id="cb145-6" title="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
 <a class="sourceLine" id="cb145-7" title="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
@@ -776,7 +776,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Subset the data to only New York state or Erie county</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">ny_state &lt;-<span class="st"> </span>us[us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>,]</a>
 <a class="sourceLine" id="cb146-2" title="2"><span class="kw">dim</span>(ny_state)</a>
-<a class="sourceLine" id="cb146-3" title="3"><span class="co">## [1] 2362    6</span></a>
+<a class="sourceLine" id="cb146-3" title="3"><span class="co">## [1] 2420    6</span></a>
 <a class="sourceLine" id="cb146-4" title="4"></a>
 <a class="sourceLine" id="cb146-5" title="5">erie &lt;-<span class="st"> </span>us[(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>), ]</a>
 <a class="sourceLine" id="cb146-6" title="6">erie</a>
@@ -823,7 +823,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb146-47" title="47"><span class="co">## 82989 2020-04-23   Erie New York 36029  2450    179</span></a>
 <a class="sourceLine" id="cb146-48" title="48"><span class="co">## 85793 2020-04-24   Erie New York 36029  2603    184</span></a>
 <a class="sourceLine" id="cb146-49" title="49"><span class="co">## 88609 2020-04-25   Erie New York 36029  2773    199</span></a>
-<a class="sourceLine" id="cb146-50" title="50"><span class="co">## 91427 2020-04-26   Erie New York 36029  2954    205</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb146-50" title="50"><span class="co">## 91425 2020-04-26   Erie New York 36029  2954    205</span></a>
+<a class="sourceLine" id="cb146-51" title="51"><span class="co">## 94250 2020-04-27   Erie New York 36029  3021    208</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -840,27 +841,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Create subsets, e.g., to include only New York state, or only Erie county</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
 <a class="sourceLine" id="cb148-2" title="2"><span class="kw">dim</span>(ny_state)</a>
-<a class="sourceLine" id="cb148-3" title="3"><span class="co">## [1] 2362    6</span></a>
+<a class="sourceLine" id="cb148-3" title="3"><span class="co">## [1] 2420    6</span></a>
 <a class="sourceLine" id="cb148-4" title="4"><span class="kw">tail</span>(ny_state)</a>
 <a class="sourceLine" id="cb148-5" title="5"><span class="co">##             date      county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb148-6" title="6"><span class="co">## 91466 2020-04-26      Warren New York 36113   135      8</span></a>
-<a class="sourceLine" id="cb148-7" title="7"><span class="co">## 91467 2020-04-26  Washington New York 36115   127      0</span></a>
-<a class="sourceLine" id="cb148-8" title="8"><span class="co">## 91468 2020-04-26       Wayne New York 36117    65      0</span></a>
-<a class="sourceLine" id="cb148-9" title="9"><span class="co">## 91469 2020-04-26 Westchester New York 36119 27664   1054</span></a>
-<a class="sourceLine" id="cb148-10" title="10"><span class="co">## 91470 2020-04-26     Wyoming New York 36121    59      3</span></a>
-<a class="sourceLine" id="cb148-11" title="11"><span class="co">## 91471 2020-04-26       Yates New York 36123    17      1</span></a>
+<a class="sourceLine" id="cb148-6" title="6"><span class="co">## 94289 2020-04-27      Warren New York 36113   147      8</span></a>
+<a class="sourceLine" id="cb148-7" title="7"><span class="co">## 94290 2020-04-27  Washington New York 36115   130      0</span></a>
+<a class="sourceLine" id="cb148-8" title="8"><span class="co">## 94291 2020-04-27       Wayne New York 36117    69      0</span></a>
+<a class="sourceLine" id="cb148-9" title="9"><span class="co">## 94292 2020-04-27 Westchester New York 36119 28007   1077</span></a>
+<a class="sourceLine" id="cb148-10" title="10"><span class="co">## 94293 2020-04-27     Wyoming New York 36121    63      3</span></a>
+<a class="sourceLine" id="cb148-11" title="11"><span class="co">## 94294 2020-04-27       Yates New York 36123    17      1</span></a>
 <a class="sourceLine" id="cb148-12" title="12"></a>
 <a class="sourceLine" id="cb148-13" title="13">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>)</a>
 <a class="sourceLine" id="cb148-14" title="14"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb148-15" title="15"><span class="co">## [1] 43  6</span></a>
+<a class="sourceLine" id="cb148-15" title="15"><span class="co">## [1] 44  6</span></a>
 <a class="sourceLine" id="cb148-16" title="16"><span class="kw">tail</span>(erie)</a>
 <a class="sourceLine" id="cb148-17" title="17"><span class="co">##             date county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb148-18" title="18"><span class="co">## 77398 2020-04-21   Erie New York 36029  2147    161</span></a>
-<a class="sourceLine" id="cb148-19" title="19"><span class="co">## 80188 2020-04-22   Erie New York 36029  2233    174</span></a>
-<a class="sourceLine" id="cb148-20" title="20"><span class="co">## 82989 2020-04-23   Erie New York 36029  2450    179</span></a>
-<a class="sourceLine" id="cb148-21" title="21"><span class="co">## 85793 2020-04-24   Erie New York 36029  2603    184</span></a>
-<a class="sourceLine" id="cb148-22" title="22"><span class="co">## 88609 2020-04-25   Erie New York 36029  2773    199</span></a>
-<a class="sourceLine" id="cb148-23" title="23"><span class="co">## 91427 2020-04-26   Erie New York 36029  2954    205</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb148-18" title="18"><span class="co">## 80188 2020-04-22   Erie New York 36029  2233    174</span></a>
+<a class="sourceLine" id="cb148-19" title="19"><span class="co">## 82989 2020-04-23   Erie New York 36029  2450    179</span></a>
+<a class="sourceLine" id="cb148-20" title="20"><span class="co">## 85793 2020-04-24   Erie New York 36029  2603    184</span></a>
+<a class="sourceLine" id="cb148-21" title="21"><span class="co">## 88609 2020-04-25   Erie New York 36029  2773    199</span></a>
+<a class="sourceLine" id="cb148-22" title="22"><span class="co">## 91425 2020-04-26   Erie New York 36029  2954    205</span></a>
+<a class="sourceLine" id="cb148-23" title="23"><span class="co">## 94250 2020-04-27   Erie New York 36029  3021    208</span></a></code></pre></div></li>
 </ul>
 </div>
 <div id="with" class="section level3 unnumbered">
@@ -873,7 +874,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>E.g., Calculate the maximum number of cases in the <code>erie</code> subset</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases))</a>
-<a class="sourceLine" id="cb149-2" title="2"><span class="co">## [1] 2954</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb149-2" title="2"><span class="co">## [1] 3021</span></a></code></pre></div></li>
 </ul></li>
 </ul>
 <p>Second argument can be more complicated, using <code>{}</code> to enclose several lines.</p>
@@ -895,7 +896,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb152-2" title="2">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))</a>
 <a class="sourceLine" id="cb152-3" title="3">    <span class="kw">mean</span>(new_cases)</a>
 <a class="sourceLine" id="cb152-4" title="4">})</a>
-<a class="sourceLine" id="cb152-5" title="5"><span class="co">## [1] 68.69767</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb152-5" title="5"><span class="co">## [1] 68.65909</span></a></code></pre></div></li>
 </ul>
 </div>
 <div id="within" class="section level3 unnumbered">
@@ -948,20 +949,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Subset to some interesting ‘counties’</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">head</span>(max_cases_by_county)</a>
 <a class="sourceLine" id="cb157-2" title="2"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb157-3" title="3"><span class="co">## 1      Albany   948</span></a>
+<a class="sourceLine" id="cb157-3" title="3"><span class="co">## 1      Albany   979</span></a>
 <a class="sourceLine" id="cb157-4" title="4"><span class="co">## 2    Allegany    35</span></a>
-<a class="sourceLine" id="cb157-5" title="5"><span class="co">## 3      Broome   257</span></a>
+<a class="sourceLine" id="cb157-5" title="5"><span class="co">## 3      Broome   261</span></a>
 <a class="sourceLine" id="cb157-6" title="6"><span class="co">## 4 Cattaraugus    45</span></a>
-<a class="sourceLine" id="cb157-7" title="7"><span class="co">## 5      Cayuga    47</span></a>
-<a class="sourceLine" id="cb157-8" title="8"><span class="co">## 6  Chautauqua    29</span></a>
+<a class="sourceLine" id="cb157-7" title="7"><span class="co">## 5      Cayuga    48</span></a>
+<a class="sourceLine" id="cb157-8" title="8"><span class="co">## 6  Chautauqua    30</span></a>
 <a class="sourceLine" id="cb157-9" title="9"><span class="kw">subset</span>(</a>
 <a class="sourceLine" id="cb157-10" title="10">    max_cases_by_county,</a>
 <a class="sourceLine" id="cb157-11" title="11">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
 <a class="sourceLine" id="cb157-12" title="12">)</a>
 <a class="sourceLine" id="cb157-13" title="13"><span class="co">##           county  cases</span></a>
-<a class="sourceLine" id="cb157-14" title="14"><span class="co">## 14          Erie   2954</span></a>
-<a class="sourceLine" id="cb157-15" title="15"><span class="co">## 29 New York City 158268</span></a>
-<a class="sourceLine" id="cb157-16" title="16"><span class="co">## 57   Westchester  27664</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb157-14" title="14"><span class="co">## 14          Erie   3021</span></a>
+<a class="sourceLine" id="cb157-15" title="15"><span class="co">## 29 New York City 160499</span></a>
+<a class="sourceLine" id="cb157-16" title="16"><span class="co">## 57   Westchester  28007</span></a></code></pre></div></li>
 </ul>
 <p>Help: <code>?aggregate.formula</code></p>
 </div>
@@ -975,7 +976,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">class</span>(us)</a>
 <a class="sourceLine" id="cb159-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
 <a class="sourceLine" id="cb159-3" title="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb159-4" title="4"><span class="co">## [1] 92592     6</span></a>
+<a class="sourceLine" id="cb159-4" title="4"><span class="co">## [1] 95420     6</span></a>
 <a class="sourceLine" id="cb159-5" title="5"><span class="kw">head</span>(us)</a>
 <a class="sourceLine" id="cb159-6" title="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
 <a class="sourceLine" id="cb159-7" title="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
@@ -1019,11 +1020,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1">row_idx &lt;-<span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
 <a class="sourceLine" id="cb163-2" title="2">erie &lt;-<span class="st"> </span>us[row_idx,]</a>
 <a class="sourceLine" id="cb163-3" title="3"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb163-4" title="4"><span class="co">## [1] 43  6</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb163-4" title="4"><span class="co">## [1] 44  6</span></a></code></pre></div></li>
 <li><p>Subset, method 2</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
 <a class="sourceLine" id="cb164-2" title="2"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb164-3" title="3"><span class="co">## [1] 43  6</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb164-3" title="3"><span class="co">## [1] 44  6</span></a></code></pre></div></li>
 </ul>
 <p>Manipulation</p>
 <ul>
@@ -1046,9 +1047,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>For Erie county, let’s see how to calculate the maximum (total) number of cases</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">max</span>(erie<span class="op">$</span>cases)        <span class="co"># one way...</span></a>
-<a class="sourceLine" id="cb167-2" title="2"><span class="co">## [1] 2954</span></a>
+<a class="sourceLine" id="cb167-2" title="2"><span class="co">## [1] 3021</span></a>
 <a class="sourceLine" id="cb167-3" title="3"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases)) <span class="co"># ... another</span></a>
-<a class="sourceLine" id="cb167-4" title="4"><span class="co">## [1] 2954</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb167-4" title="4"><span class="co">## [1] 3021</span></a></code></pre></div></li>
 <li><p>Subset US data to New York state</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a></code></pre></div></li>
 <li><p>Summarize each county in the state using <code>aggregate()</code>.</p>
@@ -1059,12 +1060,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">max_cases_by_county &lt;-<span class="st"> </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county, ny_state, max)</a>
 <a class="sourceLine" id="cb169-2" title="2"><span class="kw">head</span>(max_cases_by_county)</a>
 <a class="sourceLine" id="cb169-3" title="3"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb169-4" title="4"><span class="co">## 1      Albany   948</span></a>
+<a class="sourceLine" id="cb169-4" title="4"><span class="co">## 1      Albany   979</span></a>
 <a class="sourceLine" id="cb169-5" title="5"><span class="co">## 2    Allegany    35</span></a>
-<a class="sourceLine" id="cb169-6" title="6"><span class="co">## 3      Broome   257</span></a>
+<a class="sourceLine" id="cb169-6" title="6"><span class="co">## 3      Broome   261</span></a>
 <a class="sourceLine" id="cb169-7" title="7"><span class="co">## 4 Cattaraugus    45</span></a>
-<a class="sourceLine" id="cb169-8" title="8"><span class="co">## 5      Cayuga    47</span></a>
-<a class="sourceLine" id="cb169-9" title="9"><span class="co">## 6  Chautauqua    29</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb169-8" title="8"><span class="co">## 5      Cayuga    48</span></a>
+<a class="sourceLine" id="cb169-9" title="9"><span class="co">## 6  Chautauqua    30</span></a></code></pre></div></li>
 </ul></li>
 <li><p><code>subset()</code> to select counties</p>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"><span class="kw">subset</span>(</a>
@@ -1072,9 +1073,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb170-3" title="3">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
 <a class="sourceLine" id="cb170-4" title="4">)</a>
 <a class="sourceLine" id="cb170-5" title="5"><span class="co">##           county  cases</span></a>
-<a class="sourceLine" id="cb170-6" title="6"><span class="co">## 14          Erie   2954</span></a>
-<a class="sourceLine" id="cb170-7" title="7"><span class="co">## 29 New York City 158268</span></a>
-<a class="sourceLine" id="cb170-8" title="8"><span class="co">## 57   Westchester  27664</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb170-6" title="6"><span class="co">## 14          Erie   3021</span></a>
+<a class="sourceLine" id="cb170-7" title="7"><span class="co">## 29 New York City 160499</span></a>
+<a class="sourceLine" id="cb170-8" title="8"><span class="co">## 57   Westchester  28007</span></a></code></pre></div></li>
 </ul>
 <p>Summary: calculate maximum (total) number of cases per state</p>
 <ul>
@@ -1083,13 +1084,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1">max_cases_by_county_state &lt;-</a>
 <a class="sourceLine" id="cb171-2" title="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county <span class="op">+</span><span class="st"> </span>state, us, max )</a>
 <a class="sourceLine" id="cb171-3" title="3"><span class="kw">dim</span>(max_cases_by_county_state)</a>
-<a class="sourceLine" id="cb171-4" title="4"><span class="co">## [1] 2859    3</span></a>
+<a class="sourceLine" id="cb171-4" title="4"><span class="co">## [1] 2865    3</span></a>
 <a class="sourceLine" id="cb171-5" title="5"><span class="kw">head</span>(max_cases_by_county_state)</a>
 <a class="sourceLine" id="cb171-6" title="6"><span class="co">##    county   state cases</span></a>
-<a class="sourceLine" id="cb171-7" title="7"><span class="co">## 1 Autauga Alabama    37</span></a>
-<a class="sourceLine" id="cb171-8" title="8"><span class="co">## 2 Baldwin Alabama   161</span></a>
-<a class="sourceLine" id="cb171-9" title="9"><span class="co">## 3 Barbour Alabama    33</span></a>
-<a class="sourceLine" id="cb171-10" title="10"><span class="co">## 4    Bibb Alabama    38</span></a>
+<a class="sourceLine" id="cb171-7" title="7"><span class="co">## 1 Autauga Alabama    39</span></a>
+<a class="sourceLine" id="cb171-8" title="8"><span class="co">## 2 Baldwin Alabama   168</span></a>
+<a class="sourceLine" id="cb171-9" title="9"><span class="co">## 3 Barbour Alabama    35</span></a>
+<a class="sourceLine" id="cb171-10" title="10"><span class="co">## 4    Bibb Alabama    42</span></a>
 <a class="sourceLine" id="cb171-11" title="11"><span class="co">## 5  Blount Alabama    34</span></a>
 <a class="sourceLine" id="cb171-12" title="12"><span class="co">## 6 Bullock Alabama    12</span></a></code></pre></div></li>
 <li><p><code>aggregate()</code> a second time, using <code>max_cases_by_county_state</code> and aggregtaing by state</p>
@@ -1098,21 +1099,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Explore the data</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">head</span>(max_cases_by_state)</a>
 <a class="sourceLine" id="cb173-2" title="2"><span class="co">##        state cases</span></a>
-<a class="sourceLine" id="cb173-3" title="3"><span class="co">## 1    Alabama   917</span></a>
-<a class="sourceLine" id="cb173-4" title="4"><span class="co">## 2     Alaska   168</span></a>
-<a class="sourceLine" id="cb173-5" title="5"><span class="co">## 3    Arizona  3359</span></a>
-<a class="sourceLine" id="cb173-6" title="6"><span class="co">## 4   Arkansas   727</span></a>
-<a class="sourceLine" id="cb173-7" title="7"><span class="co">## 5 California 19528</span></a>
-<a class="sourceLine" id="cb173-8" title="8"><span class="co">## 6   Colorado  2583</span></a>
+<a class="sourceLine" id="cb173-3" title="3"><span class="co">## 1    Alabama   942</span></a>
+<a class="sourceLine" id="cb173-4" title="4"><span class="co">## 2     Alaska   171</span></a>
+<a class="sourceLine" id="cb173-5" title="5"><span class="co">## 3    Arizona  3457</span></a>
+<a class="sourceLine" id="cb173-6" title="6"><span class="co">## 4   Arkansas   754</span></a>
+<a class="sourceLine" id="cb173-7" title="7"><span class="co">## 5 California 20417</span></a>
+<a class="sourceLine" id="cb173-8" title="8"><span class="co">## 6   Colorado  2682</span></a>
 <a class="sourceLine" id="cb173-9" title="9"><span class="kw">subset</span>(</a>
 <a class="sourceLine" id="cb173-10" title="10">    max_cases_by_state,</a>
 <a class="sourceLine" id="cb173-11" title="11">    state <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;Illinois&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Washington&quot;</span>)</a>
 <a class="sourceLine" id="cb173-12" title="12">)</a>
 <a class="sourceLine" id="cb173-13" title="13"><span class="co">##         state  cases</span></a>
-<a class="sourceLine" id="cb173-14" title="14"><span class="co">## 5  California  19528</span></a>
-<a class="sourceLine" id="cb173-15" title="15"><span class="co">## 15   Illinois  30574</span></a>
-<a class="sourceLine" id="cb173-16" title="16"><span class="co">## 34   New York 158268</span></a>
-<a class="sourceLine" id="cb173-17" title="17"><span class="co">## 52 Washington   5914</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb173-14" title="14"><span class="co">## 5  California  20417</span></a>
+<a class="sourceLine" id="cb173-15" title="15"><span class="co">## 15   Illinois  31953</span></a>
+<a class="sourceLine" id="cb173-16" title="16"><span class="co">## 34   New York 160499</span></a>
+<a class="sourceLine" id="cb173-17" title="17"><span class="co">## 52 Washington   5992</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1180,18 +1181,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb174-58" title="58"><span class="co">## 82989 2020-04-23   Erie New York 36029  2450    179       217</span></a>
 <a class="sourceLine" id="cb174-59" title="59"><span class="co">## 85793 2020-04-24   Erie New York 36029  2603    184       153</span></a>
 <a class="sourceLine" id="cb174-60" title="60"><span class="co">## 88609 2020-04-25   Erie New York 36029  2773    199       170</span></a>
-<a class="sourceLine" id="cb174-61" title="61"><span class="co">## 91427 2020-04-26   Erie New York 36029  2954    205       181</span></a>
-<a class="sourceLine" id="cb174-62" title="62"></a>
-<a class="sourceLine" id="cb174-63" title="63"><span class="co">## aggregate() cases in each county to find total (max) number</span></a>
-<a class="sourceLine" id="cb174-64" title="64">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
-<a class="sourceLine" id="cb174-65" title="65"><span class="kw">head</span>( <span class="kw">aggregate</span>(cases <span class="op">~</span><span class="st"> </span>county, ny_state, max) )</a>
-<a class="sourceLine" id="cb174-66" title="66"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb174-67" title="67"><span class="co">## 1      Albany   948</span></a>
-<a class="sourceLine" id="cb174-68" title="68"><span class="co">## 2    Allegany    35</span></a>
-<a class="sourceLine" id="cb174-69" title="69"><span class="co">## 3      Broome   257</span></a>
-<a class="sourceLine" id="cb174-70" title="70"><span class="co">## 4 Cattaraugus    45</span></a>
-<a class="sourceLine" id="cb174-71" title="71"><span class="co">## 5      Cayuga    47</span></a>
-<a class="sourceLine" id="cb174-72" title="72"><span class="co">## 6  Chautauqua    29</span></a></code></pre></div>
+<a class="sourceLine" id="cb174-61" title="61"><span class="co">## 91425 2020-04-26   Erie New York 36029  2954    205       181</span></a>
+<a class="sourceLine" id="cb174-62" title="62"><span class="co">## 94250 2020-04-27   Erie New York 36029  3021    208        67</span></a>
+<a class="sourceLine" id="cb174-63" title="63"></a>
+<a class="sourceLine" id="cb174-64" title="64"><span class="co">## aggregate() cases in each county to find total (max) number</span></a>
+<a class="sourceLine" id="cb174-65" title="65">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
+<a class="sourceLine" id="cb174-66" title="66"><span class="kw">head</span>( <span class="kw">aggregate</span>(cases <span class="op">~</span><span class="st"> </span>county, ny_state, max) )</a>
+<a class="sourceLine" id="cb174-67" title="67"><span class="co">##        county cases</span></a>
+<a class="sourceLine" id="cb174-68" title="68"><span class="co">## 1      Albany   979</span></a>
+<a class="sourceLine" id="cb174-69" title="69"><span class="co">## 2    Allegany    35</span></a>
+<a class="sourceLine" id="cb174-70" title="70"><span class="co">## 3      Broome   261</span></a>
+<a class="sourceLine" id="cb174-71" title="71"><span class="co">## 4 Cattaraugus    45</span></a>
+<a class="sourceLine" id="cb174-72" title="72"><span class="co">## 5      Cayuga    48</span></a>
+<a class="sourceLine" id="cb174-73" title="73"><span class="co">## 6  Chautauqua    30</span></a></code></pre></div>
 </div>
 <div id="user-defined-functions" class="section level3 unnumbered">
 <h3>User-defined functions</h3>
