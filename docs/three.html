@@ -194,7 +194,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#the-tidyverse-of-packages-20-minutes"><i class="fa fa-check"></i>The ‘tidyverse’ of packages (20 minutes)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="three.html"><a href="three.html#day-16-key-tidyverse-packages-readr-and-dplyr"><i class="fa fa-check"></i><b>3.2</b> Day 16 Key tidyverse packages: <span>readr</span> and <span>dplyr</span></a></li>
-<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with <span>ggplot2</span></a></li>
+<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with <span>ggplot2</span></a><ul>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+<li><a href="three.html#ggplot2-essentials"><span>ggplot2</span> essentials</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-erie-county"><i class="fa fa-check"></i>COVID-19 in Erie county</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-new-york-state"><i class="fa fa-check"></i>COVID-19 in New York State</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-nationally"><i class="fa fa-check"></i>COVID-19 nationally</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="three.html"><a href="three.html#day-18-worldwide-covid-data"><i class="fa fa-check"></i><b>3.4</b> Day 18 Worldwide COVID data</a></li>
 <li class="chapter" data-level="3.5" data-path="three.html"><a href="three.html#day-19-friday-zoom-check-in"><i class="fa fa-check"></i><b>3.5</b> Day 19 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="three.html"><a href="three.html#review-and-trouble-shoot-25-minutes"><i class="fa fa-check"></i><b>3.5.1</b> Review and trouble shoot (25 minutes)</a></li>
@@ -674,30 +680,371 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="day-17-visualization-with-ggplot2" class="section level2">
 <h2><span class="header-section-number">3.3</span> Day 17 Visualization with <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a></h2>
+<div id="setup" class="section level3 unnumbered">
+<h3>Setup</h3>
+<p>Load packages we’ll use today</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="kw">library</span>(tidyr)</a></code></pre></div>
+<p>Remember that packages need to be installed before loading; if you see…</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="co">## Error in library(ggplot2) : there is no package called &#39;ggplot2&#39;</span></a></code></pre></div>
+<p>…then you’ll need to install the package and try again</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;https://cran.r-project.org&quot;</span>)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<p>Input data using <code>readr::read_csv()</code></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">us &lt;-<span class="st"> </span><span class="kw">read_csv</span>(url)</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="co">##   date = col_date(format = &quot;&quot;),</span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="co">##   county = col_character(),</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7"><span class="co">##   state = col_character(),</span></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="co">##   fips = col_character(),</span></a>
+<a class="sourceLine" id="cb29-9" data-line-number="9"><span class="co">##   cases = col_double(),</span></a>
+<a class="sourceLine" id="cb29-10" data-line-number="10"><span class="co">##   deaths = col_double()</span></a>
+<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="co">## )</span></a></code></pre></div>
+<p>Create the Erie county subset, with columns <code>new_cases</code> and <code>new_deaths</code></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">erie &lt;-</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">    </span>us <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">    </span><span class="kw">filter</span>(county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">        <span class="dt">new_cases =</span> <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases)),</a>
+<a class="sourceLine" id="cb30-6" data-line-number="6">        <span class="dt">new_deaths =</span> <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, deaths))</a>
+<a class="sourceLine" id="cb30-7" data-line-number="7">    )</a></code></pre></div>
+</div>
+<div id="ggplot2-essentials" class="section level3 unnumbered">
+<h3><a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> essentials</h3>
+<p>The ‘gg’ in <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a></p>
+<ul>
+<li><p>‘<a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448">Grammar of Graphics</a>’ – a formal, scholarly system for describing and creating graphics.</p></li>
+<li><p>See the <a href="https://ggplot2.tidyverse.org/">usage guide</a>, and the <a href="https://r4ds.had.co.nz/data-visualisation.html">data visualization</a> chapter of <a href="https://r4ds.had.co.nz/">R for Data Science</a>.</p></li>
+<li><p>The <a href="https://ggplot2.tidyverse.org/reference/index.html">reference</a> section of the usage guide provides a good entry point</p></li>
+</ul>
+<p>A first plot</p>
+<ul>
+<li><p>Specify the data to use. Do this by (a) providing the tibble containing the data (<code>erie</code>) and (b) communicating the ‘aesthetics’ of the overall graph by specifying the <code>x</code> and <code>y</code> data columns – <code>ggplot(erie, aes(x = date, y = new_cases))</code></p></li>
+<li><p>Add a <code>geom_</code> describing the geometric object used to represent the data, e.g., use <code>geom_point()</code> to represent the data as points.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">ggplot</span>(erie, <span class="kw">aes</span>(date, cases)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p></li>
+<li><p>Note that the plot is assembled by adding elements using a simple <code>+</code>. Connect the points with <code>geom_line()</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">ggplot</span>(erie, <span class="kw">aes</span>(date, cases)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p></li>
+<li><p>Plots can actually be captured in a variable, e.g., <code>p</code></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(erie, <span class="kw">aes</span>(date, cases)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>… and then updated and displayed</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">p <span class="op">+</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Date (2020)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Cummulative cases&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cases, Erie County, New York&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p></li>
+<li><p>Arguments to each <code>geom</code> influece how the geometry is displayed, e.g.,</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">p <span class="op">+</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p></li>
+</ul>
+</div>
+<div id="covid-19-in-erie-county" class="section level3 unnumbered">
+<h3>COVID-19 in Erie county</h3>
+<p>New cases</p>
+<ul>
+<li><p>Create a base plot using <code>new_cases)</code></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(erie, <span class="kw">aes</span>(date, new_cases)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div></li>
+<li><p>Visualize on a linear and a log-transformed y-axis</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">p <span class="co"># linear</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_log10</span>()</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="co">## Warning in self$trans$transform(x): NaNs produced</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="co">## Warning: Removed 1 rows containing missing values (geom_point).</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-37-2.png" width="672" /></p>
+<p>Add a smoothed line to the plot. By default the smoothed line is a local regression appropriate for exploratory data analysis. Note the confidence bands displayed in the plot, and how they convey a measure of certainty about the fit.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">p <span class="op">+</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_smooth</span>()</a>
+<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="co">## Warning in self$trans$transform(x): NaNs produced</span></a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
+<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="co">## Warning in self$trans$transform(x): NaNs produced</span></a>
+<a class="sourceLine" id="cb39-7" data-line-number="7"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
+<a class="sourceLine" id="cb39-8" data-line-number="8"><span class="co">## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></a>
+<a class="sourceLine" id="cb39-9" data-line-number="9"><span class="co">## Warning: Removed 3 rows containing non-finite values (stat_smooth).</span></a>
+<a class="sourceLine" id="cb39-10" data-line-number="10"><span class="co">## Warning: Removed 1 rows containing missing values (geom_point).</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p></li>
+<li><p>Reflect on the presentation of data, especially how log-transformation and a clarifies our impression of the local progress of the pandemic.</p></li>
+<li><p>The local regression used by <code>geom_smooth()</code> can be replaced by a linear regressin with <code>geom_smooth(method = &quot;lm&quot;)</code>. Create this plot and reflect on the assumptions and suitability of a linear model for this data.</p></li>
+</ul>
+<p>New cases and mortality</p>
+<ul>
+<li><p>It’s easy to separately plot <code>deaths</code> by updating the aesthetic in <code>ggplot()</code></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">ggplot</span>(erie, <span class="kw">aes</span>(date, deaths)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p></li>
+<li><p>What about ploting cases and deaths? Move the <code>aes()</code> argument to the individual geometries. Use different colors for each geometry</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">ggplot</span>(erie) <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(date, cases), <span class="dt">shape =</span> <span class="st">&quot;|&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(date, cases), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(date, deaths), <span class="dt">shape =</span> <span class="st">&quot;|&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(date, deaths))</a>
+<a class="sourceLine" id="cb41-7" data-line-number="7"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
+<a class="sourceLine" id="cb41-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb41-9" data-line-number="9"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>Deaths lag behind cases by a week or so.</p></li>
+</ul>
+<p>‘Long’ data and an alternative approach to plotting multiple curves.</p>
+<ul>
+<li><p>Let’s simplify the data to just the columns of interest for this exercise</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">simple &lt;-</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">    </span>erie <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(date, cases, deaths)</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">simple</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5"><span class="co">## # A tibble: 43 x 3</span></a>
+<a class="sourceLine" id="cb42-6" data-line-number="6"><span class="co">##    date       cases deaths</span></a>
+<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="co">##    &lt;date&gt;     &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb42-8" data-line-number="8"><span class="co">##  1 2020-03-15     3      0</span></a>
+<a class="sourceLine" id="cb42-9" data-line-number="9"><span class="co">##  2 2020-03-16     6      0</span></a>
+<a class="sourceLine" id="cb42-10" data-line-number="10"><span class="co">##  3 2020-03-17     7      0</span></a>
+<a class="sourceLine" id="cb42-11" data-line-number="11"><span class="co">##  4 2020-03-18     7      0</span></a>
+<a class="sourceLine" id="cb42-12" data-line-number="12"><span class="co">##  5 2020-03-19    28      0</span></a>
+<a class="sourceLine" id="cb42-13" data-line-number="13"><span class="co">##  6 2020-03-20    31      0</span></a>
+<a class="sourceLine" id="cb42-14" data-line-number="14"><span class="co">##  7 2020-03-21    38      0</span></a>
+<a class="sourceLine" id="cb42-15" data-line-number="15"><span class="co">##  8 2020-03-22    54      0</span></a>
+<a class="sourceLine" id="cb42-16" data-line-number="16"><span class="co">##  9 2020-03-23    87      0</span></a>
+<a class="sourceLine" id="cb42-17" data-line-number="17"><span class="co">## 10 2020-03-24   107      0</span></a>
+<a class="sourceLine" id="cb42-18" data-line-number="18"><span class="co">## # … with 33 more rows</span></a></code></pre></div></li>
+<li><p>Use <code>tidyr::pivot_longer()</code> to transform the two columns ‘cases’ and ‘deaths’ into a column that indicates ‘name’ and ‘value’; ‘name’ is ‘cases’ when the corresponding ‘value’ came from the ‘cases’ column, and similarly for ‘deaths’. See the help page <code>?tidyr::pivot_longer</code> and tomorrow’s exercises for more on <code>pivot_longer()</code>.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">longer &lt;-</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="st">    </span>simple <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="st">    </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">        <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;deaths&quot;</span>),</a>
+<a class="sourceLine" id="cb43-5" data-line-number="5">        <span class="dt">names_to =</span> <span class="st">&quot;metric&quot;</span>,</a>
+<a class="sourceLine" id="cb43-6" data-line-number="6">        <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">    )</a>
+<a class="sourceLine" id="cb43-8" data-line-number="8">longer</a>
+<a class="sourceLine" id="cb43-9" data-line-number="9"><span class="co">## # A tibble: 86 x 3</span></a>
+<a class="sourceLine" id="cb43-10" data-line-number="10"><span class="co">##    date       metric count</span></a>
+<a class="sourceLine" id="cb43-11" data-line-number="11"><span class="co">##    &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb43-12" data-line-number="12"><span class="co">##  1 2020-03-15 cases      3</span></a>
+<a class="sourceLine" id="cb43-13" data-line-number="13"><span class="co">##  2 2020-03-15 deaths     0</span></a>
+<a class="sourceLine" id="cb43-14" data-line-number="14"><span class="co">##  3 2020-03-16 cases      6</span></a>
+<a class="sourceLine" id="cb43-15" data-line-number="15"><span class="co">##  4 2020-03-16 deaths     0</span></a>
+<a class="sourceLine" id="cb43-16" data-line-number="16"><span class="co">##  5 2020-03-17 cases      7</span></a>
+<a class="sourceLine" id="cb43-17" data-line-number="17"><span class="co">##  6 2020-03-17 deaths     0</span></a>
+<a class="sourceLine" id="cb43-18" data-line-number="18"><span class="co">##  7 2020-03-18 cases      7</span></a>
+<a class="sourceLine" id="cb43-19" data-line-number="19"><span class="co">##  8 2020-03-18 deaths     0</span></a>
+<a class="sourceLine" id="cb43-20" data-line-number="20"><span class="co">##  9 2020-03-19 cases     28</span></a>
+<a class="sourceLine" id="cb43-21" data-line-number="21"><span class="co">## 10 2020-03-19 deaths     0</span></a>
+<a class="sourceLine" id="cb43-22" data-line-number="22"><span class="co">## # … with 76 more rows</span></a></code></pre></div></li>
+<li><p>Plot <code>date</code> and <code>value, coloring points by</code>name`</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">ggplot</span>(longer, <span class="kw">aes</span>(date, count, <span class="dt">color =</span> metric)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p></li>
+</ul>
+</div>
+<div id="covid-19-in-new-york-state" class="section level3 unnumbered">
+<h3>COVID-19 in New York State</h3>
+<p>We’ll explore ‘facet’ visualizations, which create a panel of related plots</p>
+<p>Setup</p>
+<ul>
+<li><p>From the US data, extract Erie and Westchester counties and New York City. Use <code>coi</code> (‘counties of interest’) as a variable to hold this data</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">coi &lt;-</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="st">    </span>us <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="st">    </span><span class="kw">filter</span>(</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">        county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Erie&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;New York City&quot;</span>),</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">        state <span class="op">==</span><span class="st"> &quot;New York&quot;</span></a>
+<a class="sourceLine" id="cb45-6" data-line-number="6">    ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb45-7" data-line-number="7"><span class="st">    </span><span class="kw">select</span>(date, county, cases, deaths)</a>
+<a class="sourceLine" id="cb45-8" data-line-number="8">coi</a>
+<a class="sourceLine" id="cb45-9" data-line-number="9"><span class="co">## # A tibble: 154 x 4</span></a>
+<a class="sourceLine" id="cb45-10" data-line-number="10"><span class="co">##    date       county        cases deaths</span></a>
+<a class="sourceLine" id="cb45-11" data-line-number="11"><span class="co">##    &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb45-12" data-line-number="12"><span class="co">##  1 2020-03-01 New York City     1      0</span></a>
+<a class="sourceLine" id="cb45-13" data-line-number="13"><span class="co">##  2 2020-03-02 New York City     1      0</span></a>
+<a class="sourceLine" id="cb45-14" data-line-number="14"><span class="co">##  3 2020-03-03 New York City     2      0</span></a>
+<a class="sourceLine" id="cb45-15" data-line-number="15"><span class="co">##  4 2020-03-04 New York City     2      0</span></a>
+<a class="sourceLine" id="cb45-16" data-line-number="16"><span class="co">##  5 2020-03-04 Westchester       9      0</span></a>
+<a class="sourceLine" id="cb45-17" data-line-number="17"><span class="co">##  6 2020-03-05 New York City     4      0</span></a>
+<a class="sourceLine" id="cb45-18" data-line-number="18"><span class="co">##  7 2020-03-05 Westchester      17      0</span></a>
+<a class="sourceLine" id="cb45-19" data-line-number="19"><span class="co">##  8 2020-03-06 New York City     5      0</span></a>
+<a class="sourceLine" id="cb45-20" data-line-number="20"><span class="co">##  9 2020-03-06 Westchester      33      0</span></a>
+<a class="sourceLine" id="cb45-21" data-line-number="21"><span class="co">## 10 2020-03-07 New York City    12      0</span></a>
+<a class="sourceLine" id="cb45-22" data-line-number="22"><span class="co">## # … with 144 more rows</span></a></code></pre></div></li>
+<li><p>Pivot <code>cases</code> and <code>deaths</code> into long form</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">coi_longer &lt;-</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="st">    </span>coi <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="st">    </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">        <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;deaths&quot;</span>),</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">        <span class="dt">names_to =</span> <span class="st">&quot;metric&quot;</span>,</a>
+<a class="sourceLine" id="cb46-6" data-line-number="6">        <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span></a>
+<a class="sourceLine" id="cb46-7" data-line-number="7">    )</a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">coi_longer</a>
+<a class="sourceLine" id="cb46-9" data-line-number="9"><span class="co">## # A tibble: 308 x 4</span></a>
+<a class="sourceLine" id="cb46-10" data-line-number="10"><span class="co">##    date       county        metric count</span></a>
+<a class="sourceLine" id="cb46-11" data-line-number="11"><span class="co">##    &lt;date&gt;     &lt;chr&gt;         &lt;chr&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb46-12" data-line-number="12"><span class="co">##  1 2020-03-01 New York City cases      1</span></a>
+<a class="sourceLine" id="cb46-13" data-line-number="13"><span class="co">##  2 2020-03-01 New York City deaths     0</span></a>
+<a class="sourceLine" id="cb46-14" data-line-number="14"><span class="co">##  3 2020-03-02 New York City cases      1</span></a>
+<a class="sourceLine" id="cb46-15" data-line-number="15"><span class="co">##  4 2020-03-02 New York City deaths     0</span></a>
+<a class="sourceLine" id="cb46-16" data-line-number="16"><span class="co">##  5 2020-03-03 New York City cases      2</span></a>
+<a class="sourceLine" id="cb46-17" data-line-number="17"><span class="co">##  6 2020-03-03 New York City deaths     0</span></a>
+<a class="sourceLine" id="cb46-18" data-line-number="18"><span class="co">##  7 2020-03-04 New York City cases      2</span></a>
+<a class="sourceLine" id="cb46-19" data-line-number="19"><span class="co">##  8 2020-03-04 New York City deaths     0</span></a>
+<a class="sourceLine" id="cb46-20" data-line-number="20"><span class="co">##  9 2020-03-04 Westchester   cases      9</span></a>
+<a class="sourceLine" id="cb46-21" data-line-number="21"><span class="co">## 10 2020-03-04 Westchester   deaths     0</span></a>
+<a class="sourceLine" id="cb46-22" data-line-number="22"><span class="co">## # … with 298 more rows</span></a></code></pre></div></li>
+</ul>
+<p>Visualization</p>
+<ul>
+<li><p>We can plot cases and deaths of each county…</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">p &lt;-</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="st">    </span><span class="kw">ggplot</span>(coi_longer, <span class="kw">aes</span>(date, count, <span class="dt">color =</span> metric)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">p</a>
+<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>… but this is too confusing.</p></li>
+<li><p>Separate each county into a facet</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(<span class="dt">rows=</span><span class="kw">vars</span>(county))</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-47-1.png" width="672" />
+Note the common scales on the x and y axes.</p></li>
+<li><p>Plotting counties as ‘rows’ of the graph emphasize temporal comparisons – e.g., the earlier onset of the pandemic in Westchester and New York City compared to Erie, and perhaps longer lag between new cases and deaths in Westchester.</p></li>
+<li><p>Plotting countes as ‘columns’ emphasizes comparison between number of cases and deaths – there are many more cases in New York City than in Erie County.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(<span class="dt">cols=</span><span class="kw">vars</span>(county))</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p></li>
+</ul>
+</div>
+<div id="covid-19-nationally" class="section level3 unnumbered">
+<h3>COVID-19 nationally</h3>
+<p>Setup</p>
+<ul>
+<li><p>Summarize the total (maximum) number of cases in each county and state</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">county_summary &lt;-</a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="st">    </span>us <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="st">    </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="st">    </span><span class="kw">summarize</span>(</a>
+<a class="sourceLine" id="cb50-5" data-line-number="5">        <span class="dt">cases =</span> <span class="kw">max</span>(cases),</a>
+<a class="sourceLine" id="cb50-6" data-line-number="6">        <span class="dt">deaths =</span> <span class="kw">max</span>(deaths)</a>
+<a class="sourceLine" id="cb50-7" data-line-number="7">    )</a>
+<a class="sourceLine" id="cb50-8" data-line-number="8">county_summary</a>
+<a class="sourceLine" id="cb50-9" data-line-number="9"><span class="co">## # A tibble: 2,859 x 4</span></a>
+<a class="sourceLine" id="cb50-10" data-line-number="10"><span class="co">## # Groups:   county [1,676]</span></a>
+<a class="sourceLine" id="cb50-11" data-line-number="11"><span class="co">##    county    state          cases deaths</span></a>
+<a class="sourceLine" id="cb50-12" data-line-number="12"><span class="co">##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb50-13" data-line-number="13"><span class="co">##  1 Abbeville South Carolina    27      0</span></a>
+<a class="sourceLine" id="cb50-14" data-line-number="14"><span class="co">##  2 Acadia    Louisiana        130      7</span></a>
+<a class="sourceLine" id="cb50-15" data-line-number="15"><span class="co">##  3 Accomack  Virginia         187      3</span></a>
+<a class="sourceLine" id="cb50-16" data-line-number="16"><span class="co">##  4 Ada       Idaho            615     15</span></a>
+<a class="sourceLine" id="cb50-17" data-line-number="17"><span class="co">##  5 Adair     Iowa               1      0</span></a>
+<a class="sourceLine" id="cb50-18" data-line-number="18"><span class="co">##  6 Adair     Kentucky          83      9</span></a>
+<a class="sourceLine" id="cb50-19" data-line-number="19"><span class="co">##  7 Adair     Missouri          12      0</span></a>
+<a class="sourceLine" id="cb50-20" data-line-number="20"><span class="co">##  8 Adair     Oklahoma          55      3</span></a>
+<a class="sourceLine" id="cb50-21" data-line-number="21"><span class="co">##  9 Adams     Colorado        1348     58</span></a>
+<a class="sourceLine" id="cb50-22" data-line-number="22"><span class="co">## 10 Adams     Idaho              3      0</span></a>
+<a class="sourceLine" id="cb50-23" data-line-number="23"><span class="co">## # … with 2,849 more rows</span></a></code></pre></div></li>
+<li><p>Now summarize the number of cases per state</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">state_summary &lt;-</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">    </span>county_summary <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="st">    </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="st">    </span><span class="kw">summarize</span>(</a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">        <span class="dt">cases =</span> <span class="kw">sum</span>(cases),</a>
+<a class="sourceLine" id="cb51-6" data-line-number="6">        <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths)</a>
+<a class="sourceLine" id="cb51-7" data-line-number="7">    ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cases))</a>
+<a class="sourceLine" id="cb51-9" data-line-number="9">state_summary</a>
+<a class="sourceLine" id="cb51-10" data-line-number="10"><span class="co">## # A tibble: 55 x 3</span></a>
+<a class="sourceLine" id="cb51-11" data-line-number="11"><span class="co">##    state          cases deaths</span></a>
+<a class="sourceLine" id="cb51-12" data-line-number="12"><span class="co">##    &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb51-13" data-line-number="13"><span class="co">##  1 New York      290167  18145</span></a>
+<a class="sourceLine" id="cb51-14" data-line-number="14"><span class="co">##  2 New Jersey    113223   5960</span></a>
+<a class="sourceLine" id="cb51-15" data-line-number="15"><span class="co">##  3 Massachusetts  55060   2899</span></a>
+<a class="sourceLine" id="cb51-16" data-line-number="16"><span class="co">##  4 Illinois       43916   1946</span></a>
+<a class="sourceLine" id="cb51-17" data-line-number="17"><span class="co">##  5 California     43696   1723</span></a>
+<a class="sourceLine" id="cb51-18" data-line-number="18"><span class="co">##  6 Pennsylvania   42717   1892</span></a>
+<a class="sourceLine" id="cb51-19" data-line-number="19"><span class="co">##  7 Michigan       37761   3318</span></a>
+<a class="sourceLine" id="cb51-20" data-line-number="20"><span class="co">##  8 Florida        31535   1108</span></a>
+<a class="sourceLine" id="cb51-21" data-line-number="21"><span class="co">##  9 Louisiana      26782   1676</span></a>
+<a class="sourceLine" id="cb51-22" data-line-number="22"><span class="co">## 10 Connecticut    25284   1932</span></a>
+<a class="sourceLine" id="cb51-23" data-line-number="23"><span class="co">## # … with 45 more rows</span></a></code></pre></div></li>
+<li><p>Plot the relationship between cases and deaths as a scatter plot</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">ggplot</span>(state_summary, <span class="kw">aes</span>(cases, deaths)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_x_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p></li>
+<li><p>Create a ‘long’ version of the state summary. The transformations include making ‘state’ a factor with the ‘levels’ ordered from most- to least-affected state. This is a ‘trick’ so that states are ordered, when displayed, from most to least affected. The transformations also choose only the 20 most-affected states using <code>head(20)</code>.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">state_longer &lt;-</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">    </span>state_summary <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb53-4" data-line-number="4">        <span class="co">## this &#39;trick&#39; causes &#39;state&#39; to be ordered from most to</span></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">        <span class="co">## least cases, rather than alphabetically</span></a>
+<a class="sourceLine" id="cb53-6" data-line-number="6">        <span class="dt">state =</span> <span class="kw">factor</span>(state, <span class="dt">levels =</span> state)</a>
+<a class="sourceLine" id="cb53-7" data-line-number="7">    ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb53-8" data-line-number="8"><span class="st">    </span><span class="kw">head</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># look at the 20 states with the most cases</span></a>
+<a class="sourceLine" id="cb53-9" data-line-number="9"><span class="st">    </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb53-10" data-line-number="10">        <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;deaths&quot;</span>),</a>
+<a class="sourceLine" id="cb53-11" data-line-number="11">        <span class="dt">names_to =</span> <span class="st">&quot;metric&quot;</span>,</a>
+<a class="sourceLine" id="cb53-12" data-line-number="12">        <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span></a>
+<a class="sourceLine" id="cb53-13" data-line-number="13">    )</a>
+<a class="sourceLine" id="cb53-14" data-line-number="14">state_longer</a>
+<a class="sourceLine" id="cb53-15" data-line-number="15"><span class="co">## # A tibble: 40 x 3</span></a>
+<a class="sourceLine" id="cb53-16" data-line-number="16"><span class="co">##    state         metric  count</span></a>
+<a class="sourceLine" id="cb53-17" data-line-number="17"><span class="co">##    &lt;fct&gt;         &lt;chr&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb53-18" data-line-number="18"><span class="co">##  1 New York      cases  290167</span></a>
+<a class="sourceLine" id="cb53-19" data-line-number="19"><span class="co">##  2 New York      deaths  18145</span></a>
+<a class="sourceLine" id="cb53-20" data-line-number="20"><span class="co">##  3 New Jersey    cases  113223</span></a>
+<a class="sourceLine" id="cb53-21" data-line-number="21"><span class="co">##  4 New Jersey    deaths   5960</span></a>
+<a class="sourceLine" id="cb53-22" data-line-number="22"><span class="co">##  5 Massachusetts cases   55060</span></a>
+<a class="sourceLine" id="cb53-23" data-line-number="23"><span class="co">##  6 Massachusetts deaths   2899</span></a>
+<a class="sourceLine" id="cb53-24" data-line-number="24"><span class="co">##  7 Illinois      cases   43916</span></a>
+<a class="sourceLine" id="cb53-25" data-line-number="25"><span class="co">##  8 Illinois      deaths   1946</span></a>
+<a class="sourceLine" id="cb53-26" data-line-number="26"><span class="co">##  9 California    cases   43696</span></a>
+<a class="sourceLine" id="cb53-27" data-line-number="27"><span class="co">## 10 California    deaths   1723</span></a>
+<a class="sourceLine" id="cb53-28" data-line-number="28"><span class="co">## # … with 30 more rows</span></a></code></pre></div></li>
+<li><p>Use a dot plot to provide an alternative representation that is more easy to associated statsistics with individual states</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">ggplot</span>(state_longer, <span class="kw">aes</span>(<span class="dt">x =</span> count, <span class="dt">y =</span> state, <span class="dt">color =</span> metric)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_x_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p></li>
+</ul>
+</div>
 </div>
 <div id="day-18-worldwide-covid-data" class="section level2">
 <h2><span class="header-section-number">3.4</span> Day 18 Worldwide COVID data</h2>
 <p>Setup</p>
 <ul>
 <li><p>Start a new script and load the packages we’ll use</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="kw">library</span>(tidyr)     <span class="co"># specialized functions for transforming tibbles</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="kw">library</span>(tidyr)     <span class="co"># specialized functions for transforming tibbles</span></a></code></pre></div>
 <p>These packages should have been installed during previous quarantines.</p></li>
 </ul>
 <p>Source</p>
 <ul>
 <li><p>CSSE at Johns Hopkins University, available on github</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">hopkins =<span class="st"> &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv&quot;</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">csv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(hopkins)</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="co">## Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">## cols(</span></a>
-<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="co">##   .default = col_double(),</span></a>
-<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="co">##   `Province/State` = col_character(),</span></a>
-<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="co">##   `Country/Region` = col_character()</span></a>
-<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="co">## )</span></a>
-<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="co">## See spec(...) for full column specifications.</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">hopkins =<span class="st"> &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv&quot;</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">csv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(hopkins)</a>
+<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb56-4" data-line-number="4"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="co">##   .default = col_double(),</span></a>
+<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="co">##   `Province/State` = col_character(),</span></a>
+<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="co">##   `Country/Region` = col_character()</span></a>
+<a class="sourceLine" id="cb56-8" data-line-number="8"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="co">## See spec(...) for full column specifications.</span></a></code></pre></div></li>
 </ul>
 <p>‘Tidy’ data</p>
 <ul>
@@ -712,22 +1059,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The <code>values_to</code> argument is the column name we want to use for the pivoted values. Since the values in the main part of <code>csv</code> are the number of cases observed, we’ll use <code>values_to = &quot;cases&quot;</code></p></li>
 </ul></li>
 <li><p>Here’s what we have after pivoting</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">csv <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>)</a>
-<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="co">## # A tibble: 25,344 x 6</span></a>
-<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="co">##    `Province/State` `Country/Region`   Lat  Long date    cases</span></a>
-<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="co">##    &lt;chr&gt;            &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="co">##  1 &lt;NA&gt;             Afghanistan         33    65 1/22/20     0</span></a>
-<a class="sourceLine" id="cb28-7" data-line-number="7"><span class="co">##  2 &lt;NA&gt;             Afghanistan         33    65 1/23/20     0</span></a>
-<a class="sourceLine" id="cb28-8" data-line-number="8"><span class="co">##  3 &lt;NA&gt;             Afghanistan         33    65 1/24/20     0</span></a>
-<a class="sourceLine" id="cb28-9" data-line-number="9"><span class="co">##  4 &lt;NA&gt;             Afghanistan         33    65 1/25/20     0</span></a>
-<a class="sourceLine" id="cb28-10" data-line-number="10"><span class="co">##  5 &lt;NA&gt;             Afghanistan         33    65 1/26/20     0</span></a>
-<a class="sourceLine" id="cb28-11" data-line-number="11"><span class="co">##  6 &lt;NA&gt;             Afghanistan         33    65 1/27/20     0</span></a>
-<a class="sourceLine" id="cb28-12" data-line-number="12"><span class="co">##  7 &lt;NA&gt;             Afghanistan         33    65 1/28/20     0</span></a>
-<a class="sourceLine" id="cb28-13" data-line-number="13"><span class="co">##  8 &lt;NA&gt;             Afghanistan         33    65 1/29/20     0</span></a>
-<a class="sourceLine" id="cb28-14" data-line-number="14"><span class="co">##  9 &lt;NA&gt;             Afghanistan         33    65 1/30/20     0</span></a>
-<a class="sourceLine" id="cb28-15" data-line-number="15"><span class="co">## 10 &lt;NA&gt;             Afghanistan         33    65 1/31/20     0</span></a>
-<a class="sourceLine" id="cb28-16" data-line-number="16"><span class="co">## # … with 25,334 more rows</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">csv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>)</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="co">## # A tibble: 25,608 x 6</span></a>
+<a class="sourceLine" id="cb57-4" data-line-number="4"><span class="co">##    `Province/State` `Country/Region`   Lat  Long date    cases</span></a>
+<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="co">##    &lt;chr&gt;            &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="co">##  1 &lt;NA&gt;             Afghanistan         33    65 1/22/20     0</span></a>
+<a class="sourceLine" id="cb57-7" data-line-number="7"><span class="co">##  2 &lt;NA&gt;             Afghanistan         33    65 1/23/20     0</span></a>
+<a class="sourceLine" id="cb57-8" data-line-number="8"><span class="co">##  3 &lt;NA&gt;             Afghanistan         33    65 1/24/20     0</span></a>
+<a class="sourceLine" id="cb57-9" data-line-number="9"><span class="co">##  4 &lt;NA&gt;             Afghanistan         33    65 1/25/20     0</span></a>
+<a class="sourceLine" id="cb57-10" data-line-number="10"><span class="co">##  5 &lt;NA&gt;             Afghanistan         33    65 1/26/20     0</span></a>
+<a class="sourceLine" id="cb57-11" data-line-number="11"><span class="co">##  6 &lt;NA&gt;             Afghanistan         33    65 1/27/20     0</span></a>
+<a class="sourceLine" id="cb57-12" data-line-number="12"><span class="co">##  7 &lt;NA&gt;             Afghanistan         33    65 1/28/20     0</span></a>
+<a class="sourceLine" id="cb57-13" data-line-number="13"><span class="co">##  8 &lt;NA&gt;             Afghanistan         33    65 1/29/20     0</span></a>
+<a class="sourceLine" id="cb57-14" data-line-number="14"><span class="co">##  9 &lt;NA&gt;             Afghanistan         33    65 1/30/20     0</span></a>
+<a class="sourceLine" id="cb57-15" data-line-number="15"><span class="co">## 10 &lt;NA&gt;             Afghanistan         33    65 1/31/20     0</span></a>
+<a class="sourceLine" id="cb57-16" data-line-number="16"><span class="co">## # … with 25,598 more rows</span></a></code></pre></div></li>
 <li><p>We’d like to further clean this up data</p>
 <ul>
 <li><p>Format our newly created ‘date’ column (using <code>as.Date()</code>, but with a <code>format=</code> argument appropriate for the format of the dates in this data set)</p></li>
@@ -735,31 +1082,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Select only columns of interest – <code>country</code>, <code>date</code>, <code>cases</code></p></li>
 <li><p>Some countries have multiple rows, because the data is a provincial or state levels, so we would like to sum all cases, grouped by <code>country</code> and <code>date</code></p></li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">world &lt;-</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">    </span>csv <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb29-5" data-line-number="5">        <span class="dt">country =</span> <span class="st">`</span><span class="dt">Country/Region</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb29-6" data-line-number="6">        <span class="dt">date =</span> <span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%m/%d/%y&quot;</span>)</a>
-<a class="sourceLine" id="cb29-7" data-line-number="7">    ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="st">    </span><span class="kw">group_by</span>(country, date) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-9" data-line-number="9"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases))</a>
-<a class="sourceLine" id="cb29-10" data-line-number="10">world</a>
-<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="co">## # A tibble: 17,760 x 3</span></a>
-<a class="sourceLine" id="cb29-12" data-line-number="12"><span class="co">## # Groups:   country [185]</span></a>
-<a class="sourceLine" id="cb29-13" data-line-number="13"><span class="co">##    country     date       cases</span></a>
-<a class="sourceLine" id="cb29-14" data-line-number="14"><span class="co">##    &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb29-15" data-line-number="15"><span class="co">##  1 Afghanistan 2020-01-22     0</span></a>
-<a class="sourceLine" id="cb29-16" data-line-number="16"><span class="co">##  2 Afghanistan 2020-01-23     0</span></a>
-<a class="sourceLine" id="cb29-17" data-line-number="17"><span class="co">##  3 Afghanistan 2020-01-24     0</span></a>
-<a class="sourceLine" id="cb29-18" data-line-number="18"><span class="co">##  4 Afghanistan 2020-01-25     0</span></a>
-<a class="sourceLine" id="cb29-19" data-line-number="19"><span class="co">##  5 Afghanistan 2020-01-26     0</span></a>
-<a class="sourceLine" id="cb29-20" data-line-number="20"><span class="co">##  6 Afghanistan 2020-01-27     0</span></a>
-<a class="sourceLine" id="cb29-21" data-line-number="21"><span class="co">##  7 Afghanistan 2020-01-28     0</span></a>
-<a class="sourceLine" id="cb29-22" data-line-number="22"><span class="co">##  8 Afghanistan 2020-01-29     0</span></a>
-<a class="sourceLine" id="cb29-23" data-line-number="23"><span class="co">##  9 Afghanistan 2020-01-30     0</span></a>
-<a class="sourceLine" id="cb29-24" data-line-number="24"><span class="co">## 10 Afghanistan 2020-01-31     0</span></a>
-<a class="sourceLine" id="cb29-25" data-line-number="25"><span class="co">## # … with 17,750 more rows</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">world &lt;-</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">    </span>csv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">        <span class="dt">country =</span> <span class="st">`</span><span class="dt">Country/Region</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb58-6" data-line-number="6">        <span class="dt">date =</span> <span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%m/%d/%y&quot;</span>)</a>
+<a class="sourceLine" id="cb58-7" data-line-number="7">    ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-8" data-line-number="8"><span class="st">    </span><span class="kw">group_by</span>(country, date) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-9" data-line-number="9"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases))</a>
+<a class="sourceLine" id="cb58-10" data-line-number="10">world</a>
+<a class="sourceLine" id="cb58-11" data-line-number="11"><span class="co">## # A tibble: 17,945 x 3</span></a>
+<a class="sourceLine" id="cb58-12" data-line-number="12"><span class="co">## # Groups:   country [185]</span></a>
+<a class="sourceLine" id="cb58-13" data-line-number="13"><span class="co">##    country     date       cases</span></a>
+<a class="sourceLine" id="cb58-14" data-line-number="14"><span class="co">##    &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb58-15" data-line-number="15"><span class="co">##  1 Afghanistan 2020-01-22     0</span></a>
+<a class="sourceLine" id="cb58-16" data-line-number="16"><span class="co">##  2 Afghanistan 2020-01-23     0</span></a>
+<a class="sourceLine" id="cb58-17" data-line-number="17"><span class="co">##  3 Afghanistan 2020-01-24     0</span></a>
+<a class="sourceLine" id="cb58-18" data-line-number="18"><span class="co">##  4 Afghanistan 2020-01-25     0</span></a>
+<a class="sourceLine" id="cb58-19" data-line-number="19"><span class="co">##  5 Afghanistan 2020-01-26     0</span></a>
+<a class="sourceLine" id="cb58-20" data-line-number="20"><span class="co">##  6 Afghanistan 2020-01-27     0</span></a>
+<a class="sourceLine" id="cb58-21" data-line-number="21"><span class="co">##  7 Afghanistan 2020-01-28     0</span></a>
+<a class="sourceLine" id="cb58-22" data-line-number="22"><span class="co">##  8 Afghanistan 2020-01-29     0</span></a>
+<a class="sourceLine" id="cb58-23" data-line-number="23"><span class="co">##  9 Afghanistan 2020-01-30     0</span></a>
+<a class="sourceLine" id="cb58-24" data-line-number="24"><span class="co">## 10 Afghanistan 2020-01-31     0</span></a>
+<a class="sourceLine" id="cb58-25" data-line-number="25"><span class="co">## # … with 17,935 more rows</span></a></code></pre></div></li>
 <li><p>Let’s also calculate <code>new_cases</code> by country</p>
 <ul>
 <li>Use <code>group_by()</code> to perform the <code>new_cases</code> computation for each country</li>
@@ -767,116 +1114,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Use <code>ungroup()</code> to remove the grouping variable, so it doesn’t unexpectedly influence other calculations</li>
 <li>re-assign the updated <code>tibble</code> to the variable <code>world</code></li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">world &lt;-</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">    </span>world <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">    </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">new_cases =</span> <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="st">    </span><span class="kw">ungroup</span>()</a></code></pre></div></li>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">world &lt;-</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">    </span>world <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="st">    </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">new_cases =</span> <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb59-5" data-line-number="5"><span class="st">    </span><span class="kw">ungroup</span>()</a></code></pre></div></li>
 </ul>
 <p>Exploration</p>
 <ul>
 <li><p>Use <code>group_by()</code> and <code>summarize()</code> to find the maximum (total) number of cases, and <code>arrange() these in</code>desc()`ending order</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">world <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">    </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">max</span>(cases)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n))</a>
-<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="co">## # A tibble: 185 x 2</span></a>
-<a class="sourceLine" id="cb31-6" data-line-number="6"><span class="co">##    country             n</span></a>
-<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="co">##    &lt;chr&gt;           &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="co">##  1 US             965785</span></a>
-<a class="sourceLine" id="cb31-9" data-line-number="9"><span class="co">##  2 Spain          226629</span></a>
-<a class="sourceLine" id="cb31-10" data-line-number="10"><span class="co">##  3 Italy          197675</span></a>
-<a class="sourceLine" id="cb31-11" data-line-number="11"><span class="co">##  4 France         162220</span></a>
-<a class="sourceLine" id="cb31-12" data-line-number="12"><span class="co">##  5 Germany        157770</span></a>
-<a class="sourceLine" id="cb31-13" data-line-number="13"><span class="co">##  6 United Kingdom 154037</span></a>
-<a class="sourceLine" id="cb31-14" data-line-number="14"><span class="co">##  7 Turkey         110130</span></a>
-<a class="sourceLine" id="cb31-15" data-line-number="15"><span class="co">##  8 Iran            90481</span></a>
-<a class="sourceLine" id="cb31-16" data-line-number="16"><span class="co">##  9 China           83912</span></a>
-<a class="sourceLine" id="cb31-17" data-line-number="17"><span class="co">## 10 Russia          80949</span></a>
-<a class="sourceLine" id="cb31-18" data-line-number="18"><span class="co">## # … with 175 more rows</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">world <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="st">    </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb60-3" data-line-number="3"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">max</span>(cases)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n))</a>
+<a class="sourceLine" id="cb60-5" data-line-number="5"><span class="co">## # A tibble: 185 x 2</span></a>
+<a class="sourceLine" id="cb60-6" data-line-number="6"><span class="co">##    country             n</span></a>
+<a class="sourceLine" id="cb60-7" data-line-number="7"><span class="co">##    &lt;chr&gt;           &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb60-8" data-line-number="8"><span class="co">##  1 US             988197</span></a>
+<a class="sourceLine" id="cb60-9" data-line-number="9"><span class="co">##  2 Spain          229422</span></a>
+<a class="sourceLine" id="cb60-10" data-line-number="10"><span class="co">##  3 Italy          199414</span></a>
+<a class="sourceLine" id="cb60-11" data-line-number="11"><span class="co">##  4 France         165963</span></a>
+<a class="sourceLine" id="cb60-12" data-line-number="12"><span class="co">##  5 Germany        158758</span></a>
+<a class="sourceLine" id="cb60-13" data-line-number="13"><span class="co">##  6 United Kingdom 158348</span></a>
+<a class="sourceLine" id="cb60-14" data-line-number="14"><span class="co">##  7 Turkey         112261</span></a>
+<a class="sourceLine" id="cb60-15" data-line-number="15"><span class="co">##  8 Iran            91472</span></a>
+<a class="sourceLine" id="cb60-16" data-line-number="16"><span class="co">##  9 Russia          87147</span></a>
+<a class="sourceLine" id="cb60-17" data-line-number="17"><span class="co">## 10 China           83918</span></a>
+<a class="sourceLine" id="cb60-18" data-line-number="18"><span class="co">## # … with 175 more rows</span></a></code></pre></div></li>
 </ul>
 <p>Visualization</p>
 <ul>
 <li><p>Start by creating a subset, e.g., the US</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">country &lt;-<span class="st"> &quot;US&quot;</span></a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">us &lt;-</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="st">    </span>world <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="st">    </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;US&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">country &lt;-<span class="st"> &quot;US&quot;</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">us &lt;-</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="st">    </span>world <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb61-4" data-line-number="4"><span class="st">    </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;US&quot;</span>)</a></code></pre></div></li>
 <li><p>Use <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> to visualize the progression of the pandemic</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">ggplot</span>(us, <span class="kw">aes</span>(date, new_cases)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Country:&quot;</span>, country))</a>
-<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
-<a class="sourceLine" id="cb33-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb33-8" data-line-number="8"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
-<a class="sourceLine" id="cb33-9" data-line-number="9"><span class="co">## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></a>
-<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="co">## Warning: Removed 25 rows containing non-finite values (stat_smooth).</span></a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">ggplot</span>(us, <span class="kw">aes</span>(date, new_cases)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Country:&quot;</span>, country))</a>
+<a class="sourceLine" id="cb62-6" data-line-number="6"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
+<a class="sourceLine" id="cb62-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb62-8" data-line-number="8"><span class="co">## Warning: Transformation introduced infinite values in continuous y-axis</span></a>
+<a class="sourceLine" id="cb62-9" data-line-number="9"><span class="co">## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></a>
+<a class="sourceLine" id="cb62-10" data-line-number="10"><span class="co">## Warning: Removed 25 rows containing non-finite values (stat_smooth).</span></a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p></li>
 </ul>
 <p>It seems like it would be convenient to capture our data cleaning and visualization steps into separate functions that can be re-used, e.g., on different days or for different visualizations.</p>
 <ul>
 <li><p>write a function for data retrieval and cleaning</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">get_world_data &lt;-</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">    </span><span class="cf">function</span>()</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3">{</a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">    <span class="co">## read data from Hopkins&#39; github repository</span></a>
-<a class="sourceLine" id="cb34-5" data-line-number="5">    hopkins =<span class="st"> &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv&quot;</span></a>
-<a class="sourceLine" id="cb34-6" data-line-number="6">    csv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(hopkins)</a>
-<a class="sourceLine" id="cb34-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb34-8" data-line-number="8">    <span class="co">## &#39;tidy&#39; the data</span></a>
-<a class="sourceLine" id="cb34-9" data-line-number="9">    world &lt;-</a>
-<a class="sourceLine" id="cb34-10" data-line-number="10"><span class="st">        </span>csv <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-11" data-line-number="11"><span class="st">        </span><span class="kw">pivot_longer</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-12" data-line-number="12"><span class="st">        </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb34-13" data-line-number="13">            <span class="dt">country =</span> <span class="st">`</span><span class="dt">Country/Region</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb34-14" data-line-number="14">            <span class="dt">date =</span> <span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%m/%d/%y&quot;</span>)</a>
-<a class="sourceLine" id="cb34-15" data-line-number="15">        )</a>
-<a class="sourceLine" id="cb34-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb34-17" data-line-number="17">    <span class="co">## sum cases across regions within aa country</span></a>
-<a class="sourceLine" id="cb34-18" data-line-number="18">    world &lt;-</a>
-<a class="sourceLine" id="cb34-19" data-line-number="19"><span class="st">        </span>world <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-20" data-line-number="20"><span class="st">        </span><span class="kw">group_by</span>(country, date) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-21" data-line-number="21"><span class="st">        </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases))</a>
-<a class="sourceLine" id="cb34-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb34-23" data-line-number="23">    <span class="co">## add `new_cases`, and return the result</span></a>
-<a class="sourceLine" id="cb34-24" data-line-number="24">    world <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-25" data-line-number="25"><span class="st">        </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-26" data-line-number="26"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">new_cases =</span> <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb34-27" data-line-number="27"><span class="st">        </span><span class="kw">ungroup</span>()</a>
-<a class="sourceLine" id="cb34-28" data-line-number="28">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">get_world_data &lt;-</a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">    </span><span class="cf">function</span>()</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3">{</a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">    <span class="co">## read data from Hopkins&#39; github repository</span></a>
+<a class="sourceLine" id="cb63-5" data-line-number="5">    hopkins =<span class="st"> &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv&quot;</span></a>
+<a class="sourceLine" id="cb63-6" data-line-number="6">    csv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(hopkins)</a>
+<a class="sourceLine" id="cb63-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb63-8" data-line-number="8">    <span class="co">## &#39;tidy&#39; the data</span></a>
+<a class="sourceLine" id="cb63-9" data-line-number="9">    world &lt;-</a>
+<a class="sourceLine" id="cb63-10" data-line-number="10"><span class="st">        </span>csv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-11" data-line-number="11"><span class="st">        </span><span class="kw">pivot_longer</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-12" data-line-number="12"><span class="st">        </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb63-13" data-line-number="13">            <span class="dt">country =</span> <span class="st">`</span><span class="dt">Country/Region</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb63-14" data-line-number="14">            <span class="dt">date =</span> <span class="kw">as.Date</span>(date, <span class="dt">format =</span> <span class="st">&quot;%m/%d/%y&quot;</span>)</a>
+<a class="sourceLine" id="cb63-15" data-line-number="15">        )</a>
+<a class="sourceLine" id="cb63-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb63-17" data-line-number="17">    <span class="co">## sum cases across regions within aa country</span></a>
+<a class="sourceLine" id="cb63-18" data-line-number="18">    world &lt;-</a>
+<a class="sourceLine" id="cb63-19" data-line-number="19"><span class="st">        </span>world <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-20" data-line-number="20"><span class="st">        </span><span class="kw">group_by</span>(country, date) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-21" data-line-number="21"><span class="st">        </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases))</a>
+<a class="sourceLine" id="cb63-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb63-23" data-line-number="23">    <span class="co">## add `new_cases`, and return the result</span></a>
+<a class="sourceLine" id="cb63-24" data-line-number="24">    world <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-25" data-line-number="25"><span class="st">        </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-26" data-line-number="26"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">new_cases =</span> <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-27" data-line-number="27"><span class="st">        </span><span class="kw">ungroup</span>()</a>
+<a class="sourceLine" id="cb63-28" data-line-number="28">}</a></code></pre></div></li>
 <li><p>…and for plotting by country</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">plot_country &lt;-</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="st">    </span><span class="cf">function</span>(tbl, <span class="dt">view_country =</span> <span class="st">&quot;US&quot;</span>)</a>
-<a class="sourceLine" id="cb35-3" data-line-number="3">{</a>
-<a class="sourceLine" id="cb35-4" data-line-number="4">    country_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Country:&quot;</span>, view_country)</a>
-<a class="sourceLine" id="cb35-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb35-6" data-line-number="6">    <span class="co">## subset to just this country</span></a>
-<a class="sourceLine" id="cb35-7" data-line-number="7">    country_data &lt;-</a>
-<a class="sourceLine" id="cb35-8" data-line-number="8"><span class="st">        </span>tbl <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-9" data-line-number="9"><span class="st">        </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> </span>view_country)</a>
-<a class="sourceLine" id="cb35-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb35-11" data-line-number="11">    <span class="co">## plot</span></a>
-<a class="sourceLine" id="cb35-12" data-line-number="12">    country_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-13" data-line-number="13"><span class="st">        </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span>new_cases)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-14" data-line-number="14"><span class="st">        </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-15" data-line-number="15"><span class="st">        </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-16" data-line-number="16"><span class="st">        </span><span class="co">## add method and formula to quieten message</span></a>
-<a class="sourceLine" id="cb35-17" data-line-number="17"><span class="st">        </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-18" data-line-number="18"><span class="st">        </span><span class="kw">ggtitle</span>(country_title)</a>
-<a class="sourceLine" id="cb35-19" data-line-number="19">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">plot_country &lt;-</a>
+<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="st">    </span><span class="cf">function</span>(tbl, <span class="dt">view_country =</span> <span class="st">&quot;US&quot;</span>)</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3">{</a>
+<a class="sourceLine" id="cb64-4" data-line-number="4">    country_title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Country:&quot;</span>, view_country)</a>
+<a class="sourceLine" id="cb64-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb64-6" data-line-number="6">    <span class="co">## subset to just this country</span></a>
+<a class="sourceLine" id="cb64-7" data-line-number="7">    country_data &lt;-</a>
+<a class="sourceLine" id="cb64-8" data-line-number="8"><span class="st">        </span>tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-9" data-line-number="9"><span class="st">        </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> </span>view_country)</a>
+<a class="sourceLine" id="cb64-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb64-11" data-line-number="11">    <span class="co">## plot</span></a>
+<a class="sourceLine" id="cb64-12" data-line-number="12">    country_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-13" data-line-number="13"><span class="st">        </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span>new_cases)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-14" data-line-number="14"><span class="st">        </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-15" data-line-number="15"><span class="st">        </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-16" data-line-number="16"><span class="st">        </span><span class="co">## add method and formula to quieten message</span></a>
+<a class="sourceLine" id="cb64-17" data-line-number="17"><span class="st">        </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x) <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-18" data-line-number="18"><span class="st">        </span><span class="kw">ggtitle</span>(country_title)</a>
+<a class="sourceLine" id="cb64-19" data-line-number="19">}</a></code></pre></div></li>
 <li><p>Note that, because the first argument of <code>plot_country()</code> is a tibble, the output of <code>get_world_data()</code> can be used as the input of <code>plot_country()</code>, and can be piped together, e.g.,</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">world &lt;-<span class="st"> </span><span class="kw">get_world_data</span>()</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="co">## Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="co">## cols(</span></a>
-<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="co">##   .default = col_double(),</span></a>
-<a class="sourceLine" id="cb36-5" data-line-number="5"><span class="co">##   `Province/State` = col_character(),</span></a>
-<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="co">##   `Country/Region` = col_character()</span></a>
-<a class="sourceLine" id="cb36-7" data-line-number="7"><span class="co">## )</span></a>
-<a class="sourceLine" id="cb36-8" data-line-number="8"><span class="co">## See spec(...) for full column specifications.</span></a>
-<a class="sourceLine" id="cb36-9" data-line-number="9">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Korea, South&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">world &lt;-<span class="st"> </span><span class="kw">get_world_data</span>()</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb65-4" data-line-number="4"><span class="co">##   .default = col_double(),</span></a>
+<a class="sourceLine" id="cb65-5" data-line-number="5"><span class="co">##   `Province/State` = col_character(),</span></a>
+<a class="sourceLine" id="cb65-6" data-line-number="6"><span class="co">##   `Country/Region` = col_character()</span></a>
+<a class="sourceLine" id="cb65-7" data-line-number="7"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb65-8" data-line-number="8"><span class="co">## See spec(...) for full column specifications.</span></a>
+<a class="sourceLine" id="cb65-9" data-line-number="9">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Korea, South&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p></li>
 </ul>
 </div>
 <div id="day-19-friday-zoom-check-in" class="section level2">
@@ -891,10 +1238,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="day-20-exploring-the-course-of-pandemic-in-different-regions" class="section level2">
 <h2><span class="header-section-number">3.6</span> Day 20 Exploring the course of pandemic in different regions</h2>
 <p>Use the data and functions from quarantine day 18 to place the pandemic into quantitative perspective. Start by retrieving the current data</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">world &lt;-<span class="st"> </span><span class="kw">get_world_data</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">world &lt;-<span class="st"> </span><span class="kw">get_world_data</span>()</a></code></pre></div>
 <p>Start with the United States</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;US&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;US&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 <ul>
 <li><p>When did ‘stay at home’ orders come into effect? Did they appear to be effective?</p></li>
 <li><p>When would the data suggest that the pandemic might be considered ‘under control’, and country-wide stay-at-home orders might be relaxed?</p></li>
@@ -902,25 +1249,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Explore other countries.</p>
 <ul>
 <li><p>The longest trajectory is probably displayed by China</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;China&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;China&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p></li>
 <li><p>Italy and Spain were hit very hard, and relatively early, by the pandemic</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Italy&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Spain&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-40-2.png" width="672" /></p></li>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Italy&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Spain&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-68-2.png" width="672" /></p></li>
 <li><p>Austria relaxed quarantine very early, in the middle of April; does that seem like a good idea?</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Austria&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Austria&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p></li>
 <li><p>Germany also had strong leadership (e.g., chancellor Angela Merkel provided clear and unambiguous rules for Germans to follow, and then self-isolated when her doctor, whom she had recently visited, tested positive) and an effective screening campaign (e.g., to make effective use of limited testing resources, in some instances pools of samples were screened, and only if the pool indicated infection were the individuals in the pool screened.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Germany&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Germany&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p></li>
 <li><p>At the start of the pandemic, Singapore had excellent surveillance (detecting individuals with symptoms) and contact tracing (identifying and placing in quarantine those individuals coming in contact with the infected individuals). New cases were initially very low, despite proximity to China, and Singapore managed the pandemic through only moderate social distancing (e.g., workers were encouraged to operate in shifts; stores and restaurants remained open). Unfortunately, Singaporeans returning from Europe (after travel restrictions were in place there) introduced new cases that appear to have overwhelmed the surveillance network. Later, the virus spread to large, densely populated migrant work housing. Singapore’s initial success at containing the virus seems to have fallen apart in the face of this wider spread, and more severe restrictions on economic and social life were imposed.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Singapore&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Singapore&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p></li>
 <li><p>South Korea had a very ‘acute’ spike in cases associated with a large church. The response was to deploy very extensive testing and use modern approaches to tracking (e.g., cell phone apps) coupled with transparent accounting. South Korea imposed relatively modest social and economic restrictions. It seems like this has effectively ‘flattened the curve’ without pausing the economy.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Korea, South&quot;</span>)</a></code></pre></div>
-<p><img src="03-Packages_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_country</span>(<span class="st">&quot;Korea, South&quot;</span>)</a></code></pre></div>
+<p><img src="03-Packages_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p></li>
 </ul>
 <p>Where does your own exploration of the data take you?</p>
 </div>
