@@ -5,30 +5,30 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Week 4 Machine learning | 40 Days and 40 Nights</title>
-  <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta name="description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Week 4 Machine learning | 40 Days and 40 Nights" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta property="og:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Week 4 Machine learning | 40 Days and 40 Nights" />
   
-  <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta name="twitter:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   
 
 <meta name="author" content="Martin Morgan" />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-04-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,7 +73,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -190,11 +190,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="three.html"><a href="three.html"><i class="fa fa-check"></i><b>3</b> Packages and the ‘tidyverse’</a><ul>
 <li class="chapter" data-level="3.1" data-path="three.html"><a href="three.html#day-15-monday-zoom-check-in"><i class="fa fa-check"></i><b>3.1</b> Day 15 (Monday) Zoom check-in</a><ul>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#review-and-troubleshoot-15-minutes-1"><i class="fa fa-check"></i>Review and troubleshoot (15 minutes)</a></li>
-<li class="chapter" data-level="3.1.1" data-path="three.html"><a href="three.html#packages-20-minutes"><i class="fa fa-check"></i><b>3.1.1</b> Packages (20 minutes)</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#packages-20-minutes"><i class="fa fa-check"></i>Packages (20 minutes)</a></li>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#the-tidyverse-of-packages-20-minutes"><i class="fa fa-check"></i>The ‘tidyverse’ of packages (20 minutes)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="three.html"><a href="three.html#day-16-key-tidyverse-packages-readr-and-dplyr"><i class="fa fa-check"></i><b>3.2</b> Day 16 Key tidyverse packages: <span>readr</span> and <span>dplyr</span></a></li>
-<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with <span>ggplot2</span></a></li>
+<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with <span>ggplot2</span></a><ul>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+<li><a href="three.html#ggplot2-essentials"><span>ggplot2</span> essentials</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-erie-county"><i class="fa fa-check"></i>COVID-19 in Erie county</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-new-york-state"><i class="fa fa-check"></i>COVID-19 in New York State</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-nationally"><i class="fa fa-check"></i>COVID-19 nationally</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="three.html"><a href="three.html#day-18-worldwide-covid-data"><i class="fa fa-check"></i><b>3.4</b> Day 18 Worldwide COVID data</a></li>
 <li class="chapter" data-level="3.5" data-path="three.html"><a href="three.html#day-19-friday-zoom-check-in"><i class="fa fa-check"></i><b>3.5</b> Day 19 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="three.html"><a href="three.html#review-and-trouble-shoot-25-minutes"><i class="fa fa-check"></i><b>3.5.1</b> Review and trouble shoot (25 minutes)</a></li>
@@ -206,8 +212,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="four.html"><a href="four.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.1</b> A Machine Learning Primer</a></li>
-<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forests-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forests Algorithm</a></li>
-<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-random-forests-example"><i class="fa fa-check"></i><b>4.1.3</b> A Random Forests Example</a></li>
+<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forest-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forest Algorithm</a></li>
+<li class="chapter" data-level="" data-path="four.html"><a href="four.html#preparing-a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i>Preparing a COVID-19 Dataset for Machine Learning</a></li>
+<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-random-forest-example-using-covid-19-data"><i class="fa fa-check"></i><b>4.1.3</b> A Random Forest Example Using COVID-19 Data</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
 <li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
@@ -275,30 +282,30 @@ classification algorithms.</p></li>
 <p>Here is an overview of what we’ll cover in today’s Zoom session:</p>
 <ul>
 <li><p>Overview of Machine Learning for Classification (30 minutes)</p></li>
-<li><p>Introduction to the Random Forests algorithm (5 minutes)</p></li>
-<li><p>A Random Forests Example in <em>R</em> using COVID-19 Data (25 minutes)</p></li>
+<li><p>Introduction to the Random Forest algorithm (5 minutes)</p></li>
+<li><p>A Random Forest Example in <em>R</em> using COVID-19 Data (25 minutes)</p></li>
 </ul>
 <div id="a-machine-learning-primer" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> A Machine Learning Primer</h3>
 <p>Machine Learning (ML) may be defined as using computers to make inferences about data.</p>
 <ul>
-<li><p>A mapping of inputs to outputs, Y = f(<b>X<b> , <b>β<b>)</p></li>
+<li><p>A mapping of inputs to outputs, Y = f(<b>X</b> , <b>β</b>)</p></li>
 <li><p><i>ML for Classification</i> refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)</p>
 <ul>
 <li><p>For example, predicting health risk (mild, moderate, severe) based on patient data (height, weight, age, smoker?)</p></li>
-<li><p>Or predicting <a href="https://en.wikipedia.org/wiki/Pandemic_severity_index">pandemic severity index</a> (psi) of COVID-19 in a state based on statewide population data.</p></li>
+<li><p>Or predicting <a href="https://en.wikipedia.org/wiki/Pandemic_severity_index">pandemic severity index</a> (PSI) of COVID-19 in a state based on statewide population data.</p></li>
 </ul></li>
 </ul>
-<pre><code>##  Category Death.Rate    Example     
-##  1        &lt; 0.1%        seasonal flu
-##  2        0.1% - 0.5%   Asian flu   
-##  3        0.5% - 1.0%   n/a         
-##  4        1.0% - 2.0%   n/a         
-##  5        &gt; 2.0%        Spanish flu</code></pre>
+<pre><code>##  PSI Death.Rate    Example     
+##  1   &lt; 0.1%        seasonal flu
+##  2   0.1% - 0.5%   Asian flu   
+##  3   0.5% - 1.0%   n/a         
+##  4   1.0% - 2.0%   n/a         
+##  5   &gt; 2.0%        Spanish flu</code></pre>
 <p>– Predictions are typically expressed as a vector of probabilities.</p>
 <pre><code>– e.g. Pr(cancerous) vs. Pr(benign)
 
-- e.g. Pr(psi=1), Pr(psi=2), ..., Pr(psi=5)</code></pre>
+- e.g. Pr(PSI=1), Pr(PSI=2), ..., Pr(PSI=5)</code></pre>
 <div id="a-black-box-view-of-machine-learning" class="section level4 unnumbered">
 <h4>A “Black Box” View of Machine Learning</h4>
 <p>The diagram below illustrates the concept in terms of a “black box” model that converts inputs into predictions.</p>
@@ -317,7 +324,7 @@ classification algorithms.</p></li>
 <li><p><b>Parameters</b> (<b><span class="math inline">\(\beta\)</span></b>): these are internal variables of the selected machine learning algorithm and are also known as coefficients or training weights. Algorithm parameters need to be adjusted to minimize the deviation between predictions and observations.</p></li>
 <li><p><b>Labels</b> (<b>Y</b>): these are the outputs of the algorithm (i.e. the categories you are attempting to predict).</p></li>
 <li><p><b>Training Data</b>: this is a data sets containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.</p></li>
-<li><p><b>Training</b>: this is the process of adjusting algorithm paramters (<b><span class="math inline">\(/beta\)</span></b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimations.</p></li>
+<li><p><b>Training</b>: this is the process of adjusting algorithm paramters (<b><span class="math inline">\(\beta\)</span></b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimations.</p></li>
 </ul>
 <p>An example set of training data that could be used in the gender prediction example is given below:</p>
 <pre><code>##  height_m weight_kg age_y gender
@@ -342,9 +349,9 @@ classification algorithms.</p></li>
 <p>The figure below illustrates the classification accuracy and confusion matrix for an example that attempts to classify images of fruits.</p>
 <p><img src="images/ml_ca_fruits_example.png" width="50%" style="display: block; margin: auto;" /></p>
 <ul>
-<li><b> ROC curve</b>: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a “non-informative” model (i.e. a model that makes a uniform random guess). As such, we’d like the blue curve to be as far above the read curve as possible.</li>
+<li><b> ROC curve</b>: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a “non-informative” model (i.e. a model that makes a uniform random guess). As such, we’d like the blue curve to be as far above the red curve as possible.</li>
 </ul>
-<p><img src="images/ml_roc_curve_example.png" width="545" style="display: block; margin: auto;" /></p>
+<p><img src="images/ml_roc_curve_example.png" width="75%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p><b>AUC</b>: this stands for “area under curve” and is the area under the ROC curve. In the previous figure, the AUC would be the area under the dashed blue curve. Values of AUC quantify the degree to which an ROC curve lies above (or below) the red “non-informative” curve. Some interesting AUC values:</p>
 <ul>
@@ -357,7 +364,7 @@ classification algorithms.</p></li>
 <div id="the-machine-learning-process" class="section level4 unnumbered">
 <h4>The Machine Learning Process</h4>
 <p>Now that we’ve defined some of the important machine learning terminology let’s take a 30,000 foot view at the overall machine learning process. This is a general description of the process that you’ll want to follow each time you build and use a machine learning model. The process is illustrated in the figure below (with credit to <a href="https://blog.usejournal.com/machine-learning-for-beginners-from-zero-level-8be5b89bf77c">Jinesh Maloo</a>):</p>
-<p><img src="images/ml_process_maloo.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="images/ml_process_maloo.png" width="75%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>Step 1: Prepare labeled data for training and validation.</p></li>
 <li><p>Step 2: Select a machine learning algorithm (i.e. model).</p></li>
@@ -375,11 +382,329 @@ classification algorithms.</p></li>
 </ul>
 </div>
 </div>
-<div id="the-random-forests-algorithm" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> The Random Forests Algorithm</h3>
+<div id="the-random-forest-algorithm" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> The Random Forest Algorithm</h3>
+<p>The random forest algorithm is a popular choice for machine learning.</p>
+<ul>
+<li><p>Over 20 <em>R</em> packages have an implementation of some form of the algorithm.</p></li>
+<li><p>We’ll be using the <code>randomForest</code> pacakge.</p></li>
+<li><p>The algorithm is like <code>bagging</code> (boostrap aggregating) regression trees, but the rgression trees are de-correlated.</p></li>
+</ul>
+<p>The figure below illustrates one possible <code>tree</code> in a <code>random forest</code> for a gender prediction model. In computer science terminology, each split in the figure is a <code>branch</code> of a graph <code>tree</code>. In simple terms, the split points are randomly generated and the resulting <code>trees</code> combine to form a <code>random forest</code>.</p>
+<p><img src="images/ml_rf_tree_gender.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>The figure below illustrates a set of 6 <code>trees</code> that make up a <code>random forest</code> for predicting housing prices. The image is courtesy <a href="https://uc-r.github.io/random_forests">Bradley Boehmke at the University of Cincinnati</a>. Examine the figure closely and notice that:</p>
+<ul>
+<li><p>The split variables can differ across trees (not all variables are included in all trees).</p></li>
+<li><p>The split variables can differ within trees (not all paths consider the same set of variables).</p></li>
+<li><p>The order of splits can differ.</p></li>
+<li><p>The split values can differ.</p></li>
+</ul>
+<p><img src="images/ml_rf_tree_housing.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The job of the random forest algorithm is to determine the optimal set of trees for your data set, including the splitting configuration (i.e. order, values, etc.).</p>
 </div>
-<div id="a-random-forests-example" class="section level3">
-<h3><span class="header-section-number">4.1.3</span> A Random Forests Example</h3>
+<div id="preparing-a-covid-19-dataset-for-machine-learning" class="section level3 unnumbered">
+<h3>Preparing a COVID-19 Dataset for Machine Learning</h3>
+<p>We’d like to predict the severity of COVID-19 in a given state using statewide <i>feature</i> data like population, urban density, number of hospital beds, date of stay at home order, etc. We’ve already seen that we can get the information about cases and deaths from the New York Times github page. However, gathering corresponding statewide feature data requires quite a bit of hunting through various public websites. Consequently, we’re going to skip over the painstaking process of marshalling the feature data and just provide you with a dataset that is already nice and prepped for machine learning.</p>
+<p>You’ll work with two <code>.csv</code> files - a <b>data</b> file that contains a veriety of statewide data, and a <b>metadata</b> file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing publicly avaialble datasets.</p>
+<p>To give you an idea of what was involved in assembling the data and metadate file, a summary of the data collection and processing steps is given below:</p>
+<ul>
+<li>First, a snapshot of the New York Times COVID-19 data from April 27th was downloaded from the <a href="https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv">nytimes github repo</a> and stored on local disk.</li>
+</ul>
+<pre><code>$ wget https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
+$ mv us-counties.csv us-counties_04_27_2020.csv</code></pre>
+<ul>
+<li><p>The data was processed using <em>R</em> :</p>
+<ul>
+<li><p>the cases and deaths in <code>us-counties_04_27_2020.csv</code> were aggregated into statewide values.</p></li>
+<li><p>the death rate was calculated and categorized according to an 8-point severity index</p></li>
+<li><p>finally, the statewide data was exported as a <code>.csv</code> file</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1"></a>
+<a class="sourceLine" id="cb286-2" title="2"><span class="co"># get data from file</span></a>
+<a class="sourceLine" id="cb286-3" title="3">covid_data_file =<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">Matott</span><span class="ch">\\</span><span class="st">MyQuaRantine&quot;</span>, <span class="st">&quot;us-counties_04_27_2020.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb286-4" title="4"></a>
+<a class="sourceLine" id="cb286-5" title="5"><span class="co"># read in as data frame</span></a>
+<a class="sourceLine" id="cb286-6" title="6">us_data =<span class="st"> </span><span class="kw">read.csv</span>(covid_data_file, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb286-7" title="7"></a>
+<a class="sourceLine" id="cb286-8" title="8"><span class="co"># aggregate by county and state</span></a>
+<a class="sourceLine" id="cb286-9" title="9">cases_county_state &lt;-<span class="st"> </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county <span class="op">+</span><span class="st"> </span>state, us_data, max )</a>
+<a class="sourceLine" id="cb286-10" title="10">deaths_county_state &lt;-<span class="st"> </span><span class="kw">aggregate</span>( deaths <span class="op">~</span><span class="st"> </span>county <span class="op">+</span><span class="st"> </span>state, us_data, max )</a>
+<a class="sourceLine" id="cb286-11" title="11"></a>
+<a class="sourceLine" id="cb286-12" title="12"><span class="co"># aggregate by state</span></a>
+<a class="sourceLine" id="cb286-13" title="13">cases_state &lt;-<span class="st"> </span><span class="kw">aggregate</span>(cases <span class="op">~</span><span class="st"> </span>state, cases_county_state, sum)</a>
+<a class="sourceLine" id="cb286-14" title="14">deaths_state &lt;-<span class="st"> </span><span class="kw">aggregate</span>(deaths <span class="op">~</span><span class="st"> </span>state, deaths_county_state, sum)</a>
+<a class="sourceLine" id="cb286-15" title="15"></a>
+<a class="sourceLine" id="cb286-16" title="16"><span class="co"># calculate death rate</span></a>
+<a class="sourceLine" id="cb286-17" title="17">death_rate_state &lt;-<span class="st"> </span><span class="fl">100.00</span> <span class="op">*</span><span class="st"> </span>(deaths_state<span class="op">$</span>deaths <span class="op">/</span><span class="st"> </span>cases_state<span class="op">$</span>cases)</a>
+<a class="sourceLine" id="cb286-18" title="18"></a>
+<a class="sourceLine" id="cb286-19" title="19"><span class="co"># Assign the following severity index using cut:</span></a>
+<a class="sourceLine" id="cb286-20" title="20"><span class="co">##  PSI Death.Rate    </span></a>
+<a class="sourceLine" id="cb286-21" title="21"><span class="co">##  1   &lt; 0.1%        </span></a>
+<a class="sourceLine" id="cb286-22" title="22"><span class="co">##  2   0.1% - 0.5%   </span></a>
+<a class="sourceLine" id="cb286-23" title="23"><span class="co">##  3   0.5% - 1.0%   </span></a>
+<a class="sourceLine" id="cb286-24" title="24"><span class="co">##  4   1.0% - 2.0%   </span></a>
+<a class="sourceLine" id="cb286-25" title="25"><span class="co">##  5   2.0% - 4.0%   </span></a>
+<a class="sourceLine" id="cb286-26" title="26"><span class="co">##  6   4.0% - 6.0%   </span></a>
+<a class="sourceLine" id="cb286-27" title="27"><span class="co">##  7   6.0% - 8.0%   </span></a>
+<a class="sourceLine" id="cb286-28" title="28"><span class="co">##  8   &gt;8.0%         </span></a>
+<a class="sourceLine" id="cb286-29" title="29">psi_state &lt;-<span class="st"> </span><span class="kw">cut</span>(death_rate_state, </a>
+<a class="sourceLine" id="cb286-30" title="30">                 <span class="dt">breaks=</span><span class="kw">c</span>(<span class="fl">0.0</span>,<span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">1.0</span>,<span class="fl">2.0</span>,<span class="fl">4.0</span>,<span class="fl">6.0</span>,<span class="fl">8.0</span>,<span class="fl">100.0</span>),</a>
+<a class="sourceLine" id="cb286-31" title="31">                 <span class="dt">labels=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb286-32" title="32"></a>
+<a class="sourceLine" id="cb286-33" title="33"><span class="co"># combine into new data frame</span></a>
+<a class="sourceLine" id="cb286-34" title="34">out_df =<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb286-35" title="35">    <span class="dt">state=</span>cases_state<span class="op">$</span>state, </a>
+<a class="sourceLine" id="cb286-36" title="36">    <span class="dt">cases=</span>cases_state<span class="op">$</span>cases, </a>
+<a class="sourceLine" id="cb286-37" title="37">    <span class="dt">deaths=</span>deaths_state<span class="op">$</span>deaths,</a>
+<a class="sourceLine" id="cb286-38" title="38">    <span class="dt">death_rate=</span>death_rate_state,</a>
+<a class="sourceLine" id="cb286-39" title="39">    <span class="dt">severity_index=</span>psi_state)</a>
+<a class="sourceLine" id="cb286-40" title="40"></a>
+<a class="sourceLine" id="cb286-41" title="41"><span class="co"># write out as csv</span></a>
+<a class="sourceLine" id="cb286-42" title="42">my_out_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">Matott</span><span class="ch">\\</span><span class="st">MyQuaRantine&quot;</span>, <span class="st">&quot;covid_data.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb286-43" title="43"><span class="kw">write.csv</span>(out_df, <span class="dt">file =</span> my_out_file, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<ul>
+<li><p>The resulting statewide COVID-19 <b>label</b> data (i.e. what we would like to predict) was augmented with 32 statewide features, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a <code>.csv</code> file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).</p></li>
+<li><p>The augmented (i.e. features + labels) <code>.csv</code> file was split into two <code>.csv</code> files that you will need to download:</p>
+<ul>
+<li><p><a href="assets/statewide_covid_19_data_04_27_2020.csv">statewide_covid_19_data_04_27_2020.csv</a>: This file contains the final COVID-19 machine learning data set, but features and labels are coded so that feature columns are named <code>X01</code>, <code>X02</code>, <code>X03</code>, etc. and label colunms are named <code>Y01</code>, <code>Y02</code>, <code>Y03</code>, etc.</p></li>
+<li><p><a href="assets/statewide_covid_19_metadata_04_27_2020.csv">statewide_covid_19_metadata_04_27_2020.csv</a>: This file maps the column names in the data file to more meaningful names and desciptions (including units) of the associated variables. For example <code>X01</code> is <code>Pct_Sun</code> and has a description of <code>Percent sunny days</code>. This is known as <b>metadata</b> - data that describes other data.</p></li>
+</ul></li>
+</ul>
+<p>Click on the links above to download the data and metadata files that you’ll need for the machine learning examples presented throughout the week.</p>
+</div>
+<div id="a-random-forest-example-using-covid-19-data" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> A Random Forest Example Using COVID-19 Data</h3>
+<p>Let’s apply the random forest algorithm to the COVID-19 dataset. We’ll build out the required <em>R</em> code in sections. To get started, open a new <em>R</em> script in <em>RStudio</em> and name it <code>covid_19_rf.R</code>. Enter the code below:</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="kw">library</span>(randomForest)</a>
+<a class="sourceLine" id="cb287-2" title="2"><span class="co">## randomForest 4.6-14</span></a>
+<a class="sourceLine" id="cb287-3" title="3"><span class="co">## Type rfNews() to see new features/changes/bug fixes.</span></a>
+<a class="sourceLine" id="cb287-4" title="4"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb287-5" title="5"></a>
+<a class="sourceLine" id="cb287-6" title="6">data_file =<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;C:/Matott/MyQuaRantine&quot;</span>,</a>
+<a class="sourceLine" id="cb287-7" title="7">                      <span class="st">&quot;statewide_covid_19_data_04_27_2020.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb287-8" title="8">df =<span class="st"> </span><span class="kw">read_csv</span>(data_file)</a>
+<a class="sourceLine" id="cb287-9" title="9"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb287-10" title="10"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb287-11" title="11"><span class="co">##   .default = col_double(),</span></a>
+<a class="sourceLine" id="cb287-12" title="12"><span class="co">##   State = col_character(),</span></a>
+<a class="sourceLine" id="cb287-13" title="13"><span class="co">##   X31 = col_character(),</span></a>
+<a class="sourceLine" id="cb287-14" title="14"><span class="co">##   X32 = col_character()</span></a>
+<a class="sourceLine" id="cb287-15" title="15"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb287-16" title="16"><span class="co">## See spec(...) for full column specifications.</span></a>
+<a class="sourceLine" id="cb287-17" title="17"><span class="co"># coerce severity to a factor (so RF algorithm uses classification)</span></a>
+<a class="sourceLine" id="cb287-18" title="18">df<span class="op">$</span>Y04 =<span class="st"> </span><span class="kw">as.factor</span>(df<span class="op">$</span>Y04)</a>
+<a class="sourceLine" id="cb287-19" title="19">df</a>
+<a class="sourceLine" id="cb287-20" title="20"><span class="co">## # A tibble: 50 x 37</span></a>
+<a class="sourceLine" id="cb287-21" title="21"><span class="co">##    State   X01   X02   X03   X04   X05    X06   X07   X08   X09   X10   X11</span></a>
+<a class="sourceLine" id="cb287-22" title="22"><span class="co">##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb287-23" title="23"><span class="co">##  1 Alab~    58  2641    99  71.6  54   4.90e6   827  16.9 42240   3.9  3.5 </span></a>
+<a class="sourceLine" id="cb287-24" title="24"><span class="co">##  2 Alas~    41  2061    61  77.1  26.5 7.32e5    87  11.8 59605   6.6  9.44</span></a>
+<a class="sourceLine" id="cb287-25" title="25"><span class="co">##  3 Ariz~    85  3806   193  38.5  32.5 7.28e6  1258  17.5 44414   4.8  8.38</span></a>
+<a class="sourceLine" id="cb287-26" title="26"><span class="co">##  4 Arka~    61  2771   123  70.9  50.7 3.02e6   512  17   43292   3.7  4.51</span></a>
+<a class="sourceLine" id="cb287-27" title="27"><span class="co">##  5 Cali~    68  3055   146  61    44.2 3.95e7  5669  14.3 63711   4.2  3.14</span></a>
+<a class="sourceLine" id="cb287-28" title="28"><span class="co">##  6 Colo~    71  3204   136  54.1  28.8 5.76e6   808  14.2 58500   3.3  4.63</span></a>
+<a class="sourceLine" id="cb287-29" title="29"><span class="co">##  7 Conn~    56  2585    82  69.2  40.7 3.57e6   615  17.2 76481   4.1  2.58</span></a>
+<a class="sourceLine" id="cb287-30" title="30"><span class="co">##  8 Dela~    55  2500    97  70.9  45.8 9.74e5   181  18.7 52599   3.8  3.64</span></a>
+<a class="sourceLine" id="cb287-31" title="31"><span class="co">##  9 Flor~    66  2927   101  74.5  62.7 2.15e7  4358  20.5 50199   3.6  7.55</span></a>
+<a class="sourceLine" id="cb287-32" title="32"><span class="co">## 10 Geor~    66  2986   112  71.1  53.4 1.06e7  1460  13.9 46519   3.9  8.14</span></a>
+<a class="sourceLine" id="cb287-33" title="33"><span class="co">## # ... with 40 more rows, and 25 more variables: X12 &lt;dbl&gt;, X13 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb287-34" title="34"><span class="co">## #   X14 &lt;dbl&gt;, X15 &lt;dbl&gt;, X16 &lt;dbl&gt;, X17 &lt;dbl&gt;, X18 &lt;dbl&gt;, X19 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb287-35" title="35"><span class="co">## #   X20 &lt;dbl&gt;, X21 &lt;dbl&gt;, X22 &lt;dbl&gt;, X23 &lt;dbl&gt;, X24 &lt;dbl&gt;, X25 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb287-36" title="36"><span class="co">## #   X26 &lt;dbl&gt;, X27 &lt;dbl&gt;, X28 &lt;dbl&gt;, X29 &lt;dbl&gt;, X30 &lt;dbl&gt;, X31 &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb287-37" title="37"><span class="co">## #   X32 &lt;chr&gt;, Y01 &lt;dbl&gt;, Y02 &lt;dbl&gt;, Y03 &lt;dbl&gt;, Y04 &lt;fct&gt;</span></a>
+<a class="sourceLine" id="cb287-38" title="38"></a>
+<a class="sourceLine" id="cb287-39" title="39">metadata_file =<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;C:/Matott/MyQuaRantine&quot;</span>,</a>
+<a class="sourceLine" id="cb287-40" title="40">                          <span class="st">&quot;statewide_covid_19_metadata_04_27_2020.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb287-41" title="41">mdf =<span class="st"> </span><span class="kw">read_csv</span>(metadata_file)</a>
+<a class="sourceLine" id="cb287-42" title="42"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb287-43" title="43"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb287-44" title="44"><span class="co">##   ID = col_double(),</span></a>
+<a class="sourceLine" id="cb287-45" title="45"><span class="co">##   Code = col_character(),</span></a>
+<a class="sourceLine" id="cb287-46" title="46"><span class="co">##   Variable = col_character(),</span></a>
+<a class="sourceLine" id="cb287-47" title="47"><span class="co">##   Description = col_character()</span></a>
+<a class="sourceLine" id="cb287-48" title="48"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb287-49" title="49">mdf</a>
+<a class="sourceLine" id="cb287-50" title="50"><span class="co">## # A tibble: 36 x 4</span></a>
+<a class="sourceLine" id="cb287-51" title="51"><span class="co">##       ID Code  Variable             Description                      </span></a>
+<a class="sourceLine" id="cb287-52" title="52"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                &lt;chr&gt;                            </span></a>
+<a class="sourceLine" id="cb287-53" title="53"><span class="co">##  1     1 X01   Pct_Sun              Percent sunny days               </span></a>
+<a class="sourceLine" id="cb287-54" title="54"><span class="co">##  2     2 X02   Total_Hours_Sun      Total hours of sun               </span></a>
+<a class="sourceLine" id="cb287-55" title="55"><span class="co">##  3     3 X03   Num_Clear_Days       Number of clear days             </span></a>
+<a class="sourceLine" id="cb287-56" title="56"><span class="co">##  4     4 X04   Avg_RH               Average relative himidity        </span></a>
+<a class="sourceLine" id="cb287-57" title="57"><span class="co">##  5     5 X05   Avg_Dew_Point        Average dew point                </span></a>
+<a class="sourceLine" id="cb287-58" title="58"><span class="co">##  6     6 X06   Total_Population     Total population                 </span></a>
+<a class="sourceLine" id="cb287-59" title="59"><span class="co">##  7     7 X07   Senior_Pop_Thousands Population 65+ years in thousands</span></a>
+<a class="sourceLine" id="cb287-60" title="60"><span class="co">##  8     8 X08   Senior_Pop_Pct       Percentage of population 65+ year</span></a>
+<a class="sourceLine" id="cb287-61" title="61"><span class="co">##  9     9 X09   per_capita_income    per capita income                </span></a>
+<a class="sourceLine" id="cb287-62" title="62"><span class="co">## 10    10 X10   Unemployment_Rate    Percent unemployment             </span></a>
+<a class="sourceLine" id="cb287-63" title="63"><span class="co">## # ... with 26 more rows</span></a></code></pre></div>
+<p>Enter the code above and try to run it. You may get an errors about missing the <code>randomForest</code> package. You can install it from the RStudio console (see below) or using the installer in the RStudio <code>packages</code> pane.</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;randomForest&quot;</span>)</a></code></pre></div>
+<p>Now we’ve loaded the data and metadata file. Let’s pick a subset of 5 of the features and use them to try and predict the pandemic severity index (i.e. <code>Y04</code>):</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb289-2" title="2"><span class="co">## </span></a>
+<a class="sourceLine" id="cb289-3" title="3"><span class="co">## Attaching package: &#39;dplyr&#39;</span></a>
+<a class="sourceLine" id="cb289-4" title="4"><span class="co">## The following object is masked from &#39;package:randomForest&#39;:</span></a>
+<a class="sourceLine" id="cb289-5" title="5"><span class="co">## </span></a>
+<a class="sourceLine" id="cb289-6" title="6"><span class="co">##     combine</span></a>
+<a class="sourceLine" id="cb289-7" title="7"><span class="co">## The following objects are masked from &#39;package:stats&#39;:</span></a>
+<a class="sourceLine" id="cb289-8" title="8"><span class="co">## </span></a>
+<a class="sourceLine" id="cb289-9" title="9"><span class="co">##     filter, lag</span></a>
+<a class="sourceLine" id="cb289-10" title="10"><span class="co">## The following objects are masked from &#39;package:base&#39;:</span></a>
+<a class="sourceLine" id="cb289-11" title="11"><span class="co">## </span></a>
+<a class="sourceLine" id="cb289-12" title="12"><span class="co">##     intersect, setdiff, setequal, union</span></a>
+<a class="sourceLine" id="cb289-13" title="13"></a>
+<a class="sourceLine" id="cb289-14" title="14"><span class="co"># describe all possible features and labels</span></a>
+<a class="sourceLine" id="cb289-15" title="15"><span class="kw">print</span>(mdf, <span class="dt">n=</span><span class="kw">nrow</span>(mdf))</a>
+<a class="sourceLine" id="cb289-16" title="16"><span class="co">## # A tibble: 36 x 4</span></a>
+<a class="sourceLine" id="cb289-17" title="17"><span class="co">##       ID Code  Variable           Description                                   </span></a>
+<a class="sourceLine" id="cb289-18" title="18"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;chr&gt;                                         </span></a>
+<a class="sourceLine" id="cb289-19" title="19"><span class="co">##  1     1 X01   Pct_Sun            Percent sunny days                            </span></a>
+<a class="sourceLine" id="cb289-20" title="20"><span class="co">##  2     2 X02   Total_Hours_Sun    Total hours of sun                            </span></a>
+<a class="sourceLine" id="cb289-21" title="21"><span class="co">##  3     3 X03   Num_Clear_Days     Number of clear days                          </span></a>
+<a class="sourceLine" id="cb289-22" title="22"><span class="co">##  4     4 X04   Avg_RH             Average relative himidity                     </span></a>
+<a class="sourceLine" id="cb289-23" title="23"><span class="co">##  5     5 X05   Avg_Dew_Point      Average dew point                             </span></a>
+<a class="sourceLine" id="cb289-24" title="24"><span class="co">##  6     6 X06   Total_Population   Total population                              </span></a>
+<a class="sourceLine" id="cb289-25" title="25"><span class="co">##  7     7 X07   Senior_Pop_Thousa~ Population 65+ years in thousands             </span></a>
+<a class="sourceLine" id="cb289-26" title="26"><span class="co">##  8     8 X08   Senior_Pop_Pct     Percentage of population 65+ year             </span></a>
+<a class="sourceLine" id="cb289-27" title="27"><span class="co">##  9     9 X09   per_capita_income  per capita income                             </span></a>
+<a class="sourceLine" id="cb289-28" title="28"><span class="co">## 10    10 X10   Unemployment_Rate  Percent unemployment                          </span></a>
+<a class="sourceLine" id="cb289-29" title="29"><span class="co">## 11    11 X11   Uninsured_Rate_Ch~ Percent uninsured children                    </span></a>
+<a class="sourceLine" id="cb289-30" title="30"><span class="co">## 12    12 X12   Uninsured_Rate_Ad~ Percent uninsured adults                      </span></a>
+<a class="sourceLine" id="cb289-31" title="31"><span class="co">## 13    13 X13   Heart_Disease_Rate Deaths per 100000  due to heart disease       </span></a>
+<a class="sourceLine" id="cb289-32" title="32"><span class="co">## 14    14 X14   Heart_Disease_Dea~ Total deaths due to heart disease             </span></a>
+<a class="sourceLine" id="cb289-33" title="33"><span class="co">## 15    15 X15   Tobacco_Use_Rate   Percentage of tobacco users                   </span></a>
+<a class="sourceLine" id="cb289-34" title="34"><span class="co">## 16    16 X16   Obesity_Prevalenc~ Percentage of population this is considered o~</span></a>
+<a class="sourceLine" id="cb289-35" title="35"><span class="co">## 17    17 X17   Num_Hospitals      Number of hospitals                           </span></a>
+<a class="sourceLine" id="cb289-36" title="36"><span class="co">## 18    18 X18   Num_Hosp_Staffed_~ Number of hospital beds                       </span></a>
+<a class="sourceLine" id="cb289-37" title="37"><span class="co">## 19    19 X19   Total_Hosp_Discha~ Total number of hospital discharges           </span></a>
+<a class="sourceLine" id="cb289-38" title="38"><span class="co">## 20    20 X20   Hosp_Patient_Days  Total number of patient days in hospital      </span></a>
+<a class="sourceLine" id="cb289-39" title="39"><span class="co">## 21    21 X21   Hosp_Gross_Patien~ Total hospital gross patient revenue          </span></a>
+<a class="sourceLine" id="cb289-40" title="40"><span class="co">## 22    22 X22   Number_of_Farms    Total number of farms                         </span></a>
+<a class="sourceLine" id="cb289-41" title="41"><span class="co">## 23    23 X23   Urban_Population_~ Percentage of population living in urban areas</span></a>
+<a class="sourceLine" id="cb289-42" title="42"><span class="co">## 24    24 X24   Urban_Population   Total urban population                        </span></a>
+<a class="sourceLine" id="cb289-43" title="43"><span class="co">## 25    25 X25   Urban_Land_Area_S~ Amount of urban land area in square miles     </span></a>
+<a class="sourceLine" id="cb289-44" title="44"><span class="co">## 26    26 X26   Urban_Density_Sq_~ Urban density in persons per square mile      </span></a>
+<a class="sourceLine" id="cb289-45" title="45"><span class="co">## 27    27 X27   Urban_Land_Pct     Percentage of land use classified as urban    </span></a>
+<a class="sourceLine" id="cb289-46" title="46"><span class="co">## 28    28 X28   Pct_Republican     Percentage of population registered republican</span></a>
+<a class="sourceLine" id="cb289-47" title="47"><span class="co">## 29    29 X29   Pct_Independent    Percentage of population not affiliated with ~</span></a>
+<a class="sourceLine" id="cb289-48" title="48"><span class="co">## 30    30 X30   Pct_Democrat       Percentage of population registered democrat  </span></a>
+<a class="sourceLine" id="cb289-49" title="49"><span class="co">## 31    31 X31   Stay_at_Home_Star~ Date stay at home order issued                </span></a>
+<a class="sourceLine" id="cb289-50" title="50"><span class="co">## 32    32 X32   Stay_at_Home_End_~ Date stay at home order scheduled to be lifted</span></a>
+<a class="sourceLine" id="cb289-51" title="51"><span class="co">## 33     1 Y01   cases              total number of covid-19 cases                </span></a>
+<a class="sourceLine" id="cb289-52" title="52"><span class="co">## 34     2 Y02   deaths             total number of covid-19 deaths               </span></a>
+<a class="sourceLine" id="cb289-53" title="53"><span class="co">## 35     3 Y03   death_rate         death rate as a percentage                    </span></a>
+<a class="sourceLine" id="cb289-54" title="54"><span class="co">## 36     4 Y04   severity_index     severity index based on death_rate: ## 1 = &lt; ~</span></a>
+<a class="sourceLine" id="cb289-55" title="55"></a>
+<a class="sourceLine" id="cb289-56" title="56"><span class="co"># select some features and the PSI label</span></a>
+<a class="sourceLine" id="cb289-57" title="57">my_x =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X01&quot;</span>,<span class="st">&quot;X10&quot;</span>,<span class="st">&quot;X12&quot;</span>,<span class="st">&quot;X13&quot;</span>,<span class="st">&quot;X23&quot;</span>)</a>
+<a class="sourceLine" id="cb289-58" title="58">my_y =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Y04&quot;</span>)</a>
+<a class="sourceLine" id="cb289-59" title="59">my_xy =<span class="st"> </span><span class="kw">c</span>(my_x, my_y)</a>
+<a class="sourceLine" id="cb289-60" title="60"></a>
+<a class="sourceLine" id="cb289-61" title="61"><span class="co"># get descriptions of the selected features and label</span></a>
+<a class="sourceLine" id="cb289-62" title="62"><span class="kw">filter</span>(mdf, Code <span class="op">%in%</span><span class="st"> </span>my_xy)</a>
+<a class="sourceLine" id="cb289-63" title="63"><span class="co">## # A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb289-64" title="64"><span class="co">##      ID Code  Variable         Description                                      </span></a>
+<a class="sourceLine" id="cb289-65" title="65"><span class="co">##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;                                            </span></a>
+<a class="sourceLine" id="cb289-66" title="66"><span class="co">## 1     1 X01   Pct_Sun          Percent sunny days                               </span></a>
+<a class="sourceLine" id="cb289-67" title="67"><span class="co">## 2    10 X10   Unemployment_Ra~ Percent unemployment                             </span></a>
+<a class="sourceLine" id="cb289-68" title="68"><span class="co">## 3    12 X12   Uninsured_Rate_~ Percent uninsured adults                         </span></a>
+<a class="sourceLine" id="cb289-69" title="69"><span class="co">## 4    13 X13   Heart_Disease_R~ Deaths per 100000  due to heart disease          </span></a>
+<a class="sourceLine" id="cb289-70" title="70"><span class="co">## 5    23 X23   Urban_Populatio~ Percentage of population living in urban areas   </span></a>
+<a class="sourceLine" id="cb289-71" title="71"><span class="co">## 6     4 Y04   severity_index   severity index based on death_rate: ## 1 = &lt; 0.1~</span></a>
+<a class="sourceLine" id="cb289-72" title="72"></a>
+<a class="sourceLine" id="cb289-73" title="73"><span class="co"># subset the dataframe</span></a>
+<a class="sourceLine" id="cb289-74" title="74">rf_df =<span class="st"> </span><span class="kw">select</span>(df, <span class="kw">all_of</span>(my_xy))</a></code></pre></div>
+<p>Now we’ll add code to train a basic Random Forest model:</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="co"># split into train (75%) and test (25%) datasets</span></a>
+<a class="sourceLine" id="cb290-2" title="2">train =<span class="st"> </span>rf_df[<span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(rf_df), <span class="dt">by =</span> <span class="dv">4</span>),]</a>
+<a class="sourceLine" id="cb290-3" title="3">train =<span class="st"> </span><span class="kw">rbind</span>(train, rf_df[<span class="kw">seq</span>(<span class="dv">2</span>,<span class="kw">nrow</span>(rf_df), <span class="dt">by =</span> <span class="dv">4</span>),])</a>
+<a class="sourceLine" id="cb290-4" title="4">train =<span class="st"> </span><span class="kw">rbind</span>(train, rf_df[<span class="kw">seq</span>(<span class="dv">3</span>,<span class="kw">nrow</span>(rf_df), <span class="dt">by =</span> <span class="dv">4</span>),])</a>
+<a class="sourceLine" id="cb290-5" title="5">test =<span class="st"> </span>rf_df[<span class="kw">seq</span>(<span class="dv">4</span>,<span class="kw">nrow</span>(rf_df), <span class="dt">by =</span> <span class="dv">4</span>),]</a>
+<a class="sourceLine" id="cb290-6" title="6"></a>
+<a class="sourceLine" id="cb290-7" title="7"><span class="co"># create and train the RF model</span></a>
+<a class="sourceLine" id="cb290-8" title="8">model =<span class="st"> </span><span class="kw">randomForest</span>(Y04 <span class="op">~</span><span class="st"> </span>X01 <span class="op">+</span><span class="st"> </span>X10 <span class="op">+</span><span class="st"> </span>X12 <span class="op">+</span><span class="st"> </span>X13 <span class="op">+</span><span class="st"> </span>X23, </a>
+<a class="sourceLine" id="cb290-9" title="9">                     <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb290-10" title="10"><span class="kw">print</span>(model) <span class="co"># show results, includes confusion matrix</span></a>
+<a class="sourceLine" id="cb290-11" title="11"><span class="co">## </span></a>
+<a class="sourceLine" id="cb290-12" title="12"><span class="co">## Call:</span></a>
+<a class="sourceLine" id="cb290-13" title="13"><span class="co">##  randomForest(formula = Y04 ~ X01 + X10 + X12 + X13 + X23, data = train) </span></a>
+<a class="sourceLine" id="cb290-14" title="14"><span class="co">##                Type of random forest: classification</span></a>
+<a class="sourceLine" id="cb290-15" title="15"><span class="co">##                      Number of trees: 500</span></a>
+<a class="sourceLine" id="cb290-16" title="16"><span class="co">## No. of variables tried at each split: 2</span></a>
+<a class="sourceLine" id="cb290-17" title="17"><span class="co">## </span></a>
+<a class="sourceLine" id="cb290-18" title="18"><span class="co">##         OOB estimate of  error rate: 65.79%</span></a>
+<a class="sourceLine" id="cb290-19" title="19"><span class="co">## Confusion matrix:</span></a>
+<a class="sourceLine" id="cb290-20" title="20"><span class="co">##   3 4 5 6 7 8 class.error</span></a>
+<a class="sourceLine" id="cb290-21" title="21"><span class="co">## 3 0 0 1 0 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb290-22" title="22"><span class="co">## 4 0 0 1 1 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb290-23" title="23"><span class="co">## 5 0 0 7 8 0 0   0.5333333</span></a>
+<a class="sourceLine" id="cb290-24" title="24"><span class="co">## 6 0 1 8 6 0 0   0.6000000</span></a>
+<a class="sourceLine" id="cb290-25" title="25"><span class="co">## 7 0 0 1 3 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb290-26" title="26"><span class="co">## 8 0 0 0 1 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb290-27" title="27"><span class="kw">importance</span>(model) <span class="co"># measure of parameter importance</span></a>
+<a class="sourceLine" id="cb290-28" title="28"><span class="co">##     MeanDecreaseGini</span></a>
+<a class="sourceLine" id="cb290-29" title="29"><span class="co">## X01         3.918561</span></a>
+<a class="sourceLine" id="cb290-30" title="30"><span class="co">## X10         5.399393</span></a>
+<a class="sourceLine" id="cb290-31" title="31"><span class="co">## X12         5.904642</span></a>
+<a class="sourceLine" id="cb290-32" title="32"><span class="co">## X13         4.577611</span></a>
+<a class="sourceLine" id="cb290-33" title="33"><span class="co">## X23         5.143267</span></a></code></pre></div>
+<p>Taking a look at the results we see and error rate of &gt;50%. The classification accuracy for the training dataset is <code>100% - error rate</code> - so not a very good model. Further we can see some systematic failures in the confusion matrix. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.</p>
+<p>It’s also good practice to examine the ROC and AUC metrics. For a problem with multiple classes (as opposed to a binary True/False or Yes/No problem) we can compute the ROC curve curve and AUC measures using a “one vs all” approach:</p>
+<ul>
+<li><p>First, extract predicted probabilities from the RF model (the scores).</p></li>
+<li><p>Next, extract actual classification for each category.</p></li>
+<li><p>Finally, leverage two commands of the <code>ROCR</code> module:</p>
+<ul>
+<li><p><code>prediction()</code>: retrieve scores</p></li>
+<li><p><code>performance()</code>: generates TPR, FPR, and AUC measure through two separate calls</p></li>
+</ul></li>
+</ul>
+<p>Unfortunately, the calculation is fairly involved and uses a looping structure (i.e. a <code>for</code> loop) to assemble the plot and auc values:</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1"><span class="kw">library</span>(ROCR)</a>
+<a class="sourceLine" id="cb291-2" title="2"><span class="co">## Loading required package: gplots</span></a>
+<a class="sourceLine" id="cb291-3" title="3"><span class="co">## </span></a>
+<a class="sourceLine" id="cb291-4" title="4"><span class="co">## Attaching package: &#39;gplots&#39;</span></a>
+<a class="sourceLine" id="cb291-5" title="5"><span class="co">## The following object is masked from &#39;package:stats&#39;:</span></a>
+<a class="sourceLine" id="cb291-6" title="6"><span class="co">## </span></a>
+<a class="sourceLine" id="cb291-7" title="7"><span class="co">##     lowess</span></a>
+<a class="sourceLine" id="cb291-8" title="8"></a>
+<a class="sourceLine" id="cb291-9" title="9"><span class="co"># compute ROC/AUC using test dataset</span></a>
+<a class="sourceLine" id="cb291-10" title="10">x_test =<span class="st"> </span><span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x))</a>
+<a class="sourceLine" id="cb291-11" title="11">y_test =<span class="st"> </span><span class="kw">select</span>(test, <span class="kw">all_of</span>(my_y))</a>
+<a class="sourceLine" id="cb291-12" title="12">probs =<span class="st"> </span><span class="kw">predict</span>(model, x_test, <span class="dt">type=</span><span class="st">&#39;prob&#39;</span>)</a>
+<a class="sourceLine" id="cb291-13" title="13">lvls =<span class="st"> </span><span class="kw">unique</span>(<span class="kw">as.character</span>(y_test[[<span class="dv">1</span>]])) <span class="co"># category names</span></a>
+<a class="sourceLine" id="cb291-14" title="14"><span class="co"># up to 8 colors needed</span></a>
+<a class="sourceLine" id="cb291-15" title="15">cols =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;green&quot;</span>,</a>
+<a class="sourceLine" id="cb291-16" title="16">         <span class="st">&quot;blue&quot;</span>,<span class="st">&quot;indigo&quot;</span>,<span class="st">&quot;violet&quot;</span>,<span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb291-17" title="17"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(lvls)) <span class="co"># for each category</span></a>
+<a class="sourceLine" id="cb291-18" title="18">{</a>
+<a class="sourceLine" id="cb291-19" title="19">  actual =<span class="st"> </span><span class="kw">as.numeric</span>(y_test[[<span class="dv">1</span>]] <span class="op">==</span><span class="st"> </span>lvls[i])</a>
+<a class="sourceLine" id="cb291-20" title="20">  score =<span class="st"> </span>probs[,i]</a>
+<a class="sourceLine" id="cb291-21" title="21">  </a>
+<a class="sourceLine" id="cb291-22" title="22">  pred =<span class="st"> </span><span class="kw">prediction</span>(score, actual)</a>
+<a class="sourceLine" id="cb291-23" title="23">  perf =<span class="st"> </span><span class="kw">performance</span>(pred, <span class="st">&quot;tpr&quot;</span>, <span class="st">&quot;fpr&quot;</span>)</a>
+<a class="sourceLine" id="cb291-24" title="24">  <span class="cf">if</span>(i <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</a>
+<a class="sourceLine" id="cb291-25" title="25">    <span class="kw">plot</span>(perf, <span class="dt">main=</span><span class="st">&quot;ROC Curve&quot;</span>, <span class="dt">col=</span>cols[i])</a>
+<a class="sourceLine" id="cb291-26" title="26">  }</a>
+<a class="sourceLine" id="cb291-27" title="27">  <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb291-28" title="28">    <span class="kw">plot</span>(perf, <span class="dt">main=</span><span class="st">&quot;ROC Curve&quot;</span>, <span class="dt">col=</span>cols[i], <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb291-29" title="29">  }</a>
+<a class="sourceLine" id="cb291-30" title="30">  </a>
+<a class="sourceLine" id="cb291-31" title="31">  <span class="co"># calculate the AUC and print</span></a>
+<a class="sourceLine" id="cb291-32" title="32">  auc =<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure=</span><span class="st">&quot;auc&quot;</span>)</a>
+<a class="sourceLine" id="cb291-33" title="33">  auc =<span class="st"> </span><span class="kw">as.numeric</span>(auc<span class="op">@</span>y.values)</a>
+<a class="sourceLine" id="cb291-34" title="34">  <span class="kw">cat</span>(<span class="st">&#39;AUC for PSI of &#39;</span>,lvls[i], <span class="st">&#39; = &#39;</span>, auc, <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</a>
+<a class="sourceLine" id="cb291-35" title="35">}</a>
+<a class="sourceLine" id="cb291-36" title="36"><span class="co">## AUC for PSI of  4  =  0.6 </span></a>
+<a class="sourceLine" id="cb291-37" title="37"><span class="co">## AUC for PSI of  5  =  0.6388889 </span></a>
+<a class="sourceLine" id="cb291-38" title="38"><span class="co">## AUC for PSI of  6  =  0.5185185 </span></a>
+<a class="sourceLine" id="cb291-39" title="39"><span class="co">## AUC for PSI of  7  =  0.7272727</span></a>
+<a class="sourceLine" id="cb291-40" title="40"><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="dt">legend=</span><span class="kw">paste</span>(<span class="st">&quot;PSI =&quot;</span>,lvls), <span class="dt">col=</span>cols, <span class="dt">lty=</span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb291-41" title="41">       <span class="dt">cex=</span><span class="fl">1.0</span>) <span class="co"># adjust cex to scale the legend</span></a>
+<a class="sourceLine" id="cb291-42" title="42"><span class="kw">lines</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">y=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">lty=</span><span class="dv">2</span>) <span class="co"># add threshold for non-informative </span></a></code></pre></div>
+<p><img src="04-Spatial_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
 </div>
 <div id="day-23" class="section level2">

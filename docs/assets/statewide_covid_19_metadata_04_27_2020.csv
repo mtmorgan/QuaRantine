@@ -1,0 +1,39 @@
+ID,Code,Variable,Description
+1,X01,Pct_Sun,Percent sunny days
+2,X02,Total_Hours_Sun,Total hours of sun
+3,X03,Num_Clear_Days,Number of clear days
+4,X04,Avg_RH,Average relative himidity
+5,X05,Avg_Dew_Point,Average dew point
+6,X06,Total_Population,Total population
+7,X07,Senior_Pop_Thousands,Population 65+ years in thousands
+8,X08,Senior_Pop_Pct,Percentage of population 65+ year
+9,X09,per_capita_income,per capita income
+10,X10,Unemployment_Rate,Percent unemployment
+11,X11,Uninsured_Rate_Children,Percent uninsured children
+12,X12,Uninsured_Rate_Adults,Percent uninsured adults
+13,X13,Heart_Disease_Rate,Deaths per 100000  due to heart disease
+14,X14,Heart_Disease_Deaths,Total deaths due to heart disease
+15,X15,Tobacco_Use_Rate,Percentage of tobacco users
+16,X16,Obesity_Prevalence_Pct,Percentage of population this is considered obese
+17,X17,Num_Hospitals,Number of hospitals
+18,X18,Num_Hosp_Staffed_Beds,Number of hospital beds
+19,X19,Total_Hosp_Discharges,Total number of hospital discharges
+20,X20,Hosp_Patient_Days,Total number of patient days in hospital
+21,X21,Hosp_Gross_Patient_Revenue,Total hospital gross patient revenue
+22,X22,Number_of_Farms,Total number of farms
+23,X23,Urban_Population_Pct,Percentage of population living in urban areas
+24,X24,Urban_Population,Total urban population
+25,X25,Urban_Land_Area_Sq_Miles,Amount of urban land area in square miles
+26,X26,Urban_Density_Sq_Miles,Urban density in persons per square mile
+27,X27,Urban_Land_Pct,Percentage of land use classified as urban
+28,X28,Pct_Republican,Percentage of population registered republican
+29,X29,Pct_Independent,Percentage of population not affiliated with major political party
+30,X30,Pct_Democrat,Percentage of population registered democrat
+31,X31,Stay_at_Home_Start_Date,Date stay at home order issued
+32,X32,Stay_at_Home_End_Date,Date stay at home order scheduled to be lifted
+1,Y01,cases,total number of covid-19 cases
+2,Y02,deaths,total number of covid-19 deaths
+3,Y03,death_rate,death rate as a percentage
+4,Y04,severity_index,severity index based on death_rate: ## 1 = < 0.1%; ## 2 = 0.1% - 0.5%; ## 3 = 0.5% - 1.0%; ## 4 = 1.0% - 2.0%; ## 5 = 2.0% - 4.0%; ## 6 = 4.0% - 6.0%; ## 7 = 6.0% - 8.0%; ## 8 = >8.0%
+
+

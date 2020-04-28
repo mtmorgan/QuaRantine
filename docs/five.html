@@ -5,30 +5,30 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Week 5 Bioinformatics with Bioconductor | 40 Days and 40 Nights</title>
-  <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta name="description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Week 5 Bioinformatics with Bioconductor | 40 Days and 40 Nights" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta property="og:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Week 5 Bioinformatics with Bioconductor | 40 Days and 40 Nights" />
   
-  <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse." />
+  <meta name="twitter:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse.</p>" />
   
 
 <meta name="author" content="Martin Morgan" />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-04-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,7 +73,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -190,11 +190,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="three.html"><a href="three.html"><i class="fa fa-check"></i><b>3</b> Packages and the ‘tidyverse’</a><ul>
 <li class="chapter" data-level="3.1" data-path="three.html"><a href="three.html#day-15-monday-zoom-check-in"><i class="fa fa-check"></i><b>3.1</b> Day 15 (Monday) Zoom check-in</a><ul>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#review-and-troubleshoot-15-minutes-1"><i class="fa fa-check"></i>Review and troubleshoot (15 minutes)</a></li>
-<li class="chapter" data-level="3.1.1" data-path="three.html"><a href="three.html#packages-20-minutes"><i class="fa fa-check"></i><b>3.1.1</b> Packages (20 minutes)</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#packages-20-minutes"><i class="fa fa-check"></i>Packages (20 minutes)</a></li>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#the-tidyverse-of-packages-20-minutes"><i class="fa fa-check"></i>The ‘tidyverse’ of packages (20 minutes)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="three.html"><a href="three.html#day-16-key-tidyverse-packages-readr-and-dplyr"><i class="fa fa-check"></i><b>3.2</b> Day 16 Key tidyverse packages: <span>readr</span> and <span>dplyr</span></a></li>
-<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with <span>ggplot2</span></a></li>
+<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with <span>ggplot2</span></a><ul>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+<li><a href="three.html#ggplot2-essentials"><span>ggplot2</span> essentials</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-erie-county"><i class="fa fa-check"></i>COVID-19 in Erie county</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-new-york-state"><i class="fa fa-check"></i>COVID-19 in New York State</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-nationally"><i class="fa fa-check"></i>COVID-19 nationally</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="three.html"><a href="three.html#day-18-worldwide-covid-data"><i class="fa fa-check"></i><b>3.4</b> Day 18 Worldwide COVID data</a></li>
 <li class="chapter" data-level="3.5" data-path="three.html"><a href="three.html#day-19-friday-zoom-check-in"><i class="fa fa-check"></i><b>3.5</b> Day 19 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="three.html"><a href="three.html#review-and-trouble-shoot-25-minutes"><i class="fa fa-check"></i><b>3.5.1</b> Review and trouble shoot (25 minutes)</a></li>
@@ -206,8 +212,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="four.html"><a href="four.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.1</b> A Machine Learning Primer</a></li>
-<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forests-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forests Algorithm</a></li>
-<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-random-forests-example"><i class="fa fa-check"></i><b>4.1.3</b> A Random Forests Example</a></li>
+<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forest-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forest Algorithm</a></li>
+<li class="chapter" data-level="" data-path="four.html"><a href="four.html#preparing-a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i>Preparing a COVID-19 Dataset for Machine Learning</a></li>
+<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-random-forest-example-using-covid-19-data"><i class="fa fa-check"></i><b>4.1.3</b> A Random Forest Example Using COVID-19 Data</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
 <li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
