@@ -354,6 +354,321 @@ Work through the following commands, adding appropriate lines to your script
 
 ## Day 17 Visualization with [ggplot2][]
 
+### Setup {-}
+
+Load packages we'll use today
+
+```{r, message = FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+Remember that packages need to be installed before loading; if you see...
+
+```{r, eval = FALSE}
+> library(ggplot2)
+## Error in library(ggplot2) : there is no package called 'ggplot2'
+```
+
+...then you'll need to install the package and try again
+
+```{r, eval = FALSE}
+install.packages("ggplot2", repos = "https://cran.r-project.org")
+library(ggplot2)
+```
+
+Input data using `readr::read_csv()`
+
+```{r}
+url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+us <- read_csv(url)
+```
+
+Create the Erie county subset, with columns `new_cases` and `new_deaths`
+
+```{r}
+erie <-
+    us %>%
+    filter(county == "Erie", state == "New York") %>%
+    mutate(
+        new_cases = diff(c(0, cases)),
+        new_deaths = diff(c(0, deaths))
+    )
+```
+
+### [ggplot2][] essentials {-}
+
+The 'gg' in [ggplot2][]
+
+- '[Grammar of Graphics][]' -- a formal, scholarly system for describing and creating graphics.
+
+- See the [usage guide][], and the [data visualization][] chapter of [R for Data Science][].
+
+- The [reference][] section of the usage guide provides a good entry point
+
+[Grammar of Graphics]: https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448
+[usage guide]: https://ggplot2.tidyverse.org/
+[reference]: https://ggplot2.tidyverse.org/reference/index.html
+[data visualization]: https://r4ds.had.co.nz/data-visualisation.html
+[R for Data Science]: https://r4ds.had.co.nz/
+
+A first plot
+
+- Specify the data to use. Do this by (a) providing the tibble containing the data (`erie`) and (b) communicating the 'aesthetics' of the overall graph by specifying the `x` and `y` data columns -- `ggplot(erie, aes(x = date, y = new_cases))`
+
+- Add a `geom_` describing the geometric object used to represent the data, e.g., use `geom_point()` to represent the data as points.
+
+    ```{r}
+    ggplot(erie, aes(date, cases)) +
+        geom_point()
+    ```
+
+- Note that the plot is assembled by adding elements using a simple `+`. Connect the points with `geom_line()`.
+
+    ```{r}
+    ggplot(erie, aes(date, cases)) +
+        geom_point() +
+        geom_line()
+    ```
+
+- Plots can actually be captured in a variable, e.g., `p`
+
+    ```{r}
+    p <- ggplot(erie, aes(date, cases)) +
+        geom_point()
+    ```
+    
+  ... and then updated and displayed
+  
+    ```{r}
+    p +
+        xlab("Date (2020)") +
+        ylab("Cummulative cases") +
+        ggtitle("Cases, Erie County, New York")
+    ```
+
+- Arguments to each `geom` influece how the geometry is displayed, e.g.,
+
+    ```{r}
+    p +
+        geom_line(color = "blue")
+    ```
+
+### COVID-19 in Erie county {-}
+
+New cases
+
+- Create a base plot using `new_cases)`
+
+    ```{r}
+    p <- ggplot(erie, aes(date, new_cases)) +
+        geom_point()
+    ```
+    
+- Visualize on a linear and a log-transformed y-axis
+
+    ```{r}
+    p # linear
+    p + scale_y_log10()
+    ```
+    
+  Add a smoothed line to the plot. By default the smoothed line is a local regression appropriate for exploratory data analysis. Note the confidence bands displayed in the plot, and how they convey a measure of certainty about the fit.
+  
+    ```{r}
+    p +
+        scale_y_log10() +
+        geom_smooth()
+    ```
+
+- Reflect on the presentation of data, especially how log-transformation and a  clarifies our impression of the local progress of the pandemic. 
+
+- The local regression used by `geom_smooth()` can be replaced by a linear regressin with `geom_smooth(method = "lm")`. Create this plot and reflect on the assumptions and suitability of a linear model for this data.
+
+New cases and mortality
+
+- It's easy to separately plot `deaths` by updating the aesthetic in `ggplot()`
+
+    ```{r}
+    ggplot(erie, aes(date, deaths)) +
+        scale_y_log10() +
+        geom_point()
+    ```
+
+- What about ploting cases and deaths? Move the `aes()` argument to the individual geometries. Use different colors for each geometry
+
+    ```{r}
+    ggplot(erie) +
+        scale_y_log10() +
+        geom_point(aes(date, cases), shape = "|", color = "blue") + 
+        geom_line(aes(date, cases), color = "blue") +
+        geom_point(aes(date, deaths), shape = "|") +
+        geom_line(aes(date, deaths))
+    ```
+    
+  Deaths lag behind cases by a week or so.
+  
+'Long' data and an alternative approach to plotting multiple curves.
+
+- Let's simplify the data to just the columns of interest for this exercise
+
+    ```{r}
+    simple <-
+        erie %>%
+        select(date, cases, deaths)
+    simple
+    ```
+
+- Use `tidyr::pivot_longer()` to transform the two columns 'cases' and 'deaths' into a column that indicates 'name' and 'value'; 'name' is 'cases' when the corresponding 'value' came from the 'cases' column, and similarly for 'deaths'. See the help page `?tidyr::pivot_longer` and tomorrow's exercises for more on `pivot_longer()`.
+
+    ```{r}
+    longer <-
+        simple %>%
+        pivot_longer(
+            c("cases", "deaths"),
+            names_to = "metric",
+            values_to = "count"
+        )
+    longer
+    ```
+    
+- Plot `date` and `value, coloring points by `name`
+
+    ```{r}
+    ggplot(longer, aes(date, count, color = metric)) +
+        scale_y_log10() +
+        geom_point()
+    ```
+
+### COVID-19 in New York State {-}
+
+We'll explore 'facet' visualizations, which create a panel of related plots
+
+Setup
+
+- From the US data, extract Erie and Westchester counties and New York City. Use `coi` ('counties of interest') as a variable to hold this data
+
+    ```{r}
+    coi <-
+        us %>%
+        filter(
+            county %in% c("Erie", "Westchester", "New York City"),
+            state == "New York"
+        ) %>%
+        select(date, county, cases, deaths)
+    coi
+    ```
+
+- Pivot `cases` and `deaths` into long form
+
+    ```{r}
+    coi_longer <-
+        coi %>%
+        pivot_longer(
+            c("cases", "deaths"),
+            names_to = "metric",
+            values_to = "count"
+        )
+    coi_longer
+    ```
+
+Visualization
+    
+- We can plot cases and deaths of each county...
+
+    ```{r}
+    p <-
+        ggplot(coi_longer, aes(date, count, color = metric)) +
+        scale_y_log10() +
+        geom_point()
+    p
+    ```
+    
+  ... but this is too confusing.
+  
+- Separate each county into a facet
+
+    ```{r}
+    p + facet_grid(rows=vars(county))
+    ```
+  Note the common scales on the x and y axes.
+
+- Plotting counties as 'rows' of the graph emphasize temporal comparisons -- e.g., the earlier onset of the pandemic in Westchester and New York City compared to Erie, and perhaps longer lag between new cases and deaths in Westchester.
+
+- Plotting countes as 'columns' emphasizes comparison between number of cases and deaths -- there are many more cases in New York City than in Erie County.
+
+    ```{r}
+    p + facet_grid(cols=vars(county))
+    ```
+    
+### COVID-19 nationally {-}
+
+Setup
+
+- Summarize the total (maximum) number of cases in each county and state
+
+    ```{r}
+    county_summary <-
+        us %>%
+        group_by(county, state) %>%
+        summarize(
+            cases = max(cases),
+            deaths = max(deaths)
+        )
+    county_summary
+    ```
+
+- Now summarize the number of cases per state
+
+    ```{r}
+    state_summary <-
+        county_summary %>%
+        group_by(state) %>%
+        summarize(
+            cases = sum(cases),
+            deaths = sum(deaths)
+        ) %>%
+        arrange(desc(cases))
+    state_summary
+    ```
+    
+- Plot the relationship between cases and deaths as a scatter plot
+
+    ```{r}
+    ggplot(state_summary, aes(cases, deaths)) +
+        scale_x_log10() +
+        scale_y_log10() +
+        geom_point()
+    ```
+
+- Create a 'long' version of the state summary. The transformations include making 'state' a factor with the 'levels' ordered from most- to least-affected state. This is a 'trick' so that states are ordered, when displayed, from most to least affected. The transformations also choose only the 20 most-affected states using `head(20)`.
+
+    ```{r}
+    state_longer <-
+        state_summary %>%
+        mutate(
+            ## this 'trick' causes 'state' to be ordered from most to
+            ## least cases, rather than alphabetically
+            state = factor(state, levels = state)
+        ) %>%
+        head(20) %>% # look at the 20 states with the most cases
+        pivot_longer(
+            c("cases", "deaths"),
+            names_to = "metric",
+            values_to = "count"
+        )
+    state_longer
+    ```
+
+- Use a dot plot to provide an alternative representation that is more easy to associated statsistics with individual states
+
+    ```{r}
+    ggplot(state_longer, aes(x = count, y = state, color = metric)) +
+        scale_x_log10() +
+        geom_point()
+    ```
+
 ## Day 18 Worldwide COVID data
 
 Setup
