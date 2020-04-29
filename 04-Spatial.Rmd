@@ -2,11 +2,9 @@
 
 This week you will learn about machine learning for classification using _R_. Objectives are:
 
-- To provide an overview of the underlying concepts of
-machine learning for classification.
+- To provide an overview of the underlying concepts of machine learning for classification.
 
-- To provide an introduction to some popular
-classification algorithms.
+- To provide an introduction to some popular classification algorithms.
 
 - To explore these classification algorithms using various packages in _R_.
 
@@ -26,13 +24,13 @@ Here is an overview of what we'll cover in today's Zoom session:
 
 Machine Learning (ML) may be defined as using computers to make inferences about data.
 
-- A mapping of inputs to outputs, Y = f(<b>X</b> , <b>β</b>)
+- A mapping of inputs to outputs, Y = f(<b>X</b> , <b>$\beta$</b>)
 
-- <i>ML for Classification</i> refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)
+<i>ML for Classification</i> refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)
 
-  - For example, predicting health risk (mild, moderate, severe) based on patient data (height, weight, age, smoker?)
+- For example, predicting health risk (mild, moderate, severe) based on patient data (height [m], weight [kg], age [years], smoker [yes/no], etc.)
   
-  - Or predicting [pandemic severity index][] (PSI) of COVID-19 in a state based on statewide population data.
+- Or predicting [pandemic severity index][] (PSI) of COVID-19 in a state based on statewide population data.
 
 ```{r echo=FALSE}
 cats=c(1:5)
@@ -42,15 +40,15 @@ df = data.frame(PSI=cats, Death.Rate=frate, Example=example)
 print(df, row.names = FALSE, right = FALSE)
 ```
 
-  – Predictions are typically expressed as a vector of probabilities.
+– Predictions are typically expressed as a vector of probabilities.
   
-    – e.g. Pr(cancerous) vs. Pr(benign)
+  – e.g. Pr(cancerous) vs. Pr(benign)
     
-    - e.g. Pr(PSI=1), Pr(PSI=2), ..., Pr(PSI=5)
+  - e.g. Pr(PSI=1), Pr(PSI=2), ..., Pr(PSI=5)
 
 #### A "Black Box" View of Machine Learning {-}
 
-The diagram below illustrates the concept in terms of a "black box" model that converts inputs into predictions.
+The diagram below illustrates the machine learning concept in terms of a "black box" model that converts inputs into predictions.
 
 ```{r echo = FALSE, fig.align="center", out.width="50%"}
 knitr::include_graphics('images/ml_black_box_generic.png')
@@ -58,7 +56,7 @@ knitr::include_graphics('images/ml_black_box_generic.png')
 
 #### A "Black Box" Example {-}
 
-The diagram below illustrates a more concrete "black box" model that converts height, weight, and age into a prediction of whether or not the individual is male or female.
+The diagram below illustrates a more concrete machine learning model that converts height, weight, and age into a prediction of whether or not the individual is male or female.
 
 ```{r echo = FALSE, fig.align="center", out.width="50%"}
 knitr::include_graphics('images/ml_black_box_example.png')
@@ -68,17 +66,17 @@ knitr::include_graphics('images/ml_black_box_example.png')
 
 The above example highlights some important machine learning terminology:
 
-- <b>Features</b> (<b>X</b>): the inputs (also known as descriptive attributes or explanatory variables) to the algorithm.
+- <b>Features</b> (<b>X</b>): Features are the inputs to the model. They are also known as descriptive attributes or explanatory variables. In terms of _R_, a single set of inputs corresponds to a tuple or row of data and a complete set of input data maps nicely to a data frame or tibble.
 
-- <b>Parameters</b> (<b>$\beta$</b>): these are internal variables of the selected machine learning algorithm and are also known as coefficients or training weights. Algorithm parameters need to be adjusted to minimize the deviation between predictions and observations.
+- <b>Parameters</b> (<b>$\beta$</b>): Parameters are internal variables of the selected machine learning algorithm. They are also known as coefficients or training weights. These internal parameters need to be adjusted to minimize the deviation between predictions and observations. The machine learning algorithms and pacakages that we'll be using in _R_ take care of this minimization process for us.
 
-- <b>Labels</b> (<b>Y</b>): these are the outputs of the algorithm (i.e. the categories you are attempting to predict).
+- <b>Labels</b> (<b>Y</b>): Labels are the outputs of the algorithm, corresponding to the categories you are attempting to predict.
 
-- <b>Training Data</b>: this is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.
+- <b>Training Data</b>: Training data is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.
 
-- <b>Training</b>: this is the process of adjusting algorithm paramters (<b>$\beta$</b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimations.
+- <b>Training</b>: Training is the process of adjusting internal algorithm paramters (<b>$\beta$</b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimation.
 
-An example set of training data that could be used in the gender prediction example is given below:
+An example set of training data that could be used in the gender prediction example is given below. The frist three columns contain feature data and the last column contains label data. We could use this data to train a model to predict a person's gender based on their height, weight and age.
 
 ```{r echo=FALSE}
 h=c(1.69,1.74,1.92,1.80,1.59,1.85,1.75,1.96,1.85,1.78,1.74,1.81,1.73)
@@ -90,9 +88,11 @@ df = data.frame(height_m=h,weight_kg=w,age_y=a,gender=g)
 print(df, row.names = FALSE, right = FALSE)
 ```
 
-Upon completion of training, it is important to evaluate the quality of the model and it's skill or ability at making correct predictions. Some terms related to this evaluation process are defined below:
+- <b>Test Data</b>: Like training data, test data is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). However, test data is deliberately <i>not included</i> in the training process. Performance measures computed using test data help to quantify the expected performance of the model if/when it is applied to unlabeled data.
 
-- <b>Classification Accuracy</b>: Classification accuracy is the ratio of correct predictions to the total predictions when validating a trained classification algorithm.
+Upon completion of training, it is important to evaluate the quality of the model and its skill or ability at making correct predictions. Some terms related to this evaluation process are defined below:
+
+- <b>Classification Accuracy</b>: Classification accuracy is the ratio of correct predictions to the total predictions. Classification accuracy can be computed using the training data set or using the test data set.
 
 - <b>Confusion Matrix</b>: The confusion matrix is a more detailed summary (relative to classification accuracy) of the performance of a classification algorithm. The diagonals of the confusion matrix count how often the algorithm yields the correct classification for each class. The off-diagonal entries count how often the algorithm confuses one class with another.
 
@@ -104,7 +104,7 @@ knitr::include_graphics('images/ml_ca_fruits_example.png')
 
 #### The Machine Learning Process {-}
 
-Now that we've defined some of the important machine learning terminology let's take a 30,000 foot view at the overall machine learning process. This is a general description of the process that you'll want to follow each time you build and use a machine learning model. The process is illustrated in the figure below (with credit to [Jinesh Maloo][]):
+Now that we've defined some of the important machine learning terminology let's take a 30,000 foot view at the overall machine learning process. This is a general description of the process that you can follow each time you build and use a machine learning model. The process is illustrated in the figure below (with credit to [Jinesh Maloo][]):
 
 ```{r echo = FALSE, fig.align="center", out.width="75%"}
 knitr::include_graphics('images/ml_process_maloo.png')
@@ -164,37 +164,39 @@ knitr::include_graphics('images/ml_rf_tree_housing.png')
 
 The job of the random forest algorithm is to determine the optimal set of trees for your data set, including the splitting configuration (i.e. order, values, etc.).
 
+Now you have a basic understanding of machine learning and the random forest algorithm. You're probably excited to get going with applying the algorithm! But first, we need to have a data set to work with. In the next section you'll learn about a data set that can be used for predicting the severity of COVID-19 in a state.
+
 [Bradley Boehmke at the University of Cincinnati]: https://uc-r.github.io/random_forests
 
 <hr>
 
-### Preparing a COVID-19 Dataset for Machine Learning
+### A COVID-19 Dataset for Machine Learning
 
 We'd like to predict the severity of COVID-19 in a given state using statewide <i>feature</i> data like population, urban density, number of hospital beds, date of stay at home order, etc. We've already seen that we can get the information about cases and deaths from the New York Times github page. However, gathering corresponding statewide feature data requires quite a bit of hunting through various public websites. Consequently, we're going to skip over the painstaking process of marshalling the feature data and just provide you with a dataset that is already nice and prepped for machine learning.  
 
-You'll work with two `.csv` files - a <b>data</b> file that contains a veriety of statewide data, and a <b>metadata</b> file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing publicly avaialble datasets.
+You'll work with two `.csv` files - a <b>data</b> file that contains a veriety of statewide data, and a <b>metadata</b> file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing datasets.
 
 To give you an idea of what was involved in assembling the data and metadate file, a summary of the data collection and processing steps is given below:
 
-- First, a snapshot of the New York Times COVID-19 data from April 27th was downloaded from the [nytimes github repo][] and stored on local disk.
+- First, a snapshot of the New York Times (NYT) COVID-19 data from April 27th was downloaded from the [nytimes github repo][] and stored on local disk.
 
 ```
 $ wget https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
 $ mv us-counties.csv us-counties_04_27_2020.csv
 ```
 
-- The data was processed using _R_ : 
+- The NYT COVID-19 data was processed using _R_ : 
 
-  - the cases and deaths in `us-counties_04_27_2020.csv` were aggregated into statewide values.
+  - The cases and deaths in `us-counties_04_27_2020.csv` were aggregated into statewide values.
   
-  - the death rate was calculated and categorized according to an 8-point severity index
+  - The death rate was calculated and categorized according to an 8-point severity index.
   
-  - finally, the statewide data was exported as a `.csv` file
+  - Finally, the statewide data (augmented with death rate and severity index) was exported as a `.csv` file.
 
 ```{r eval=FALSE}
 
 # get data from file
-covid_data_file = file.path("C:\\Matott\\MyQuaRantine", "us-counties_04_27_2020.csv")
+covid_data_file = file.path("./workdir", "us-counties_04_27_2020.csv")
 
 # read in as data frame
 us_data = read.csv(covid_data_file, stringsAsFactors = FALSE)
@@ -233,11 +235,11 @@ out_df = data.frame(
     severity_index=psi_state)
 
 # write out as csv
-my_out_file <- file.path("C:\\Matott\\MyQuaRantine", "covid_data.csv")
+my_out_file <- file.path("./workdir", "covid_data.csv")
 write.csv(out_df, file = my_out_file, row.names = FALSE)
 ```
 
-- The resulting statewide COVID-19 <b>label</b> data (i.e. what we would like to predict) was augmented with 32 statewide features, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a `.csv` file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).
+- The resulting statewide COVID-19 <b>label</b> data (i.e. what we would like to predict) was augmented with 32 statewide <b>features</b>, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a `.csv` file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).
 
 - The augmented (i.e. features + labels) `.csv` file was split into two `.csv` files that you will need to download:
 
@@ -262,14 +264,14 @@ Let's apply the random forest algorithm to the COVID-19 dataset. We'll build out
 library(randomForest)
 library(readr)
 
-data_file = file.path("C:/Matott/MyQuaRantine",
+data_file = file.path("./assets",
                       "statewide_covid_19_data_04_27_2020.csv")
 df = read_csv(data_file)
 # coerce severity to a factor (so RF algorithm uses classification)
 df$Y04 = as.factor(df$Y04)
 df
 
-metadata_file = file.path("C:/Matott/MyQuaRantine",
+metadata_file = file.path("./assets",
                           "statewide_covid_19_metadata_04_27_2020.csv")
 mdf = read_csv(metadata_file)
 mdf
@@ -323,19 +325,154 @@ print(model) # show results, includes confusion matrix
 importance(model) # measure of parameter importance
 ```
 
-Taking a look at the results, we see an error rate of more than 50%. The classification accuracy for the training dataset is `100% - error rate` - so it's not a very good model. Further we can see some systematic failures in the confusion matrix. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.
+Taking a look at the results, we see an error rate of more than 50%. The classification accuracy for the training dataset is `100% - error rate` - so it's not a very good model. Furthermore, we can see some systematic failures in the confusion matrix. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.
 
-## Day 23
+## Day 23 - Support Vector Machines
 
 For today's independent work you will learn about the Support Support Vector Machine (SVM) algorithm and apply it to the COVID-19 data that you worked with on Monday.
 
-## Day 24
+The SVM algorithm seeks to determine an optimal hyperplane that separates labeled observations.
 
-For today's independent work you will learn about the K-nearest neighbors (KNN) algorithm and apply it to the COVID-19 data.
+- Hyperplanes can be linear or non-linear.
 
-## Day 25
+- Support vectors are data points lying closest to the optimal hyperplane.
 
-For today's independent work you will learn about artificial neural networks (ANN). You will attempt to add Keras and TensorFlow support to your R/RStudio installation. If this turns out to be too dofficult, you will learn some "remote computing" alternatives that you can use in lieu of a local _R/Kera/TensorFlow_ installation. Finally, you'll apply `R-Keras-TensorFlow` to the COVID-19 example that you've been working with during the week.  
+- The `e1071` package in R provides an implementation of SVM.
+
+The figure below illusrates a linear SVM. Line $H_3$ provides the optimal separation between the white and black data points. Points with perpendiculars to $H_3$ are the support vectors for the dataset.
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_svm_example.png')
+```
+
+### An SVM Example using COVID-19
+
+We've already laid a large part of the groundwork for machine learning with the random forest example. With a few modifications, the `covid_19_rf.R` script can be adapted to use an SVM algorithm instead of Random Forest.
+
+- Open your `covid_19_rf.R` script in _RStudio_
+
+- Click `File --> Save As ...` and name the file `covid_19_svm.R`
+
+- In `Part 1` of `covid_19_svm.R`, replace `library(‘randomForest')` with `library(‘e1071’)`. This will load the `svm` algorithm instead of the `randomForest` algorithm.
+
+- In `Part 3` of the code, replace `randomForest()` with `svm()` and add the following argument to the `svm()` function: `probability = TRUE`. The `svm()` code should look something like this:
+
+```{r eval=FALSE}
+model = svm(Y04 ~ X01 + X10 + X12 + X13 + X23, 
+            data = train,
+            probability = TRUE)
+```
+
+The `svm()` function does not report classification accuracy or the confusion matrix, so you'll need to add a bit of code to compute these "manually". 
+
+- In `Part 3` of the code, replace:
+
+```{r eval=FALSE}
+print(model) 
+importance(model) 
+```
+
+with:
+
+```{r eval=FALSE}
+summary(model)
+preds = predict(model, test)
+confusion = table(test$Y04, preds)
+print(confusion)
+accuracy = sum(diag(confusion)/nrow(test))
+cat("Classification Accuracy = ", accuracy, "\n")
+```
+
+That's it! The rest of the code can be re-used. Save your `covid_19_svm.R` script and run it. How does the SVM algorithm perform in comparison with the Random Forest algorithm?
+
+## Day 24 - the $k$-Nearest Neighbors Algorithm
+
+For today's independent work you will learn about the $k$-Nearest neighbors (KNN) algorithm and apply it to the COVID-19 data.
+
+For a given unlabeled data point ($X^*$) the KNN algorithm identifies the nearest $k$ labeled data points.
+
+- Euclidean distance is typical
+
+- <i>Normalization of data is necessary to prevent biased distances.</i>
+
+- The label of $X^*$ is predicted to be the most frequently occurring label among the $k$ nearest neighbors.
+
+- The `class` package in R provides an implementation of KNN.
+
+The figure below illustrates the KNN approach and is courtesy of [Antti Ajanki][]. For $k=3$, the neighborhood contains 2 triangles and 1 square so we’d predict $X^*$ is a triangle. For $k=5$, the neighborhood contains 3 squares and 2 triangles so we’d predict $X^*$ is a square.
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_knn_example.png')
+```
+
+With a few modifications, the `covid_19_svm.R` script can be adapted to use an KNN algorithm instead of SVM.
+
+- Open your `covid_19_svm.R` script in _RStudio_
+
+- Click `File --> Save As ...` and name the file `covid_19_knn.R`
+
+- In `Part 1` of `covid_19_knn.R`, replace `library(‘e1071')` with `library(‘class’)`. This will load the `knn` algorithm instead of the `svm` algorithm.
+
+- The KNN algorithm requires the feature data to be normalized. Add the following line in `Part 1` of `covid_19_knn.R`. Add the line in between the `df$Y04 = as.factor(df$Y04)` line and the `df` line. If necessary, use `install.packages('BBmisc') ` to install the `BBmisc` package and its `normalize()` function.
+
+```{r eval=FALSE}
+df
+df = BBmisc::normalize(df, method = "range") # add this line
+df$Y04 = as.factor(df$Y04)
+```
+
+- In `Part 3` of the code, replace `svm()` with `knn()` and adjust the call to `knn()` so that it looks like this:
+
+```{r eval=FALSE}
+model = knn(select(train, all_of(my_x)),
+            select(test, all_of(my_x)),
+            train$Y04,
+            k = 7,
+            prob = TRUE)
+```
+
+The `knn()` function does not report classification accuracy or the confusion matrix, so you'll need to add a bit of code to compute these "manually". This manual code is slightly different from what you used with the `svm` model.
+
+- In `Part 3` of the code, replace:
+
+```{r eval=FALSE}
+summary(model)
+preds = predict(model, test)
+```
+
+with:
+
+```{r eval=FALSE}
+preds = as.data.frame(model)[,1]
+```
+
+That's it! The rest of the code can be re-used. Save your `covid_19_knn.R` script and run it. How does the KNN algorithm perform in comparison with the Random Forest and SVM algorithms?
+
+[Antti Ajanki]: https://commons.wikimedia.org/wiki/File:KnnClassification.svg
+
+## Day 25 - Artificial Neural Networks
+
+For today's independent work you will learn about artificial neural networks (ANN). You will attempt to add Keras and TensorFlow support to your R/RStudio installation. If this is successful, you can apply an ANN to the COVID-19 example that you've been working with during the week.  
+
+### Introduction to Artifical Neural Networks
+
+### Keras and TensorFlow
+
+### Installing Keras and TensorFlow
+
+A pre-requisite for using Keras and TensorFlow is to install Anaconda Python version 3.x: https://www.anaconda.com/download
+
+Instructions for installing Keras and TensorFlow for use withing RStudio are provided at https://keras.rstudio.com/
+
+```{r eval=FALSE}
+install.packages("devtools")
+devtools::install_github("rstudio/keras")
+library(keras)
+install_keras()
+```
+
+### Applying Keras and TensorFlow to the COVID-19 Dataset
+
 
 ## Day 26 (Friday) Zoom check-in
 
@@ -395,6 +532,10 @@ The ROC/AUC calculation is fairly involved so we'll create a helper function for
 # roc_one_vs_all()
 #   A helper function to compute one vs. all ROC/AUC for a given level (i)
 roc_one_vs_all <- function(i) {
+    if(is.na(sum(probs))){
+        return(NA)
+    }
+  
     actual <- as.numeric(y_test[[1]] == i)
     score <- probs[,i]
     
@@ -414,7 +555,19 @@ roc_one_vs_all <- function(i) {
 # prepare data for computing ROC/AUC
 x_test <- select(test, all_of(my_x))
 y_test <- select(test, all_of(my_y))
-probs  <- predict(model, x_test, type='prob')
+# how we obtain probs depends on the algorithm
+if (inherits(model, "randomForest")) 
+{
+    probs  <- predict(model, x_test, type='prob')
+} else if (inherits(model, "svm"))
+{
+    probs  <- predict(model, x_test, probability = TRUE)
+    probs  <- attributes(probs)
+    probs  <- as.data.frame(probs$probabilities)
+} else # the other algs require more work
+{
+    probs = NA
+}
 lvls   <- unique(as.character(y_test[[1]]))
 cols   <- c("red","orange","yellow","green",
            "blue","purple","violet","black")
@@ -481,10 +634,3 @@ Let's perform some numerical experiments to explore how these algorithm paramete
 - Does adjusting the parameters effect the model performance? If so, what observations can you make?
 
 - Can you think of a "better" way to evaluate the influence of algorithm parameters?
-
-
-
-
-
-
-
