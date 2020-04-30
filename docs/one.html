@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse.</p>" />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-28" />
+<meta name="date" content="2020-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -213,12 +213,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.1</b> A Machine Learning Primer</a></li>
 <li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forest-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forest Algorithm</a></li>
-<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#preparing-a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i><b>4.1.3</b> Preparing a COVID-19 Dataset for Machine Learning</a></li>
+<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i><b>4.1.3</b> A COVID-19 Dataset for Machine Learning</a></li>
 <li class="chapter" data-level="4.1.4" data-path="four.html"><a href="four.html#a-random-forest-example-using-covid-19-data"><i class="fa fa-check"></i><b>4.1.4</b> A Random Forest Example Using COVID-19 Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23"><i class="fa fa-check"></i><b>4.2</b> Day 23</a></li>
-<li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24"><i class="fa fa-check"></i><b>4.3</b> Day 24</a></li>
-<li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25"><i class="fa fa-check"></i><b>4.4</b> Day 25</a></li>
+<li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23---support-vector-machines"><i class="fa fa-check"></i><b>4.2</b> Day 23 - Support Vector Machines</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="four.html"><a href="four.html#an-svm-example-using-covid-19"><i class="fa fa-check"></i><b>4.2.1</b> An SVM Example using COVID-19</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24---the-k-nearest-neighbors-algorithm"><i class="fa fa-check"></i><b>4.3</b> Day 24 - the <span class="math inline">\(k\)</span>-Nearest Neighbors Algorithm</a></li>
+<li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25---artificial-neural-networks"><i class="fa fa-check"></i><b>4.4</b> Day 25 - Artificial Neural Networks</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="four.html"><a href="four.html#introduction-to-artifical-neural-networks"><i class="fa fa-check"></i><b>4.4.1</b> Introduction to Artifical Neural Networks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="four.html"><a href="four.html#keras-and-tensorflow"><i class="fa fa-check"></i><b>4.4.2</b> Keras and TensorFlow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="four.html"><a href="four.html#applying-keras-and-tensorflow-to-the-covid-19-dataset"><i class="fa fa-check"></i><b>4.4.3</b> Applying Keras and TensorFlow to the COVID-19 Dataset</a></li>
+</ul></li>
 <li class="chapter" data-level="4.5" data-path="four.html"><a href="four.html#day-26-friday-zoom-check-in"><i class="fa fa-check"></i><b>4.5</b> Day 26 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="four.html"><a href="four.html#review-and-trouble-shoot-25-minutes-1"><i class="fa fa-check"></i><b>4.5.1</b> Review and trouble shoot (25 minutes)</a></li>
 <li class="chapter" data-level="4.5.2" data-path="four.html"><a href="four.html#this-weekend-25-minutes"><i class="fa fa-check"></i><b>4.5.2</b> This weekend (25 minutes)</a></li>
@@ -1154,7 +1160,7 @@ these by <code>c</code>oncatenating individual values</p>
 <p><img src="images/rstudio_run_button.png" width="80%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">x =<span class="st"> &quot;Hello world!&quot;</span>; y =<span class="st"> &#39;Today is&#39;</span>; d =<span class="st"> </span><span class="kw">format</span>(<span class="kw">Sys.Date</span>(),<span class="st">&quot;%b %d, %Y&quot;</span>)</a>
 <a class="sourceLine" id="cb92-2" title="2"><span class="kw">cat</span>(x, y, d, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb92-3" title="3"><span class="co">## Hello world! Today is Apr 28, 2020</span></a></code></pre></div>
+<a class="sourceLine" id="cb92-3" title="3"><span class="co">## Hello world! Today is Apr 30, 2020</span></a></code></pre></div>
 <ul>
 <li>Alternatively, use “Run –&gt; Run All” to run an entire script file.</li>
 </ul>
