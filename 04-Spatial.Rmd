@@ -24,9 +24,9 @@ Here is an overview of what we'll cover in today's Zoom session:
 
 Machine Learning (ML) may be defined as using computers to make inferences about data.
 
-- A mapping of inputs to outputs, Y = f(<b>X</b> , <b>$\beta$</b>)
+- A mapping of inputs to outputs, Y = f(*X* , *$\beta$*)
 
-<i>ML for Classification</i> refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)
+_ML for Classification_ refers to algorithms that map inputs to a discrete set of outputs (i.e. classes or categories)
 
 - For example, predicting health risk (mild, moderate, severe) based on patient data (height [m], weight [kg], age [years], smoker [yes/no], etc.)
   
@@ -66,15 +66,15 @@ knitr::include_graphics('images/ml_black_box_example.png')
 
 The above example highlights some important machine learning terminology:
 
-- <b>Features</b> (<b>X</b>): Features are the inputs to the model. They are also known as descriptive attributes or explanatory variables. In terms of _R_, a single set of features corresponds to a tuple or row of data and a complete set of feature data maps nicely to a data frame or tibble.
+- *Features* (*X*): Features are the inputs to the model. They are also known as descriptive attributes or explanatory variables. In terms of _R_, a single set of features corresponds to a tuple or row of data and a complete set of feature data maps nicely to a data frame or tibble.
 
-- <b>Parameters</b> (<b>$\beta$</b>): Parameters are internal variables of the selected machine learning algorithm. They are also known as coefficients or training weights. These internal parameters need to be adjusted to minimize the deviation between predictions and observations. The machine learning algorithms and pacakages that we'll be using in _R_ take care of this minimization process for us.
+- *Parameters* (*$\beta$*): Parameters are internal variables of the selected machine learning algorithm. They are also known as coefficients or training weights. These internal parameters need to be adjusted to minimize the deviation between predictions and observations. The machine learning algorithms and pacakages that we'll be using in _R_ take care of this minimization process for us.
 
-- <b>Labels</b> (<b>Y</b>): Labels are the outputs of the algorithm, corresponding to the categories you are attempting to predict.
+- *Labels* (*Y*): Labels are the outputs of the algorithm, corresponding to the categories you are attempting to predict.
 
-- <b>Training Data</b>: Training data is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.
+- *Training Data*: Training data is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). Training data is also known as measurement data, observation data or calibration data.
 
-- <b>Training</b>: Training is the process of adjusting internal algorithm paramters (<b>$\beta$</b>) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimation.
+- *Training*: Training is the process of adjusting internal algorithm paramters (*$\beta$*) to obtain the best possible match between training data and corresponding model predictions. Training is also known as model calibration or parameter estimation.
 
 An example set of training data that could be used in the gender prediction example is given below. The frist three columns contain feature data and the last column contains label data. We could use this data to train a model to predict a person's gender based on their height, weight and age.
 
@@ -88,13 +88,13 @@ df = data.frame(height_m=h,weight_kg=w,age_y=a,gender=g)
 print(df, row.names = FALSE, right = FALSE)
 ```
 
-- <b>Test Data</b>: Like training data, test data is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). However, test data is deliberately <i>not included</i> in the training process. Performance measures computed using test data help to quantify the expected performance of the model if/when it is applied to unlabeled data.
+- *Test Data*: Like training data, test data is a data set containing paired observations of inputs (i.e features) and outputs (i.e. labels). However, test data is deliberately _not included_ in the training process. Performance measures computed using test data help to quantify the expected performance of the model if/when it is applied to unlabeled data.
 
 Upon completion of training, it is important to evaluate the quality of the model and its skill or ability at making correct predictions. Some terms related to this evaluation process are defined below:
 
-- <b>Classification Accuracy</b>: Classification accuracy is the ratio of correct predictions to the total predictions. Classification accuracy can be computed using the training data set or using the test data set.
+- *Classification Accuracy*: Classification accuracy is the ratio of correct predictions to the total predictions. Classification accuracy can be computed using the training data set or using the test data set.
 
-- <b>Confusion Matrix</b>: The confusion matrix is a more detailed summary (relative to classification accuracy) of the performance of a classification algorithm. The diagonals of the confusion matrix count how often the algorithm yields the correct classification for each class. The off-diagonal entries count how often the algorithm confuses one class with another.
+- *Confusion Matrix*: The confusion matrix is a more detailed summary (relative to classification accuracy) of the performance of a classification algorithm. The diagonals of the confusion matrix count how often the algorithm yields the correct classification for each class. The off-diagonal entries count how often the algorithm confuses one class with another.
 
 The figure below illustrates the classification accuracy and confusion matrix for an example that attempts to classify images of fruits.
 
@@ -168,22 +168,22 @@ Now you have a basic understanding of machine learning and the random forest alg
 
 [Bradley Boehmke at the University of Cincinnati]: https://uc-r.github.io/random_forests
 
-<hr>
-
 ### A COVID-19 Dataset for Machine Learning
 
-We'd like to predict the severity of COVID-19 in a given state using statewide <i>feature</i> data like population, urban density, number of hospital beds, date of stay at home order, etc. We've already seen that we can get the information about cases and deaths from the New York Times github page. However, gathering corresponding statewide feature data requires quite a bit of hunting through various public websites. Consequently, we're going to skip over the painstaking process of marshalling the feature data and just provide you with a dataset that is already nice and prepped for machine learning.  
+We'd like to predict the severity of COVID-19 in a given state using statewide _feature_ data like population, urban density, number of hospital beds, date of stay at home order, etc. We've already seen that we can get the information about cases and deaths from the New York Times github page. However, gathering corresponding statewide feature data requires quite a bit of hunting through various public websites. Consequently, we're going to skip over the painstaking process of marshalling the feature data and just provide you with a dataset that is already nice and prepped for machine learning.  
 
-You'll work with two `.csv` files - a <b>data</b> file that contains a veriety of statewide data, and a <b>metadata</b> file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing datasets.
+You'll work with two `.csv` files - a *data* file that contains a veriety of statewide data, and a *metadata* file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing datasets.
 
 To give you an idea of what was involved in assembling the data and metadata file, a summary of the data collection and processing steps is given below:
 
 - First, a snapshot of the New York Times (NYT) COVID-19 data from April 27th was downloaded from the [nytimes github repo][] and stored on local disk.
 
-```
-$ wget https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
-$ mv us-counties.csv us-counties_04_27_2020.csv
-```
+    ```{r}
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    file <- "us-counties_04_27_2020.csv"
+    destination <- file.path("workdir", file)
+    download.file(url, destination)
+    ```
 
 - The NYT COVID-19 data was processed using _R_ : 
 
@@ -193,65 +193,71 @@ $ mv us-counties.csv us-counties_04_27_2020.csv
   
   - Finally, the statewide data (augmented with death rate and severity index) was exported as a `.csv` file.
 
-```{r eval=FALSE}
+    ```{r}
+    library(readr)
+    library(dplyr)
+    
+    ## get data from file
+    covid_data_file <- file.path("./workdir", "us-counties_04_27_2020.csv")
+    
+    ## read the data as a tibble
+    us_data <- read_csv(covid_data_file)
+    
+    ## aggregate by county and state
+    county_state <-
+        us_data %>%
+        group_by(county, state) %>%
+        summarize(cases = max(cases), deaths = max(deaths))
+    
+    ## aggregate by state
+    state <-
+        county_state %>%
+        group_by(state) %>%
+        summarize(cases = sum(cases), deaths = sum(deaths))
+    
+    ## calculate death rate
+    state <-
+        state %>%
+        mutate(death_rate = 100.00 * deaths / cases)
+    
+    # Assign the following severity index using cut:
+    ##  PSI Death.Rate    
+    ##  1   < 0.1%        
+    ##  2   0.1% - 0.5%   
+    ##  3   0.5% - 1.0%   
+    ##  4   1.0% - 2.0%   
+    ##  5   2.0% - 4.0%   
+    ##  6   4.0% - 6.0%   
+    ##  7   6.0% - 8.0%   
+    ##  8   >8.0%         
+    state <-
+        state %>%
+        mutate(
+            severity_index =cut(
+                death_rate, 
+                breaks = c(0.0, 0.1, 0.5, 1.0, 2.0, 4.0, 6.0, 8.0, 100.0),
+                labels = 1:8
+            )
+        )
+    
+    ## write out as csv
+    my_out_file <- file.path("./workdir", "covid_data.csv")
+    write_csv(state, my_out_file)
+    ```
 
-# get data from file
-covid_data_file <- file.path("./workdir", "us-counties_04_27_2020.csv")
-
-# read in as data frame
-us_data <- read.csv(covid_data_file, stringsAsFactors = FALSE)
-
-# aggregate by county and state
-cases_county_state <- aggregate( cases ~ county + state, us_data, max )
-deaths_county_state <- aggregate( deaths ~ county + state, us_data, max )
-
-# aggregate by state
-cases_state <- aggregate(cases ~ state, cases_county_state, sum)
-deaths_state <- aggregate(deaths ~ state, deaths_county_state, sum)
-
-# calculate death rate
-death_rate_state <- 100.00 * (deaths_state$deaths / cases_state$cases)
-
-# Assign the following severity index using cut:
-##  PSI Death.Rate    
-##  1   < 0.1%        
-##  2   0.1% - 0.5%   
-##  3   0.5% - 1.0%   
-##  4   1.0% - 2.0%   
-##  5   2.0% - 4.0%   
-##  6   4.0% - 6.0%   
-##  7   6.0% - 8.0%   
-##  8   >8.0%         
-psi_state <- cut(death_rate_state, 
-                 breaks=c(0.0,0.1,0.5,1.0,2.0,4.0,6.0,8.0,100.0),
-                 labels=c(1,2,3,4,5,6,7,8))
-
-# combine into new data frame
-out_df <- data.frame(
-    state=cases_state$state, 
-    cases=cases_state$cases, 
-    deaths=deaths_state$deaths,
-    death_rate=death_rate_state,
-    severity_index=psi_state)
-
-# write out as csv
-my_out_file <- file.path("./workdir", "covid_data.csv")
-write.csv(out_df, file = my_out_file, row.names = FALSE)
-```
-
-- The resulting statewide COVID-19 <b>label</b> data (i.e. what we would like to predict) was augmented with 32 statewide <b>features</b>, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a `.csv` file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).
+- The resulting statewide COVID-19 *label* data (i.e. what we would like to predict) was augmented with 32 statewide *features*, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a `.csv` file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).
 
 - The augmented (i.e. features + labels) `.csv` file was split into two `.csv` files that you will need to download:
 
-  - [statewide_covid_19_data_04_27_2020.csv](assets/statewide_covid_19_data_04_27_2020.csv): This file contains the final COVID-19 machine learning data set, but features and labels are coded so that feature columns are named `X01`, `X02`, `X03`, etc. and label colunms are named `Y01`, `Y02`, `Y03`, etc. 
+  - [statewide_covid_19_data_04_27_2020.csv][]: This file contains the final COVID-19 machine learning data set, but features and labels are coded so that feature columns are named `X01`, `X02`, `X03`, etc. and label colunms are named `Y01`, `Y02`, `Y03`, etc. 
 
-  - [statewide_covid_19_metadata_04_27_2020.csv](assets/statewide_covid_19_metadata_04_27_2020.csv): This file maps the column names in the data file to more meaningful names and desciptions (including units) of the associated variables. For example `X01` is `Pct_Sun` and has a description of `Percent sunny days`. This is known as <b>metadata</b> - data that describes other data.
+  - [statewide_covid_19_metadata_04_27_2020.csv][]: This file maps the column names in the data file to more meaningful names and desciptions (including units) of the associated variables. For example `X01` is `Pct_Sun` and has a description of `Percent sunny days`. This is known as *metadata* - data that describes other data.
   
 Click on the links above to download the data and metadata files that you'll need for the machine learning examples presented throughout the week.
 
 [nytimes github repo]: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
-
-<hr>
+[statewide_covid_19_data_04_27_2020.csv]: assets/statewide_covid_19_data_04_27_2020.csv
+[statewide_covid_19_metadata_04_27_2020.csv]: assets/statewide_covid_19_metadata_04_27_2020.csv
 
 ### A Random Forest Example Using COVID-19 Data
 
@@ -264,15 +270,15 @@ Let's apply the random forest algorithm to the COVID-19 dataset. We'll build out
 library(randomForest)
 library(readr)
 
-data_file <- file.path("./assets",
-                      "statewide_covid_19_data_04_27_2020.csv")
+data_file <- file.path("assets", "statewide_covid_19_data_04_27_2020.csv")
 df <- read_csv(data_file)
 # coerce severity to a factor (so RF algorithm uses classification)
-df$Y04 <- as.factor(df$Y04)
-df
+df <-
+    df %>%
+    mutate(Y04 = as.factor(df$Y04))
 
-metadata_file <- file.path("./assets",
-                          "statewide_covid_19_metadata_04_27_2020.csv")
+
+metadata_file <- file.path("assets", "statewide_covid_19_metadata_04_27_2020.csv")
 mdf <- read_csv(metadata_file)
 mdf
 ```
@@ -296,40 +302,42 @@ print(mdf, n = nrow(mdf))
 
 # select some features and the severity index label
 my_x <- c("X01","X10","X12","X13","X23")
-my_y <- c("Y04")
+my_y <- "Y04"
 my_xy <- c(my_x, my_y)
 
 # get descriptions of the selected features and label
-filter(mdf, Code %in% my_xy)
+mdf %>% filter(Code %in% my_xy)
 
 # subset the dataframe
-rf_df <- select(df, all_of(my_xy))
+rf_df <- df %>% select(all_of(my_xy))
 ```
-
-Now we’ll add code to create and train a basic Random Forest model. Add the `Part 3` code below to your RScript but omit lines that begin with a double-hash (`##`) :
+Now we’ll add code to create and train a basic Random Forest model. Add the `Part 3` code below to your RScript but omit lines that begin with a double-hash (`##`):
 
 ```{r}
 #
 # Part 3 - create and train the model
 #
 # split into train (75%) and test (25%) datasets
-train <- rf_df[seq(1,nrow(rf_df), by = 4),]
-train <- rbind(train, rf_df[seq(2,nrow(rf_df), by = 4),])
-train <- rbind(train, rf_df[seq(3,nrow(rf_df), by = 4),])
-test <- rf_df[seq(4,nrow(rf_df), by = 4),]
+#
+# note that `row_nubmer()` generates a vector of row numbers, and
+#     > c(1, 2, 3, 4, 5, 6) %% 4 is
+#     [1] 1 2 3 0 1 2
+
+train <- rf_df %>% filter((row_number() %% 4) %in% 1:3)
+test <- rf_df %>% filter(row_number() %% 4 == 0)
 
 # create and train the RF model
 model <- randomForest(Y04 ~ X01 + X10 + X12 + X13 + X23, 
                       data = train)
 
 # show results, includes confusion matrix for training data
-print(model) 
+model
 
 # measure of parameter importance
 importance(model) 
 ```
 
-At this point the model is trained and the next step is to evaluate its usefulness at making predictions. Let's see how the model does at predicting the labels of the test dataset. Remember that the test data was <i>not</i> used during the training exericse. As such, the confusion matrix and classification accuracy associated with the test dataset provides a useful check of the skill of the model. Add the `Part 4` code below to your RScript but omit lines that begin with a double-hash (`##`) :
+At this point the model is trained and the next step is to evaluate its usefulness at making predictions. Let's see how the model does at predicting the labels of the test dataset. Remember that the test data was _not_ used during the training exericse. As such, the confusion matrix and classification accuracy associated with the test dataset provides a useful check of the skill of the model. Add the `Part 4` code below to your RScript but omit lines that begin with a double-hash (`##`) :
 
 ```{r}
 #
@@ -367,7 +375,7 @@ The SVM algorithm seeks to determine an optimal hyperplane that separates labele
 
 - The `e1071` package in R provides an implementation of SVM.
 
-The figure below illusrates a linear SVM. Line $H_3$ provides the optimal separation between the white and black data points. Points with perpendiculars to $H_3$ are the support vectors for the dataset. The SVM algorithm classifies unlabeled data points by examining their location with respect to the optimal hyperplane. Data points <i>above</i> line $H_3$ would be classified as "black" and datapoints <i>below</i> the line would be calssified as white.
+The figure below illusrates a linear SVM. Line $H_3$ provides the optimal separation between the white and black data points. Points with perpendiculars to $H_3$ are the support vectors for the dataset. The SVM algorithm classifies unlabeled data points by examining their location with respect to the optimal hyperplane. Data points _above_ line $H_3$ would be classified as "black" and datapoints _below_ the line would be calssified as white.
 
 ```{r echo = FALSE, fig.align="center", out.width="50%"}
 knitr::include_graphics('images/ml_svm_example.png')
@@ -414,7 +422,7 @@ For a given unlabeled data point ($X^*$) the KNN algorithm identifies the neares
 
 - Euclidean distance is typical
 
-- <i>Normalization of data is necessary to prevent biased distances.</i>
+- _Normalization of data is necessary to prevent biased distances._
 
 - The label of $X^*$ is predicted to be the most frequently occurring label among the $k$ nearest neighbors.
 
@@ -437,7 +445,7 @@ With a few modifications, the `covid_19_svm.R` script can be adapted to use an K
 - The KNN algorithm requires the feature data to be normalized. Add the following line in `Part 1` of `covid_19_knn.R`. Add the line in between the `df$Y04 <- as.factor(df$Y04)` line and the `df` line. If necessary, use `install.packages('BBmisc') ` to install the `BBmisc` package and its `normalize()` function.
 
 ```{r eval=FALSE}
-df$Y04 <- as.factor(df$Y04)
+df <- df %>% mutate(Y04 <- as.factor(Y04))
 df <- BBmisc::normalize(df, method = "range") # add this line
 df
 ```
@@ -498,11 +506,11 @@ The figure highlights some interesting ANN features:
 
 - Each layer contains one or more neurons and these are represented as circles in the figure.
 
-- The first layer is call the <i>input</i> layer and the number of neurons in this layer is matched to the number of features in the data set.
+- The first layer is call the _input_ layer and the number of neurons in this layer is matched to the number of features in the data set.
 
-- The last layer is called the <i>output</i> layer. The number of neurons in the output layer is equal to the number of categories that the ANN is trying to predict. For example, there would be 2 neurons in the output layer if you were trying to predict gender (male vs. female). The output of each neuron in the output layer represents the probability or likelihood of a given category (e.g. Pr(male) vs. Pr(female)).
+- The last layer is called the _output_ layer. The number of neurons in the output layer is equal to the number of categories that the ANN is trying to predict. For example, there would be 2 neurons in the output layer if you were trying to predict gender (male vs. female). The output of each neuron in the output layer represents the probability or likelihood of a given category (e.g. Pr(male) vs. Pr(female)).
 
-- Intermediate layers are called <i>hidden</i> layers. Hidden layers can have more or less neurons than the input and output layers.
+- Intermediate layers are called _hidden_ layers. Hidden layers can have more or less neurons than the input and output layers.
 
 - Each neuron produces a weighted combination of its inputs and passes the results to neurons in the next layer.
 
@@ -576,7 +584,7 @@ A pre-requisite for using Keras and TensorFlow is to install Anaconda Python ver
 
 Instructions for installing Keras and TensorFlow for use within RStudio are provided at https://keras.rstudio.com/ and these are repeated below. The installation of Anaconda Python and Keras can take a while and may require restarting _RStudio_. It is a good idea to save and close any open _RStudio_ sessions before attempting these installations.
 
-<b>Option #1</b> (suggested by https://keras.rstudio.com )
+*Option #1* (suggested by https://keras.rstudio.com )
 
 ```{r eval=FALSE}
 install.packages("devtools")
@@ -585,7 +593,7 @@ library(keras)
 install_keras()
 ```
 
-<b>Option #2</b> (if option #1 fails)
+*Option #2* (if option #1 fails)
 
 - Step 1: Use `conda` to install TensorFlow (and Keras, too) from a system prompt (e.g. `DOS` on Windows machines). On Windows, you may need to choose "run as admin" when launching the `DOS` prompt.
 
@@ -667,7 +675,7 @@ val_split <- 0.2
 
 The previous bit of code prepares the data set for use by Keras:
 
-  - Keras wants <b>X</b> (features) and <b>Y</b> (labels) separated.
+  - Keras wants *X* (features) and *Y* (labels) separated.
   
   - Keras wants features represented as matrices.
   
@@ -777,13 +785,13 @@ Today we'll check how you're doing with using machine learning in _R_. Then we'l
 
 We've already seen how classification accuracy and the confusion matrix give an indication of the performance of a trained machine learning algorithm. It's also good practice to examine the "ROC curve" and related "AUC" metrics. 
 
-- <b> ROC curve</b>: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a "non-informative" model (i.e. a model that makes a uniform random guess). As such, we'd like the blue curve to be as far above the red curve as possible.
+- *ROC curve*: As illustrated in the figure below, the ROC (Receiver Operating Characteristic) curve plots the true positive (TP) vs. false positive (FP) rate at various probability thresholds. In the figure, the dashed blue line represents a hypothetical ROC curve for some machine learning model and the solid red line is the curve for a "non-informative" model (i.e. a model that makes a uniform random guess). As such, we'd like the blue curve to be as far above the red curve as possible.
 
 ```{r echo = FALSE, fig.align="center", , out.width="75%"}
 knitr::include_graphics('images/ml_roc_curve_example.png')
 ```
 
-- <b>AUC</b>: AUC stands for "area under curve" and is the area under the ROC curve. In the previous figure, the AUC would be the area under the dashed blue curve. Values of AUC quantify the degree to which an ROC curve lies above (or below) the "non-informative" curve. Some interesting AUC values:
+- *AUC*: AUC stands for "area under curve" and is the area under the ROC curve. In the previous figure, the AUC would be the area under the dashed blue curve. Values of AUC quantify the degree to which an ROC curve lies above (or below) the "non-informative" curve. Some interesting AUC values:
 
   - AUC = 0.0: the model is always wrong (with respect to TP vs. FP)
   
