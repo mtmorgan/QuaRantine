@@ -8,7 +8,7 @@ This week you will learn about machine learning for classification using _R_. Ob
 
 - To explore these classification algorithms using various packages in _R_.
 
-- To choose a classification algorithm and apply it to the statewide COVID-19 dataset.
+- To apply various classification algorithms to the statewide COVID-19 dataset.
 
 ## Day 22 (Monday) Zoom check-in
 
@@ -40,9 +40,9 @@ df = data.frame(PSI=cats, Death.Rate=frate, Example=example)
 print(df, row.names = FALSE, right = FALSE)
 ```
 
-– Predictions are typically expressed as a vector of probabilities.
+- Predictions are typically expressed as a vector of probabilities.
   
-  – e.g. Pr(cancerous) vs. Pr(benign)
+  - e.g. Pr(cancerous) vs. Pr(benign)
     
   - e.g. Pr(PSI=1), Pr(PSI=2), ..., Pr(PSI=5)
 
@@ -66,7 +66,7 @@ knitr::include_graphics('images/ml_black_box_example.png')
 
 The above example highlights some important machine learning terminology:
 
-- <b>Features</b> (<b>X</b>): Features are the inputs to the model. They are also known as descriptive attributes or explanatory variables. In terms of _R_, a single set of inputs corresponds to a tuple or row of data and a complete set of input data maps nicely to a data frame or tibble.
+- <b>Features</b> (<b>X</b>): Features are the inputs to the model. They are also known as descriptive attributes or explanatory variables. In terms of _R_, a single set of features corresponds to a tuple or row of data and a complete set of feature data maps nicely to a data frame or tibble.
 
 - <b>Parameters</b> (<b>$\beta$</b>): Parameters are internal variables of the selected machine learning algorithm. They are also known as coefficients or training weights. These internal parameters need to be adjusted to minimize the deviation between predictions and observations. The machine learning algorithms and pacakages that we'll be using in _R_ take care of this minimization process for us.
 
@@ -144,7 +144,7 @@ The random forest algorithm is a popular choice for machine learning.
 
 The figure below illustrates one possible `tree` in a `random forest` for a gender prediction model. In computer science terminology, each split in the figure is a `branch` of a graph `tree`. In simple terms, the split points are randomly generated and the resulting `trees` combine to form a `random forest`.
 
-```{r echo = FALSE, fig.align="center", out.width="75%"}
+```{r echo = FALSE, fig.align="center", out.width="50%"}
 knitr::include_graphics('images/ml_rf_tree_gender.png')
 ```
 
@@ -162,7 +162,7 @@ The figure below illustrates a set of 6 `trees` that make up a `random forest` f
 knitr::include_graphics('images/ml_rf_tree_housing.png')
 ```
 
-The job of the random forest algorithm is to determine the optimal set of trees for your data set, including the splitting configuration (i.e. order, values, etc.).
+The job of the random forest algorithm is to determine the optimal set of trees for your data set, including the splitting configuration of each tree (i.e. order, values, etc.).
 
 Now you have a basic understanding of machine learning and the random forest algorithm. You're probably excited to get going with applying the algorithm! But first, we need to have a data set to work with. In the next section you'll learn about a data set that can be used for predicting the severity of COVID-19 in a state.
 
@@ -176,7 +176,7 @@ We'd like to predict the severity of COVID-19 in a given state using statewide <
 
 You'll work with two `.csv` files - a <b>data</b> file that contains a veriety of statewide data, and a <b>metadata</b> file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing datasets.
 
-To give you an idea of what was involved in assembling the data and metadate file, a summary of the data collection and processing steps is given below:
+To give you an idea of what was involved in assembling the data and metadata file, a summary of the data collection and processing steps is given below:
 
 - First, a snapshot of the New York Times (NYT) COVID-19 data from April 27th was downloaded from the [nytimes github repo][] and stored on local disk.
 
@@ -196,10 +196,10 @@ $ mv us-counties.csv us-counties_04_27_2020.csv
 ```{r eval=FALSE}
 
 # get data from file
-covid_data_file = file.path("./workdir", "us-counties_04_27_2020.csv")
+covid_data_file <- file.path("./workdir", "us-counties_04_27_2020.csv")
 
 # read in as data frame
-us_data = read.csv(covid_data_file, stringsAsFactors = FALSE)
+us_data <- read.csv(covid_data_file, stringsAsFactors = FALSE)
 
 # aggregate by county and state
 cases_county_state <- aggregate( cases ~ county + state, us_data, max )
@@ -227,7 +227,7 @@ psi_state <- cut(death_rate_state,
                  labels=c(1,2,3,4,5,6,7,8))
 
 # combine into new data frame
-out_df = data.frame(
+out_df <- data.frame(
     state=cases_state$state, 
     cases=cases_state$cases, 
     deaths=deaths_state$deaths,
@@ -255,25 +255,25 @@ Click on the links above to download the data and metadata files that you'll nee
 
 ### A Random Forest Example Using COVID-19 Data
 
-Let's apply the random forest algorithm to the COVID-19 dataset. We'll build out the required _R_ code in sections. To get started, open a new _R_ script in _RStudio_ and name it `covid_19_rf.R`. Enter the code below:
+Let's apply the random forest algorithm to the COVID-19 dataset. We'll build out the required _R_ code in sections. To get started, open a new _R_ script in _RStudio_ and name it `covid_19_rf.R`. Enter the code below, but omit lines that begin with a double-hash (`##`) because these are the expected output:
 
 ```{r}
 #
-# Machine Learning - Part 1
+# Part 1 - load the data
 #
 library(randomForest)
 library(readr)
 
-data_file = file.path("./assets",
+data_file <- file.path("./assets",
                       "statewide_covid_19_data_04_27_2020.csv")
-df = read_csv(data_file)
+df <- read_csv(data_file)
 # coerce severity to a factor (so RF algorithm uses classification)
-df$Y04 = as.factor(df$Y04)
+df$Y04 <- as.factor(df$Y04)
 df
 
-metadata_file = file.path("./assets",
+metadata_file <- file.path("./assets",
                           "statewide_covid_19_metadata_04_27_2020.csv")
-mdf = read_csv(metadata_file)
+mdf <- read_csv(metadata_file)
 mdf
 ```
 
@@ -283,49 +283,77 @@ Try to run the code. You may get an error about missing the `randomForest` packa
 install.packages("randomForest")
 ```
 
-Now we've loaded the data and metadata file. Let's pick a subset of 5 of the features and use them to try and predict the pandemic severity index (i.e. `Y04`):
+Now we've loaded the data and metadata file. Let's pick a subset of 5 of the features and use them to try and predict the pandemic severity index (i.e. `Y04`). Add the `Part 2` code below to your RScript but omit lines that begin with a double-hash (`##`) :
 
 ```{r}
 #
-# Machine Learning - Part 2
+# Part 2 - select features and label
 #
 library(dplyr)
 
 # describe all possible features and labels
-print(mdf, n=nrow(mdf))
+print(mdf, n = nrow(mdf))
 
-# select some features and the PSI label
-my_x = c("X01","X10","X12","X13","X23")
-my_y = c("Y04")
-my_xy = c(my_x, my_y)
+# select some features and the severity index label
+my_x <- c("X01","X10","X12","X13","X23")
+my_y <- c("Y04")
+my_xy <- c(my_x, my_y)
 
 # get descriptions of the selected features and label
 filter(mdf, Code %in% my_xy)
 
 # subset the dataframe
-rf_df = select(df, all_of(my_xy))
+rf_df <- select(df, all_of(my_xy))
 ```
 
-Now we’ll add code to create and train a basic Random Forest model:
+Now we’ll add code to create and train a basic Random Forest model. Add the `Part 3` code below to your RScript but omit lines that begin with a double-hash (`##`) :
 
 ```{r}
 #
-# Machine Learning - Part 3
+# Part 3 - create and train the model
 #
 # split into train (75%) and test (25%) datasets
-train = rf_df[seq(1,nrow(rf_df), by = 4),]
-train = rbind(train, rf_df[seq(2,nrow(rf_df), by = 4),])
-train = rbind(train, rf_df[seq(3,nrow(rf_df), by = 4),])
-test = rf_df[seq(4,nrow(rf_df), by = 4),]
+train <- rf_df[seq(1,nrow(rf_df), by = 4),]
+train <- rbind(train, rf_df[seq(2,nrow(rf_df), by = 4),])
+train <- rbind(train, rf_df[seq(3,nrow(rf_df), by = 4),])
+test <- rf_df[seq(4,nrow(rf_df), by = 4),]
 
 # create and train the RF model
-model = randomForest(Y04 ~ X01 + X10 + X12 + X13 + X23, 
-                     data = train)
-print(model) # show results, includes confusion matrix
-importance(model) # measure of parameter importance
+model <- randomForest(Y04 ~ X01 + X10 + X12 + X13 + X23, 
+                      data = train)
+
+# show results, includes confusion matrix for training data
+print(model) 
+
+# measure of parameter importance
+importance(model) 
 ```
 
-Taking a look at the results, we see an error rate of more than 50%. The classification accuracy for the training dataset is `100% - error rate` - so it's not a very good model. Furthermore, we can see some systematic failures in the confusion matrix. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.
+At this point the model is trained and the next step is to evaluate its usefulness at making predictions. Let's see how the model does at predicting the labels of the test dataset. Remember that the test data was <i>not</i> used during the training exericse. As such, the confusion matrix and classification accuracy associated with the test dataset provides a useful check of the skill of the model. Add the `Part 4` code below to your RScript but omit lines that begin with a double-hash (`##`) :
+
+```{r}
+#
+# Part 4 - evaluate the model using test data
+#
+
+# extract test predictions
+preds <- predict(model, test)
+
+# confusion matrix
+actual <- factor(test$Y04)
+predicted <- factor(preds)
+common_levels <- sort(unique(c(levels(actual), levels(predicted))))
+actual <- factor(actual, levels = common_levels)
+predicted <- factor(predicted, levels = common_levels)
+confusion <- table(actual,predicted)
+print(confusion)
+
+#classification accuracy
+accuracy <- sum(diag(confusion)/nrow(test))
+cat("Classification Accuracy = ", accuracy, "\n")
+```
+
+Save your script and run it. Take a look at the results for the test dataset - the classifcation accuracy is well under 50%. Furthermore, there are systematic failures in the confusion matrix. It's not a very good model. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.
 
 ## Day 23 - Support Vector Machines
 
@@ -339,7 +367,7 @@ The SVM algorithm seeks to determine an optimal hyperplane that separates labele
 
 - The `e1071` package in R provides an implementation of SVM.
 
-The figure below illusrates a linear SVM. Line $H_3$ provides the optimal separation between the white and black data points. Points with perpendiculars to $H_3$ are the support vectors for the dataset.
+The figure below illusrates a linear SVM. Line $H_3$ provides the optimal separation between the white and black data points. Points with perpendiculars to $H_3$ are the support vectors for the dataset. The SVM algorithm classifies unlabeled data points by examining their location with respect to the optimal hyperplane. Data points <i>above</i> line $H_3$ would be classified as "black" and datapoints <i>below</i> the line would be calssified as white.
 
 ```{r echo = FALSE, fig.align="center", out.width="50%"}
 knitr::include_graphics('images/ml_svm_example.png')
@@ -353,37 +381,30 @@ We've already laid a large part of the groundwork for machine learning with the 
 
 - Click `File --> Save As ...` and name the file `covid_19_svm.R`
 
-- In `Part 1` of `covid_19_svm.R`, replace `library(‘randomForest')` with `library(‘e1071’)`. This will load the `svm` algorithm instead of the `randomForest` algorithm.
+- In `Part 1` of `covid_19_svm.R`, replace `library(randomForest)` with `library(e1071)`. This will load the `svm` algorithm instead of the `randomForest` algorithm.
 
 - In `Part 3` of the code, replace `randomForest()` with `svm()` and add the following argument to the `svm()` function: `probability = TRUE`. The `svm()` code should look something like this:
 
 ```{r eval=FALSE}
-model = svm(Y04 ~ X01 + X10 + X12 + X13 + X23, 
-            data = train,
-            probability = TRUE)
+model <- svm(Y04 ~ X01 + X10 + X12 + X13 + X23, 
+             data = train,
+             probability = TRUE)
 ```
 
-The `svm()` function does not report classification accuracy or the confusion matrix, so you'll need to add a bit of code to compute these "manually". 
+- The `svm()` package does not provide useful implementations of `print(model)` or `importance(model)`. Comment out, or delete, those lines of `Part 3` and replace with `summary(model)`. When you are finished, the final section of the `Part 3` code should look something like this:
 
-- In `Part 3` of the code, replace:
-
-```{r eval=FALSE}
-print(model) 
-importance(model) 
-```
-
-with:
-
-```{r eval=FALSE}
+```{r eval = FALSE}
+# show results, includes confusion matrix for training data
+# print(model) 
+#
+# measure of parameter importance
+# importance(model) 
+#
+# summarize the trained SVM
 summary(model)
-preds = predict(model, test)
-confusion = table(test$Y04, preds)
-print(confusion)
-accuracy = sum(diag(confusion)/nrow(test))
-cat("Classification Accuracy = ", accuracy, "\n")
 ```
 
-That's it! The rest of the code can be re-used. Save your `covid_19_svm.R` script and run it. How does the SVM algorithm perform in comparison with the Random Forest algorithm?
+That's it! The rest of the code (i.e. `Part 4`) can be re-used. Save your `covid_19_svm.R` script and run it. How does the SVM algorithm perform in comparison with the Random Forest algorithm?
 
 ## Day 24 - the $k$-Nearest Neighbors Algorithm
 
@@ -411,39 +432,49 @@ With a few modifications, the `covid_19_svm.R` script can be adapted to use an K
 
 - Click `File --> Save As ...` and name the file `covid_19_knn.R`
 
-- In `Part 1` of `covid_19_knn.R`, replace `library(‘e1071')` with `library(‘class’)`. This will load the `knn` algorithm instead of the `svm` algorithm.
+- In `Part 1` of `covid_19_knn.R`, replace `library(e1071)` with `library(class)`. This will load the `knn` algorithm instead of the `svm` algorithm.
 
-- The KNN algorithm requires the feature data to be normalized. Add the following line in `Part 1` of `covid_19_knn.R`. Add the line in between the `df$Y04 = as.factor(df$Y04)` line and the `df` line. If necessary, use `install.packages('BBmisc') ` to install the `BBmisc` package and its `normalize()` function.
+- The KNN algorithm requires the feature data to be normalized. Add the following line in `Part 1` of `covid_19_knn.R`. Add the line in between the `df$Y04 <- as.factor(df$Y04)` line and the `df` line. If necessary, use `install.packages('BBmisc') ` to install the `BBmisc` package and its `normalize()` function.
 
 ```{r eval=FALSE}
+df$Y04 <- as.factor(df$Y04)
+df <- BBmisc::normalize(df, method = "range") # add this line
 df
-df = BBmisc::normalize(df, method = "range") # add this line
-df$Y04 = as.factor(df$Y04)
 ```
 
 - In `Part 3` of the code, replace `svm()` with `knn()` and adjust the call to `knn()` so that it looks like this:
 
 ```{r eval=FALSE}
-model = knn(select(train, all_of(my_x)),
-            select(test, all_of(my_x)),
-            train$Y04,
-            k = 7,
-            prob = TRUE)
+model <- knn(select(train, all_of(my_x)),
+             select(test, all_of(my_x)),
+             train$Y04,
+             k = 7,
+             prob = TRUE)
 ```
 
-The `knn()` function does not report classification accuracy or the confusion matrix, so you'll need to add a bit of code to compute these "manually". This manual code is slightly different from what you used with the `svm` model.
+- The `knn()` package does not provide useful implementations `print(model)`, `importance(model)`, or `summary(model)`. Comment out, or delete, those lines of `Part 3`. When you are finished, the final section of the `Part 3` code should look something like this:
 
-- In `Part 3` of the code, replace:
+```{r eval = FALSE}
+# show results, includes confusion matrix for training data
+# print(model) 
+#
+# measure of parameter importance
+# importance(model) 
+#
+# summarize the trained SVM
+# summary(model)
+```
+
+- In `Part 4` of the script, replace:
 
 ```{r eval=FALSE}
-summary(model)
-preds = predict(model, test)
+preds <- predict(model, test)
 ```
 
 with:
 
 ```{r eval=FALSE}
-preds = as.data.frame(model)[,1]
+preds <- as.data.frame(model)[,1]
 ```
 
 That's it! The rest of the code can be re-used. Save your `covid_19_knn.R` script and run it. How does the KNN algorithm perform in comparison with the Random Forest and SVM algorithms?
@@ -456,13 +487,96 @@ For today's independent work you will learn about artificial neural networks (AN
 
 ### Introduction to Artifical Neural Networks
 
+Artificial Neural Networks (ANN) are made of an input layer, an output layer, and one or more “hidden”
+layers. A simple "shallow" ANN is illustrated in the following figure:
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_ann_shallow.png')
+```
+
+The figure highlights some interesting ANN features:
+
+- Each layer contains one or more neurons and these are represented as circles in the figure.
+
+- The first layer is call the <i>input</i> layer and the number of neurons in this layer is matched to the number of features in the data set.
+
+- The last layer is called the <i>output</i> layer. The number of neurons in the output layer is equal to the number of categories that the ANN is trying to predict. For example, there would be 2 neurons in the output layer if you were trying to predict gender (male vs. female). The output of each neuron in the output layer represents the probability or likelihood of a given category (e.g. Pr(male) vs. Pr(female)).
+
+- Intermediate layers are called <i>hidden</i> layers. Hidden layers can have more or less neurons than the input and output layers.
+
+- Each neuron produces a weighted combination of its inputs and passes the results to neurons in the next layer.
+
+- Weights ($w_i$) are adjusted to develop an optimal mapping between inputs ($x_i$) and outputs ($y_i$).
+
+#### Deep Neural Networks {-}
+
+The advent of faster processors and accelerators like [NVIDIA's GPUs][] and [Google's TPUs][] has made it possible to construct and train ANNs that have more and more hidden layers. Such networks are often referred to as "deep neural networks". The corresponding modeling process has been dubbed "deep learning" to distinguish it from conventional machine learning approaches like random forests, support vector machines, and k-Nearest neighbors.
+
+The figure below illustrates a "fully connected" (i.e. all neurons in adjacent layers are connected) deep neural network.
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_ann_deep.png')
+```
+
+- The increased number of layers yields an extremely large number of connections.
+
+- More connections allows the neural network to consider massive numbers of input combinations.
+
+- More combinations means more weights that need to be trained. 
+
+- Calibrating so many weights requires an increasingly large training data set.
+
+Nowadays, the biggest challenge for applying deep learning is not computational resources but rather data scarcity.
+
+[NVIDIA's GPUs]: https://www.nvidia.com/en-us/deep-learning-ai/developer/
+
+[Google's TPUs]: https://cloud.google.com/blog/products/ai-machine-learning/what-makes-tpus-fine-tuned-for-deep-learning
+
 ### Keras and TensorFlow
 
-### Installing Keras and TensorFlow
+TensorFlow is a very popular set of deep learning tools that was developed by Google and made Open Source in 2015. TensorFlow is capable of exploiting GPU acceleration and can solve a wide variety of complex ANNs. The figure below illustrates the various layers of TensorFlow.
+
+- At the lowest level is the kernel. The kernel is responsible for solving an ANN in the most efficient manner using all of the resources (e.g. CPUs, GPUS, TPUs, etc.) that a given TensorFlow installation has at its disposal.
+
+- The remaining layers consist of various programming interfaces. We'll actually be using an interface called Keras.
+
+- The "native" programming language for TensorFlow is Python version 3.x and TensorFlow is conveniently deployed via the Anaconda Python distribution. So you will need to install Anaconda Python as a pre-requisite for using TensorFlow - details are provided below.
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_tflow_api.png')
+```
+
+Keras is an application programming interface (API) for TensorFlow. Keras is now bundled with TensorFlow - so Keras will be installed automatically if/when you install TensorFlow. 
+
+Keras makes it easier to assemble and train complicated train complicated neural networks. Examples include: convolutional neural networks, recurrent neural networks, generative adversarial neural networks, and autoencoders. With Keras you can:
+
+- Easily translate complex multi-layered ANN diagrams into the corresponding Keras code.
+
+- Select loss functions and optimizers from a large built-in library.
+
+- Include a variety of pre-defined [layer types][], including:
+
+  - dense (i.e. fully connected) layers
+  
+  - embedding, pooling and dropout layers
+  
+  - cropping, padding and flattening layers
+  
+  - 1D/2D/3D convolutional layers
+  
+  - long short term memory (LSTM) layers
+  
+  - many more!
+  
+[layer types]: https://keras.io/layers/core/
+   
+#### Installing Keras and TensorFlow {-}
 
 A pre-requisite for using Keras and TensorFlow is to install Anaconda Python version 3.x: https://www.anaconda.com/download
 
-Instructions for installing Keras and TensorFlow for use withing RStudio are provided at https://keras.rstudio.com/
+Instructions for installing Keras and TensorFlow for use within RStudio are provided at https://keras.rstudio.com/ and these are repeated below. The installation of Anaconda Python and Keras can take a while and may require restarting _RStudio_. It is a good idea to save and close any open _RStudio_ sessions before attempting these installations.
+
+<b>Option #1</b> (suggested by https://keras.rstudio.com )
 
 ```{r eval=FALSE}
 install.packages("devtools")
@@ -471,8 +585,175 @@ library(keras)
 install_keras()
 ```
 
+<b>Option #2</b> (if option #1 fails)
+
+- Step 1: Use `conda` to install TensorFlow (and Keras, too) from a system prompt (e.g. `DOS` on Windows machines). On Windows, you may need to choose "run as admin" when launching the `DOS` prompt.
+
+```
+[DOS]> activate r-reticulate
+(r-reticulate)[DOS]> conda remove  tensorflow
+(r-reticulate)[DOS]> conda install tensorflow
+```
+
+- Step 2: Use the short form package installations in _RStudio_ (i.e. skip `install_keras()` and `install_tensorflow()`):
+
+```{r eval=FALSE}
+# re-install tensorflow
+install.packages("tensorflow")
+
+# check tensorflow installation
+library(tensorflow)
+Sys.setenv(HDF5_DISABLE_VERSION_CHECK = "2")
+tf$constant("Hello from Tensorflow")
+
+# re-install keras
+devtools::install_github("rstudio/keras")
+
+# check keras installation
+library(keras)
+to_categorical(c(0:4),5)
+```
+
 ### Applying Keras and TensorFlow to the COVID-19 Dataset
 
+Give yourself a big pat on the back if you've successfully completed the Keras installation! If you run into trouble please post on the Teams chat and hopefully someone can help you out.
+
+To apply Keras to the COVID-19 dataset, we'll adapt a copy of the `covid_19_knn.R` script. 
+
+- In _RStudio_, open `covid_19_knn.R` and save it as `covid_19_keras.R`
+
+- In `Part 1` of the `covid_19_keras.R` file, replace `library(class)` with `library(keras)`. This will adjust the script to use the Keras API instead of the KNN algorithm.
+
+- In `Part 3` of the script, insert the following code in between the sections that split the data and create the model. 
+  
+```{r eval=FALSE}
+
+# split into train (75%) and test (25%) datasets
+# .
+# .
+# .
+
+# ----- insert the following code -----
+# manipulate dataset into Keras format
+x_train <- as.matrix(select(train, all_of(my_x)))
+y_train <- sapply(select(train, all_of(my_y)), as.character)
+y_train <- as.integer(y_train)
+
+x_test  <- as.matrix(select(test, all_of(my_x)))
+y_test  <- sapply(select(test, all_of(my_y)), as.character)
+y_test  <- as.integer(y_test)
+
+y_min   <- min(y_train,y_test)
+y_train <- y_train - y_min
+y_test  <- y_test  - y_min
+
+# one-hot encoding
+n_classes <- length(levels(df$Y04))
+y_train <- to_categorical(y_train, n_classes)
+y_test  <- to_categorical(y_test, n_classes)
+
+# assign hyperparameters
+num_epochs <- 200
+num_batch <- 25
+val_split <- 0.2
+
+# ----- end of code instertion -----            
+
+# create and train the KNN model
+# .
+# .
+# .
+```
+
+The previous bit of code prepares the data set for use by Keras:
+
+  - Keras wants <b>X</b> (features) and <b>Y</b> (labels) separated.
+  
+  - Keras wants features represented as matrices.
+  
+  - Keras wants labels represented as 0-based integers that are "one-hot" encoded. The figure below illustrates integer and one-hot encoding of a set of animal categories. In the figure, `Pr()` represents the probability of a given category.
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/ml_one_hot_encoding.png')
+```
+
+The code segment given above also sets up some algorithm parameters for the ANN:
+
+- `num_epochs`: The number of training steps. At each training step, an optimizer refines the network weights to improve predictions associated with a randomly sampled subset (i.e. batch) of the training data.
+
+- `num_batch`: The size of the randomly sampled subset of the training data that is used in each training epoch.
+
+- `val_split`" The validation split is a float between 0 and 1. It is the fraction of the training data to be used as validation data. The model will set apart this fraction of the training data (i.e. it will not train on it). The model will evaluate the loss and other metrics on this data at the end of each epoch.
+
+The next step in adapting the KNN example to use Keras is to replace the "create and train" portion. 
+
+Replace:
+
+```{r eval=FALSE}
+# create and train the KNN model
+model <- knn(select(train, all_of(my_x)),
+             select(test, all_of(my_x)),
+             train$Y04,
+             k = 7,
+             prob = TRUE)
+```
+
+With:
+
+```{r eval=FALSE}
+model <- keras_model_sequential()
+n_inputs <- ncol(x_train)
+# input layer
+layer_dense(model, units = 20, activation = 'relu', input_shape = c(n_inputs))
+# hidden layer
+layer_dense(model, units = 10, activation = 'relu')
+# output layer
+layer_dense(model, units = n_classes, activation = 'softmax')
+# display nework architecture
+summary(model)
+# assign loss function and optimizer
+compile(model, 
+        loss = "categorical_crossentropy",
+        optimizer = optimizer_rmsprop(),
+        metrics = c('accuracy'))
+# train the model
+results <- fit(model,
+               x_train, y_train,
+               epochs = num_epochs,
+               batch_size = num_batch,
+               validation_split = val_split)
+# examine convergence progress
+plot(results)
+results
+```
+
+This is a simple fully-connected shallow neural network. It is configured to use "categorical cross-entropy" as the loss function. The loss function is a measure of how closely the model outputs match with the actual labels in the training data. The figure below illustrates the steps involved in calculating the loss function. The `optimizer` field specifies an algorithm for minimizing the loss function. The `rmsprop` optimizer is an implementation of the "<u>R</u>oot <u>M</u>ean <u>S</u>quared <u>prop</u>agation" method. It is a fast and effective gradient-based procedure that is a good default choice for classification problems.
+
+```{r echo = FALSE, fig.align="center", out.width="75%"}
+knitr::include_graphics('images/ml_loss_function.png')
+```
+
+Make sure your plot window has some room; then highlight the portion of ANN script that you've adapted so far and run it. You should eventually see pair of plots similar to the figure below. These plots provide an epoch-by-epoch trace of the accuracy and loss for both the training and validation data. Watch out for cases of "overfitting" - where the training performance improves but the validation performance degrades.
+
+```{r echo = FALSE, fig.align="center", out.width="100%"}
+knitr::include_graphics('images/Rplot_ann_convergence.png')
+```
+
+The final step in modifying the KNN script for use with Keras is the computation of the classification accuracy and confusion matrix (i.e `Part 4`). Only the the `preds` assignment needs to be changed:
+
+Replace:
+
+```{r eval = FALSE}
+preds <- as.data.frame(model)[,1]
+```
+
+With:
+
+```{r eval = FALSE}
+preds <- predict_classes(model, x_test) + y_min
+```
+
+Highlight and run the `Part 4` code to check the skill of the model at predicting the test data. How do the results compare to the random forest, support vector machine, and k-nearest neighbors algorithms?
 
 ## Day 26 (Friday) Zoom check-in
 
@@ -516,17 +797,19 @@ For a problem with multiple classes (as opposed to a binary True/False, Male/Fem
 
 - Next, extract actual classification for each category.
 
-- Finally, leverage two commands of the `ROCR` module:
+- Finally, leverage three commands of the `ROCR` module:
 
   - `prediction()`: retrieve scores
 
   - `performance()`: generates TPR, FPR, and AUC measures through two separate calls
+  
+  - `print()`: generates a TPR vs. FPR plot
 
-The ROC/AUC calculation is fairly involved so we'll create a helper function for it and then incorporate the helper function into our machine learning scripts. 
+The ROC/AUC calculation is fairly involved so we'll create a helper function for it and then incorporate the helper function into our machine learning scripts.
 
 ```{r}
 #
-# Part 4 - ROC/AUC
+# Part 5 - ROC/AUC
 #
 
 # roc_one_vs_all()
@@ -535,7 +818,7 @@ roc_one_vs_all <- function(i) {
     if(is.na(sum(probs))){
         return(NA)
     }
-  
+    
     actual <- as.numeric(y_test[[1]] == i)
     score <- probs[,i]
     
@@ -558,19 +841,37 @@ y_test <- select(test, all_of(my_y))
 # how we obtain probs depends on the algorithm
 if (inherits(model, "randomForest")) 
 {
-    probs  <- predict(model, x_test, type='prob')
+    probs <- predict(model, x_test, type='prob')
 } else if (inherits(model, "svm"))
 {
-    probs  <- predict(model, x_test, probability = TRUE)
-    probs  <- attributes(probs)
-    probs  <- as.data.frame(probs$probabilities)
-} else # the other algs require more work
+    probs <- predict(model, x_test, probability = TRUE)
+    probs <- attributes(probs)
+    probs <- as.data.frame(probs$probabilities)
+    probs <- probs[,order(colnames(probs))]
+} else if (inherits(model,"keras.engine.sequential.Sequential"))
 {
-    probs = NA
+    x_test <- as.matrix(select(test, all_of(my_x)))
+    probs <- as.data.frame(predict(model, x_test))
+    colnames(probs) <- levels(df$Y04)
+} else # the KNN alg requires approximation of probabilities
+{
+  # highest predicted probabilities
+  pnrst <- attributes(model)$prob
+  # corresponding one-based categories
+  y_one <- as.numeric(min(levels(df$Y04))) - 1
+  vpreds <- as.integer(as.character(preds)) - y_one
+  # map probabilities into a matrix of zeroes
+  probs <- matrix(0.00, 
+                  nrow = length(pnrst),
+                  ncol = length(levels(df$Y04)))
+  probs[cbind(seq_along(vpreds), vpreds)] <- pnrst
+  # coerce to data frame
+  probs <- data.frame(probs)
+  colnames(probs) <- levels(df$Y04)
 }
-lvls   <- unique(as.character(y_test[[1]]))
-cols   <- c("red","orange","yellow","green",
-           "blue","purple","violet","black")
+lvls <- unique(as.character(y_test[[1]]))
+cols <- c("red","orange","yellow","green",
+          "blue","purple","violet","black")
 
 # vapply helper function across levels
 auc <- vapply(lvls, roc_one_vs_all, numeric(1))
@@ -586,10 +887,10 @@ lines(x=c(0,1),
       lty=2)
 
 # display AUC metrics
-tibble(lvls, auc)
+print(tibble(lvls, auc))
 ```
 
-Assuming you've been following along with the daily activities, you can add this `Part 4` code to any of your algorithm scripts (e.g. `covid_19_rf.R`, `covid_19_knn.R`, `covid_19_svm.R`, etc.). 
+Assuming you've been following along with the daily activities, you can add this `Part 5` code to any of your algorithm scripts (e.g. `covid_19_rf.R`, `covid_19_knn.R`, `covid_19_svm.R`, etc.).  The code uses the `inherits()` function to adapt the output of each individual algorithm into a form that is suitable for the ROC/AUC calculation.
 
 ## Day 27
 
@@ -634,3 +935,14 @@ Let's perform some numerical experiments to explore how these algorithm paramete
 - Does adjusting the parameters effect the model performance? If so, what observations can you make?
 
 - Can you think of a "better" way to evaluate the influence of algorithm parameters?
+
+Congratulations - you made it through a week of machine learning boot camp! You can download completed scripts (i.e. `Part 1` through `Part 5`) for each algorithm using the links below:
+
+- [Complete Random Forest Example](assets/covid_19_rf.R)
+
+- [Complete Support Vector Machine Example](assets/covid_19_svm.R)
+
+- [Complete $k$-Nearest Neighbors Example](assets/covid_19_knn.R)
+
+- [Complete Keras Example](assets/covid_19_keras.R)
+
