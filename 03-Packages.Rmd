@@ -927,14 +927,15 @@ Verbs
 
     - `ungroup()` to remove grouping
 
-- In scripts, it seems like the best strategy, for legibility, is to evaluate on verb per line, and to chain not too many verbs together into logical 'phrases'.
+- In scripts, it seems like the best strategy, for legibility, is to evaluate one verb per line, and to chain not too many verbs together into logical 'phrases'.
 
     ```{r}
     ## worst?
     state <- us %>% group_by(county, state) %>% summarize(cases = max(cases), deaths = max(deaths)) %>% group_by(state) %>% summarize(cases = sum(cases), deaths = sum(deaths)) %>% arrange(desc(cases))
 
     ## better?
-    us %>%
+    state <-
+        us %>%
         group_by(county, state) %>%
         summarize(cases = max(cases), deaths = max(deaths)) %>%
         group_by(state) %>%
@@ -996,7 +997,7 @@ library(ggplot2)
     ```{r}
     ggplot(erie, aes(date, cases)) +
         geom_point() +
-        ggtitle("Erie county cases (log 10)")
+        ggtitle("Erie county cases")
     ```
 
 - Plots can be captured as a variable, and subsequently modified
@@ -1005,8 +1006,10 @@ library(ggplot2)
     p <-
         ggplot(erie, aes(date, cases)) +
         geom_point() +
-        ggtitle("log10 Erie county cases")
-    p + scale_y_log10()
+        ggtitle("Erie county cases")
+    p +
+        scale_y_log10() +
+        ggtitle("Erie county cases (log 10)")
     ```
 
 Global data
