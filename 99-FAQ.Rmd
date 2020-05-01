@@ -61,8 +61,24 @@
 
 1. When I try to install a package, _R_ says a binary version exists but a newer version exists 'from source'. Do I want to install the binary version or the source version?
 
-  Usually, the answer is to install the older binary version.
+   Usually, the answer is to install the older binary version.
 
-  The newer source version likely represents a bug fix or implements new features in the package, so at first blush it seems preferable. However, installing source versions of packages often require additional software that is not necessarily easy to install and maintain. You might spend a considerable amount of time configuring your system and working through arcane error messages to get the 'latest' source version.
+   The newer source version likely represents a bug fix or implements new features in the package, so at first blush it seems preferable. However, installing source versions of packages often require additional software that is not necessarily easy to install and maintain. You might spend a considerable amount of time configuring your system and working through arcane error messages to get the 'latest' source version.
   
-  Almost always, the updated binary version becomes available in a day or so, and the best strategy is to install the old binary version now, and re-install the package the next time you remember, in a week or so.
+   Almost always, the updated binary version becomes available in a day or so, and the best strategy is to install the old binary version now, and re-install the package the next time you remember, in a week or so.
+
+1. What is the difference between quotes `"` (double quote), `'` (single quote), `` ` `` (backtick)
+
+   `"` and `'` can be used interchangeably (but always matching open and closing quotes) to represent and element of a character vector: `"DNA"` and `'DNA'` are the same. It can be convenient to use one style over another in particular situations: `"3' DNA"`, `'Tolstoy says: "All happy families are alike; each unhappy family is unhappy in its own way."'`, where the choice of quotes means that the 'inner' quote does not have to be 'escaped', e.g., using single quotes in the first example: `'3\' DNA'`.
+   
+   The backtick `` ` `` is a special quote, and says to treat the enclosed expression as a symbol _name_. We came across one use case in the world-wide COVID-19 data, where the column names was `Region/Country`. If we wanted to create a variable with that name, we could NOT write `Region/Country = c("US", "Canada")` because _R_ would interpret `Region` and `Country` as variables that were to be divided. Likewise, we couldn't use `"Region/Country" = c("US", "Canada")` because _R_ would say 'hey, you're trying to assign a character vector to a character vector not to a symbol!'.
+   
+    ```{r}
+    `Region/Country` = c("US", "Canada")
+    ```
+   
+   says 'create a symbol `Region/Country` and assign it the value `c("US", "Canada")`'. Any time we want to use this variable, we have to quote it
+   
+    ```{r}
+    length(`Region/Country`)
+    ```
