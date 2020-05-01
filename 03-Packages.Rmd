@@ -73,43 +73,43 @@ Base _R_
     ## [4] "package:grDevices" "package:utils"     "package:datasets"
     ## [7] "package:methods"   "Autoloads"         "package:base"
     ```
-    
+
 - When we create a variable like
 
     ```{r}
     x <- c(1, 2, 3)
     ```
-    
+
   _R_ creates a new _symbol_ in the `.GlobalEnv` location on the search path.
-  
+
 - When we evaluate a function like `length(x)`...
 
   - _R_ searches for the function `length()` along the `search()` path. It doesn't find `length()` in the `.GlobalEnv` (because we didn't define it there), or in the 'stats', 'graphics', ... packages. Eventually, _R_ finds the definition of `length` in the 'base' package.
-  
+
   - _R_ then looks for the definition of `x`, finds it in the
     `.GlobalEnv`.
-    
+
   - Finally, _R_ applies the definition of `length` found in the base package to the value of `x` found in the `.GlobalEnv`.
 
 Contributed packages
 
 - _R_ would be pretty limited if it could only do things that are defined in the base packages.
-  
+
 - It is 'easy' to write a package, and to make the package available for others to use.
-  
+
 - A major repository of contributed packages is [CRAN][] -- the Comprehensive _R_ Archive Network. There are more than 15,000 packages in CRAN.
-  
+
 - Many CRAN packages are arranged in [task views][] that highlight the most useful packages.
 
 Installing and attaching packages
 
 - There are too many packages for all to be distributed with _R_, so it is necessary to _install_ contributed packages that you might find interesting.
-  
+
 - once a package is installed (you only need to install a package once), it can be 'loaded' and 'attached' to the search path using
   `library()`.
-  
+
 - As an exercise, try to attach the 'readr', 'dplyr', and 'ggplot2' packages
-  
+
     ```{r, message = FALSE}
     library(readr)
     library(dplyr)
@@ -124,21 +124,21 @@ Installing and attaching packages
     ```
 
   it means that the package has not been installed (or that you have a typo in the name of the library!)
-  
+
 - Install any package that failed when `library()` was called with
 
     ```{r, eval = FALSE}
     install.packages(c("readr", "dplyr"), repos = "https://cran.r-project.org")
     ```
-    
+
   Alternatively, use the _RStudio_ interface to select (in the lower right panel, by default) the 'Packages' tab, 'Install' button.
-  
+
     ```{r echo = FALSE}
     knitr::include_graphics('images/RStudio-install.png')
     ```
-  
+
 - One package may use functions from one or more other packages, so when you install, for instance 'dplyr', you may actually install _several_ packages.
-  
+
 
 [CRAN]: https://cran.r-project.org
 [task views]: https://cran.r-project.org/web/views/
@@ -152,13 +152,13 @@ Installing and attaching packages
 The 'tidyverse' of packages provides a very powerful paradigm for working with data.
 
 - Based on the idea that a first step in data analysis is to transform the data into a standard format. Subsequent steps can then be accomplished in a much more straight-forward way, using a small set of functions.
-  
+
 - Hadley Wickham's '[Tidy Data][]' paper provides a kind of manifesto for what constitutes tidy data:
 
     1. Each variable forms a column.
     2. Each observation forms a row.
     3. Each type of observational unit forms a table
-    
+
 - We'll look at the [readr][] package for data input, and the [dplyr][] package for essential data manipulation.
 
 [Tidy Data]: https://vita.had.co.nz/papers/tidy-data.pdf
@@ -217,9 +217,9 @@ The 'tidyverse' of packages provides a very powerful paradigm for working with d
     us %>%
         filter(state == "New York", county == "Erie")
     ```
-    
+
   - The pipe works by transforming whatever is on the left-hand side of the `%>%` to the first argument of the function on the right-hand side.
-    
+
   - Like `filter()`, most [dplyr][] functions take as their first argument a tibble, and return a tibble. So the functions can be chained together, as in the following example.
 
 - `select()` specific columns
@@ -241,9 +241,9 @@ Other common verbs (see tomorrow's quarantine)
 Other 'tidyverse' packages
 
 - Packages adopting the 'tidy' approach to data representation and management are sometimes referred to as the [tidyverse][].
-  
+
 - [ggplot2][] implements high-quality data visualization in a way consistent with tidy data representations.
-  
+
 - The [tidyr][] package implements functions that help to transform data to 'tidy' format; we'll use `pivot_longer()` later in the week.
 
 [tidyverse]: https://www.tidyverse.org/
@@ -439,9 +439,9 @@ A first plot
     p <- ggplot(erie, aes(date, cases)) +
         geom_point()
     ```
-    
+
   ... and then updated and displayed
-  
+
     ```{r}
     p +
         xlab("Date (2020)") +
@@ -466,23 +466,23 @@ New cases
     p <- ggplot(erie, aes(date, new_cases)) +
         geom_point()
     ```
-    
+
 - Visualize on a linear and a log-transformed y-axis
 
     ```{r}
     p # linear
     p + scale_y_log10()
     ```
-    
+
   Add a smoothed line to the plot. By default the smoothed line is a local regression appropriate for exploratory data analysis. Note the confidence bands displayed in the plot, and how they convey a measure of certainty about the fit.
-  
+
     ```{r}
     p +
         scale_y_log10() +
         geom_smooth()
     ```
 
-- Reflect on the presentation of data, especially how log-transformation and a  clarifies our impression of the local progress of the pandemic. 
+- Reflect on the presentation of data, especially how log-transformation and a  clarifies our impression of the local progress of the pandemic.
 
 - The local regression used by `geom_smooth()` can be replaced by a linear regressin with `geom_smooth(method = "lm")`. Create this plot and reflect on the assumptions and suitability of a linear model for this data.
 
@@ -501,14 +501,14 @@ New cases and mortality
     ```{r}
     ggplot(erie) +
         scale_y_log10() +
-        geom_point(aes(date, cases), shape = "|", color = "blue") + 
+        geom_point(aes(date, cases), shape = "|", color = "blue") +
         geom_line(aes(date, cases), color = "blue") +
         geom_point(aes(date, deaths), shape = "|") +
         geom_line(aes(date, deaths))
     ```
-    
+
   Deaths lag behind cases by a week or so.
-  
+
 'Long' data and an alternative approach to plotting multiple curves.
 
 - Let's simplify the data to just the columns of interest for this exercise
@@ -532,7 +532,7 @@ New cases and mortality
         )
     longer
     ```
-    
+
 - Plot `date` and `value, coloring points by `name`
 
     ```{r}
@@ -574,7 +574,7 @@ Setup
     ```
 
 Visualization
-    
+
 - We can plot cases and deaths of each county...
 
     ```{r}
@@ -584,9 +584,9 @@ Visualization
         geom_point()
     p
     ```
-    
+
   ... but this is too confusing.
-  
+
 - Separate each county into a facet
 
     ```{r}
@@ -601,7 +601,7 @@ Visualization
     ```{r}
     p + facet_grid(cols=vars(county))
     ```
-    
+
 ### COVID-19 nationally {-}
 
 Setup
@@ -632,7 +632,7 @@ Setup
         arrange(desc(cases))
     state_summary
     ```
-    
+
 - Plot the relationship between cases and deaths as a scatter plot
 
     ```{r}
@@ -722,7 +722,7 @@ Source
 
     - Format our newly created 'date' column (using `as.Date()`, but with a `format=` argument appropriate for the format of the dates in this data set)
 
-    - Re-name, for convenience, the `County/Region` column as just `country`.
+    - Re-name, for convenience, the `County/Region` column as just `country`. This can be done with `rename(country = "Country/Region")`
 
     - Select only columns of interest -- `country`, `date`, `cases`
 
@@ -732,10 +732,8 @@ Source
     world <-
         csv %>%
         pivot_longer(-(1:4), names_to = "date", values_to = "cases") %>%
-        mutate(
-            country = `Country/Region`,
-            date = as.Date(date, format = "%m/%d/%y")
-        ) %>%
+        mutate(date = as.Date(date, format = "%m/%d/%y")) %>%
+        rename(country = "Country/Region") %>%
         group_by(country, date) %>%
         summarize(cases = sum(cases))
     world
@@ -804,10 +802,8 @@ It seems like it would be convenient to capture our data cleaning and visualizat
         world <-
             csv %>%
             pivot_longer(-(1:4), names_to = "date", values_to = "cases") %>%
-            mutate(
-                country = `Country/Region`,
-                date = as.Date(date, format = "%m/%d/%y")
-            )
+            mutate(date = as.Date(date, format = "%m/%d/%y")) %>%
+            rename(country = "Country/Region")
 
         ## sum cases across regions within aa country
         world <-
@@ -853,12 +849,237 @@ It seems like it would be convenient to capture our data cleaning and visualizat
     world <- get_world_data()
     world %>% plot_country("Korea, South")
     ```
-
+    
 ## Day 19 (Friday) Zoom check-in
 
-### Review and trouble shoot (25 minutes)
+### Logistics
 
-### Next week (25 minutes)
+- Stick around after class to ask any questions.
+
+- Remember Microsoft [Teams][] for questions during the week.
+
+[Teams]: https://teams.microsoft.com/l/team/19%3a44e8ed2b03db4d28bac6a212ed67717d%40thread.tacv2/conversations?groupId=02d8c183-5110-4504-b201-ace342eb6e2b&tenantId=08beaa21-c9ff-428a-b8f5-53c03dad1941
+
+### Review and trouble shoot (40 minutes)
+
+Setup
+
+```{r, message = FALSE}
+library(readr)
+library(dplyr)
+library(tibble)
+library(tidyr)
+
+url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+us <- read_csv(url)
+```
+
+Packages
+
+- `install.packages()` versus `library()`
+- Symbol resolution: `dplyr::filter()`
+
+The `tibble`
+
+- Compact, informative display
+- Generally, no rownames
+
+    ```{r}
+    mtcars %>%
+        as_tibble(rownames = "model")
+    ```
+
+Verbs
+
+- `filter()`: filter rows meeting specific criteria
+
+    ```{r}
+    erie <-
+        us %>%
+        filter(county == "Erie", state == "New York")
+    ```
+
+- `select()`: select column
+- `summarize()`: summarize column(s) to a single value
+
+    - `n()`: number of rows in the tibble
+
+- `mutate()`: modify and create new columns
+- `arrange()`: arrange rows so that specific columns are in order
+
+    - `desc()`: arrange in descending order. Applies to individual columns
+
+- `group_by()` / `ungroup()`: identify groups of data, e.g., for `summarize()` operations
+
+    ```{r}
+    us %>%
+        ## group by county & state, summarize by MAX (total) cases,
+        ## deaths across each date
+        group_by(county, state) %>%
+        summarize(cases = max(cases), deaths = max(deaths)) %>%
+        ## group the _result_ by state, summarize by SUM of cases,
+        ## deaths in each county
+        group_by(state) %>%
+        summarize(cases = sum(cases), deaths = sum(deaths)) %>%
+        ## arrange from most to least affected states
+        arrange(desc(cases))
+    ```
+
+    - `ungroup()` to remove grouping
+
+- In scripts, it seems like the best strategy, for legibility, is to evaluate on verb per line, and to chain not too many verbs together into logical 'phrases'.
+
+    ```{r}
+    ## worst?
+    state <- us %>% group_by(county, state) %>% summarize(cases = max(cases), deaths = max(deaths)) %>% group_by(state) %>% summarize(cases = sum(cases), deaths = sum(deaths)) %>% arrange(desc(cases))
+
+    ## better?
+    us %>%
+        group_by(county, state) %>%
+        summarize(cases = max(cases), deaths = max(deaths)) %>%
+        group_by(state) %>%
+        summarize(cases = sum(cases), deaths = sum(deaths)) %>%
+        arrange(desc(cases))
+
+    ## best?
+    county_state <-
+        us %>%
+        group_by(county, state) %>%
+        summarize(cases = max(cases), deaths = max(deaths))
+
+    state <-
+        county_state %>%
+        group_by(state) %>%
+        summarize(cases = sum(cases), deaths = sum(deaths)) %>%
+        arrange(desc(cases))
+    ```
+
+Cleaning: `tidyr::pivot_longer()`
+
+- `cases` and `deaths` are both 'counts', so could perhaps be represented in a single 'value' column with a corresponding 'key' (name) column telling us whether the count is a 'case' or 'death'
+
+    ```{r}
+    erie %>%
+        pivot_longer(
+            c("cases", "deaths"),
+            names_to = "event",
+            values_to = "count"
+        )
+    ```
+
+Visualization
+
+```{r}
+library(ggplot2)
+```
+
+- `ggplot()`: where does the data come from?
+- `aes()`: what parts of the data are we going to plot
+
+    - a tibble and `aes()` are enough to know the overall layout of the plot
+
+    ```{r}
+    ggplot(erie, aes(date, cases))
+    ```
+
+- `geom_*()`: how to plot the aesthetics
+
+    - 'add' to other plot components
+
+    ```{r}
+    ggplot(erie, aes(date, cases)) +
+        geom_point()
+    ```
+
+- Additional ways to decorate the data
+
+    ```{r}
+    ggplot(erie, aes(date, cases)) +
+        geom_point() +
+        ggtitle("Erie county cases (log 10)")
+    ```
+
+- Plots can be captured as a variable, and subsequently modified
+
+    ```{r}
+    p <-
+        ggplot(erie, aes(date, cases)) +
+        geom_point() +
+        ggtitle("log10 Erie county cases")
+    p + scale_y_log10()
+    ```
+
+Global data
+
+- `get_world_data()`
+
+    ```{r}
+    get_world_data <-
+        function()
+    {
+        ## read data from Hopkins' github repository
+        hopkins = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+        csv <- read_csv(hopkins)
+
+        ## 'tidy' the data
+        world <-
+            csv %>%
+            pivot_longer(-(1:4), names_to = "date", values_to = "cases") %>%
+            mutate(
+                country = `Country/Region`,
+                date = as.Date(date, format = "%m/%d/%y")
+            )
+
+        ## sum cases across regions within aa country
+        world <-
+            world %>%
+            group_by(country, date) %>%
+            summarize(cases = sum(cases))
+
+        ## add `new_cases`, and return the result
+        world %>%
+            group_by(country) %>%
+            mutate(new_cases = diff(c(0, cases))) %>%
+            ungroup()
+    }
+        ```
+
+- `plot_country()`
+
+    ```{r}
+    plot_country <-
+        function(tbl, view_country = "US")
+    {
+        country_title <- paste("Country:", view_country)
+
+        ## subset to just this country
+        country_data <-
+            tbl %>%
+            filter(country == view_country)
+
+        ## plot
+        country_data %>%
+            ggplot(aes(date, 1 + new_cases)) +
+            scale_y_log10() +
+            geom_point() +
+            ## add method and formula to quieten message
+            geom_smooth(method = "loess", formula = y ~ x) +
+            ggtitle(country_title)
+    }
+    ```
+
+- _functions_ to encapsulate common operations
+- typically saved as _scripts_ that can be easily `source()`'ed into _R_
+
+    ```{r}
+    world <- get_world_data()
+    world %>% plot_country("US")
+    ```
+
+### Weekend activities (15 minutes)
+
+- Explore global pandemic data
+- Critically reflect on data resources and interpretation
 
 ## Day 20 Exploring the course of pandemic in different regions
 
