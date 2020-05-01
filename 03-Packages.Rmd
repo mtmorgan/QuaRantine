@@ -1145,4 +1145,26 @@ Where does your own exploration of the data take you?
 
 ## Day 21
 
-Self-directed activities.
+The work so far has focused on the mechanics of processing and visualizing the COVID-19 state and global data. Use today for reflecting on interpretation of the data. For instance
+
+- To what extent is the exponential increase in COVID presence in early stages of the pandemic simply due to increased availability of testing?
+
+- How does presentation of data influence interpretation? It might be interesting to visualize, e.g., US cases on linear as well as log scale, and to investigate different ways of 'smoothing' the data, e.g., the trailing 7-day average case number. For the latter, one could write a function
+
+    ```{r}
+    seven_day_average <- function(x) {
+        x <- stats::filter(x, rep(1/7, 7), sides = 1)
+        as.vector(x)
+    }
+    ```
+    
+   and apply this to `new_cases` prior to visualization. Again this could be presented as log-transformed or on a linear scale.
+        
+
+- Can you collect additional data, e.g., on population numbers from the [US census][], to explore the relationship between COVID impact and socioeconomic factors?
+
+- How has COVID response been influenced by social and political factors in different parts of the world? My (Martin) narratives were sketched out to some extend on Day 20. What are your narratives?
+
+- What opportunities are there to intentionally or unintentionally mis-represent or mis-interpret the seemingly 'hard facts' of COVID infection?
+
+[US census]: https://www.census.gov/data/datasets/time-series/demo/popest/2010s-state-total.html
