@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse." />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-30" />
+<meta name="date" content="2020-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -302,11 +302,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="images/99-cloud-tempfile-3.png" width="1118" /></p>
 <p>Navigate back to the original directory by clicking on the three dots <code>...</code> in the <code>Files</code> tab and enter <code>/cloud/project</code>.</p>
 <p>Remember that the temporary file path is, well, temporary, and when you start a new <em>R</em> session (or maybe restart your cloud session) the temporary path and anything saved there may no longer be available</p></li>
-<li><p>When I try to install a package, <em>R</em> says a binary version exists but a newer version exists ‘from source’. Do I want to install the binary version or the source version?</p></li>
-</ol>
+<li><p>When I try to install a package, <em>R</em> says a binary version exists but a newer version exists ‘from source’. Do I want to install the binary version or the source version?</p>
 <p>Usually, the answer is to install the older binary version.</p>
 <p>The newer source version likely represents a bug fix or implements new features in the package, so at first blush it seems preferable. However, installing source versions of packages often require additional software that is not necessarily easy to install and maintain. You might spend a considerable amount of time configuring your system and working through arcane error messages to get the ‘latest’ source version.</p>
-<p>Almost always, the updated binary version becomes available in a day or so, and the best strategy is to install the old binary version now, and re-install the package the next time you remember, in a week or so.</p>
+<p>Almost always, the updated binary version becomes available in a day or so, and the best strategy is to install the old binary version now, and re-install the package the next time you remember, in a week or so.</p></li>
+<li><p>What is the difference between quotes <code>&quot;</code> (double quote), <code>'</code> (single quote), <code>`</code> (backtick)</p>
+<p><code>&quot;</code> and <code>'</code> can be used interchangeably (but always matching open and closing quotes) to represent and element of a character vector: <code>&quot;DNA&quot;</code> and <code>'DNA'</code> are the same. It can be convenient to use one style over another in particular situations: <code>&quot;3' DNA&quot;</code>, <code>'Tolstoy says: &quot;All happy families are alike; each unhappy family is unhappy in its own way.&quot;'</code>, where the choice of quotes means that the ‘inner’ quote does not have to be ‘escaped’, e.g., using single quotes in the first example: <code>'3\' DNA'</code>.</p>
+<p>The backtick <code>`</code> is a special quote, and says to treat the enclosed expression as a symbol <em>name</em>. We came across one use case in the world-wide COVID-19 data, where the column names was <code>Region/Country</code>. If we wanted to create a variable with that name, we could NOT write <code>Region/Country = c(&quot;US&quot;, &quot;Canada&quot;)</code> because <em>R</em> would interpret <code>Region</code> and <code>Country</code> as variables that were to be divided. Likewise, we couldn’t use <code>&quot;Region/Country&quot; = c(&quot;US&quot;, &quot;Canada&quot;)</code> because <em>R</em> would say ‘hey, you’re trying to assign a character vector to a character vector not to a symbol!’.</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="st">`</span><span class="dt">Region/Country</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>, <span class="st">&quot;Canada&quot;</span>)</a></code></pre></div>
+<p>says ‘create a symbol <code>Region/Country</code> and assign it the value <code>c(&quot;US&quot;, &quot;Canada&quot;)</code>’. Any time we want to use this variable, we have to quote it</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1"><span class="kw">length</span>(<span class="st">`</span><span class="dt">Region/Country</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb324-2" data-line-number="2"><span class="co">## [1] 2</span></a></code></pre></div></li>
+</ol>
 
 </div>
 

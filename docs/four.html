@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse." />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-30" />
+<meta name="date" content="2020-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -409,81 +409,81 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To give you an idea of what was involved in assembling the data and metadata file, a summary of the data collection and processing steps is given below:</p>
 <ul>
 <li><p>First, a snapshot of the New York Times (NYT) COVID-19 data from April 27th was downloaded from the <a href="https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv">nytimes github repo</a> and stored on local disk.</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
-<a class="sourceLine" id="cb298-2" data-line-number="2">file &lt;-<span class="st"> &quot;us-counties_04_27_2020.csv&quot;</span></a>
-<a class="sourceLine" id="cb298-3" data-line-number="3">destination &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;workdir&quot;</span>, file)</a>
-<a class="sourceLine" id="cb298-4" data-line-number="4"><span class="kw">download.file</span>(url, destination)</a></code></pre></div></li>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span></a>
+<a class="sourceLine" id="cb299-2" data-line-number="2">file &lt;-<span class="st"> &quot;us-counties_04_27_2020.csv&quot;</span></a>
+<a class="sourceLine" id="cb299-3" data-line-number="3">destination &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;workdir&quot;</span>, file)</a>
+<a class="sourceLine" id="cb299-4" data-line-number="4"><span class="kw">download.file</span>(url, destination)</a></code></pre></div></li>
 <li><p>The NYT COVID-19 data was processed using <em>R</em> :</p>
 <ul>
 <li><p>The cases and deaths in <code>us-counties_04_27_2020.csv</code> were aggregated into statewide values.</p></li>
 <li><p>The death rate was calculated and categorized according to an 8-point severity index.</p></li>
 <li><p>Finally, the statewide data (augmented with death rate and severity index) was exported as a <code>.csv</code> file.</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb299-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb299-3" data-line-number="3"><span class="co">## </span></a>
-<a class="sourceLine" id="cb299-4" data-line-number="4"><span class="co">## Attaching package: &#39;dplyr&#39;</span></a>
-<a class="sourceLine" id="cb299-5" data-line-number="5"><span class="co">## The following objects are masked from &#39;package:stats&#39;:</span></a>
-<a class="sourceLine" id="cb299-6" data-line-number="6"><span class="co">## </span></a>
-<a class="sourceLine" id="cb299-7" data-line-number="7"><span class="co">##     filter, lag</span></a>
-<a class="sourceLine" id="cb299-8" data-line-number="8"><span class="co">## The following objects are masked from &#39;package:base&#39;:</span></a>
-<a class="sourceLine" id="cb299-9" data-line-number="9"><span class="co">## </span></a>
-<a class="sourceLine" id="cb299-10" data-line-number="10"><span class="co">##     intersect, setdiff, setequal, union</span></a>
-<a class="sourceLine" id="cb299-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb299-12" data-line-number="12"><span class="co">## get data from file</span></a>
-<a class="sourceLine" id="cb299-13" data-line-number="13">covid_data_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;./workdir&quot;</span>, <span class="st">&quot;us-counties_04_27_2020.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb299-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb299-15" data-line-number="15"><span class="co">## read the data as a tibble</span></a>
-<a class="sourceLine" id="cb299-16" data-line-number="16">us_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(covid_data_file)</a>
-<a class="sourceLine" id="cb299-17" data-line-number="17"><span class="co">## Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb299-18" data-line-number="18"><span class="co">## cols(</span></a>
-<a class="sourceLine" id="cb299-19" data-line-number="19"><span class="co">##   date = col_date(format = &quot;&quot;),</span></a>
-<a class="sourceLine" id="cb299-20" data-line-number="20"><span class="co">##   county = col_character(),</span></a>
-<a class="sourceLine" id="cb299-21" data-line-number="21"><span class="co">##   state = col_character(),</span></a>
-<a class="sourceLine" id="cb299-22" data-line-number="22"><span class="co">##   fips = col_character(),</span></a>
-<a class="sourceLine" id="cb299-23" data-line-number="23"><span class="co">##   cases = col_double(),</span></a>
-<a class="sourceLine" id="cb299-24" data-line-number="24"><span class="co">##   deaths = col_double()</span></a>
-<a class="sourceLine" id="cb299-25" data-line-number="25"><span class="co">## )</span></a>
-<a class="sourceLine" id="cb299-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb299-27" data-line-number="27"><span class="co">## aggregate by county and state</span></a>
-<a class="sourceLine" id="cb299-28" data-line-number="28">county_state &lt;-</a>
-<a class="sourceLine" id="cb299-29" data-line-number="29"><span class="st">    </span>us_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb299-30" data-line-number="30"><span class="st">    </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb299-31" data-line-number="31"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">max</span>(cases), <span class="dt">deaths =</span> <span class="kw">max</span>(deaths))</a>
-<a class="sourceLine" id="cb299-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb299-33" data-line-number="33"><span class="co">## aggregate by state</span></a>
-<a class="sourceLine" id="cb299-34" data-line-number="34">state &lt;-</a>
-<a class="sourceLine" id="cb299-35" data-line-number="35"><span class="st">    </span>county_state <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb299-36" data-line-number="36"><span class="st">    </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb299-37" data-line-number="37"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases), <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths))</a>
-<a class="sourceLine" id="cb299-38" data-line-number="38"></a>
-<a class="sourceLine" id="cb299-39" data-line-number="39"><span class="co">## calculate death rate</span></a>
-<a class="sourceLine" id="cb299-40" data-line-number="40">state &lt;-</a>
-<a class="sourceLine" id="cb299-41" data-line-number="41"><span class="st">    </span>state <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb299-42" data-line-number="42"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">death_rate =</span> <span class="fl">100.00</span> <span class="op">*</span><span class="st"> </span>deaths <span class="op">/</span><span class="st"> </span>cases)</a>
-<a class="sourceLine" id="cb299-43" data-line-number="43"></a>
-<a class="sourceLine" id="cb299-44" data-line-number="44"><span class="co"># Assign the following severity index using cut:</span></a>
-<a class="sourceLine" id="cb299-45" data-line-number="45"><span class="co">##  PSI Death.Rate    </span></a>
-<a class="sourceLine" id="cb299-46" data-line-number="46"><span class="co">##  1   &lt; 0.1%        </span></a>
-<a class="sourceLine" id="cb299-47" data-line-number="47"><span class="co">##  2   0.1% - 0.5%   </span></a>
-<a class="sourceLine" id="cb299-48" data-line-number="48"><span class="co">##  3   0.5% - 1.0%   </span></a>
-<a class="sourceLine" id="cb299-49" data-line-number="49"><span class="co">##  4   1.0% - 2.0%   </span></a>
-<a class="sourceLine" id="cb299-50" data-line-number="50"><span class="co">##  5   2.0% - 4.0%   </span></a>
-<a class="sourceLine" id="cb299-51" data-line-number="51"><span class="co">##  6   4.0% - 6.0%   </span></a>
-<a class="sourceLine" id="cb299-52" data-line-number="52"><span class="co">##  7   6.0% - 8.0%   </span></a>
-<a class="sourceLine" id="cb299-53" data-line-number="53"><span class="co">##  8   &gt;8.0%         </span></a>
-<a class="sourceLine" id="cb299-54" data-line-number="54">state &lt;-</a>
-<a class="sourceLine" id="cb299-55" data-line-number="55"><span class="st">    </span>state <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb299-56" data-line-number="56"><span class="st">    </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb299-57" data-line-number="57">        <span class="dt">severity_index =</span><span class="kw">cut</span>(</a>
-<a class="sourceLine" id="cb299-58" data-line-number="58">            death_rate, </a>
-<a class="sourceLine" id="cb299-59" data-line-number="59">            <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="fl">0.0</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">4.0</span>, <span class="fl">6.0</span>, <span class="fl">8.0</span>, <span class="fl">100.0</span>),</a>
-<a class="sourceLine" id="cb299-60" data-line-number="60">            <span class="dt">labels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
-<a class="sourceLine" id="cb299-61" data-line-number="61">        )</a>
-<a class="sourceLine" id="cb299-62" data-line-number="62">    )</a>
-<a class="sourceLine" id="cb299-63" data-line-number="63"></a>
-<a class="sourceLine" id="cb299-64" data-line-number="64"><span class="co">## write out as csv</span></a>
-<a class="sourceLine" id="cb299-65" data-line-number="65">my_out_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;./workdir&quot;</span>, <span class="st">&quot;covid_data.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb299-66" data-line-number="66"><span class="kw">write_csv</span>(state, my_out_file)</a></code></pre></div></li>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb300-3" data-line-number="3"><span class="co">## </span></a>
+<a class="sourceLine" id="cb300-4" data-line-number="4"><span class="co">## Attaching package: &#39;dplyr&#39;</span></a>
+<a class="sourceLine" id="cb300-5" data-line-number="5"><span class="co">## The following objects are masked from &#39;package:stats&#39;:</span></a>
+<a class="sourceLine" id="cb300-6" data-line-number="6"><span class="co">## </span></a>
+<a class="sourceLine" id="cb300-7" data-line-number="7"><span class="co">##     filter, lag</span></a>
+<a class="sourceLine" id="cb300-8" data-line-number="8"><span class="co">## The following objects are masked from &#39;package:base&#39;:</span></a>
+<a class="sourceLine" id="cb300-9" data-line-number="9"><span class="co">## </span></a>
+<a class="sourceLine" id="cb300-10" data-line-number="10"><span class="co">##     intersect, setdiff, setequal, union</span></a>
+<a class="sourceLine" id="cb300-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb300-12" data-line-number="12"><span class="co">## get data from file</span></a>
+<a class="sourceLine" id="cb300-13" data-line-number="13">covid_data_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;./workdir&quot;</span>, <span class="st">&quot;us-counties_04_27_2020.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb300-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb300-15" data-line-number="15"><span class="co">## read the data as a tibble</span></a>
+<a class="sourceLine" id="cb300-16" data-line-number="16">us_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(covid_data_file)</a>
+<a class="sourceLine" id="cb300-17" data-line-number="17"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb300-18" data-line-number="18"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb300-19" data-line-number="19"><span class="co">##   date = col_date(format = &quot;&quot;),</span></a>
+<a class="sourceLine" id="cb300-20" data-line-number="20"><span class="co">##   county = col_character(),</span></a>
+<a class="sourceLine" id="cb300-21" data-line-number="21"><span class="co">##   state = col_character(),</span></a>
+<a class="sourceLine" id="cb300-22" data-line-number="22"><span class="co">##   fips = col_character(),</span></a>
+<a class="sourceLine" id="cb300-23" data-line-number="23"><span class="co">##   cases = col_double(),</span></a>
+<a class="sourceLine" id="cb300-24" data-line-number="24"><span class="co">##   deaths = col_double()</span></a>
+<a class="sourceLine" id="cb300-25" data-line-number="25"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb300-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb300-27" data-line-number="27"><span class="co">## aggregate by county and state</span></a>
+<a class="sourceLine" id="cb300-28" data-line-number="28">county_state &lt;-</a>
+<a class="sourceLine" id="cb300-29" data-line-number="29"><span class="st">    </span>us_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb300-30" data-line-number="30"><span class="st">    </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb300-31" data-line-number="31"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">max</span>(cases), <span class="dt">deaths =</span> <span class="kw">max</span>(deaths))</a>
+<a class="sourceLine" id="cb300-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb300-33" data-line-number="33"><span class="co">## aggregate by state</span></a>
+<a class="sourceLine" id="cb300-34" data-line-number="34">state &lt;-</a>
+<a class="sourceLine" id="cb300-35" data-line-number="35"><span class="st">    </span>county_state <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb300-36" data-line-number="36"><span class="st">    </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb300-37" data-line-number="37"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases), <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths))</a>
+<a class="sourceLine" id="cb300-38" data-line-number="38"></a>
+<a class="sourceLine" id="cb300-39" data-line-number="39"><span class="co">## calculate death rate</span></a>
+<a class="sourceLine" id="cb300-40" data-line-number="40">state &lt;-</a>
+<a class="sourceLine" id="cb300-41" data-line-number="41"><span class="st">    </span>state <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb300-42" data-line-number="42"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">death_rate =</span> <span class="fl">100.00</span> <span class="op">*</span><span class="st"> </span>deaths <span class="op">/</span><span class="st"> </span>cases)</a>
+<a class="sourceLine" id="cb300-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb300-44" data-line-number="44"><span class="co"># Assign the following severity index using cut:</span></a>
+<a class="sourceLine" id="cb300-45" data-line-number="45"><span class="co">##  PSI Death.Rate    </span></a>
+<a class="sourceLine" id="cb300-46" data-line-number="46"><span class="co">##  1   &lt; 0.1%        </span></a>
+<a class="sourceLine" id="cb300-47" data-line-number="47"><span class="co">##  2   0.1% - 0.5%   </span></a>
+<a class="sourceLine" id="cb300-48" data-line-number="48"><span class="co">##  3   0.5% - 1.0%   </span></a>
+<a class="sourceLine" id="cb300-49" data-line-number="49"><span class="co">##  4   1.0% - 2.0%   </span></a>
+<a class="sourceLine" id="cb300-50" data-line-number="50"><span class="co">##  5   2.0% - 4.0%   </span></a>
+<a class="sourceLine" id="cb300-51" data-line-number="51"><span class="co">##  6   4.0% - 6.0%   </span></a>
+<a class="sourceLine" id="cb300-52" data-line-number="52"><span class="co">##  7   6.0% - 8.0%   </span></a>
+<a class="sourceLine" id="cb300-53" data-line-number="53"><span class="co">##  8   &gt;8.0%         </span></a>
+<a class="sourceLine" id="cb300-54" data-line-number="54">state &lt;-</a>
+<a class="sourceLine" id="cb300-55" data-line-number="55"><span class="st">    </span>state <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb300-56" data-line-number="56"><span class="st">    </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb300-57" data-line-number="57">        <span class="dt">severity_index =</span><span class="kw">cut</span>(</a>
+<a class="sourceLine" id="cb300-58" data-line-number="58">            death_rate, </a>
+<a class="sourceLine" id="cb300-59" data-line-number="59">            <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="fl">0.0</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">4.0</span>, <span class="fl">6.0</span>, <span class="fl">8.0</span>, <span class="fl">100.0</span>),</a>
+<a class="sourceLine" id="cb300-60" data-line-number="60">            <span class="dt">labels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb300-61" data-line-number="61">        )</a>
+<a class="sourceLine" id="cb300-62" data-line-number="62">    )</a>
+<a class="sourceLine" id="cb300-63" data-line-number="63"></a>
+<a class="sourceLine" id="cb300-64" data-line-number="64"><span class="co">## write out as csv</span></a>
+<a class="sourceLine" id="cb300-65" data-line-number="65">my_out_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;./workdir&quot;</span>, <span class="st">&quot;covid_data.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb300-66" data-line-number="66"><span class="kw">write_csv</span>(state, my_out_file)</a></code></pre></div></li>
 </ul></li>
 <li><p>The resulting statewide COVID-19 <em>label</em> data (i.e. what we would like to predict) was augmented with 32 statewide <em>features</em>, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a <code>.csv</code> file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).</p></li>
 <li><p>The augmented (i.e. features + labels) <code>.csv</code> file was split into two <code>.csv</code> files that you will need to download:</p>
@@ -497,199 +497,199 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-random-forest-example-using-covid-19-data" class="section level3">
 <h3><span class="header-section-number">4.1.4</span> A Random Forest Example Using COVID-19 Data</h3>
 <p>Let’s apply the random forest algorithm to the COVID-19 dataset. We’ll build out the required <em>R</em> code in sections. To get started, open a new <em>R</em> script in <em>RStudio</em> and name it <code>covid_19_rf.R</code>. Enter the code below, but omit lines that begin with a double-hash (<code>##</code>) because these are the expected output:</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="co">#</span></a>
-<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="co"># Part 1 - load the data</span></a>
-<a class="sourceLine" id="cb300-3" data-line-number="3"><span class="co">#</span></a>
-<a class="sourceLine" id="cb300-4" data-line-number="4"><span class="kw">library</span>(randomForest)</a>
-<a class="sourceLine" id="cb300-5" data-line-number="5"><span class="co">## randomForest 4.6-14</span></a>
-<a class="sourceLine" id="cb300-6" data-line-number="6"><span class="co">## Type rfNews() to see new features/changes/bug fixes.</span></a>
-<a class="sourceLine" id="cb300-7" data-line-number="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb300-8" data-line-number="8"><span class="co">## Attaching package: &#39;randomForest&#39;</span></a>
-<a class="sourceLine" id="cb300-9" data-line-number="9"><span class="co">## The following object is masked from &#39;package:dplyr&#39;:</span></a>
-<a class="sourceLine" id="cb300-10" data-line-number="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb300-11" data-line-number="11"><span class="co">##     combine</span></a>
-<a class="sourceLine" id="cb300-12" data-line-number="12"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb300-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb300-14" data-line-number="14">data_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;assets&quot;</span>, <span class="st">&quot;statewide_covid_19_data_04_27_2020.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb300-15" data-line-number="15">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(data_file)</a>
-<a class="sourceLine" id="cb300-16" data-line-number="16"><span class="co">## Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb300-17" data-line-number="17"><span class="co">## cols(</span></a>
-<a class="sourceLine" id="cb300-18" data-line-number="18"><span class="co">##   .default = col_double(),</span></a>
-<a class="sourceLine" id="cb300-19" data-line-number="19"><span class="co">##   State = col_character(),</span></a>
-<a class="sourceLine" id="cb300-20" data-line-number="20"><span class="co">##   X31 = col_character(),</span></a>
-<a class="sourceLine" id="cb300-21" data-line-number="21"><span class="co">##   X32 = col_character()</span></a>
-<a class="sourceLine" id="cb300-22" data-line-number="22"><span class="co">## )</span></a>
-<a class="sourceLine" id="cb300-23" data-line-number="23"><span class="co">## See spec(...) for full column specifications.</span></a>
-<a class="sourceLine" id="cb300-24" data-line-number="24"><span class="co"># coerce severity to a factor (so RF algorithm uses classification)</span></a>
-<a class="sourceLine" id="cb300-25" data-line-number="25">df &lt;-</a>
-<a class="sourceLine" id="cb300-26" data-line-number="26"><span class="st">    </span>df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb300-27" data-line-number="27"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Y04 =</span> <span class="kw">as.factor</span>(df<span class="op">$</span>Y04))</a>
-<a class="sourceLine" id="cb300-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb300-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb300-30" data-line-number="30">metadata_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;assets&quot;</span>, <span class="st">&quot;statewide_covid_19_metadata_04_27_2020.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb300-31" data-line-number="31">mdf &lt;-<span class="st"> </span><span class="kw">read_csv</span>(metadata_file)</a>
-<a class="sourceLine" id="cb300-32" data-line-number="32"><span class="co">## Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb300-33" data-line-number="33"><span class="co">## cols(</span></a>
-<a class="sourceLine" id="cb300-34" data-line-number="34"><span class="co">##   ID = col_double(),</span></a>
-<a class="sourceLine" id="cb300-35" data-line-number="35"><span class="co">##   Code = col_character(),</span></a>
-<a class="sourceLine" id="cb300-36" data-line-number="36"><span class="co">##   Variable = col_character(),</span></a>
-<a class="sourceLine" id="cb300-37" data-line-number="37"><span class="co">##   Description = col_character()</span></a>
-<a class="sourceLine" id="cb300-38" data-line-number="38"><span class="co">## )</span></a>
-<a class="sourceLine" id="cb300-39" data-line-number="39">mdf</a>
-<a class="sourceLine" id="cb300-40" data-line-number="40"><span class="co">## # A tibble: 36 x 4</span></a>
-<a class="sourceLine" id="cb300-41" data-line-number="41"><span class="co">##       ID Code  Variable             Description                      </span></a>
-<a class="sourceLine" id="cb300-42" data-line-number="42"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                &lt;chr&gt;                            </span></a>
-<a class="sourceLine" id="cb300-43" data-line-number="43"><span class="co">##  1     1 X01   Pct_Sun              Percent sunny days               </span></a>
-<a class="sourceLine" id="cb300-44" data-line-number="44"><span class="co">##  2     2 X02   Total_Hours_Sun      Total hours of sun               </span></a>
-<a class="sourceLine" id="cb300-45" data-line-number="45"><span class="co">##  3     3 X03   Num_Clear_Days       Number of clear days             </span></a>
-<a class="sourceLine" id="cb300-46" data-line-number="46"><span class="co">##  4     4 X04   Avg_RH               Average relative himidity        </span></a>
-<a class="sourceLine" id="cb300-47" data-line-number="47"><span class="co">##  5     5 X05   Avg_Dew_Point        Average dew point                </span></a>
-<a class="sourceLine" id="cb300-48" data-line-number="48"><span class="co">##  6     6 X06   Total_Population     Total population                 </span></a>
-<a class="sourceLine" id="cb300-49" data-line-number="49"><span class="co">##  7     7 X07   Senior_Pop_Thousands Population 65+ years in thousands</span></a>
-<a class="sourceLine" id="cb300-50" data-line-number="50"><span class="co">##  8     8 X08   Senior_Pop_Pct       Percentage of population 65+ year</span></a>
-<a class="sourceLine" id="cb300-51" data-line-number="51"><span class="co">##  9     9 X09   per_capita_income    per capita income                </span></a>
-<a class="sourceLine" id="cb300-52" data-line-number="52"><span class="co">## 10    10 X10   Unemployment_Rate    Percent unemployment             </span></a>
-<a class="sourceLine" id="cb300-53" data-line-number="53"><span class="co">## # … with 26 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1"><span class="co">#</span></a>
+<a class="sourceLine" id="cb301-2" data-line-number="2"><span class="co"># Part 1 - load the data</span></a>
+<a class="sourceLine" id="cb301-3" data-line-number="3"><span class="co">#</span></a>
+<a class="sourceLine" id="cb301-4" data-line-number="4"><span class="kw">library</span>(randomForest)</a>
+<a class="sourceLine" id="cb301-5" data-line-number="5"><span class="co">## randomForest 4.6-14</span></a>
+<a class="sourceLine" id="cb301-6" data-line-number="6"><span class="co">## Type rfNews() to see new features/changes/bug fixes.</span></a>
+<a class="sourceLine" id="cb301-7" data-line-number="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb301-8" data-line-number="8"><span class="co">## Attaching package: &#39;randomForest&#39;</span></a>
+<a class="sourceLine" id="cb301-9" data-line-number="9"><span class="co">## The following object is masked from &#39;package:dplyr&#39;:</span></a>
+<a class="sourceLine" id="cb301-10" data-line-number="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb301-11" data-line-number="11"><span class="co">##     combine</span></a>
+<a class="sourceLine" id="cb301-12" data-line-number="12"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb301-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb301-14" data-line-number="14">data_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;assets&quot;</span>, <span class="st">&quot;statewide_covid_19_data_04_27_2020.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb301-15" data-line-number="15">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(data_file)</a>
+<a class="sourceLine" id="cb301-16" data-line-number="16"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb301-17" data-line-number="17"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb301-18" data-line-number="18"><span class="co">##   .default = col_double(),</span></a>
+<a class="sourceLine" id="cb301-19" data-line-number="19"><span class="co">##   State = col_character(),</span></a>
+<a class="sourceLine" id="cb301-20" data-line-number="20"><span class="co">##   X31 = col_character(),</span></a>
+<a class="sourceLine" id="cb301-21" data-line-number="21"><span class="co">##   X32 = col_character()</span></a>
+<a class="sourceLine" id="cb301-22" data-line-number="22"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb301-23" data-line-number="23"><span class="co">## See spec(...) for full column specifications.</span></a>
+<a class="sourceLine" id="cb301-24" data-line-number="24"><span class="co"># coerce severity to a factor (so RF algorithm uses classification)</span></a>
+<a class="sourceLine" id="cb301-25" data-line-number="25">df &lt;-</a>
+<a class="sourceLine" id="cb301-26" data-line-number="26"><span class="st">    </span>df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb301-27" data-line-number="27"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Y04 =</span> <span class="kw">as.factor</span>(df<span class="op">$</span>Y04))</a>
+<a class="sourceLine" id="cb301-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb301-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb301-30" data-line-number="30">metadata_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;assets&quot;</span>, <span class="st">&quot;statewide_covid_19_metadata_04_27_2020.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb301-31" data-line-number="31">mdf &lt;-<span class="st"> </span><span class="kw">read_csv</span>(metadata_file)</a>
+<a class="sourceLine" id="cb301-32" data-line-number="32"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb301-33" data-line-number="33"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb301-34" data-line-number="34"><span class="co">##   ID = col_double(),</span></a>
+<a class="sourceLine" id="cb301-35" data-line-number="35"><span class="co">##   Code = col_character(),</span></a>
+<a class="sourceLine" id="cb301-36" data-line-number="36"><span class="co">##   Variable = col_character(),</span></a>
+<a class="sourceLine" id="cb301-37" data-line-number="37"><span class="co">##   Description = col_character()</span></a>
+<a class="sourceLine" id="cb301-38" data-line-number="38"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb301-39" data-line-number="39">mdf</a>
+<a class="sourceLine" id="cb301-40" data-line-number="40"><span class="co">## # A tibble: 36 x 4</span></a>
+<a class="sourceLine" id="cb301-41" data-line-number="41"><span class="co">##       ID Code  Variable             Description                      </span></a>
+<a class="sourceLine" id="cb301-42" data-line-number="42"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                &lt;chr&gt;                            </span></a>
+<a class="sourceLine" id="cb301-43" data-line-number="43"><span class="co">##  1     1 X01   Pct_Sun              Percent sunny days               </span></a>
+<a class="sourceLine" id="cb301-44" data-line-number="44"><span class="co">##  2     2 X02   Total_Hours_Sun      Total hours of sun               </span></a>
+<a class="sourceLine" id="cb301-45" data-line-number="45"><span class="co">##  3     3 X03   Num_Clear_Days       Number of clear days             </span></a>
+<a class="sourceLine" id="cb301-46" data-line-number="46"><span class="co">##  4     4 X04   Avg_RH               Average relative himidity        </span></a>
+<a class="sourceLine" id="cb301-47" data-line-number="47"><span class="co">##  5     5 X05   Avg_Dew_Point        Average dew point                </span></a>
+<a class="sourceLine" id="cb301-48" data-line-number="48"><span class="co">##  6     6 X06   Total_Population     Total population                 </span></a>
+<a class="sourceLine" id="cb301-49" data-line-number="49"><span class="co">##  7     7 X07   Senior_Pop_Thousands Population 65+ years in thousands</span></a>
+<a class="sourceLine" id="cb301-50" data-line-number="50"><span class="co">##  8     8 X08   Senior_Pop_Pct       Percentage of population 65+ year</span></a>
+<a class="sourceLine" id="cb301-51" data-line-number="51"><span class="co">##  9     9 X09   per_capita_income    per capita income                </span></a>
+<a class="sourceLine" id="cb301-52" data-line-number="52"><span class="co">## 10    10 X10   Unemployment_Rate    Percent unemployment             </span></a>
+<a class="sourceLine" id="cb301-53" data-line-number="53"><span class="co">## # … with 26 more rows</span></a></code></pre></div>
 <p>Try to run the code. You may get an error about missing the <code>randomForest</code> package. You can install it from the RStudio console (see below) or using the installer in the RStudio <code>packages</code> pane.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;randomForest&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;randomForest&quot;</span>)</a></code></pre></div>
 <p>Now we’ve loaded the data and metadata file. Let’s pick a subset of 5 of the features and use them to try and predict the pandemic severity index (i.e. <code>Y04</code>). Add the <code>Part 2</code> code below to your RScript but omit lines that begin with a double-hash (<code>##</code>) :</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1"><span class="co">#</span></a>
-<a class="sourceLine" id="cb302-2" data-line-number="2"><span class="co"># Part 2 - select features and label</span></a>
-<a class="sourceLine" id="cb302-3" data-line-number="3"><span class="co">#</span></a>
-<a class="sourceLine" id="cb302-4" data-line-number="4"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb302-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb302-6" data-line-number="6"><span class="co"># describe all possible features and labels</span></a>
-<a class="sourceLine" id="cb302-7" data-line-number="7"><span class="kw">print</span>(mdf, <span class="dt">n =</span> <span class="kw">nrow</span>(mdf))</a>
-<a class="sourceLine" id="cb302-8" data-line-number="8"><span class="co">## # A tibble: 36 x 4</span></a>
-<a class="sourceLine" id="cb302-9" data-line-number="9"><span class="co">##       ID Code  Variable           Description                                   </span></a>
-<a class="sourceLine" id="cb302-10" data-line-number="10"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;chr&gt;                                         </span></a>
-<a class="sourceLine" id="cb302-11" data-line-number="11"><span class="co">##  1     1 X01   Pct_Sun            Percent sunny days                            </span></a>
-<a class="sourceLine" id="cb302-12" data-line-number="12"><span class="co">##  2     2 X02   Total_Hours_Sun    Total hours of sun                            </span></a>
-<a class="sourceLine" id="cb302-13" data-line-number="13"><span class="co">##  3     3 X03   Num_Clear_Days     Number of clear days                          </span></a>
-<a class="sourceLine" id="cb302-14" data-line-number="14"><span class="co">##  4     4 X04   Avg_RH             Average relative himidity                     </span></a>
-<a class="sourceLine" id="cb302-15" data-line-number="15"><span class="co">##  5     5 X05   Avg_Dew_Point      Average dew point                             </span></a>
-<a class="sourceLine" id="cb302-16" data-line-number="16"><span class="co">##  6     6 X06   Total_Population   Total population                              </span></a>
-<a class="sourceLine" id="cb302-17" data-line-number="17"><span class="co">##  7     7 X07   Senior_Pop_Thousa… Population 65+ years in thousands             </span></a>
-<a class="sourceLine" id="cb302-18" data-line-number="18"><span class="co">##  8     8 X08   Senior_Pop_Pct     Percentage of population 65+ year             </span></a>
-<a class="sourceLine" id="cb302-19" data-line-number="19"><span class="co">##  9     9 X09   per_capita_income  per capita income                             </span></a>
-<a class="sourceLine" id="cb302-20" data-line-number="20"><span class="co">## 10    10 X10   Unemployment_Rate  Percent unemployment                          </span></a>
-<a class="sourceLine" id="cb302-21" data-line-number="21"><span class="co">## 11    11 X11   Uninsured_Rate_Ch… Percent uninsured children                    </span></a>
-<a class="sourceLine" id="cb302-22" data-line-number="22"><span class="co">## 12    12 X12   Uninsured_Rate_Ad… Percent uninsured adults                      </span></a>
-<a class="sourceLine" id="cb302-23" data-line-number="23"><span class="co">## 13    13 X13   Heart_Disease_Rate Deaths per 100000  due to heart disease       </span></a>
-<a class="sourceLine" id="cb302-24" data-line-number="24"><span class="co">## 14    14 X14   Heart_Disease_Dea… Total deaths due to heart disease             </span></a>
-<a class="sourceLine" id="cb302-25" data-line-number="25"><span class="co">## 15    15 X15   Tobacco_Use_Rate   Percentage of tobacco users                   </span></a>
-<a class="sourceLine" id="cb302-26" data-line-number="26"><span class="co">## 16    16 X16   Obesity_Prevalenc… Percentage of population this is considered o…</span></a>
-<a class="sourceLine" id="cb302-27" data-line-number="27"><span class="co">## 17    17 X17   Num_Hospitals      Number of hospitals                           </span></a>
-<a class="sourceLine" id="cb302-28" data-line-number="28"><span class="co">## 18    18 X18   Num_Hosp_Staffed_… Number of hospital beds                       </span></a>
-<a class="sourceLine" id="cb302-29" data-line-number="29"><span class="co">## 19    19 X19   Total_Hosp_Discha… Total number of hospital discharges           </span></a>
-<a class="sourceLine" id="cb302-30" data-line-number="30"><span class="co">## 20    20 X20   Hosp_Patient_Days  Total number of patient days in hospital      </span></a>
-<a class="sourceLine" id="cb302-31" data-line-number="31"><span class="co">## 21    21 X21   Hosp_Gross_Patien… Total hospital gross patient revenue          </span></a>
-<a class="sourceLine" id="cb302-32" data-line-number="32"><span class="co">## 22    22 X22   Number_of_Farms    Total number of farms                         </span></a>
-<a class="sourceLine" id="cb302-33" data-line-number="33"><span class="co">## 23    23 X23   Urban_Population_… Percentage of population living in urban areas</span></a>
-<a class="sourceLine" id="cb302-34" data-line-number="34"><span class="co">## 24    24 X24   Urban_Population   Total urban population                        </span></a>
-<a class="sourceLine" id="cb302-35" data-line-number="35"><span class="co">## 25    25 X25   Urban_Land_Area_S… Amount of urban land area in square miles     </span></a>
-<a class="sourceLine" id="cb302-36" data-line-number="36"><span class="co">## 26    26 X26   Urban_Density_Sq_… Urban density in persons per square mile      </span></a>
-<a class="sourceLine" id="cb302-37" data-line-number="37"><span class="co">## 27    27 X27   Urban_Land_Pct     Percentage of land use classified as urban    </span></a>
-<a class="sourceLine" id="cb302-38" data-line-number="38"><span class="co">## 28    28 X28   Pct_Republican     Percentage of population registered republican</span></a>
-<a class="sourceLine" id="cb302-39" data-line-number="39"><span class="co">## 29    29 X29   Pct_Independent    Percentage of population not affiliated with …</span></a>
-<a class="sourceLine" id="cb302-40" data-line-number="40"><span class="co">## 30    30 X30   Pct_Democrat       Percentage of population registered democrat  </span></a>
-<a class="sourceLine" id="cb302-41" data-line-number="41"><span class="co">## 31    31 X31   Stay_at_Home_Star… Date stay at home order issued                </span></a>
-<a class="sourceLine" id="cb302-42" data-line-number="42"><span class="co">## 32    32 X32   Stay_at_Home_End_… Date stay at home order scheduled to be lifted</span></a>
-<a class="sourceLine" id="cb302-43" data-line-number="43"><span class="co">## 33     1 Y01   cases              total number of covid-19 cases                </span></a>
-<a class="sourceLine" id="cb302-44" data-line-number="44"><span class="co">## 34     2 Y02   deaths             total number of covid-19 deaths               </span></a>
-<a class="sourceLine" id="cb302-45" data-line-number="45"><span class="co">## 35     3 Y03   death_rate         death rate as a percentage                    </span></a>
-<a class="sourceLine" id="cb302-46" data-line-number="46"><span class="co">## 36     4 Y04   severity_index     severity index based on death_rate: ## 1 = &lt; …</span></a>
-<a class="sourceLine" id="cb302-47" data-line-number="47"></a>
-<a class="sourceLine" id="cb302-48" data-line-number="48"><span class="co"># select some features and the severity index label</span></a>
-<a class="sourceLine" id="cb302-49" data-line-number="49">my_x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X01&quot;</span>,<span class="st">&quot;X10&quot;</span>,<span class="st">&quot;X12&quot;</span>,<span class="st">&quot;X13&quot;</span>,<span class="st">&quot;X23&quot;</span>)</a>
-<a class="sourceLine" id="cb302-50" data-line-number="50">my_y &lt;-<span class="st"> &quot;Y04&quot;</span></a>
-<a class="sourceLine" id="cb302-51" data-line-number="51">my_xy &lt;-<span class="st"> </span><span class="kw">c</span>(my_x, my_y)</a>
-<a class="sourceLine" id="cb302-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb302-53" data-line-number="53"><span class="co"># get descriptions of the selected features and label</span></a>
-<a class="sourceLine" id="cb302-54" data-line-number="54">mdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Code <span class="op">%in%</span><span class="st"> </span>my_xy)</a>
-<a class="sourceLine" id="cb302-55" data-line-number="55"><span class="co">## # A tibble: 6 x 4</span></a>
-<a class="sourceLine" id="cb302-56" data-line-number="56"><span class="co">##      ID Code  Variable         Description                                      </span></a>
-<a class="sourceLine" id="cb302-57" data-line-number="57"><span class="co">##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;                                            </span></a>
-<a class="sourceLine" id="cb302-58" data-line-number="58"><span class="co">## 1     1 X01   Pct_Sun          Percent sunny days                               </span></a>
-<a class="sourceLine" id="cb302-59" data-line-number="59"><span class="co">## 2    10 X10   Unemployment_Ra… Percent unemployment                             </span></a>
-<a class="sourceLine" id="cb302-60" data-line-number="60"><span class="co">## 3    12 X12   Uninsured_Rate_… Percent uninsured adults                         </span></a>
-<a class="sourceLine" id="cb302-61" data-line-number="61"><span class="co">## 4    13 X13   Heart_Disease_R… Deaths per 100000  due to heart disease          </span></a>
-<a class="sourceLine" id="cb302-62" data-line-number="62"><span class="co">## 5    23 X23   Urban_Populatio… Percentage of population living in urban areas   </span></a>
-<a class="sourceLine" id="cb302-63" data-line-number="63"><span class="co">## 6     4 Y04   severity_index   severity index based on death_rate: ## 1 = &lt; 0.1…</span></a>
-<a class="sourceLine" id="cb302-64" data-line-number="64"></a>
-<a class="sourceLine" id="cb302-65" data-line-number="65"><span class="co"># subset the dataframe</span></a>
-<a class="sourceLine" id="cb302-66" data-line-number="66">rf_df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">all_of</span>(my_xy))</a></code></pre></div>
-<p>Now we’ll add code to create and train a basic Random Forest model. Add the <code>Part 3</code> code below to your RScript but omit lines that begin with a double-hash (<code>##</code>):</p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1"><span class="co">#</span></a>
-<a class="sourceLine" id="cb303-2" data-line-number="2"><span class="co"># Part 3 - create and train the model</span></a>
+<a class="sourceLine" id="cb303-2" data-line-number="2"><span class="co"># Part 2 - select features and label</span></a>
 <a class="sourceLine" id="cb303-3" data-line-number="3"><span class="co">#</span></a>
-<a class="sourceLine" id="cb303-4" data-line-number="4"><span class="co"># split into train (75%) and test (25%) datasets</span></a>
-<a class="sourceLine" id="cb303-5" data-line-number="5"><span class="co">#</span></a>
-<a class="sourceLine" id="cb303-6" data-line-number="6"><span class="co"># note that `row_nubmer()` generates a vector of row numbers, and</span></a>
-<a class="sourceLine" id="cb303-7" data-line-number="7"><span class="co">#     &gt; c(1, 2, 3, 4, 5, 6) %% 4 is</span></a>
-<a class="sourceLine" id="cb303-8" data-line-number="8"><span class="co">#     [1] 1 2 3 0 1 2</span></a>
-<a class="sourceLine" id="cb303-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb303-10" data-line-number="10">train &lt;-<span class="st"> </span>rf_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>((<span class="kw">row_number</span>() <span class="op">%%</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%in%</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb303-11" data-line-number="11">test &lt;-<span class="st"> </span>rf_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">row_number</span>() <span class="op">%%</span><span class="st"> </span><span class="dv">4</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb303-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb303-13" data-line-number="13"><span class="co"># create and train the RF model</span></a>
-<a class="sourceLine" id="cb303-14" data-line-number="14">model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y04 <span class="op">~</span><span class="st"> </span>X01 <span class="op">+</span><span class="st"> </span>X10 <span class="op">+</span><span class="st"> </span>X12 <span class="op">+</span><span class="st"> </span>X13 <span class="op">+</span><span class="st"> </span>X23, </a>
-<a class="sourceLine" id="cb303-15" data-line-number="15">                      <span class="dt">data =</span> train)</a>
-<a class="sourceLine" id="cb303-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb303-17" data-line-number="17"><span class="co"># show results, includes confusion matrix for training data</span></a>
-<a class="sourceLine" id="cb303-18" data-line-number="18">model</a>
-<a class="sourceLine" id="cb303-19" data-line-number="19"><span class="co">## </span></a>
-<a class="sourceLine" id="cb303-20" data-line-number="20"><span class="co">## Call:</span></a>
-<a class="sourceLine" id="cb303-21" data-line-number="21"><span class="co">##  randomForest(formula = Y04 ~ X01 + X10 + X12 + X13 + X23, data = train) </span></a>
-<a class="sourceLine" id="cb303-22" data-line-number="22"><span class="co">##                Type of random forest: classification</span></a>
-<a class="sourceLine" id="cb303-23" data-line-number="23"><span class="co">##                      Number of trees: 500</span></a>
-<a class="sourceLine" id="cb303-24" data-line-number="24"><span class="co">## No. of variables tried at each split: 2</span></a>
-<a class="sourceLine" id="cb303-25" data-line-number="25"><span class="co">## </span></a>
-<a class="sourceLine" id="cb303-26" data-line-number="26"><span class="co">##         OOB estimate of  error rate: 65.79%</span></a>
-<a class="sourceLine" id="cb303-27" data-line-number="27"><span class="co">## Confusion matrix:</span></a>
-<a class="sourceLine" id="cb303-28" data-line-number="28"><span class="co">##   3 4 5 6 7 8 class.error</span></a>
-<a class="sourceLine" id="cb303-29" data-line-number="29"><span class="co">## 3 0 0 1 0 0 0   1.0000000</span></a>
-<a class="sourceLine" id="cb303-30" data-line-number="30"><span class="co">## 4 0 0 1 1 0 0   1.0000000</span></a>
-<a class="sourceLine" id="cb303-31" data-line-number="31"><span class="co">## 5 0 0 7 8 0 0   0.5333333</span></a>
-<a class="sourceLine" id="cb303-32" data-line-number="32"><span class="co">## 6 0 1 8 6 0 0   0.6000000</span></a>
-<a class="sourceLine" id="cb303-33" data-line-number="33"><span class="co">## 7 0 0 2 2 0 0   1.0000000</span></a>
-<a class="sourceLine" id="cb303-34" data-line-number="34"><span class="co">## 8 0 0 0 1 0 0   1.0000000</span></a>
-<a class="sourceLine" id="cb303-35" data-line-number="35"></a>
-<a class="sourceLine" id="cb303-36" data-line-number="36"><span class="co"># measure of parameter importance</span></a>
-<a class="sourceLine" id="cb303-37" data-line-number="37"><span class="kw">importance</span>(model) </a>
-<a class="sourceLine" id="cb303-38" data-line-number="38"><span class="co">##     MeanDecreaseGini</span></a>
-<a class="sourceLine" id="cb303-39" data-line-number="39"><span class="co">## X01         4.100410</span></a>
-<a class="sourceLine" id="cb303-40" data-line-number="40"><span class="co">## X10         5.325120</span></a>
-<a class="sourceLine" id="cb303-41" data-line-number="41"><span class="co">## X12         5.735612</span></a>
-<a class="sourceLine" id="cb303-42" data-line-number="42"><span class="co">## X13         4.805023</span></a>
-<a class="sourceLine" id="cb303-43" data-line-number="43"><span class="co">## X23         4.995021</span></a></code></pre></div>
-<p>At this point the model is trained and the next step is to evaluate its usefulness at making predictions. Let’s see how the model does at predicting the labels of the test dataset. Remember that the test data was <em>not</em> used during the training exericse. As such, the confusion matrix and classification accuracy associated with the test dataset provides a useful check of the skill of the model. Add the <code>Part 4</code> code below to your RScript but omit lines that begin with a double-hash (<code>##</code>) :</p>
+<a class="sourceLine" id="cb303-4" data-line-number="4"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb303-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb303-6" data-line-number="6"><span class="co"># describe all possible features and labels</span></a>
+<a class="sourceLine" id="cb303-7" data-line-number="7"><span class="kw">print</span>(mdf, <span class="dt">n =</span> <span class="kw">nrow</span>(mdf))</a>
+<a class="sourceLine" id="cb303-8" data-line-number="8"><span class="co">## # A tibble: 36 x 4</span></a>
+<a class="sourceLine" id="cb303-9" data-line-number="9"><span class="co">##       ID Code  Variable           Description                                   </span></a>
+<a class="sourceLine" id="cb303-10" data-line-number="10"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;chr&gt;                                         </span></a>
+<a class="sourceLine" id="cb303-11" data-line-number="11"><span class="co">##  1     1 X01   Pct_Sun            Percent sunny days                            </span></a>
+<a class="sourceLine" id="cb303-12" data-line-number="12"><span class="co">##  2     2 X02   Total_Hours_Sun    Total hours of sun                            </span></a>
+<a class="sourceLine" id="cb303-13" data-line-number="13"><span class="co">##  3     3 X03   Num_Clear_Days     Number of clear days                          </span></a>
+<a class="sourceLine" id="cb303-14" data-line-number="14"><span class="co">##  4     4 X04   Avg_RH             Average relative himidity                     </span></a>
+<a class="sourceLine" id="cb303-15" data-line-number="15"><span class="co">##  5     5 X05   Avg_Dew_Point      Average dew point                             </span></a>
+<a class="sourceLine" id="cb303-16" data-line-number="16"><span class="co">##  6     6 X06   Total_Population   Total population                              </span></a>
+<a class="sourceLine" id="cb303-17" data-line-number="17"><span class="co">##  7     7 X07   Senior_Pop_Thousa… Population 65+ years in thousands             </span></a>
+<a class="sourceLine" id="cb303-18" data-line-number="18"><span class="co">##  8     8 X08   Senior_Pop_Pct     Percentage of population 65+ year             </span></a>
+<a class="sourceLine" id="cb303-19" data-line-number="19"><span class="co">##  9     9 X09   per_capita_income  per capita income                             </span></a>
+<a class="sourceLine" id="cb303-20" data-line-number="20"><span class="co">## 10    10 X10   Unemployment_Rate  Percent unemployment                          </span></a>
+<a class="sourceLine" id="cb303-21" data-line-number="21"><span class="co">## 11    11 X11   Uninsured_Rate_Ch… Percent uninsured children                    </span></a>
+<a class="sourceLine" id="cb303-22" data-line-number="22"><span class="co">## 12    12 X12   Uninsured_Rate_Ad… Percent uninsured adults                      </span></a>
+<a class="sourceLine" id="cb303-23" data-line-number="23"><span class="co">## 13    13 X13   Heart_Disease_Rate Deaths per 100000  due to heart disease       </span></a>
+<a class="sourceLine" id="cb303-24" data-line-number="24"><span class="co">## 14    14 X14   Heart_Disease_Dea… Total deaths due to heart disease             </span></a>
+<a class="sourceLine" id="cb303-25" data-line-number="25"><span class="co">## 15    15 X15   Tobacco_Use_Rate   Percentage of tobacco users                   </span></a>
+<a class="sourceLine" id="cb303-26" data-line-number="26"><span class="co">## 16    16 X16   Obesity_Prevalenc… Percentage of population this is considered o…</span></a>
+<a class="sourceLine" id="cb303-27" data-line-number="27"><span class="co">## 17    17 X17   Num_Hospitals      Number of hospitals                           </span></a>
+<a class="sourceLine" id="cb303-28" data-line-number="28"><span class="co">## 18    18 X18   Num_Hosp_Staffed_… Number of hospital beds                       </span></a>
+<a class="sourceLine" id="cb303-29" data-line-number="29"><span class="co">## 19    19 X19   Total_Hosp_Discha… Total number of hospital discharges           </span></a>
+<a class="sourceLine" id="cb303-30" data-line-number="30"><span class="co">## 20    20 X20   Hosp_Patient_Days  Total number of patient days in hospital      </span></a>
+<a class="sourceLine" id="cb303-31" data-line-number="31"><span class="co">## 21    21 X21   Hosp_Gross_Patien… Total hospital gross patient revenue          </span></a>
+<a class="sourceLine" id="cb303-32" data-line-number="32"><span class="co">## 22    22 X22   Number_of_Farms    Total number of farms                         </span></a>
+<a class="sourceLine" id="cb303-33" data-line-number="33"><span class="co">## 23    23 X23   Urban_Population_… Percentage of population living in urban areas</span></a>
+<a class="sourceLine" id="cb303-34" data-line-number="34"><span class="co">## 24    24 X24   Urban_Population   Total urban population                        </span></a>
+<a class="sourceLine" id="cb303-35" data-line-number="35"><span class="co">## 25    25 X25   Urban_Land_Area_S… Amount of urban land area in square miles     </span></a>
+<a class="sourceLine" id="cb303-36" data-line-number="36"><span class="co">## 26    26 X26   Urban_Density_Sq_… Urban density in persons per square mile      </span></a>
+<a class="sourceLine" id="cb303-37" data-line-number="37"><span class="co">## 27    27 X27   Urban_Land_Pct     Percentage of land use classified as urban    </span></a>
+<a class="sourceLine" id="cb303-38" data-line-number="38"><span class="co">## 28    28 X28   Pct_Republican     Percentage of population registered republican</span></a>
+<a class="sourceLine" id="cb303-39" data-line-number="39"><span class="co">## 29    29 X29   Pct_Independent    Percentage of population not affiliated with …</span></a>
+<a class="sourceLine" id="cb303-40" data-line-number="40"><span class="co">## 30    30 X30   Pct_Democrat       Percentage of population registered democrat  </span></a>
+<a class="sourceLine" id="cb303-41" data-line-number="41"><span class="co">## 31    31 X31   Stay_at_Home_Star… Date stay at home order issued                </span></a>
+<a class="sourceLine" id="cb303-42" data-line-number="42"><span class="co">## 32    32 X32   Stay_at_Home_End_… Date stay at home order scheduled to be lifted</span></a>
+<a class="sourceLine" id="cb303-43" data-line-number="43"><span class="co">## 33     1 Y01   cases              total number of covid-19 cases                </span></a>
+<a class="sourceLine" id="cb303-44" data-line-number="44"><span class="co">## 34     2 Y02   deaths             total number of covid-19 deaths               </span></a>
+<a class="sourceLine" id="cb303-45" data-line-number="45"><span class="co">## 35     3 Y03   death_rate         death rate as a percentage                    </span></a>
+<a class="sourceLine" id="cb303-46" data-line-number="46"><span class="co">## 36     4 Y04   severity_index     severity index based on death_rate: ## 1 = &lt; …</span></a>
+<a class="sourceLine" id="cb303-47" data-line-number="47"></a>
+<a class="sourceLine" id="cb303-48" data-line-number="48"><span class="co"># select some features and the severity index label</span></a>
+<a class="sourceLine" id="cb303-49" data-line-number="49">my_x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X01&quot;</span>,<span class="st">&quot;X10&quot;</span>,<span class="st">&quot;X12&quot;</span>,<span class="st">&quot;X13&quot;</span>,<span class="st">&quot;X23&quot;</span>)</a>
+<a class="sourceLine" id="cb303-50" data-line-number="50">my_y &lt;-<span class="st"> &quot;Y04&quot;</span></a>
+<a class="sourceLine" id="cb303-51" data-line-number="51">my_xy &lt;-<span class="st"> </span><span class="kw">c</span>(my_x, my_y)</a>
+<a class="sourceLine" id="cb303-52" data-line-number="52"></a>
+<a class="sourceLine" id="cb303-53" data-line-number="53"><span class="co"># get descriptions of the selected features and label</span></a>
+<a class="sourceLine" id="cb303-54" data-line-number="54">mdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Code <span class="op">%in%</span><span class="st"> </span>my_xy)</a>
+<a class="sourceLine" id="cb303-55" data-line-number="55"><span class="co">## # A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb303-56" data-line-number="56"><span class="co">##      ID Code  Variable         Description                                      </span></a>
+<a class="sourceLine" id="cb303-57" data-line-number="57"><span class="co">##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;                                            </span></a>
+<a class="sourceLine" id="cb303-58" data-line-number="58"><span class="co">## 1     1 X01   Pct_Sun          Percent sunny days                               </span></a>
+<a class="sourceLine" id="cb303-59" data-line-number="59"><span class="co">## 2    10 X10   Unemployment_Ra… Percent unemployment                             </span></a>
+<a class="sourceLine" id="cb303-60" data-line-number="60"><span class="co">## 3    12 X12   Uninsured_Rate_… Percent uninsured adults                         </span></a>
+<a class="sourceLine" id="cb303-61" data-line-number="61"><span class="co">## 4    13 X13   Heart_Disease_R… Deaths per 100000  due to heart disease          </span></a>
+<a class="sourceLine" id="cb303-62" data-line-number="62"><span class="co">## 5    23 X23   Urban_Populatio… Percentage of population living in urban areas   </span></a>
+<a class="sourceLine" id="cb303-63" data-line-number="63"><span class="co">## 6     4 Y04   severity_index   severity index based on death_rate: ## 1 = &lt; 0.1…</span></a>
+<a class="sourceLine" id="cb303-64" data-line-number="64"></a>
+<a class="sourceLine" id="cb303-65" data-line-number="65"><span class="co"># subset the dataframe</span></a>
+<a class="sourceLine" id="cb303-66" data-line-number="66">rf_df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">all_of</span>(my_xy))</a></code></pre></div>
+<p>Now we’ll add code to create and train a basic Random Forest model. Add the <code>Part 3</code> code below to your RScript but omit lines that begin with a double-hash (<code>##</code>):</p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1"><span class="co">#</span></a>
-<a class="sourceLine" id="cb304-2" data-line-number="2"><span class="co"># Part 4 - evaluate the model using test data</span></a>
+<a class="sourceLine" id="cb304-2" data-line-number="2"><span class="co"># Part 3 - create and train the model</span></a>
 <a class="sourceLine" id="cb304-3" data-line-number="3"><span class="co">#</span></a>
-<a class="sourceLine" id="cb304-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb304-5" data-line-number="5"><span class="co"># extract test predictions</span></a>
-<a class="sourceLine" id="cb304-6" data-line-number="6">preds &lt;-<span class="st"> </span><span class="kw">predict</span>(model, test)</a>
-<a class="sourceLine" id="cb304-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb304-8" data-line-number="8"><span class="co"># confusion matrix</span></a>
-<a class="sourceLine" id="cb304-9" data-line-number="9">actual &lt;-<span class="st"> </span><span class="kw">factor</span>(test<span class="op">$</span>Y04)</a>
-<a class="sourceLine" id="cb304-10" data-line-number="10">predicted &lt;-<span class="st"> </span><span class="kw">factor</span>(preds)</a>
-<a class="sourceLine" id="cb304-11" data-line-number="11">common_levels &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">unique</span>(<span class="kw">c</span>(<span class="kw">levels</span>(actual), <span class="kw">levels</span>(predicted))))</a>
-<a class="sourceLine" id="cb304-12" data-line-number="12">actual &lt;-<span class="st"> </span><span class="kw">factor</span>(actual, <span class="dt">levels =</span> common_levels)</a>
-<a class="sourceLine" id="cb304-13" data-line-number="13">predicted &lt;-<span class="st"> </span><span class="kw">factor</span>(predicted, <span class="dt">levels =</span> common_levels)</a>
-<a class="sourceLine" id="cb304-14" data-line-number="14">confusion &lt;-<span class="st"> </span><span class="kw">table</span>(actual,predicted)</a>
-<a class="sourceLine" id="cb304-15" data-line-number="15"><span class="kw">print</span>(confusion)</a>
-<a class="sourceLine" id="cb304-16" data-line-number="16"><span class="co">##       predicted</span></a>
-<a class="sourceLine" id="cb304-17" data-line-number="17"><span class="co">## actual 4 5 6 7</span></a>
-<a class="sourceLine" id="cb304-18" data-line-number="18"><span class="co">##      4 0 1 1 0</span></a>
-<a class="sourceLine" id="cb304-19" data-line-number="19"><span class="co">##      5 0 3 3 0</span></a>
-<a class="sourceLine" id="cb304-20" data-line-number="20"><span class="co">##      6 0 2 1 0</span></a>
-<a class="sourceLine" id="cb304-21" data-line-number="21"><span class="co">##      7 0 0 1 0</span></a>
-<a class="sourceLine" id="cb304-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb304-23" data-line-number="23"><span class="co">#classification accuracy</span></a>
-<a class="sourceLine" id="cb304-24" data-line-number="24">accuracy &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(confusion)<span class="op">/</span><span class="kw">nrow</span>(test))</a>
-<a class="sourceLine" id="cb304-25" data-line-number="25"><span class="kw">cat</span>(<span class="st">&quot;Classification Accuracy = &quot;</span>, accuracy, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb304-26" data-line-number="26"><span class="co">## Classification Accuracy =  0.3333333</span></a></code></pre></div>
+<a class="sourceLine" id="cb304-4" data-line-number="4"><span class="co"># split into train (75%) and test (25%) datasets</span></a>
+<a class="sourceLine" id="cb304-5" data-line-number="5"><span class="co">#</span></a>
+<a class="sourceLine" id="cb304-6" data-line-number="6"><span class="co"># note that `row_nubmer()` generates a vector of row numbers, and</span></a>
+<a class="sourceLine" id="cb304-7" data-line-number="7"><span class="co">#     &gt; c(1, 2, 3, 4, 5, 6) %% 4 is</span></a>
+<a class="sourceLine" id="cb304-8" data-line-number="8"><span class="co">#     [1] 1 2 3 0 1 2</span></a>
+<a class="sourceLine" id="cb304-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb304-10" data-line-number="10">train &lt;-<span class="st"> </span>rf_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>((<span class="kw">row_number</span>() <span class="op">%%</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%in%</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb304-11" data-line-number="11">test &lt;-<span class="st"> </span>rf_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">row_number</span>() <span class="op">%%</span><span class="st"> </span><span class="dv">4</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb304-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb304-13" data-line-number="13"><span class="co"># create and train the RF model</span></a>
+<a class="sourceLine" id="cb304-14" data-line-number="14">model &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y04 <span class="op">~</span><span class="st"> </span>X01 <span class="op">+</span><span class="st"> </span>X10 <span class="op">+</span><span class="st"> </span>X12 <span class="op">+</span><span class="st"> </span>X13 <span class="op">+</span><span class="st"> </span>X23, </a>
+<a class="sourceLine" id="cb304-15" data-line-number="15">                      <span class="dt">data =</span> train)</a>
+<a class="sourceLine" id="cb304-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb304-17" data-line-number="17"><span class="co"># show results, includes confusion matrix for training data</span></a>
+<a class="sourceLine" id="cb304-18" data-line-number="18">model</a>
+<a class="sourceLine" id="cb304-19" data-line-number="19"><span class="co">## </span></a>
+<a class="sourceLine" id="cb304-20" data-line-number="20"><span class="co">## Call:</span></a>
+<a class="sourceLine" id="cb304-21" data-line-number="21"><span class="co">##  randomForest(formula = Y04 ~ X01 + X10 + X12 + X13 + X23, data = train) </span></a>
+<a class="sourceLine" id="cb304-22" data-line-number="22"><span class="co">##                Type of random forest: classification</span></a>
+<a class="sourceLine" id="cb304-23" data-line-number="23"><span class="co">##                      Number of trees: 500</span></a>
+<a class="sourceLine" id="cb304-24" data-line-number="24"><span class="co">## No. of variables tried at each split: 2</span></a>
+<a class="sourceLine" id="cb304-25" data-line-number="25"><span class="co">## </span></a>
+<a class="sourceLine" id="cb304-26" data-line-number="26"><span class="co">##         OOB estimate of  error rate: 63.16%</span></a>
+<a class="sourceLine" id="cb304-27" data-line-number="27"><span class="co">## Confusion matrix:</span></a>
+<a class="sourceLine" id="cb304-28" data-line-number="28"><span class="co">##   3 4 5 6 7 8 class.error</span></a>
+<a class="sourceLine" id="cb304-29" data-line-number="29"><span class="co">## 3 0 0 1 0 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb304-30" data-line-number="30"><span class="co">## 4 0 0 1 1 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb304-31" data-line-number="31"><span class="co">## 5 0 0 8 7 0 0   0.4666667</span></a>
+<a class="sourceLine" id="cb304-32" data-line-number="32"><span class="co">## 6 0 1 8 6 0 0   0.6000000</span></a>
+<a class="sourceLine" id="cb304-33" data-line-number="33"><span class="co">## 7 0 0 1 3 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb304-34" data-line-number="34"><span class="co">## 8 0 0 0 1 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb304-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb304-36" data-line-number="36"><span class="co"># measure of parameter importance</span></a>
+<a class="sourceLine" id="cb304-37" data-line-number="37"><span class="kw">importance</span>(model) </a>
+<a class="sourceLine" id="cb304-38" data-line-number="38"><span class="co">##     MeanDecreaseGini</span></a>
+<a class="sourceLine" id="cb304-39" data-line-number="39"><span class="co">## X01         3.846554</span></a>
+<a class="sourceLine" id="cb304-40" data-line-number="40"><span class="co">## X10         5.553336</span></a>
+<a class="sourceLine" id="cb304-41" data-line-number="41"><span class="co">## X12         5.896515</span></a>
+<a class="sourceLine" id="cb304-42" data-line-number="42"><span class="co">## X13         4.576675</span></a>
+<a class="sourceLine" id="cb304-43" data-line-number="43"><span class="co">## X23         4.974290</span></a></code></pre></div>
+<p>At this point the model is trained and the next step is to evaluate its usefulness at making predictions. Let’s see how the model does at predicting the labels of the test dataset. Remember that the test data was <em>not</em> used during the training exericse. As such, the confusion matrix and classification accuracy associated with the test dataset provides a useful check of the skill of the model. Add the <code>Part 4</code> code below to your RScript but omit lines that begin with a double-hash (<code>##</code>) :</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="co">#</span></a>
+<a class="sourceLine" id="cb305-2" data-line-number="2"><span class="co"># Part 4 - evaluate the model using test data</span></a>
+<a class="sourceLine" id="cb305-3" data-line-number="3"><span class="co">#</span></a>
+<a class="sourceLine" id="cb305-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb305-5" data-line-number="5"><span class="co"># extract test predictions</span></a>
+<a class="sourceLine" id="cb305-6" data-line-number="6">preds &lt;-<span class="st"> </span><span class="kw">predict</span>(model, test)</a>
+<a class="sourceLine" id="cb305-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb305-8" data-line-number="8"><span class="co"># confusion matrix</span></a>
+<a class="sourceLine" id="cb305-9" data-line-number="9">actual &lt;-<span class="st"> </span><span class="kw">factor</span>(test<span class="op">$</span>Y04)</a>
+<a class="sourceLine" id="cb305-10" data-line-number="10">predicted &lt;-<span class="st"> </span><span class="kw">factor</span>(preds)</a>
+<a class="sourceLine" id="cb305-11" data-line-number="11">common_levels &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">unique</span>(<span class="kw">c</span>(<span class="kw">levels</span>(actual), <span class="kw">levels</span>(predicted))))</a>
+<a class="sourceLine" id="cb305-12" data-line-number="12">actual &lt;-<span class="st"> </span><span class="kw">factor</span>(actual, <span class="dt">levels =</span> common_levels)</a>
+<a class="sourceLine" id="cb305-13" data-line-number="13">predicted &lt;-<span class="st"> </span><span class="kw">factor</span>(predicted, <span class="dt">levels =</span> common_levels)</a>
+<a class="sourceLine" id="cb305-14" data-line-number="14">confusion &lt;-<span class="st"> </span><span class="kw">table</span>(actual,predicted)</a>
+<a class="sourceLine" id="cb305-15" data-line-number="15"><span class="kw">print</span>(confusion)</a>
+<a class="sourceLine" id="cb305-16" data-line-number="16"><span class="co">##       predicted</span></a>
+<a class="sourceLine" id="cb305-17" data-line-number="17"><span class="co">## actual 4 5 6 7</span></a>
+<a class="sourceLine" id="cb305-18" data-line-number="18"><span class="co">##      4 0 1 1 0</span></a>
+<a class="sourceLine" id="cb305-19" data-line-number="19"><span class="co">##      5 0 3 3 0</span></a>
+<a class="sourceLine" id="cb305-20" data-line-number="20"><span class="co">##      6 0 1 2 0</span></a>
+<a class="sourceLine" id="cb305-21" data-line-number="21"><span class="co">##      7 0 0 1 0</span></a>
+<a class="sourceLine" id="cb305-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb305-23" data-line-number="23"><span class="co">#classification accuracy</span></a>
+<a class="sourceLine" id="cb305-24" data-line-number="24">accuracy &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(confusion)<span class="op">/</span><span class="kw">nrow</span>(test))</a>
+<a class="sourceLine" id="cb305-25" data-line-number="25"><span class="kw">cat</span>(<span class="st">&quot;Classification Accuracy = &quot;</span>, accuracy, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb305-26" data-line-number="26"><span class="co">## Classification Accuracy =  0.4166667</span></a></code></pre></div>
 <p>Save your script and run it. Take a look at the results for the test dataset - the classifcation accuracy is well under 50%. Furthermore, there are systematic failures in the confusion matrix. It’s not a very good model. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.</p>
 </div>
 </div>
@@ -713,20 +713,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>In <code>Part 1</code> of <code>covid_19_svm.R</code>, replace <code>library(randomForest)</code> with <code>library(e1071)</code>. This will load the <code>svm</code> algorithm instead of the <code>randomForest</code> algorithm.</p></li>
 <li><p>In <code>Part 3</code> of the code, replace <code>randomForest()</code> with <code>svm()</code> and add the following argument to the <code>svm()</code> function: <code>probability = TRUE</code>. The <code>svm()</code> code should look something like this:</p></li>
 </ul>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">svm</span>(Y04 <span class="op">~</span><span class="st"> </span>X01 <span class="op">+</span><span class="st"> </span>X10 <span class="op">+</span><span class="st"> </span>X12 <span class="op">+</span><span class="st"> </span>X13 <span class="op">+</span><span class="st"> </span>X23, </a>
-<a class="sourceLine" id="cb305-2" data-line-number="2">             <span class="dt">data =</span> train,</a>
-<a class="sourceLine" id="cb305-3" data-line-number="3">             <span class="dt">probability =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">svm</span>(Y04 <span class="op">~</span><span class="st"> </span>X01 <span class="op">+</span><span class="st"> </span>X10 <span class="op">+</span><span class="st"> </span>X12 <span class="op">+</span><span class="st"> </span>X13 <span class="op">+</span><span class="st"> </span>X23, </a>
+<a class="sourceLine" id="cb306-2" data-line-number="2">             <span class="dt">data =</span> train,</a>
+<a class="sourceLine" id="cb306-3" data-line-number="3">             <span class="dt">probability =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <ul>
 <li>The <code>svm()</code> package does not provide useful implementations of <code>print(model)</code> or <code>importance(model)</code>. Comment out, or delete, those lines of <code>Part 3</code> and replace with <code>summary(model)</code>. When you are finished, the final section of the <code>Part 3</code> code should look something like this:</li>
 </ul>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="co"># show results, includes confusion matrix for training data</span></a>
-<a class="sourceLine" id="cb306-2" data-line-number="2"><span class="co"># print(model) </span></a>
-<a class="sourceLine" id="cb306-3" data-line-number="3"><span class="co">#</span></a>
-<a class="sourceLine" id="cb306-4" data-line-number="4"><span class="co"># measure of parameter importance</span></a>
-<a class="sourceLine" id="cb306-5" data-line-number="5"><span class="co"># importance(model) </span></a>
-<a class="sourceLine" id="cb306-6" data-line-number="6"><span class="co">#</span></a>
-<a class="sourceLine" id="cb306-7" data-line-number="7"><span class="co"># summarize the trained SVM</span></a>
-<a class="sourceLine" id="cb306-8" data-line-number="8"><span class="kw">summary</span>(model)</a></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1"><span class="co"># show results, includes confusion matrix for training data</span></a>
+<a class="sourceLine" id="cb307-2" data-line-number="2"><span class="co"># print(model) </span></a>
+<a class="sourceLine" id="cb307-3" data-line-number="3"><span class="co">#</span></a>
+<a class="sourceLine" id="cb307-4" data-line-number="4"><span class="co"># measure of parameter importance</span></a>
+<a class="sourceLine" id="cb307-5" data-line-number="5"><span class="co"># importance(model) </span></a>
+<a class="sourceLine" id="cb307-6" data-line-number="6"><span class="co">#</span></a>
+<a class="sourceLine" id="cb307-7" data-line-number="7"><span class="co"># summarize the trained SVM</span></a>
+<a class="sourceLine" id="cb307-8" data-line-number="8"><span class="kw">summary</span>(model)</a></code></pre></div>
 <p>That’s it! The rest of the code (i.e. <code>Part 4</code>) can be re-used. Save your <code>covid_19_svm.R</code> script and run it. How does the SVM algorithm perform in comparison with the Random Forest algorithm?</p>
 </div>
 </div>
@@ -749,34 +749,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>In <code>Part 1</code> of <code>covid_19_knn.R</code>, replace <code>library(e1071)</code> with <code>library(class)</code>. This will load the <code>knn</code> algorithm instead of the <code>svm</code> algorithm.</p></li>
 <li><p>The KNN algorithm requires the feature data to be normalized. Add the following line in <code>Part 1</code> of <code>covid_19_knn.R</code>. Add the line in between the <code>df$Y04 &lt;- as.factor(df$Y04)</code> line and the <code>df</code> line. If necessary, use <code>install.packages('BBmisc')</code> to install the <code>BBmisc</code> package and its <code>normalize()</code> function.</p></li>
 </ul>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1">df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(Y04 &lt;-<span class="st"> </span><span class="kw">as.factor</span>(Y04))</a>
-<a class="sourceLine" id="cb307-2" data-line-number="2">df &lt;-<span class="st"> </span>BBmisc<span class="op">::</span><span class="kw">normalize</span>(df, <span class="dt">method =</span> <span class="st">&quot;range&quot;</span>) <span class="co"># add this line</span></a>
-<a class="sourceLine" id="cb307-3" data-line-number="3">df</a></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1">df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(Y04 &lt;-<span class="st"> </span><span class="kw">as.factor</span>(Y04))</a>
+<a class="sourceLine" id="cb308-2" data-line-number="2">df &lt;-<span class="st"> </span>BBmisc<span class="op">::</span><span class="kw">normalize</span>(df, <span class="dt">method =</span> <span class="st">&quot;range&quot;</span>) <span class="co"># add this line</span></a>
+<a class="sourceLine" id="cb308-3" data-line-number="3">df</a></code></pre></div>
 <ul>
 <li>In <code>Part 3</code> of the code, replace <code>svm()</code> with <code>knn()</code> and adjust the call to <code>knn()</code> so that it looks like this:</li>
 </ul>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_x)),</a>
-<a class="sourceLine" id="cb308-2" data-line-number="2">             <span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)),</a>
-<a class="sourceLine" id="cb308-3" data-line-number="3">             train<span class="op">$</span>Y04,</a>
-<a class="sourceLine" id="cb308-4" data-line-number="4">             <span class="dt">k =</span> <span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb308-5" data-line-number="5">             <span class="dt">prob =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_x)),</a>
+<a class="sourceLine" id="cb309-2" data-line-number="2">             <span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)),</a>
+<a class="sourceLine" id="cb309-3" data-line-number="3">             train<span class="op">$</span>Y04,</a>
+<a class="sourceLine" id="cb309-4" data-line-number="4">             <span class="dt">k =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb309-5" data-line-number="5">             <span class="dt">prob =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <ul>
 <li>The <code>knn()</code> package does not provide useful implementations <code>print(model)</code>, <code>importance(model)</code>, or <code>summary(model)</code>. Comment out, or delete, those lines of <code>Part 3</code>. When you are finished, the final section of the <code>Part 3</code> code should look something like this:</li>
 </ul>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1"><span class="co"># show results, includes confusion matrix for training data</span></a>
-<a class="sourceLine" id="cb309-2" data-line-number="2"><span class="co"># print(model) </span></a>
-<a class="sourceLine" id="cb309-3" data-line-number="3"><span class="co">#</span></a>
-<a class="sourceLine" id="cb309-4" data-line-number="4"><span class="co"># measure of parameter importance</span></a>
-<a class="sourceLine" id="cb309-5" data-line-number="5"><span class="co"># importance(model) </span></a>
-<a class="sourceLine" id="cb309-6" data-line-number="6"><span class="co">#</span></a>
-<a class="sourceLine" id="cb309-7" data-line-number="7"><span class="co"># summarize the trained SVM</span></a>
-<a class="sourceLine" id="cb309-8" data-line-number="8"><span class="co"># summary(model)</span></a></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1"><span class="co"># show results, includes confusion matrix for training data</span></a>
+<a class="sourceLine" id="cb310-2" data-line-number="2"><span class="co"># print(model) </span></a>
+<a class="sourceLine" id="cb310-3" data-line-number="3"><span class="co">#</span></a>
+<a class="sourceLine" id="cb310-4" data-line-number="4"><span class="co"># measure of parameter importance</span></a>
+<a class="sourceLine" id="cb310-5" data-line-number="5"><span class="co"># importance(model) </span></a>
+<a class="sourceLine" id="cb310-6" data-line-number="6"><span class="co">#</span></a>
+<a class="sourceLine" id="cb310-7" data-line-number="7"><span class="co"># summarize the trained SVM</span></a>
+<a class="sourceLine" id="cb310-8" data-line-number="8"><span class="co"># summary(model)</span></a></code></pre></div>
 <ul>
 <li>In <code>Part 4</code> of the script, replace:</li>
 </ul>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">predict</span>(model, test)</a></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">predict</span>(model, test)</a></code></pre></div>
 <p>with:</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(model)[,<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(model)[,<span class="dv">1</span>]</a></code></pre></div>
 <p>That’s it! The rest of the code can be re-used. Save your <code>covid_19_knn.R</code> script and run it. How does the KNN algorithm perform in comparison with the Random Forest and SVM algorithms?</p>
 </div>
 <div id="day-25---artificial-neural-networks" class="section level2">
@@ -839,10 +839,10 @@ layers. A simple “shallow” ANN is illustrated in the following figure:</p>
 <p>A pre-requisite for using Keras and TensorFlow is to install Anaconda Python version 3.x: <a href="https://www.anaconda.com/download" class="uri">https://www.anaconda.com/download</a></p>
 <p>Instructions for installing Keras and TensorFlow for use within RStudio are provided at <a href="https://keras.rstudio.com/" class="uri">https://keras.rstudio.com/</a> and these are repeated below. The installation of Anaconda Python and Keras can take a while and may require restarting <em>RStudio</em>. It is a good idea to save and close any open <em>RStudio</em> sessions before attempting these installations.</p>
 <p><em>Option #1</em> (suggested by <a href="https://keras.rstudio.com" class="uri">https://keras.rstudio.com</a> )</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</a>
-<a class="sourceLine" id="cb312-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rstudio/keras&quot;</span>)</a>
-<a class="sourceLine" id="cb312-3" data-line-number="3"><span class="kw">library</span>(keras)</a>
-<a class="sourceLine" id="cb312-4" data-line-number="4"><span class="kw">install_keras</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</a>
+<a class="sourceLine" id="cb313-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rstudio/keras&quot;</span>)</a>
+<a class="sourceLine" id="cb313-3" data-line-number="3"><span class="kw">library</span>(keras)</a>
+<a class="sourceLine" id="cb313-4" data-line-number="4"><span class="kw">install_keras</span>()</a></code></pre></div>
 <p><em>Option #2</em> (if option #1 fails)</p>
 <ul>
 <li>Step 1: Use <code>conda</code> to install TensorFlow (and Keras, too) from a system prompt (e.g. <code>DOS</code> on Windows machines). On Windows, you may need to choose “run as admin” when launching the <code>DOS</code> prompt.</li>
@@ -853,20 +853,20 @@ layers. A simple “shallow” ANN is illustrated in the following figure:</p>
 <ul>
 <li>Step 2: Use the short form package installations in <em>RStudio</em> (i.e. skip <code>install_keras()</code> and <code>install_tensorflow()</code>):</li>
 </ul>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1"><span class="co"># re-install tensorflow</span></a>
-<a class="sourceLine" id="cb314-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">&quot;tensorflow&quot;</span>)</a>
-<a class="sourceLine" id="cb314-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb314-4" data-line-number="4"><span class="co"># check tensorflow installation</span></a>
-<a class="sourceLine" id="cb314-5" data-line-number="5"><span class="kw">library</span>(tensorflow)</a>
-<a class="sourceLine" id="cb314-6" data-line-number="6"><span class="kw">Sys.setenv</span>(<span class="dt">HDF5_DISABLE_VERSION_CHECK =</span> <span class="st">&quot;2&quot;</span>)</a>
-<a class="sourceLine" id="cb314-7" data-line-number="7">tf<span class="op">$</span><span class="kw">constant</span>(<span class="st">&quot;Hello from Tensorflow&quot;</span>)</a>
-<a class="sourceLine" id="cb314-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb314-9" data-line-number="9"><span class="co"># re-install keras</span></a>
-<a class="sourceLine" id="cb314-10" data-line-number="10">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rstudio/keras&quot;</span>)</a>
-<a class="sourceLine" id="cb314-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb314-12" data-line-number="12"><span class="co"># check keras installation</span></a>
-<a class="sourceLine" id="cb314-13" data-line-number="13"><span class="kw">library</span>(keras)</a>
-<a class="sourceLine" id="cb314-14" data-line-number="14"><span class="kw">to_categorical</span>(<span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>),<span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" data-line-number="1"><span class="co"># re-install tensorflow</span></a>
+<a class="sourceLine" id="cb315-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">&quot;tensorflow&quot;</span>)</a>
+<a class="sourceLine" id="cb315-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb315-4" data-line-number="4"><span class="co"># check tensorflow installation</span></a>
+<a class="sourceLine" id="cb315-5" data-line-number="5"><span class="kw">library</span>(tensorflow)</a>
+<a class="sourceLine" id="cb315-6" data-line-number="6"><span class="kw">Sys.setenv</span>(<span class="dt">HDF5_DISABLE_VERSION_CHECK =</span> <span class="st">&quot;2&quot;</span>)</a>
+<a class="sourceLine" id="cb315-7" data-line-number="7">tf<span class="op">$</span><span class="kw">constant</span>(<span class="st">&quot;Hello from Tensorflow&quot;</span>)</a>
+<a class="sourceLine" id="cb315-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb315-9" data-line-number="9"><span class="co"># re-install keras</span></a>
+<a class="sourceLine" id="cb315-10" data-line-number="10">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rstudio/keras&quot;</span>)</a>
+<a class="sourceLine" id="cb315-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb315-12" data-line-number="12"><span class="co"># check keras installation</span></a>
+<a class="sourceLine" id="cb315-13" data-line-number="13"><span class="kw">library</span>(keras)</a>
+<a class="sourceLine" id="cb315-14" data-line-number="14"><span class="kw">to_categorical</span>(<span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>),<span class="dv">5</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="applying-keras-and-tensorflow-to-the-covid-19-dataset" class="section level3">
@@ -878,42 +878,42 @@ layers. A simple “shallow” ANN is illustrated in the following figure:</p>
 <li><p>In <code>Part 1</code> of the <code>covid_19_keras.R</code> file, replace <code>library(class)</code> with <code>library(keras)</code>. This will adjust the script to use the Keras API instead of the KNN algorithm.</p></li>
 <li><p>In <code>Part 3</code> of the script, insert the following code in between the sections that split the data and create the model.</p></li>
 </ul>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb315-2" data-line-number="2"><span class="co"># split into train (75%) and test (25%) datasets</span></a>
-<a class="sourceLine" id="cb315-3" data-line-number="3"><span class="co"># .</span></a>
-<a class="sourceLine" id="cb315-4" data-line-number="4"><span class="co"># .</span></a>
-<a class="sourceLine" id="cb315-5" data-line-number="5"><span class="co"># .</span></a>
-<a class="sourceLine" id="cb315-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb315-7" data-line-number="7"><span class="co"># ----- insert the following code -----</span></a>
-<a class="sourceLine" id="cb315-8" data-line-number="8"><span class="co"># manipulate dataset into Keras format</span></a>
-<a class="sourceLine" id="cb315-9" data-line-number="9">x_train &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_x)))</a>
-<a class="sourceLine" id="cb315-10" data-line-number="10">y_train &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_y)), as.character)</a>
-<a class="sourceLine" id="cb315-11" data-line-number="11">y_train &lt;-<span class="st"> </span><span class="kw">as.integer</span>(y_train)</a>
-<a class="sourceLine" id="cb315-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb315-13" data-line-number="13">x_test  &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)))</a>
-<a class="sourceLine" id="cb315-14" data-line-number="14">y_test  &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">select</span>(test, <span class="kw">all_of</span>(my_y)), as.character)</a>
-<a class="sourceLine" id="cb315-15" data-line-number="15">y_test  &lt;-<span class="st"> </span><span class="kw">as.integer</span>(y_test)</a>
-<a class="sourceLine" id="cb315-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb315-17" data-line-number="17">y_min   &lt;-<span class="st"> </span><span class="kw">min</span>(y_train,y_test)</a>
-<a class="sourceLine" id="cb315-18" data-line-number="18">y_train &lt;-<span class="st"> </span>y_train <span class="op">-</span><span class="st"> </span>y_min</a>
-<a class="sourceLine" id="cb315-19" data-line-number="19">y_test  &lt;-<span class="st"> </span>y_test  <span class="op">-</span><span class="st"> </span>y_min</a>
-<a class="sourceLine" id="cb315-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb315-21" data-line-number="21"><span class="co"># one-hot encoding</span></a>
-<a class="sourceLine" id="cb315-22" data-line-number="22">n_classes &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(df<span class="op">$</span>Y04))</a>
-<a class="sourceLine" id="cb315-23" data-line-number="23">y_train &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(y_train, n_classes)</a>
-<a class="sourceLine" id="cb315-24" data-line-number="24">y_test  &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(y_test, n_classes)</a>
-<a class="sourceLine" id="cb315-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb315-26" data-line-number="26"><span class="co"># assign hyperparameters</span></a>
-<a class="sourceLine" id="cb315-27" data-line-number="27">num_epochs &lt;-<span class="st"> </span><span class="dv">200</span></a>
-<a class="sourceLine" id="cb315-28" data-line-number="28">num_batch &lt;-<span class="st"> </span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb315-29" data-line-number="29">val_split &lt;-<span class="st"> </span><span class="fl">0.2</span></a>
-<a class="sourceLine" id="cb315-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb315-31" data-line-number="31"><span class="co"># ----- end of code instertion -----            </span></a>
-<a class="sourceLine" id="cb315-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb315-33" data-line-number="33"><span class="co"># create and train the KNN model</span></a>
-<a class="sourceLine" id="cb315-34" data-line-number="34"><span class="co"># .</span></a>
-<a class="sourceLine" id="cb315-35" data-line-number="35"><span class="co"># .</span></a>
-<a class="sourceLine" id="cb315-36" data-line-number="36"><span class="co"># .</span></a></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="co"># split into train (75%) and test (25%) datasets</span></a>
+<a class="sourceLine" id="cb316-3" data-line-number="3"><span class="co"># .</span></a>
+<a class="sourceLine" id="cb316-4" data-line-number="4"><span class="co"># .</span></a>
+<a class="sourceLine" id="cb316-5" data-line-number="5"><span class="co"># .</span></a>
+<a class="sourceLine" id="cb316-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb316-7" data-line-number="7"><span class="co"># ----- insert the following code -----</span></a>
+<a class="sourceLine" id="cb316-8" data-line-number="8"><span class="co"># manipulate dataset into Keras format</span></a>
+<a class="sourceLine" id="cb316-9" data-line-number="9">x_train &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_x)))</a>
+<a class="sourceLine" id="cb316-10" data-line-number="10">y_train &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_y)), as.character)</a>
+<a class="sourceLine" id="cb316-11" data-line-number="11">y_train &lt;-<span class="st"> </span><span class="kw">as.integer</span>(y_train)</a>
+<a class="sourceLine" id="cb316-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb316-13" data-line-number="13">x_test  &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)))</a>
+<a class="sourceLine" id="cb316-14" data-line-number="14">y_test  &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">select</span>(test, <span class="kw">all_of</span>(my_y)), as.character)</a>
+<a class="sourceLine" id="cb316-15" data-line-number="15">y_test  &lt;-<span class="st"> </span><span class="kw">as.integer</span>(y_test)</a>
+<a class="sourceLine" id="cb316-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb316-17" data-line-number="17">y_min   &lt;-<span class="st"> </span><span class="kw">min</span>(y_train,y_test)</a>
+<a class="sourceLine" id="cb316-18" data-line-number="18">y_train &lt;-<span class="st"> </span>y_train <span class="op">-</span><span class="st"> </span>y_min</a>
+<a class="sourceLine" id="cb316-19" data-line-number="19">y_test  &lt;-<span class="st"> </span>y_test  <span class="op">-</span><span class="st"> </span>y_min</a>
+<a class="sourceLine" id="cb316-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb316-21" data-line-number="21"><span class="co"># one-hot encoding</span></a>
+<a class="sourceLine" id="cb316-22" data-line-number="22">n_classes &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(df<span class="op">$</span>Y04))</a>
+<a class="sourceLine" id="cb316-23" data-line-number="23">y_train &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(y_train, n_classes)</a>
+<a class="sourceLine" id="cb316-24" data-line-number="24">y_test  &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(y_test, n_classes)</a>
+<a class="sourceLine" id="cb316-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb316-26" data-line-number="26"><span class="co"># assign hyperparameters</span></a>
+<a class="sourceLine" id="cb316-27" data-line-number="27">num_epochs &lt;-<span class="st"> </span><span class="dv">200</span></a>
+<a class="sourceLine" id="cb316-28" data-line-number="28">num_batch &lt;-<span class="st"> </span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb316-29" data-line-number="29">val_split &lt;-<span class="st"> </span><span class="fl">0.2</span></a>
+<a class="sourceLine" id="cb316-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb316-31" data-line-number="31"><span class="co"># ----- end of code instertion -----            </span></a>
+<a class="sourceLine" id="cb316-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb316-33" data-line-number="33"><span class="co"># create and train the KNN model</span></a>
+<a class="sourceLine" id="cb316-34" data-line-number="34"><span class="co"># .</span></a>
+<a class="sourceLine" id="cb316-35" data-line-number="35"><span class="co"># .</span></a>
+<a class="sourceLine" id="cb316-36" data-line-number="36"><span class="co"># .</span></a></code></pre></div>
 <p>The previous bit of code prepares the data set for use by Keras:</p>
 <ul>
 <li><p>Keras wants <em>X</em> (features) and <em>Y</em> (labels) separated.</p></li>
@@ -929,46 +929,46 @@ layers. A simple “shallow” ANN is illustrated in the following figure:</p>
 </ul>
 <p>The next step in adapting the KNN example to use Keras is to replace the “create and train” portion.</p>
 <p>Replace:</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1"><span class="co"># create and train the KNN model</span></a>
-<a class="sourceLine" id="cb316-2" data-line-number="2">model &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_x)),</a>
-<a class="sourceLine" id="cb316-3" data-line-number="3">             <span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)),</a>
-<a class="sourceLine" id="cb316-4" data-line-number="4">             train<span class="op">$</span>Y04,</a>
-<a class="sourceLine" id="cb316-5" data-line-number="5">             <span class="dt">k =</span> <span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb316-6" data-line-number="6">             <span class="dt">prob =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1"><span class="co"># create and train the KNN model</span></a>
+<a class="sourceLine" id="cb317-2" data-line-number="2">model &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="kw">select</span>(train, <span class="kw">all_of</span>(my_x)),</a>
+<a class="sourceLine" id="cb317-3" data-line-number="3">             <span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)),</a>
+<a class="sourceLine" id="cb317-4" data-line-number="4">             train<span class="op">$</span>Y04,</a>
+<a class="sourceLine" id="cb317-5" data-line-number="5">             <span class="dt">k =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb317-6" data-line-number="6">             <span class="dt">prob =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>With:</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
-<a class="sourceLine" id="cb317-2" data-line-number="2">n_inputs &lt;-<span class="st"> </span><span class="kw">ncol</span>(x_train)</a>
-<a class="sourceLine" id="cb317-3" data-line-number="3"><span class="co"># input layer</span></a>
-<a class="sourceLine" id="cb317-4" data-line-number="4"><span class="kw">layer_dense</span>(model, <span class="dt">units =</span> <span class="dv">20</span>, <span class="dt">activation =</span> <span class="st">&#39;relu&#39;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(n_inputs))</a>
-<a class="sourceLine" id="cb317-5" data-line-number="5"><span class="co"># hidden layer</span></a>
-<a class="sourceLine" id="cb317-6" data-line-number="6"><span class="kw">layer_dense</span>(model, <span class="dt">units =</span> <span class="dv">10</span>, <span class="dt">activation =</span> <span class="st">&#39;relu&#39;</span>)</a>
-<a class="sourceLine" id="cb317-7" data-line-number="7"><span class="co"># output layer</span></a>
-<a class="sourceLine" id="cb317-8" data-line-number="8"><span class="kw">layer_dense</span>(model, <span class="dt">units =</span> n_classes, <span class="dt">activation =</span> <span class="st">&#39;softmax&#39;</span>)</a>
-<a class="sourceLine" id="cb317-9" data-line-number="9"><span class="co"># display nework architecture</span></a>
-<a class="sourceLine" id="cb317-10" data-line-number="10"><span class="kw">summary</span>(model)</a>
-<a class="sourceLine" id="cb317-11" data-line-number="11"><span class="co"># assign loss function and optimizer</span></a>
-<a class="sourceLine" id="cb317-12" data-line-number="12"><span class="kw">compile</span>(model, </a>
-<a class="sourceLine" id="cb317-13" data-line-number="13">        <span class="dt">loss =</span> <span class="st">&quot;categorical_crossentropy&quot;</span>,</a>
-<a class="sourceLine" id="cb317-14" data-line-number="14">        <span class="dt">optimizer =</span> <span class="kw">optimizer_rmsprop</span>(),</a>
-<a class="sourceLine" id="cb317-15" data-line-number="15">        <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&#39;accuracy&#39;</span>))</a>
-<a class="sourceLine" id="cb317-16" data-line-number="16"><span class="co"># train the model</span></a>
-<a class="sourceLine" id="cb317-17" data-line-number="17">results &lt;-<span class="st"> </span><span class="kw">fit</span>(model,</a>
-<a class="sourceLine" id="cb317-18" data-line-number="18">               x_train, y_train,</a>
-<a class="sourceLine" id="cb317-19" data-line-number="19">               <span class="dt">epochs =</span> num_epochs,</a>
-<a class="sourceLine" id="cb317-20" data-line-number="20">               <span class="dt">batch_size =</span> num_batch,</a>
-<a class="sourceLine" id="cb317-21" data-line-number="21">               <span class="dt">validation_split =</span> val_split)</a>
-<a class="sourceLine" id="cb317-22" data-line-number="22"><span class="co"># examine convergence progress</span></a>
-<a class="sourceLine" id="cb317-23" data-line-number="23"><span class="kw">plot</span>(results)</a>
-<a class="sourceLine" id="cb317-24" data-line-number="24">results</a></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
+<a class="sourceLine" id="cb318-2" data-line-number="2">n_inputs &lt;-<span class="st"> </span><span class="kw">ncol</span>(x_train)</a>
+<a class="sourceLine" id="cb318-3" data-line-number="3"><span class="co"># input layer</span></a>
+<a class="sourceLine" id="cb318-4" data-line-number="4"><span class="kw">layer_dense</span>(model, <span class="dt">units =</span> <span class="dv">20</span>, <span class="dt">activation =</span> <span class="st">&#39;relu&#39;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(n_inputs))</a>
+<a class="sourceLine" id="cb318-5" data-line-number="5"><span class="co"># hidden layer</span></a>
+<a class="sourceLine" id="cb318-6" data-line-number="6"><span class="kw">layer_dense</span>(model, <span class="dt">units =</span> <span class="dv">10</span>, <span class="dt">activation =</span> <span class="st">&#39;relu&#39;</span>)</a>
+<a class="sourceLine" id="cb318-7" data-line-number="7"><span class="co"># output layer</span></a>
+<a class="sourceLine" id="cb318-8" data-line-number="8"><span class="kw">layer_dense</span>(model, <span class="dt">units =</span> n_classes, <span class="dt">activation =</span> <span class="st">&#39;softmax&#39;</span>)</a>
+<a class="sourceLine" id="cb318-9" data-line-number="9"><span class="co"># display nework architecture</span></a>
+<a class="sourceLine" id="cb318-10" data-line-number="10"><span class="kw">summary</span>(model)</a>
+<a class="sourceLine" id="cb318-11" data-line-number="11"><span class="co"># assign loss function and optimizer</span></a>
+<a class="sourceLine" id="cb318-12" data-line-number="12"><span class="kw">compile</span>(model, </a>
+<a class="sourceLine" id="cb318-13" data-line-number="13">        <span class="dt">loss =</span> <span class="st">&quot;categorical_crossentropy&quot;</span>,</a>
+<a class="sourceLine" id="cb318-14" data-line-number="14">        <span class="dt">optimizer =</span> <span class="kw">optimizer_rmsprop</span>(),</a>
+<a class="sourceLine" id="cb318-15" data-line-number="15">        <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&#39;accuracy&#39;</span>))</a>
+<a class="sourceLine" id="cb318-16" data-line-number="16"><span class="co"># train the model</span></a>
+<a class="sourceLine" id="cb318-17" data-line-number="17">results &lt;-<span class="st"> </span><span class="kw">fit</span>(model,</a>
+<a class="sourceLine" id="cb318-18" data-line-number="18">               x_train, y_train,</a>
+<a class="sourceLine" id="cb318-19" data-line-number="19">               <span class="dt">epochs =</span> num_epochs,</a>
+<a class="sourceLine" id="cb318-20" data-line-number="20">               <span class="dt">batch_size =</span> num_batch,</a>
+<a class="sourceLine" id="cb318-21" data-line-number="21">               <span class="dt">validation_split =</span> val_split)</a>
+<a class="sourceLine" id="cb318-22" data-line-number="22"><span class="co"># examine convergence progress</span></a>
+<a class="sourceLine" id="cb318-23" data-line-number="23"><span class="kw">plot</span>(results)</a>
+<a class="sourceLine" id="cb318-24" data-line-number="24">results</a></code></pre></div>
 <p>This is a simple fully-connected shallow neural network. It is configured to use “categorical cross-entropy” as the loss function. The loss function is a measure of how closely the model outputs match with the actual labels in the training data. The figure below illustrates the steps involved in calculating the loss function. The <code>optimizer</code> field specifies an algorithm for minimizing the loss function. The <code>rmsprop</code> optimizer is an implementation of the “<u>R</u>oot <u>M</u>ean <u>S</u>quared <u>prop</u>agation” method. It is a fast and effective gradient-based procedure that is a good default choice for classification problems.</p>
 <p><img src="images/ml_loss_function.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Make sure your plot window has some room; then highlight the portion of ANN script that you’ve adapted so far and run it. You should eventually see pair of plots similar to the figure below. These plots provide an epoch-by-epoch trace of the accuracy and loss for both the training and validation data. Watch out for cases of “overfitting” - where the training performance improves but the validation performance degrades.</p>
 <p><img src="images/Rplot_ann_convergence.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>The final step in modifying the KNN script for use with Keras is the computation of the classification accuracy and confusion matrix (i.e <code>Part 4</code>). Only the the <code>preds</code> assignment needs to be changed:</p>
 <p>Replace:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(model)[,<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(model)[,<span class="dv">1</span>]</a></code></pre></div>
 <p>With:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">predict_classes</span>(model, x_test) <span class="op">+</span><span class="st"> </span>y_min</a></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw">predict_classes</span>(model, x_test) <span class="op">+</span><span class="st"> </span>y_min</a></code></pre></div>
 <p>Highlight and run the <code>Part 4</code> code to check the skill of the model at predicting the test data. How do the results compare to the random forest, support vector machine, and k-nearest neighbors algorithms?</p>
 </div>
 </div>
@@ -1014,94 +1014,94 @@ layers. A simple “shallow” ANN is illustrated in the following figure:</p>
 </ul></li>
 </ul>
 <p>The ROC/AUC calculation is fairly involved so we’ll create a helper function for it and then incorporate the helper function into our machine learning scripts.</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1"><span class="co">#</span></a>
-<a class="sourceLine" id="cb320-2" data-line-number="2"><span class="co"># Part 5 - ROC/AUC</span></a>
-<a class="sourceLine" id="cb320-3" data-line-number="3"><span class="co">#</span></a>
-<a class="sourceLine" id="cb320-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb320-5" data-line-number="5"><span class="co"># roc_one_vs_all()</span></a>
-<a class="sourceLine" id="cb320-6" data-line-number="6"><span class="co">#   A helper function to compute one vs. all ROC/AUC for a given level (i)</span></a>
-<a class="sourceLine" id="cb320-7" data-line-number="7">roc_one_vs_all &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb320-8" data-line-number="8">    <span class="cf">if</span>(<span class="kw">is.na</span>(<span class="kw">sum</span>(probs))){</a>
-<a class="sourceLine" id="cb320-9" data-line-number="9">        <span class="kw">return</span>(<span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb320-10" data-line-number="10">    }</a>
-<a class="sourceLine" id="cb320-11" data-line-number="11">    </a>
-<a class="sourceLine" id="cb320-12" data-line-number="12">    actual &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(y_test[[<span class="dv">1</span>]] <span class="op">==</span><span class="st"> </span>i)</a>
-<a class="sourceLine" id="cb320-13" data-line-number="13">    score &lt;-<span class="st"> </span>probs[,i]</a>
-<a class="sourceLine" id="cb320-14" data-line-number="14">    </a>
-<a class="sourceLine" id="cb320-15" data-line-number="15">    pred &lt;-<span class="st"> </span>ROCR<span class="op">::</span><span class="kw">prediction</span>(score, actual)</a>
-<a class="sourceLine" id="cb320-16" data-line-number="16">    perf &lt;-<span class="st"> </span>ROCR<span class="op">::</span><span class="kw">performance</span>(pred, <span class="st">&quot;tpr&quot;</span>, <span class="st">&quot;fpr&quot;</span>)</a>
-<a class="sourceLine" id="cb320-17" data-line-number="17">    </a>
-<a class="sourceLine" id="cb320-18" data-line-number="18">    ROCR<span class="op">::</span><span class="kw">plot</span>(perf, </a>
-<a class="sourceLine" id="cb320-19" data-line-number="19">         <span class="dt">main=</span><span class="st">&quot;ROC Curve&quot;</span>, </a>
-<a class="sourceLine" id="cb320-20" data-line-number="20">         <span class="dt">col=</span>cols[<span class="kw">as.numeric</span>(i)], </a>
-<a class="sourceLine" id="cb320-21" data-line-number="21">         <span class="dt">add =</span> i <span class="op">!=</span><span class="st"> </span>lvls[[<span class="dv">1</span>]])</a>
-<a class="sourceLine" id="cb320-22" data-line-number="22">    </a>
-<a class="sourceLine" id="cb320-23" data-line-number="23">    <span class="co"># calculate the AUC and print</span></a>
-<a class="sourceLine" id="cb320-24" data-line-number="24">    auc_i &lt;-<span class="st"> </span>ROCR<span class="op">::</span><span class="kw">performance</span>(pred, <span class="dt">measure=</span><span class="st">&quot;auc&quot;</span>)</a>
-<a class="sourceLine" id="cb320-25" data-line-number="25">    <span class="kw">as.numeric</span>(auc_i<span class="op">@</span>y.values)</a>
-<a class="sourceLine" id="cb320-26" data-line-number="26">}</a>
-<a class="sourceLine" id="cb320-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb320-28" data-line-number="28"><span class="co"># prepare data for computing ROC/AUC</span></a>
-<a class="sourceLine" id="cb320-29" data-line-number="29">x_test &lt;-<span class="st"> </span><span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x))</a>
-<a class="sourceLine" id="cb320-30" data-line-number="30">y_test &lt;-<span class="st"> </span><span class="kw">select</span>(test, <span class="kw">all_of</span>(my_y))</a>
-<a class="sourceLine" id="cb320-31" data-line-number="31"><span class="co"># how we obtain probs depends on the algorithm</span></a>
-<a class="sourceLine" id="cb320-32" data-line-number="32"><span class="cf">if</span> (<span class="kw">inherits</span>(model, <span class="st">&quot;randomForest&quot;</span>)) </a>
-<a class="sourceLine" id="cb320-33" data-line-number="33">{</a>
-<a class="sourceLine" id="cb320-34" data-line-number="34">    probs &lt;-<span class="st"> </span><span class="kw">predict</span>(model, x_test, <span class="dt">type=</span><span class="st">&#39;prob&#39;</span>)</a>
-<a class="sourceLine" id="cb320-35" data-line-number="35">} <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">inherits</span>(model, <span class="st">&quot;svm&quot;</span>))</a>
-<a class="sourceLine" id="cb320-36" data-line-number="36">{</a>
-<a class="sourceLine" id="cb320-37" data-line-number="37">    probs &lt;-<span class="st"> </span><span class="kw">predict</span>(model, x_test, <span class="dt">probability =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb320-38" data-line-number="38">    probs &lt;-<span class="st"> </span><span class="kw">attributes</span>(probs)</a>
-<a class="sourceLine" id="cb320-39" data-line-number="39">    probs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(probs<span class="op">$</span>probabilities)</a>
-<a class="sourceLine" id="cb320-40" data-line-number="40">    probs &lt;-<span class="st"> </span>probs[,<span class="kw">order</span>(<span class="kw">colnames</span>(probs))]</a>
-<a class="sourceLine" id="cb320-41" data-line-number="41">} <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">inherits</span>(model,<span class="st">&quot;keras.engine.sequential.Sequential&quot;</span>))</a>
-<a class="sourceLine" id="cb320-42" data-line-number="42">{</a>
-<a class="sourceLine" id="cb320-43" data-line-number="43">    x_test &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)))</a>
-<a class="sourceLine" id="cb320-44" data-line-number="44">    probs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">predict</span>(model, x_test))</a>
-<a class="sourceLine" id="cb320-45" data-line-number="45">    <span class="kw">colnames</span>(probs) &lt;-<span class="st"> </span><span class="kw">levels</span>(df<span class="op">$</span>Y04)</a>
-<a class="sourceLine" id="cb320-46" data-line-number="46">} <span class="cf">else</span> <span class="co"># the KNN alg requires approximation of probabilities</span></a>
-<a class="sourceLine" id="cb320-47" data-line-number="47">{</a>
-<a class="sourceLine" id="cb320-48" data-line-number="48">  <span class="co"># highest predicted probabilities</span></a>
-<a class="sourceLine" id="cb320-49" data-line-number="49">  pnrst &lt;-<span class="st"> </span><span class="kw">attributes</span>(model)<span class="op">$</span>prob</a>
-<a class="sourceLine" id="cb320-50" data-line-number="50">  <span class="co"># corresponding one-based categories</span></a>
-<a class="sourceLine" id="cb320-51" data-line-number="51">  y_one &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">min</span>(<span class="kw">levels</span>(df<span class="op">$</span>Y04))) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb320-52" data-line-number="52">  vpreds &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">as.character</span>(preds)) <span class="op">-</span><span class="st"> </span>y_one</a>
-<a class="sourceLine" id="cb320-53" data-line-number="53">  <span class="co"># map probabilities into a matrix of zeroes</span></a>
-<a class="sourceLine" id="cb320-54" data-line-number="54">  probs &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="fl">0.00</span>, </a>
-<a class="sourceLine" id="cb320-55" data-line-number="55">                  <span class="dt">nrow =</span> <span class="kw">length</span>(pnrst),</a>
-<a class="sourceLine" id="cb320-56" data-line-number="56">                  <span class="dt">ncol =</span> <span class="kw">length</span>(<span class="kw">levels</span>(df<span class="op">$</span>Y04)))</a>
-<a class="sourceLine" id="cb320-57" data-line-number="57">  probs[<span class="kw">cbind</span>(<span class="kw">seq_along</span>(vpreds), vpreds)] &lt;-<span class="st"> </span>pnrst</a>
-<a class="sourceLine" id="cb320-58" data-line-number="58">  <span class="co"># coerce to data frame</span></a>
-<a class="sourceLine" id="cb320-59" data-line-number="59">  probs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(probs)</a>
-<a class="sourceLine" id="cb320-60" data-line-number="60">  <span class="kw">colnames</span>(probs) &lt;-<span class="st"> </span><span class="kw">levels</span>(df<span class="op">$</span>Y04)</a>
-<a class="sourceLine" id="cb320-61" data-line-number="61">}</a>
-<a class="sourceLine" id="cb320-62" data-line-number="62">lvls &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">as.character</span>(y_test[[<span class="dv">1</span>]]))</a>
-<a class="sourceLine" id="cb320-63" data-line-number="63">cols &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;green&quot;</span>,</a>
-<a class="sourceLine" id="cb320-64" data-line-number="64">          <span class="st">&quot;blue&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;violet&quot;</span>,<span class="st">&quot;black&quot;</span>)</a>
-<a class="sourceLine" id="cb320-65" data-line-number="65"></a>
-<a class="sourceLine" id="cb320-66" data-line-number="66"><span class="co"># vapply helper function across levels</span></a>
-<a class="sourceLine" id="cb320-67" data-line-number="67">auc &lt;-<span class="st"> </span><span class="kw">vapply</span>(lvls, roc_one_vs_all, <span class="kw">numeric</span>(<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb320-68" data-line-number="68"></a>
-<a class="sourceLine" id="cb320-69" data-line-number="69"><span class="co"># tack on legend and non-informative line</span></a>
-<a class="sourceLine" id="cb320-70" data-line-number="70"><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>,</a>
-<a class="sourceLine" id="cb320-71" data-line-number="71">       <span class="dt">legend=</span><span class="kw">paste</span>(<span class="st">&quot;PSI =&quot;</span>,lvls), </a>
-<a class="sourceLine" id="cb320-72" data-line-number="72">       <span class="dt">col=</span>cols[<span class="kw">as.numeric</span>(lvls)], </a>
-<a class="sourceLine" id="cb320-73" data-line-number="73">       <span class="dt">lty=</span><span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb320-74" data-line-number="74">       <span class="dt">cex=</span><span class="fl">1.0</span>)</a>
-<a class="sourceLine" id="cb320-75" data-line-number="75"><span class="kw">lines</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb320-76" data-line-number="76">      <span class="dt">y=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb320-77" data-line-number="77">      <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1"><span class="co">#</span></a>
+<a class="sourceLine" id="cb321-2" data-line-number="2"><span class="co"># Part 5 - ROC/AUC</span></a>
+<a class="sourceLine" id="cb321-3" data-line-number="3"><span class="co">#</span></a>
+<a class="sourceLine" id="cb321-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb321-5" data-line-number="5"><span class="co"># roc_one_vs_all()</span></a>
+<a class="sourceLine" id="cb321-6" data-line-number="6"><span class="co">#   A helper function to compute one vs. all ROC/AUC for a given level (i)</span></a>
+<a class="sourceLine" id="cb321-7" data-line-number="7">roc_one_vs_all &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb321-8" data-line-number="8">    <span class="cf">if</span>(<span class="kw">is.na</span>(<span class="kw">sum</span>(probs))){</a>
+<a class="sourceLine" id="cb321-9" data-line-number="9">        <span class="kw">return</span>(<span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb321-10" data-line-number="10">    }</a>
+<a class="sourceLine" id="cb321-11" data-line-number="11">    </a>
+<a class="sourceLine" id="cb321-12" data-line-number="12">    actual &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(y_test[[<span class="dv">1</span>]] <span class="op">==</span><span class="st"> </span>i)</a>
+<a class="sourceLine" id="cb321-13" data-line-number="13">    score &lt;-<span class="st"> </span>probs[,i]</a>
+<a class="sourceLine" id="cb321-14" data-line-number="14">    </a>
+<a class="sourceLine" id="cb321-15" data-line-number="15">    pred &lt;-<span class="st"> </span>ROCR<span class="op">::</span><span class="kw">prediction</span>(score, actual)</a>
+<a class="sourceLine" id="cb321-16" data-line-number="16">    perf &lt;-<span class="st"> </span>ROCR<span class="op">::</span><span class="kw">performance</span>(pred, <span class="st">&quot;tpr&quot;</span>, <span class="st">&quot;fpr&quot;</span>)</a>
+<a class="sourceLine" id="cb321-17" data-line-number="17">    </a>
+<a class="sourceLine" id="cb321-18" data-line-number="18">    ROCR<span class="op">::</span><span class="kw">plot</span>(perf, </a>
+<a class="sourceLine" id="cb321-19" data-line-number="19">         <span class="dt">main=</span><span class="st">&quot;ROC Curve&quot;</span>, </a>
+<a class="sourceLine" id="cb321-20" data-line-number="20">         <span class="dt">col=</span>cols[<span class="kw">as.numeric</span>(i)], </a>
+<a class="sourceLine" id="cb321-21" data-line-number="21">         <span class="dt">add =</span> i <span class="op">!=</span><span class="st"> </span>lvls[[<span class="dv">1</span>]])</a>
+<a class="sourceLine" id="cb321-22" data-line-number="22">    </a>
+<a class="sourceLine" id="cb321-23" data-line-number="23">    <span class="co"># calculate the AUC and print</span></a>
+<a class="sourceLine" id="cb321-24" data-line-number="24">    auc_i &lt;-<span class="st"> </span>ROCR<span class="op">::</span><span class="kw">performance</span>(pred, <span class="dt">measure=</span><span class="st">&quot;auc&quot;</span>)</a>
+<a class="sourceLine" id="cb321-25" data-line-number="25">    <span class="kw">as.numeric</span>(auc_i<span class="op">@</span>y.values)</a>
+<a class="sourceLine" id="cb321-26" data-line-number="26">}</a>
+<a class="sourceLine" id="cb321-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb321-28" data-line-number="28"><span class="co"># prepare data for computing ROC/AUC</span></a>
+<a class="sourceLine" id="cb321-29" data-line-number="29">x_test &lt;-<span class="st"> </span><span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x))</a>
+<a class="sourceLine" id="cb321-30" data-line-number="30">y_test &lt;-<span class="st"> </span><span class="kw">select</span>(test, <span class="kw">all_of</span>(my_y))</a>
+<a class="sourceLine" id="cb321-31" data-line-number="31"><span class="co"># how we obtain probs depends on the algorithm</span></a>
+<a class="sourceLine" id="cb321-32" data-line-number="32"><span class="cf">if</span> (<span class="kw">inherits</span>(model, <span class="st">&quot;randomForest&quot;</span>)) </a>
+<a class="sourceLine" id="cb321-33" data-line-number="33">{</a>
+<a class="sourceLine" id="cb321-34" data-line-number="34">    probs &lt;-<span class="st"> </span><span class="kw">predict</span>(model, x_test, <span class="dt">type=</span><span class="st">&#39;prob&#39;</span>)</a>
+<a class="sourceLine" id="cb321-35" data-line-number="35">} <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">inherits</span>(model, <span class="st">&quot;svm&quot;</span>))</a>
+<a class="sourceLine" id="cb321-36" data-line-number="36">{</a>
+<a class="sourceLine" id="cb321-37" data-line-number="37">    probs &lt;-<span class="st"> </span><span class="kw">predict</span>(model, x_test, <span class="dt">probability =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb321-38" data-line-number="38">    probs &lt;-<span class="st"> </span><span class="kw">attributes</span>(probs)</a>
+<a class="sourceLine" id="cb321-39" data-line-number="39">    probs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(probs<span class="op">$</span>probabilities)</a>
+<a class="sourceLine" id="cb321-40" data-line-number="40">    probs &lt;-<span class="st"> </span>probs[,<span class="kw">order</span>(<span class="kw">colnames</span>(probs))]</a>
+<a class="sourceLine" id="cb321-41" data-line-number="41">} <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">inherits</span>(model,<span class="st">&quot;keras.engine.sequential.Sequential&quot;</span>))</a>
+<a class="sourceLine" id="cb321-42" data-line-number="42">{</a>
+<a class="sourceLine" id="cb321-43" data-line-number="43">    x_test &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">select</span>(test, <span class="kw">all_of</span>(my_x)))</a>
+<a class="sourceLine" id="cb321-44" data-line-number="44">    probs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">predict</span>(model, x_test))</a>
+<a class="sourceLine" id="cb321-45" data-line-number="45">    <span class="kw">colnames</span>(probs) &lt;-<span class="st"> </span><span class="kw">levels</span>(df<span class="op">$</span>Y04)</a>
+<a class="sourceLine" id="cb321-46" data-line-number="46">} <span class="cf">else</span> <span class="co"># the KNN alg requires approximation of probabilities</span></a>
+<a class="sourceLine" id="cb321-47" data-line-number="47">{</a>
+<a class="sourceLine" id="cb321-48" data-line-number="48">  <span class="co"># highest predicted probabilities</span></a>
+<a class="sourceLine" id="cb321-49" data-line-number="49">  pnrst &lt;-<span class="st"> </span><span class="kw">attributes</span>(model)<span class="op">$</span>prob</a>
+<a class="sourceLine" id="cb321-50" data-line-number="50">  <span class="co"># corresponding one-based categories</span></a>
+<a class="sourceLine" id="cb321-51" data-line-number="51">  y_one &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">min</span>(<span class="kw">levels</span>(df<span class="op">$</span>Y04))) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb321-52" data-line-number="52">  vpreds &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">as.character</span>(preds)) <span class="op">-</span><span class="st"> </span>y_one</a>
+<a class="sourceLine" id="cb321-53" data-line-number="53">  <span class="co"># map probabilities into a matrix of zeroes</span></a>
+<a class="sourceLine" id="cb321-54" data-line-number="54">  probs &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="fl">0.00</span>, </a>
+<a class="sourceLine" id="cb321-55" data-line-number="55">                  <span class="dt">nrow =</span> <span class="kw">length</span>(pnrst),</a>
+<a class="sourceLine" id="cb321-56" data-line-number="56">                  <span class="dt">ncol =</span> <span class="kw">length</span>(<span class="kw">levels</span>(df<span class="op">$</span>Y04)))</a>
+<a class="sourceLine" id="cb321-57" data-line-number="57">  probs[<span class="kw">cbind</span>(<span class="kw">seq_along</span>(vpreds), vpreds)] &lt;-<span class="st"> </span>pnrst</a>
+<a class="sourceLine" id="cb321-58" data-line-number="58">  <span class="co"># coerce to data frame</span></a>
+<a class="sourceLine" id="cb321-59" data-line-number="59">  probs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(probs)</a>
+<a class="sourceLine" id="cb321-60" data-line-number="60">  <span class="kw">colnames</span>(probs) &lt;-<span class="st"> </span><span class="kw">levels</span>(df<span class="op">$</span>Y04)</a>
+<a class="sourceLine" id="cb321-61" data-line-number="61">}</a>
+<a class="sourceLine" id="cb321-62" data-line-number="62">lvls &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">as.character</span>(y_test[[<span class="dv">1</span>]]))</a>
+<a class="sourceLine" id="cb321-63" data-line-number="63">cols &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;green&quot;</span>,</a>
+<a class="sourceLine" id="cb321-64" data-line-number="64">          <span class="st">&quot;blue&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;violet&quot;</span>,<span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb321-65" data-line-number="65"></a>
+<a class="sourceLine" id="cb321-66" data-line-number="66"><span class="co"># vapply helper function across levels</span></a>
+<a class="sourceLine" id="cb321-67" data-line-number="67">auc &lt;-<span class="st"> </span><span class="kw">vapply</span>(lvls, roc_one_vs_all, <span class="kw">numeric</span>(<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb321-68" data-line-number="68"></a>
+<a class="sourceLine" id="cb321-69" data-line-number="69"><span class="co"># tack on legend and non-informative line</span></a>
+<a class="sourceLine" id="cb321-70" data-line-number="70"><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>,</a>
+<a class="sourceLine" id="cb321-71" data-line-number="71">       <span class="dt">legend=</span><span class="kw">paste</span>(<span class="st">&quot;PSI =&quot;</span>,lvls), </a>
+<a class="sourceLine" id="cb321-72" data-line-number="72">       <span class="dt">col=</span>cols[<span class="kw">as.numeric</span>(lvls)], </a>
+<a class="sourceLine" id="cb321-73" data-line-number="73">       <span class="dt">lty=</span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb321-74" data-line-number="74">       <span class="dt">cex=</span><span class="fl">1.0</span>)</a>
+<a class="sourceLine" id="cb321-75" data-line-number="75"><span class="kw">lines</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb321-76" data-line-number="76">      <span class="dt">y=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb321-77" data-line-number="77">      <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="04-Spatial_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb321-2" data-line-number="2"><span class="co"># display AUC metrics</span></a>
-<a class="sourceLine" id="cb321-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">tibble</span>(lvls, auc))</a>
-<a class="sourceLine" id="cb321-4" data-line-number="4"><span class="co">## # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb321-5" data-line-number="5"><span class="co">##   lvls    auc</span></a>
-<a class="sourceLine" id="cb321-6" data-line-number="6"><span class="co">##   &lt;chr&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb321-7" data-line-number="7"><span class="co">## 1 4     0.65 </span></a>
-<a class="sourceLine" id="cb321-8" data-line-number="8"><span class="co">## 2 5     0.528</span></a>
-<a class="sourceLine" id="cb321-9" data-line-number="9"><span class="co">## 3 6     0.630</span></a>
-<a class="sourceLine" id="cb321-10" data-line-number="10"><span class="co">## 4 7     0.591</span></a></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb322-2" data-line-number="2"><span class="co"># display AUC metrics</span></a>
+<a class="sourceLine" id="cb322-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">tibble</span>(lvls, auc))</a>
+<a class="sourceLine" id="cb322-4" data-line-number="4"><span class="co">## # A tibble: 4 x 2</span></a>
+<a class="sourceLine" id="cb322-5" data-line-number="5"><span class="co">##   lvls    auc</span></a>
+<a class="sourceLine" id="cb322-6" data-line-number="6"><span class="co">##   &lt;chr&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb322-7" data-line-number="7"><span class="co">## 1 4     0.650</span></a>
+<a class="sourceLine" id="cb322-8" data-line-number="8"><span class="co">## 2 5     0.5  </span></a>
+<a class="sourceLine" id="cb322-9" data-line-number="9"><span class="co">## 3 6     0.667</span></a>
+<a class="sourceLine" id="cb322-10" data-line-number="10"><span class="co">## 4 7     0.818</span></a></code></pre></div>
 <p>Assuming you’ve been following along with the daily activities, you can add this <code>Part 5</code> code to any of your algorithm scripts (e.g. <code>covid_19_rf.R</code>, <code>covid_19_knn.R</code>, <code>covid_19_svm.R</code>, etc.). The code uses the <code>inherits()</code> function to adapt the output of each individual algorithm into a form that is suitable for the ROC/AUC calculation.</p>
 </div>
 </div>

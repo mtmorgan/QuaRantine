@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse." />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-04-30" />
+<meta name="date" content="2020-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1056,7 +1056,7 @@ Note the common scales on the x and y axes.</p></li>
 </ul>
 <p>‘Tidy’ data</p>
 <ul>
-<li><p>The data has initial columns describing region, and then a column for each date of the pandemic. There are 264 rows, corresponding to the different regions covered by the database.</p></li>
+<li><p>The data has initial columns describing region, and then a column for each date of the pandemic. There are 266 rows, corresponding to the different regions covered by the database.</p></li>
 <li><p>We want instead to ‘pivot’ the data, so that each row represents cases in a particular region on a particular date, analogous to the way the US data we have been investigating earlier has been arranged.</p></li>
 <li><p><a href="https://cran.r-project.org/package=tidyr">tidyr</a> provides functions for manipulating a <code>tibble</code> into ‘tidy’ format.</p></li>
 <li><p><code>tidyr::pivot_longer()</code> takes a ‘wide’ data frame like <code>csv</code>, and allows us to transform it to the ‘long’ format we are interested in.</p>
@@ -1069,7 +1069,7 @@ Note the common scales on the x and y axes.</p></li>
 <li><p>Here’s what we have after pivoting</p>
 <div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">csv <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb264-2" data-line-number="2"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>)</a>
-<a class="sourceLine" id="cb264-3" data-line-number="3"><span class="co">## # A tibble: 26,136 x 6</span></a>
+<a class="sourceLine" id="cb264-3" data-line-number="3"><span class="co">## # A tibble: 26,600 x 6</span></a>
 <a class="sourceLine" id="cb264-4" data-line-number="4"><span class="co">##    `Province/State` `Country/Region`   Lat  Long date    cases</span></a>
 <a class="sourceLine" id="cb264-5" data-line-number="5"><span class="co">##    &lt;chr&gt;            &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb264-6" data-line-number="6"><span class="co">##  1 &lt;NA&gt;             Afghanistan         33    65 1/22/20     0</span></a>
@@ -1082,7 +1082,7 @@ Note the common scales on the x and y axes.</p></li>
 <a class="sourceLine" id="cb264-13" data-line-number="13"><span class="co">##  8 &lt;NA&gt;             Afghanistan         33    65 1/29/20     0</span></a>
 <a class="sourceLine" id="cb264-14" data-line-number="14"><span class="co">##  9 &lt;NA&gt;             Afghanistan         33    65 1/30/20     0</span></a>
 <a class="sourceLine" id="cb264-15" data-line-number="15"><span class="co">## 10 &lt;NA&gt;             Afghanistan         33    65 1/31/20     0</span></a>
-<a class="sourceLine" id="cb264-16" data-line-number="16"><span class="co">## # … with 26,126 more rows</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb264-16" data-line-number="16"><span class="co">## # … with 26,590 more rows</span></a></code></pre></div></li>
 <li><p>We’d like to further clean this up data</p>
 <ul>
 <li><p>Format our newly created ‘date’ column (using <code>as.Date()</code>, but with a <code>format=</code> argument appropriate for the format of the dates in this data set)</p></li>
@@ -1098,8 +1098,8 @@ Note the common scales on the x and y axes.</p></li>
 <a class="sourceLine" id="cb265-6" data-line-number="6"><span class="st">    </span><span class="kw">group_by</span>(country, date) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb265-7" data-line-number="7"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases))</a>
 <a class="sourceLine" id="cb265-8" data-line-number="8">world</a>
-<a class="sourceLine" id="cb265-9" data-line-number="9"><span class="co">## # A tibble: 18,315 x 3</span></a>
-<a class="sourceLine" id="cb265-10" data-line-number="10"><span class="co">## # Groups:   country [185]</span></a>
+<a class="sourceLine" id="cb265-9" data-line-number="9"><span class="co">## # A tibble: 18,700 x 3</span></a>
+<a class="sourceLine" id="cb265-10" data-line-number="10"><span class="co">## # Groups:   country [187]</span></a>
 <a class="sourceLine" id="cb265-11" data-line-number="11"><span class="co">##    country     date       cases</span></a>
 <a class="sourceLine" id="cb265-12" data-line-number="12"><span class="co">##    &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb265-13" data-line-number="13"><span class="co">##  1 Afghanistan 2020-01-22     0</span></a>
@@ -1112,7 +1112,7 @@ Note the common scales on the x and y axes.</p></li>
 <a class="sourceLine" id="cb265-20" data-line-number="20"><span class="co">##  8 Afghanistan 2020-01-29     0</span></a>
 <a class="sourceLine" id="cb265-21" data-line-number="21"><span class="co">##  9 Afghanistan 2020-01-30     0</span></a>
 <a class="sourceLine" id="cb265-22" data-line-number="22"><span class="co">## 10 Afghanistan 2020-01-31     0</span></a>
-<a class="sourceLine" id="cb265-23" data-line-number="23"><span class="co">## # … with 18,305 more rows</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb265-23" data-line-number="23"><span class="co">## # … with 18,690 more rows</span></a></code></pre></div></li>
 <li><p>Let’s also calculate <code>new_cases</code> by country</p>
 <ul>
 <li>Use <code>group_by()</code> to perform the <code>new_cases</code> computation for each country</li>
@@ -1133,20 +1133,20 @@ Note the common scales on the x and y axes.</p></li>
 <a class="sourceLine" id="cb267-2" data-line-number="2"><span class="st">    </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb267-3" data-line-number="3"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">max</span>(cases)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb267-4" data-line-number="4"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n))</a>
-<a class="sourceLine" id="cb267-5" data-line-number="5"><span class="co">## # A tibble: 185 x 2</span></a>
+<a class="sourceLine" id="cb267-5" data-line-number="5"><span class="co">## # A tibble: 187 x 2</span></a>
 <a class="sourceLine" id="cb267-6" data-line-number="6"><span class="co">##    country              n</span></a>
 <a class="sourceLine" id="cb267-7" data-line-number="7"><span class="co">##    &lt;chr&gt;            &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb267-8" data-line-number="8"><span class="co">##  1 US             1039909</span></a>
-<a class="sourceLine" id="cb267-9" data-line-number="9"><span class="co">##  2 Spain           213024</span></a>
-<a class="sourceLine" id="cb267-10" data-line-number="10"><span class="co">##  3 Italy           203591</span></a>
-<a class="sourceLine" id="cb267-11" data-line-number="11"><span class="co">##  4 France          169053</span></a>
-<a class="sourceLine" id="cb267-12" data-line-number="12"><span class="co">##  5 United Kingdom  166441</span></a>
-<a class="sourceLine" id="cb267-13" data-line-number="13"><span class="co">##  6 Germany         161539</span></a>
-<a class="sourceLine" id="cb267-14" data-line-number="14"><span class="co">##  7 Turkey          117589</span></a>
-<a class="sourceLine" id="cb267-15" data-line-number="15"><span class="co">##  8 Russia           99399</span></a>
-<a class="sourceLine" id="cb267-16" data-line-number="16"><span class="co">##  9 Iran             93657</span></a>
-<a class="sourceLine" id="cb267-17" data-line-number="17"><span class="co">## 10 China            83944</span></a>
-<a class="sourceLine" id="cb267-18" data-line-number="18"><span class="co">## # … with 175 more rows</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb267-8" data-line-number="8"><span class="co">##  1 US             1069424</span></a>
+<a class="sourceLine" id="cb267-9" data-line-number="9"><span class="co">##  2 Spain           213435</span></a>
+<a class="sourceLine" id="cb267-10" data-line-number="10"><span class="co">##  3 Italy           205463</span></a>
+<a class="sourceLine" id="cb267-11" data-line-number="11"><span class="co">##  4 United Kingdom  172481</span></a>
+<a class="sourceLine" id="cb267-12" data-line-number="12"><span class="co">##  5 France          169053</span></a>
+<a class="sourceLine" id="cb267-13" data-line-number="13"><span class="co">##  6 Germany         163009</span></a>
+<a class="sourceLine" id="cb267-14" data-line-number="14"><span class="co">##  7 Turkey          120204</span></a>
+<a class="sourceLine" id="cb267-15" data-line-number="15"><span class="co">##  8 Russia          106498</span></a>
+<a class="sourceLine" id="cb267-16" data-line-number="16"><span class="co">##  9 Iran             94640</span></a>
+<a class="sourceLine" id="cb267-17" data-line-number="17"><span class="co">## 10 Brazil           87187</span></a>
+<a class="sourceLine" id="cb267-18" data-line-number="18"><span class="co">## # … with 177 more rows</span></a></code></pre></div></li>
 </ul>
 <p>Visualization</p>
 <ul>
@@ -1320,43 +1320,30 @@ Note the common scales on the x and y axes.</p></li>
 <ul>
 <li><code>ungroup()</code> to remove grouping</li>
 </ul></li>
-<li><p>In scripts, it seems like the best strategy, for legibility, is to evaluate on verb per line, and to chain not too many verbs together into logical ‘phrases’.</p>
+<li><p>In scripts, it seems like the best strategy, for legibility, is to evaluate one verb per line, and to chain not too many verbs together into logical ‘phrases’.</p>
 <div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1"><span class="co">## worst?</span></a>
 <a class="sourceLine" id="cb277-2" data-line-number="2">state &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">max</span>(cases), <span class="dt">deaths =</span> <span class="kw">max</span>(deaths)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases), <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cases))</a>
 <a class="sourceLine" id="cb277-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb277-4" data-line-number="4"><span class="co">## better?</span></a>
-<a class="sourceLine" id="cb277-5" data-line-number="5">us <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-6" data-line-number="6"><span class="st">    </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-7" data-line-number="7"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">max</span>(cases), <span class="dt">deaths =</span> <span class="kw">max</span>(deaths)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-8" data-line-number="8"><span class="st">    </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-9" data-line-number="9"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases), <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-10" data-line-number="10"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cases))</a>
-<a class="sourceLine" id="cb277-11" data-line-number="11"><span class="co">## # A tibble: 55 x 3</span></a>
-<a class="sourceLine" id="cb277-12" data-line-number="12"><span class="co">##    state          cases deaths</span></a>
-<a class="sourceLine" id="cb277-13" data-line-number="13"><span class="co">##    &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb277-14" data-line-number="14"><span class="co">##  1 New York      301813  19192</span></a>
-<a class="sourceLine" id="cb277-15" data-line-number="15"><span class="co">##  2 New Jersey    120513   6792</span></a>
-<a class="sourceLine" id="cb277-16" data-line-number="16"><span class="co">##  3 Massachusetts  60737   3415</span></a>
-<a class="sourceLine" id="cb277-17" data-line-number="17"><span class="co">##  4 Illinois       50362   2224</span></a>
-<a class="sourceLine" id="cb277-18" data-line-number="18"><span class="co">##  5 California     48908   1964</span></a>
-<a class="sourceLine" id="cb277-19" data-line-number="19"><span class="co">##  6 Pennsylvania   46196   2396</span></a>
-<a class="sourceLine" id="cb277-20" data-line-number="20"><span class="co">##  7 Michigan       40368   3675</span></a>
-<a class="sourceLine" id="cb277-21" data-line-number="21"><span class="co">##  8 Florida        33193   1250</span></a>
-<a class="sourceLine" id="cb277-22" data-line-number="22"><span class="co">##  9 Texas          27847    777</span></a>
-<a class="sourceLine" id="cb277-23" data-line-number="23"><span class="co">## 10 Louisiana      27664   1807</span></a>
-<a class="sourceLine" id="cb277-24" data-line-number="24"><span class="co">## # … with 45 more rows</span></a>
-<a class="sourceLine" id="cb277-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb277-26" data-line-number="26"><span class="co">## best?</span></a>
-<a class="sourceLine" id="cb277-27" data-line-number="27">county_state &lt;-</a>
-<a class="sourceLine" id="cb277-28" data-line-number="28"><span class="st">    </span>us <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-29" data-line-number="29"><span class="st">    </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-30" data-line-number="30"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">max</span>(cases), <span class="dt">deaths =</span> <span class="kw">max</span>(deaths))</a>
-<a class="sourceLine" id="cb277-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb277-32" data-line-number="32">state &lt;-</a>
-<a class="sourceLine" id="cb277-33" data-line-number="33"><span class="st">    </span>county_state <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-34" data-line-number="34"><span class="st">    </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-35" data-line-number="35"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases), <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-36" data-line-number="36"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cases))</a></code></pre></div></li>
+<a class="sourceLine" id="cb277-5" data-line-number="5">state &lt;-</a>
+<a class="sourceLine" id="cb277-6" data-line-number="6"><span class="st">    </span>us <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-7" data-line-number="7"><span class="st">    </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-8" data-line-number="8"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">max</span>(cases), <span class="dt">deaths =</span> <span class="kw">max</span>(deaths)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-9" data-line-number="9"><span class="st">    </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-10" data-line-number="10"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases), <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-11" data-line-number="11"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cases))</a>
+<a class="sourceLine" id="cb277-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb277-13" data-line-number="13"><span class="co">## best?</span></a>
+<a class="sourceLine" id="cb277-14" data-line-number="14">county_state &lt;-</a>
+<a class="sourceLine" id="cb277-15" data-line-number="15"><span class="st">    </span>us <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-16" data-line-number="16"><span class="st">    </span><span class="kw">group_by</span>(county, state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-17" data-line-number="17"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">max</span>(cases), <span class="dt">deaths =</span> <span class="kw">max</span>(deaths))</a>
+<a class="sourceLine" id="cb277-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb277-19" data-line-number="19">state &lt;-</a>
+<a class="sourceLine" id="cb277-20" data-line-number="20"><span class="st">    </span>county_state <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-21" data-line-number="21"><span class="st">    </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-22" data-line-number="22"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases), <span class="dt">deaths =</span> <span class="kw">sum</span>(deaths)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-23" data-line-number="23"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cases))</a></code></pre></div></li>
 </ul>
 <p>Cleaning: <code>tidyr::pivot_longer()</code></p>
 <ul>
@@ -1402,14 +1389,16 @@ Note the common scales on the x and y axes.</p></li>
 <li><p>Additional ways to decorate the data</p>
 <div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1"><span class="kw">ggplot</span>(erie, <span class="kw">aes</span>(date, cases)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb282-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb282-3" data-line-number="3"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Erie county cases (log 10)&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb282-3" data-line-number="3"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Erie county cases&quot;</span>)</a></code></pre></div>
 <p><img src="03-Packages_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p></li>
 <li><p>Plots can be captured as a variable, and subsequently modified</p>
 <div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">p &lt;-</a>
 <a class="sourceLine" id="cb283-2" data-line-number="2"><span class="st">    </span><span class="kw">ggplot</span>(erie, <span class="kw">aes</span>(date, cases)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb283-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb283-4" data-line-number="4"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;log10 Erie county cases&quot;</span>)</a>
-<a class="sourceLine" id="cb283-5" data-line-number="5">p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_log10</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb283-4" data-line-number="4"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Erie county cases&quot;</span>)</a>
+<a class="sourceLine" id="cb283-5" data-line-number="5">p <span class="op">+</span></a>
+<a class="sourceLine" id="cb283-6" data-line-number="6"><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb283-7" data-line-number="7"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Erie county cases (log 10)&quot;</span>)</a></code></pre></div>
 <p><img src="03-Packages_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p></li>
 </ul>
 <p>Global data</p>
@@ -1529,7 +1518,19 @@ Note the common scales on the x and y axes.</p></li>
 </div>
 <div id="day-21" class="section level2">
 <h2><span class="header-section-number">3.7</span> Day 21</h2>
-<p>Self-directed activities.</p>
+<p>The work so far has focused on the mechanics of processing and visualizing the COVID-19 state and global data. Use today for reflecting on interpretation of the data. For instance</p>
+<ul>
+<li><p>To what extent is the exponential increase in COVID presence in early stages of the pandemic simply due to increased availability of testing?</p></li>
+<li><p>How does presentation of data influence interpretation? It might be interesting to visualize, e.g., US cases on linear as well as log scale, and to investigate different ways of ‘smoothing’ the data, e.g., the trailing 7-day average case number. For the latter, one could write a function</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">seven_day_average &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb296-2" data-line-number="2">    x &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">filter</span>(x, <span class="kw">rep</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">7</span>, <span class="dv">7</span>), <span class="dt">sides =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb296-3" data-line-number="3">    <span class="kw">as.vector</span>(x)</a>
+<a class="sourceLine" id="cb296-4" data-line-number="4">}</a></code></pre></div>
+<p>and apply this to <code>new_cases</code> prior to visualization. Again this could be presented as log-transformed or on a linear scale.</p></li>
+<li><p>Can you collect additional data, e.g., on population numbers from the <a href="https://www.census.gov/data/datasets/time-series/demo/popest/2010s-state-total.html">US census</a>, to explore the relationship between COVID impact and socioeconomic factors?</p></li>
+<li><p>How has COVID response been influenced by social and political factors in different parts of the world? My (Martin) narratives were sketched out to some extend on Day 20. What are your narratives?</p></li>
+<li><p>What opportunities are there to intentionally or unintentionally mis-represent or mis-interpret the seemingly ‘hard facts’ of COVID infection?</p></li>
+</ul>
 
 </div>
 </div>
