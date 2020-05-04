@@ -14,11 +14,104 @@ This week you will learn about machine learning for classification using _R_. Ob
 
 Here is an overview of what we'll cover in today's Zoom session:
 
-- Overview of Machine Learning for Classification (30 minutes)
+- Overview of the COVID-19 Machine Learning Dataset (10 minutes)
+
+- Overview of Machine Learning for Classification (20 minutes)
 
 - Introduction to the Random Forest algorithm (5 minutes)
 
 - A Random Forest Example in _R_ using COVID-19 Data (25 minutes)
+
+### A COVID-19 Dataset for Machine Learning
+
+We'd like to predict the severity of COVID-19 in a given state using statewide _feature_ data like population, urban density, number of hospital beds, date of stay at home order, etc. We've already seen that we can get the information about cases and deaths from the New York Times github page. However, gathering corresponding statewide feature data requires quite a bit of hunting through various public websites. Consequently, we're going to skip over the painstaking process of marshalling the feature data and just provide you with a dataset that is already nice and prepped for machine learning.  
+
+You'll work with two `.csv` files - a *data* file that contains a veriety of statewide data, and a *metadata* file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing datasets.
+
+To give you an idea of what was involved in assembling the data and metadata file, a summary of the data collection and processing steps is given below:
+
+- First, a snapshot of the New York Times (NYT) COVID-19 data from April 27th was downloaded from the [nytimes github repo][] and stored on local disk.
+
+    ```{r}
+    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    file <- "us-counties_04_27_2020.csv"
+    destination <- file.path("workdir", file)
+    download.file(url, destination)
+    ```
+
+- The NYT COVID-19 data was processed using _R_ : 
+
+  - The cases and deaths in `us-counties_04_27_2020.csv` were aggregated into statewide values.
+  
+  - The death rate was calculated and categorized according to an 8-point severity index.
+  
+  - Finally, the statewide data (augmented with death rate and severity index) was exported as a `.csv` file.
+
+    ```{r}
+    library(readr)
+    library(dplyr)
+    
+    ## get data from file
+    covid_data_file <- file.path("./workdir", "us-counties_04_27_2020.csv")
+    
+    ## read the data as a tibble
+    us_data <- read_csv(covid_data_file)
+    
+    ## aggregate by county and state
+    county_state <-
+        us_data %>%
+        group_by(county, state) %>%
+        summarize(cases = max(cases), deaths = max(deaths))
+    
+    ## aggregate by state
+    state <-
+        county_state %>%
+        group_by(state) %>%
+        summarize(cases = sum(cases), deaths = sum(deaths))
+    
+    ## calculate death rate
+    state <-
+        state %>%
+        mutate(death_rate = 100.00 * deaths / cases)
+    
+    # Assign the following severity index using cut:
+    ##  PSI Death.Rate    
+    ##  1   < 0.1%        
+    ##  2   0.1% - 0.5%   
+    ##  3   0.5% - 1.0%   
+    ##  4   1.0% - 2.0%   
+    ##  5   2.0% - 4.0%   
+    ##  6   4.0% - 6.0%   
+    ##  7   6.0% - 8.0%   
+    ##  8   >8.0%         
+    state <-
+        state %>%
+        mutate(
+            severity_index =cut(
+                death_rate, 
+                breaks = c(0.0, 0.1, 0.5, 1.0, 2.0, 4.0, 6.0, 8.0, 100.0),
+                labels = 1:8
+            )
+        )
+    
+    ## write out as csv
+    my_out_file <- file.path("./workdir", "covid_data.csv")
+    write_csv(state, my_out_file)
+    ```
+
+- The resulting statewide COVID-19 *label* data (i.e. what we would like to predict) was augmented with 32 statewide *features*, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a `.csv` file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).
+
+- The augmented (i.e. features + labels) `.csv` file was split into two `.csv` files that you will need to download:
+
+  - [statewide_covid_19_data_04_27_2020.csv][]: This file contains the final COVID-19 machine learning data set, but features and labels are coded so that feature columns are named `X01`, `X02`, `X03`, etc. and label colunms are named `Y01`, `Y02`, `Y03`, etc. 
+
+  - [statewide_covid_19_metadata_04_27_2020.csv][]: This file maps the column names in the data file to more meaningful names and desciptions (including units) of the associated variables. For example `X01` is `Pct_Sun` and has a description of `Percent sunny days`. This is known as *metadata* - data that describes other data.
+  
+Click on the links above to download the data and metadata files that you'll need for the machine learning examples presented throughout the week.
+
+[nytimes github repo]: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
+[statewide_covid_19_data_04_27_2020.csv]: assets/statewide_covid_19_data_04_27_2020.csv
+[statewide_covid_19_metadata_04_27_2020.csv]: assets/statewide_covid_19_metadata_04_27_2020.csv
 
 ### A Machine Learning Primer
 
@@ -168,97 +261,6 @@ Now you have a basic understanding of machine learning and the random forest alg
 
 [Bradley Boehmke at the University of Cincinnati]: https://uc-r.github.io/random_forests
 
-### A COVID-19 Dataset for Machine Learning
-
-We'd like to predict the severity of COVID-19 in a given state using statewide _feature_ data like population, urban density, number of hospital beds, date of stay at home order, etc. We've already seen that we can get the information about cases and deaths from the New York Times github page. However, gathering corresponding statewide feature data requires quite a bit of hunting through various public websites. Consequently, we're going to skip over the painstaking process of marshalling the feature data and just provide you with a dataset that is already nice and prepped for machine learning.  
-
-You'll work with two `.csv` files - a *data* file that contains a veriety of statewide data, and a *metadata* file that describes the various columns of the data file. This combination of data and metadata files is a common way of sharing datasets.
-
-To give you an idea of what was involved in assembling the data and metadata file, a summary of the data collection and processing steps is given below:
-
-- First, a snapshot of the New York Times (NYT) COVID-19 data from April 27th was downloaded from the [nytimes github repo][] and stored on local disk.
-
-    ```{r}
-    url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
-    file <- "us-counties_04_27_2020.csv"
-    destination <- file.path("workdir", file)
-    download.file(url, destination)
-    ```
-
-- The NYT COVID-19 data was processed using _R_ : 
-
-  - The cases and deaths in `us-counties_04_27_2020.csv` were aggregated into statewide values.
-  
-  - The death rate was calculated and categorized according to an 8-point severity index.
-  
-  - Finally, the statewide data (augmented with death rate and severity index) was exported as a `.csv` file.
-
-    ```{r}
-    library(readr)
-    library(dplyr)
-    
-    ## get data from file
-    covid_data_file <- file.path("./workdir", "us-counties_04_27_2020.csv")
-    
-    ## read the data as a tibble
-    us_data <- read_csv(covid_data_file)
-    
-    ## aggregate by county and state
-    county_state <-
-        us_data %>%
-        group_by(county, state) %>%
-        summarize(cases = max(cases), deaths = max(deaths))
-    
-    ## aggregate by state
-    state <-
-        county_state %>%
-        group_by(state) %>%
-        summarize(cases = sum(cases), deaths = sum(deaths))
-    
-    ## calculate death rate
-    state <-
-        state %>%
-        mutate(death_rate = 100.00 * deaths / cases)
-    
-    # Assign the following severity index using cut:
-    ##  PSI Death.Rate    
-    ##  1   < 0.1%        
-    ##  2   0.1% - 0.5%   
-    ##  3   0.5% - 1.0%   
-    ##  4   1.0% - 2.0%   
-    ##  5   2.0% - 4.0%   
-    ##  6   4.0% - 6.0%   
-    ##  7   6.0% - 8.0%   
-    ##  8   >8.0%         
-    state <-
-        state %>%
-        mutate(
-            severity_index =cut(
-                death_rate, 
-                breaks = c(0.0, 0.1, 0.5, 1.0, 2.0, 4.0, 6.0, 8.0, 100.0),
-                labels = 1:8
-            )
-        )
-    
-    ## write out as csv
-    my_out_file <- file.path("./workdir", "covid_data.csv")
-    write_csv(state, my_out_file)
-    ```
-
-- The resulting statewide COVID-19 *label* data (i.e. what we would like to predict) was augmented with 32 statewide *features*, including population, percent urban, number of hospital beds, etc. Feature data was collected from a veriety of sources, including the Center for Disease Control, the American Heart Association, the U.S. Census Bureau, etc. In some cases the feature data was available for direct download (e.g. as a `.csv` file) and in other cases the feature data was manually harvested (e.g. cut-and-paste from websites).
-
-- The augmented (i.e. features + labels) `.csv` file was split into two `.csv` files that you will need to download:
-
-  - [statewide_covid_19_data_04_27_2020.csv][]: This file contains the final COVID-19 machine learning data set, but features and labels are coded so that feature columns are named `X01`, `X02`, `X03`, etc. and label colunms are named `Y01`, `Y02`, `Y03`, etc. 
-
-  - [statewide_covid_19_metadata_04_27_2020.csv][]: This file maps the column names in the data file to more meaningful names and desciptions (including units) of the associated variables. For example `X01` is `Pct_Sun` and has a description of `Percent sunny days`. This is known as *metadata* - data that describes other data.
-  
-Click on the links above to download the data and metadata files that you'll need for the machine learning examples presented throughout the week.
-
-[nytimes github repo]: https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
-[statewide_covid_19_data_04_27_2020.csv]: assets/statewide_covid_19_data_04_27_2020.csv
-[statewide_covid_19_metadata_04_27_2020.csv]: assets/statewide_covid_19_metadata_04_27_2020.csv
-
 ### A Random Forest Example Using COVID-19 Data
 
 Let's apply the random forest algorithm to the COVID-19 dataset. We'll build out the required _R_ code in sections. To get started, open a new _R_ script in _RStudio_ and name it `covid_19_rf.R`. Enter the code below, but omit lines that begin with a double-hash (`##`) because these are the expected output:
@@ -269,6 +271,7 @@ Let's apply the random forest algorithm to the COVID-19 dataset. We'll build out
 #
 library(randomForest)
 library(readr)
+library(dplyr)
 
 data_file <- file.path("assets", "statewide_covid_19_data_04_27_2020.csv")
 df <- read_csv(data_file)
@@ -295,7 +298,6 @@ Now we've loaded the data and metadata file. Let's pick a subset of 5 of the fea
 #
 # Part 2 - select features and label
 #
-library(dplyr)
 
 # describe all possible features and labels
 print(mdf, n = nrow(mdf))
@@ -442,12 +444,11 @@ With a few modifications, the `covid_19_svm.R` script can be adapted to use an K
 
 - In `Part 1` of `covid_19_knn.R`, replace `library(e1071)` with `library(class)`. This will load the `knn` algorithm instead of the `svm` algorithm.
 
-- The KNN algorithm requires the feature data to be normalized. Add the following line in `Part 1` of `covid_19_knn.R`. Add the line in between the `df$Y04 <- as.factor(df$Y04)` line and the `df` line. If necessary, use `install.packages('BBmisc') ` to install the `BBmisc` package and its `normalize()` function.
+- The KNN algorithm requires the feature data to be normalized. Add the following line in `Part 1` of `covid_19_knn.R`. Add the line after the  `df <- df %>% mutate(Y04 <- as.factor(Y04))` line, as shown below. If necessary, use `install.packages('BBmisc') ` to install the `BBmisc` package and its `normalize()` function.
 
 ```{r eval=FALSE}
 df <- df %>% mutate(Y04 <- as.factor(Y04))
 df <- BBmisc::normalize(df, method = "range") # add this line
-df
 ```
 
 - In `Part 3` of the code, replace `svm()` with `knn()` and adjust the call to `knn()` so that it looks like this:
@@ -489,279 +490,30 @@ That's it! The rest of the code can be re-used. Save your `covid_19_knn.R` scrip
 
 [Antti Ajanki]: https://commons.wikimedia.org/wiki/File:KnnClassification.svg
 
-## Day 25 - Artificial Neural Networks
+## Day 25 - Exploring the KNN Algorithm
 
-For today's independent work you will learn about artificial neural networks (ANN). You will attempt to add Keras and TensorFlow support to your R/RStudio installation. If this is successful, you can apply an ANN to the COVID-19 example that you've been working with during the week.  
+For today's independent work you will learn explore the algorithm settings of the KNN algorithm.
 
-### Introduction to Artifical Neural Networks
+Open your `covid_19_knn.R` script and locate the line that creates the KNN model (`model = knn(...)`). Adjust the number of neighbors so that `k = 5` and re-run the script. Record the classification accuracy. Try again, but use `k = 3`. 
 
-Artificial Neural Networks (ANN) are made of an input layer, an output layer, and one or more “hidden”
-layers. A simple "shallow" ANN is illustrated in the following figure:
+Re-run each experiment several times (e.g. collect 10 trials of `k=5` and 10 trials of `k=3`, and so on). For a given value of `k`, do you get the same result each time?
 
-```{r echo = FALSE, fig.align="center", out.width="50%"}
-knitr::include_graphics('images/ml_ann_shallow.png')
-```
-
-The figure highlights some interesting ANN features:
-
-- Each layer contains one or more neurons and these are represented as circles in the figure.
-
-- The first layer is call the _input_ layer and the number of neurons in this layer is matched to the number of features in the data set.
-
-- The last layer is called the _output_ layer. The number of neurons in the output layer is equal to the number of categories that the ANN is trying to predict. For example, there would be 2 neurons in the output layer if you were trying to predict gender (male vs. female). The output of each neuron in the output layer represents the probability or likelihood of a given category (e.g. Pr(male) vs. Pr(female)).
-
-- Intermediate layers are called _hidden_ layers. Hidden layers can have more or less neurons than the input and output layers.
-
-- Each neuron produces a weighted combination of its inputs and passes the results to neurons in the next layer.
-
-- Weights ($w_i$) are adjusted to develop an optimal mapping between inputs ($x_i$) and outputs ($y_i$).
-
-#### Deep Neural Networks {-}
-
-The advent of faster processors and accelerators like [NVIDIA's GPUs][] and [Google's TPUs][] has made it possible to construct and train ANNs that have more and more hidden layers. Such networks are often referred to as "deep neural networks". The corresponding modeling process has been dubbed "deep learning" to distinguish it from conventional machine learning approaches like random forests, support vector machines, and k-Nearest neighbors.
-
-The figure below illustrates a "fully connected" (i.e. all neurons in adjacent layers are connected) deep neural network.
-
-```{r echo = FALSE, fig.align="center", out.width="50%"}
-knitr::include_graphics('images/ml_ann_deep.png')
-```
-
-- The increased number of layers yields an extremely large number of connections.
-
-- More connections allows the neural network to consider massive numbers of input combinations.
-
-- More combinations means more weights that need to be trained. 
-
-- Calibrating so many weights requires an increasingly large training data set.
-
-Nowadays, the biggest challenge for applying deep learning is not computational resources but rather data scarcity.
-
-[NVIDIA's GPUs]: https://www.nvidia.com/en-us/deep-learning-ai/developer/
-
-[Google's TPUs]: https://cloud.google.com/blog/products/ai-machine-learning/what-makes-tpus-fine-tuned-for-deep-learning
-
-### Keras and TensorFlow
-
-TensorFlow is a very popular set of deep learning tools that was developed by Google and made Open Source in 2015. TensorFlow is capable of exploiting GPU acceleration and can solve a wide variety of complex ANNs. The figure below illustrates the various layers of TensorFlow.
-
-- At the lowest level is the kernel. The kernel is responsible for solving an ANN in the most efficient manner using all of the resources (e.g. CPUs, GPUS, TPUs, etc.) that a given TensorFlow installation has at its disposal.
-
-- The remaining layers consist of various programming interfaces. We'll actually be using an interface called Keras.
-
-- The "native" programming language for TensorFlow is Python version 3.x and TensorFlow is conveniently deployed via the Anaconda Python distribution. So you will need to install Anaconda Python as a pre-requisite for using TensorFlow - details are provided below.
-
-```{r echo = FALSE, fig.align="center", out.width="50%"}
-knitr::include_graphics('images/ml_tflow_api.png')
-```
-
-Keras is an application programming interface (API) for TensorFlow. Keras is now bundled with TensorFlow - so Keras will be installed automatically if/when you install TensorFlow. 
-
-Keras makes it easier to assemble and train complicated train complicated neural networks. Examples include: convolutional neural networks, recurrent neural networks, generative adversarial neural networks, and autoencoders. With Keras you can:
-
-- Easily translate complex multi-layered ANN diagrams into the corresponding Keras code.
-
-- Select loss functions and optimizers from a large built-in library.
-
-- Include a variety of pre-defined [layer types][], including:
-
-  - dense (i.e. fully connected) layers
-  
-  - embedding, pooling and dropout layers
-  
-  - cropping, padding and flattening layers
-  
-  - 1D/2D/3D convolutional layers
-  
-  - long short term memory (LSTM) layers
-  
-  - many more!
-  
-[layer types]: https://keras.io/layers/core/
-   
-#### Installing Keras and TensorFlow {-}
-
-A pre-requisite for using Keras and TensorFlow is to install Anaconda Python version 3.x: https://www.anaconda.com/download
-
-Instructions for installing Keras and TensorFlow for use within RStudio are provided at https://keras.rstudio.com/ and these are repeated below. The installation of Anaconda Python and Keras can take a while and may require restarting _RStudio_. It is a good idea to save and close any open _RStudio_ sessions before attempting these installations.
-
-*Option #1* (suggested by https://keras.rstudio.com )
-
-```{r eval=FALSE}
-install.packages("devtools")
-devtools::install_github("rstudio/keras")
-library(keras)
-install_keras()
-```
-
-*Option #2* (if option #1 fails)
-
-- Step 1: Use `conda` to install TensorFlow (and Keras, too) from a system prompt (e.g. `DOS` on Windows machines). On Windows, you may need to choose "run as admin" when launching the `DOS` prompt.
-
-```
-[DOS]> activate r-reticulate
-(r-reticulate)[DOS]> conda remove  tensorflow
-(r-reticulate)[DOS]> conda install tensorflow
-```
-
-- Step 2: Use the short form package installations in _RStudio_ (i.e. skip `install_keras()` and `install_tensorflow()`):
-
-```{r eval=FALSE}
-# re-install tensorflow
-install.packages("tensorflow")
-
-# check tensorflow installation
-library(tensorflow)
-Sys.setenv(HDF5_DISABLE_VERSION_CHECK = "2")
-tf$constant("Hello from Tensorflow")
-
-# re-install keras
-devtools::install_github("rstudio/keras")
-
-# check keras installation
-library(keras)
-to_categorical(c(0:4),5)
-```
-
-### Applying Keras and TensorFlow to the COVID-19 Dataset
-
-Give yourself a big pat on the back if you've successfully completed the Keras installation! If you run into trouble please post on the Teams chat and hopefully someone can help you out.
-
-To apply Keras to the COVID-19 dataset, we'll adapt a copy of the `covid_19_knn.R` script. 
-
-- In _RStudio_, open `covid_19_knn.R` and save it as `covid_19_keras.R`
-
-- In `Part 1` of the `covid_19_keras.R` file, replace `library(class)` with `library(keras)`. This will adjust the script to use the Keras API instead of the KNN algorithm.
-
-- In `Part 3` of the script, insert the following code in between the sections that split the data and create the model. 
-  
-```{r eval=FALSE}
-
-# split into train (75%) and test (25%) datasets
-# .
-# .
-# .
-
-# ----- insert the following code -----
-# manipulate dataset into Keras format
-x_train <- as.matrix(select(train, all_of(my_x)))
-y_train <- sapply(select(train, all_of(my_y)), as.character)
-y_train <- as.integer(y_train)
-
-x_test  <- as.matrix(select(test, all_of(my_x)))
-y_test  <- sapply(select(test, all_of(my_y)), as.character)
-y_test  <- as.integer(y_test)
-
-y_min   <- min(y_train,y_test)
-y_train <- y_train - y_min
-y_test  <- y_test  - y_min
-
-# one-hot encoding
-n_classes <- length(levels(df$Y04))
-y_train <- to_categorical(y_train, n_classes)
-y_test  <- to_categorical(y_test, n_classes)
-
-# assign hyperparameters
-num_epochs <- 200
-num_batch <- 25
-val_split <- 0.2
-
-# ----- end of code instertion -----            
-
-# create and train the KNN model
-# .
-# .
-# .
-```
-
-The previous bit of code prepares the data set for use by Keras:
-
-  - Keras wants *X* (features) and *Y* (labels) separated.
-  
-  - Keras wants features represented as matrices.
-  
-  - Keras wants labels represented as 0-based integers that are "one-hot" encoded. The figure below illustrates integer and one-hot encoding of a set of animal categories. In the figure, `Pr()` represents the probability of a given category.
-
-```{r echo = FALSE, fig.align="center", out.width="50%"}
-knitr::include_graphics('images/ml_one_hot_encoding.png')
-```
-
-The code segment given above also sets up some algorithm parameters for the ANN:
-
-- `num_epochs`: The number of training steps. At each training step, an optimizer refines the network weights to improve predictions associated with a randomly sampled subset (i.e. batch) of the training data.
-
-- `num_batch`: The size of the randomly sampled subset of the training data that is used in each training epoch.
-
-- `val_split`" The validation split is a float between 0 and 1. It is the fraction of the training data to be used as validation data. The model will set apart this fraction of the training data (i.e. it will not train on it). The model will evaluate the loss and other metrics on this data at the end of each epoch.
-
-The next step in adapting the KNN example to use Keras is to replace the "create and train" portion. 
-
-Replace:
-
-```{r eval=FALSE}
-# create and train the KNN model
-model <- knn(select(train, all_of(my_x)),
-             select(test, all_of(my_x)),
-             train$Y04,
-             k = 7,
-             prob = TRUE)
-```
-
-With:
-
-```{r eval=FALSE}
-model <- keras_model_sequential()
-n_inputs <- ncol(x_train)
-# input layer
-layer_dense(model, units = 20, activation = 'relu', input_shape = c(n_inputs))
-# hidden layer
-layer_dense(model, units = 10, activation = 'relu')
-# output layer
-layer_dense(model, units = n_classes, activation = 'softmax')
-# display nework architecture
-summary(model)
-# assign loss function and optimizer
-compile(model, 
-        loss = "categorical_crossentropy",
-        optimizer = optimizer_rmsprop(),
-        metrics = c('accuracy'))
-# train the model
-results <- fit(model,
-               x_train, y_train,
-               epochs = num_epochs,
-               batch_size = num_batch,
-               validation_split = val_split)
-# examine convergence progress
-plot(results)
-results
-```
-
-This is a simple fully-connected shallow neural network. It is configured to use "categorical cross-entropy" as the loss function. The loss function is a measure of how closely the model outputs match with the actual labels in the training data. The figure below illustrates the steps involved in calculating the loss function. The `optimizer` field specifies an algorithm for minimizing the loss function. The `rmsprop` optimizer is an implementation of the "<u>R</u>oot <u>M</u>ean <u>S</u>quared <u>prop</u>agation" method. It is a fast and effective gradient-based procedure that is a good default choice for classification problems.
-
-```{r echo = FALSE, fig.align="center", out.width="75%"}
-knitr::include_graphics('images/ml_loss_function.png')
-```
-
-Make sure your plot window has some room; then highlight the portion of ANN script that you've adapted so far and run it. You should eventually see pair of plots similar to the figure below. These plots provide an epoch-by-epoch trace of the accuracy and loss for both the training and validation data. Watch out for cases of "overfitting" - where the training performance improves but the validation performance degrades.
-
-```{r echo = FALSE, fig.align="center", out.width="100%"}
-knitr::include_graphics('images/Rplot_ann_convergence.png')
-```
-
-The final step in modifying the KNN script for use with Keras is the computation of the classification accuracy and confusion matrix (i.e `Part 4`). Only the the `preds` assignment needs to be changed:
-
-Replace:
+Continue with these numerical experiments until you've filled out the table below:
 
 ```{r eval = FALSE}
-preds <- as.data.frame(model)[,1]
+## k_value  average_classification_accuracy  
+##    1               ???%
+##    3               ???%
+##    5               ???%
+##    7               ???%
+##    9               ???%
+##   11               ???%
+##   13               ???%
+##   15               ???%
+##   17               ???%
 ```
 
-With:
-
-```{r eval = FALSE}
-preds <- predict_classes(model, x_test) + y_min
-```
-
-Highlight and run the `Part 4` code to check the skill of the model at predicting the test data. How do the results compare to the random forest, support vector machine, and k-nearest neighbors algorithms?
+What do the results suggest about the most appropriate setting for `k`? Can you think of a better way to perform the numerical experiments and collect the results?
 
 ## Day 26 (Friday) Zoom check-in
 
@@ -776,8 +528,6 @@ Today we'll check how you're doing with using machine learning in _R_. Then we'l
 - What is the best classification accuracy that you have been able to obtain?
 
 - What parameters appear to be the most important?
-
-- Has anyone attempted the Keras/TensorFlow example? How did that go?
 
 ### This weekend (25 minutes)
 
@@ -856,11 +606,6 @@ if (inherits(model, "randomForest"))
     probs <- attributes(probs)
     probs <- as.data.frame(probs$probabilities)
     probs <- probs[,order(colnames(probs))]
-} else if (inherits(model,"keras.engine.sequential.Sequential"))
-{
-    x_test <- as.matrix(select(test, all_of(my_x)))
-    probs <- as.data.frame(predict(model, x_test))
-    colnames(probs) <- levels(df$Y04)
 } else # the KNN alg requires approximation of probabilities
 {
   # highest predicted probabilities
@@ -951,6 +696,4 @@ Congratulations - you made it through a week of machine learning boot camp! You 
 - [Complete Support Vector Machine Example](assets/covid_19_svm.R)
 
 - [Complete $k$-Nearest Neighbors Example](assets/covid_19_knn.R)
-
-- [Complete Keras Example](assets/covid_19_keras.R)
 
