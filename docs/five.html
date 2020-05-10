@@ -5,30 +5,30 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Week 5 Bioinformatics with Bioconductor | 40 Days and 40 Nights</title>
-  <meta name="description" content="<p>An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse.</p>" />
+  <meta name="description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Week 5 Bioinformatics with Bioconductor | 40 Days and 40 Nights" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse.</p>" />
+  <meta property="og:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Week 5 Bioinformatics with Bioconductor | 40 Days and 40 Nights" />
   
-  <meta name="twitter:description" content="<p>An ad hoc course to learn R for bioinformatics, using the
-COVID-19 epidemic as an excuse.</p>" />
+  <meta name="twitter:description" content="An ad hoc course to learn R for bioinformatics, using the
+COVID-19 epidemic as an excuse." />
   
 
 <meta name="author" content="Martin Morgan" />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-05-04" />
+<meta name="date" content="2020-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,7 +73,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -193,10 +193,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#packages-20-minutes"><i class="fa fa-check"></i>Packages (20 minutes)</a></li>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#the-tidyverse-of-packages-20-minutes"><i class="fa fa-check"></i>The ‘tidyverse’ of packages (20 minutes)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="three.html"><a href="three.html#day-16-key-tidyverse-packages-readr-and-dplyr"><i class="fa fa-check"></i><b>3.2</b> Day 16 Key tidyverse packages: <span>readr</span> and <span>dplyr</span></a></li>
-<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with <span>ggplot2</span></a><ul>
+<li class="chapter" data-level="3.2" data-path="three.html"><a href="three.html#day-16-key-tidyverse-packages-readr-and-dplyr"><i class="fa fa-check"></i><b>3.2</b> Day 16 Key tidyverse packages: [readr][] and [dplyr][]</a></li>
+<li class="chapter" data-level="3.3" data-path="three.html"><a href="three.html#day-17-visualization-with-ggplot2"><i class="fa fa-check"></i><b>3.3</b> Day 17 Visualization with [ggplot2][]</a><ul>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#setup"><i class="fa fa-check"></i>Setup</a></li>
-<li><a href="three.html#ggplot2-essentials"><span>ggplot2</span> essentials</a></li>
+<li class="chapter" data-level="" data-path="three.html"><a href="three.html#ggplot2-essentials"><i class="fa fa-check"></i>[ggplot2][] essentials</a></li>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-erie-county"><i class="fa fa-check"></i>COVID-19 in Erie county</a></li>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-in-new-york-state"><i class="fa fa-check"></i>COVID-19 in New York State</a></li>
 <li class="chapter" data-level="" data-path="three.html"><a href="three.html#covid-19-nationally"><i class="fa fa-check"></i>COVID-19 nationally</a></li>
@@ -208,20 +208,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.3" data-path="three.html"><a href="three.html#weekend-activities-15-minutes"><i class="fa fa-check"></i><b>3.5.3</b> Weekend activities (15 minutes)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="three.html"><a href="three.html#day-20-exploring-the-course-of-pandemic-in-different-regions"><i class="fa fa-check"></i><b>3.6</b> Day 20 Exploring the course of pandemic in different regions</a></li>
-<li class="chapter" data-level="3.7" data-path="three.html"><a href="three.html#day-21"><i class="fa fa-check"></i><b>3.7</b> Day 21</a></li>
+<li class="chapter" data-level="3.7" data-path="three.html"><a href="three.html#day-21-critical-evaluation"><i class="fa fa-check"></i><b>3.7</b> Day 21 Critical evaluation</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="four.html"><a href="four.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="four.html"><a href="four.html#day-22-monday-zoom-check-in"><i class="fa fa-check"></i><b>4.1</b> Day 22 (Monday) Zoom check-in</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i><b>4.1.1</b> A COVID-19 Dataset for Machine Learning</a></li>
-<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.2</b> A Machine Learning Primer</a></li>
-<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#the-random-forest-algorithm"><i class="fa fa-check"></i><b>4.1.3</b> The Random Forest Algorithm</a></li>
+<li class="chapter" data-level="4.1.1" data-path="four.html"><a href="four.html#a-machine-learning-primer"><i class="fa fa-check"></i><b>4.1.1</b> A Machine Learning Primer</a></li>
+<li class="chapter" data-level="4.1.2" data-path="four.html"><a href="four.html#the-random-forest-algorithm"><i class="fa fa-check"></i><b>4.1.2</b> The Random Forest Algorithm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="four.html"><a href="four.html#a-covid-19-dataset-for-machine-learning"><i class="fa fa-check"></i><b>4.1.3</b> A COVID-19 Dataset for Machine Learning</a></li>
 <li class="chapter" data-level="4.1.4" data-path="four.html"><a href="four.html#a-random-forest-example-using-covid-19-data"><i class="fa fa-check"></i><b>4.1.4</b> A Random Forest Example Using COVID-19 Data</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="four.html"><a href="four.html#day-23---support-vector-machines"><i class="fa fa-check"></i><b>4.2</b> Day 23 - Support Vector Machines</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="four.html"><a href="four.html#an-svm-example-using-covid-19"><i class="fa fa-check"></i><b>4.2.1</b> An SVM Example using COVID-19</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="four.html"><a href="four.html#day-24---the-k-nearest-neighbors-algorithm"><i class="fa fa-check"></i><b>4.3</b> Day 24 - the <span class="math inline">\(k\)</span>-Nearest Neighbors Algorithm</a></li>
-<li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25---exploring-the-knn-algorithm"><i class="fa fa-check"></i><b>4.4</b> Day 25 - Exploring the KNN Algorithm</a></li>
+<li class="chapter" data-level="4.4" data-path="four.html"><a href="four.html#day-25---artificial-neural-networks"><i class="fa fa-check"></i><b>4.4</b> Day 25 - Artificial Neural Networks</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="four.html"><a href="four.html#introduction-to-artifical-neural-networks"><i class="fa fa-check"></i><b>4.4.1</b> Introduction to Artifical Neural Networks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="four.html"><a href="four.html#keras-and-tensorflow"><i class="fa fa-check"></i><b>4.4.2</b> Keras and TensorFlow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="four.html"><a href="four.html#applying-keras-and-tensorflow-to-the-covid-19-dataset"><i class="fa fa-check"></i><b>4.4.3</b> Applying Keras and TensorFlow to the COVID-19 Dataset</a></li>
+</ul></li>
 <li class="chapter" data-level="4.5" data-path="four.html"><a href="four.html#day-26-friday-zoom-check-in"><i class="fa fa-check"></i><b>4.5</b> Day 26 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="four.html"><a href="four.html#review-and-trouble-shoot-25-minutes"><i class="fa fa-check"></i><b>4.5.1</b> Review and trouble shoot (25 minutes)</a></li>
 <li class="chapter" data-level="4.5.2" data-path="four.html"><a href="four.html#this-weekend-25-minutes"><i class="fa fa-check"></i><b>4.5.2</b> This weekend (25 minutes)</a></li>
@@ -230,10 +234,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="four.html"><a href="four.html#day-28"><i class="fa fa-check"></i><b>4.7</b> Day 28</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="five.html"><a href="five.html"><i class="fa fa-check"></i><b>5</b> Bioinformatics with <span>Bioconductor</span></a><ul>
-<li class="chapter" data-level="5.1" data-path="five.html"><a href="five.html#day-29-monday-zoom-check-in"><i class="fa fa-check"></i><b>5.1</b> Day 29 (Monday) Zoom check-in</a></li>
-<li class="chapter" data-level="5.2" data-path="five.html"><a href="five.html#day-30"><i class="fa fa-check"></i><b>5.2</b> Day 30</a></li>
-<li class="chapter" data-level="5.3" data-path="five.html"><a href="five.html#day-31"><i class="fa fa-check"></i><b>5.3</b> Day 31</a></li>
-<li class="chapter" data-level="5.4" data-path="five.html"><a href="five.html#day-32"><i class="fa fa-check"></i><b>5.4</b> Day 32</a></li>
+<li class="chapter" data-level="5.1" data-path="five.html"><a href="five.html#day-29-monday-zoom-check-in"><i class="fa fa-check"></i><b>5.1</b> Day 29 (Monday) Zoom check-in</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="five.html"><a href="five.html#review-and-trouble-shoot"><i class="fa fa-check"></i><b>5.1.1</b> Review and trouble shoot</a></li>
+<li class="chapter" data-level="5.1.2" data-path="five.html"><a href="five.html#bioconductor-packages-and-biological-data"><i class="fa fa-check"></i><b>5.1.2</b> <span>Bioconductor</span>, packages, and biological data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="five.html"><a href="five.html#this-week-sars-cov-2-sequence-and-human-tissue-specific-gene-expression-data"><i class="fa fa-check"></i><b>5.1.3</b> This week: SARS-CoV-2 sequence and human tissue-specific gene expression data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="five.html"><a href="five.html#day-30-dna-sequences-and-annotations"><i class="fa fa-check"></i><b>5.2</b> Day 30 DNA sequences and annotations</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="five.html"><a href="five.html#representing-dna-sequences"><i class="fa fa-check"></i><b>5.2.1</b> Representing DNA sequences</a></li>
+<li class="chapter" data-level="5.2.2" data-path="five.html"><a href="five.html#working-with-genbankrecord-objects"><i class="fa fa-check"></i><b>5.2.2</b> Working with <code>GenBankRecord</code> objects</a></li>
+<li class="chapter" data-level="5.2.3" data-path="five.html"><a href="five.html#genomic-ranges-and-dna-sequences"><i class="fa fa-check"></i><b>5.2.3</b> Genomic ranges and DNA sequences</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="five.html"><a href="five.html#day-31-sequence-alignment-and-visualization"><i class="fa fa-check"></i><b>5.3</b> Day 31 Sequence alignment and visualization</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="five.html"><a href="five.html#sequence-alignment"><i class="fa fa-check"></i><b>5.3.1</b> Sequence alignment</a></li>
+<li class="chapter" data-level="5.3.2" data-path="five.html"><a href="five.html#phylogenetic-tree-visualization"><i class="fa fa-check"></i><b>5.3.2</b> Phylogenetic tree visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="five.html"><a href="five.html#day-32-single-cell-expression-data"><i class="fa fa-check"></i><b>5.4</b> Day 32 Single-cell expression data</a></li>
 <li class="chapter" data-level="5.5" data-path="five.html"><a href="five.html#day-33-friday-zoom-check-in"><i class="fa fa-check"></i><b>5.5</b> Day 33 (Friday) Zoom check-in</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="five.html"><a href="five.html#review-and-trouble-shoot-25-minutes-1"><i class="fa fa-check"></i><b>5.5.1</b> Review and trouble shoot (25 minutes)</a></li>
 <li class="chapter" data-level="5.5.2" data-path="five.html"><a href="five.html#next-week-25-minutes"><i class="fa fa-check"></i><b>5.5.2</b> Next week (25 minutes)</a></li>
@@ -273,20 +288,608 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Week 5</span> Bioinformatics with <a href="https://bioconductor.org">Bioconductor</a></h1>
 <div id="day-29-monday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">5.1</span> Day 29 (Monday) Zoom check-in</h2>
+<div id="review-and-trouble-shoot" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Review and trouble shoot</h3>
 </div>
-<div id="day-30" class="section level2">
-<h2><span class="header-section-number">5.2</span> Day 30</h2>
+<div id="bioconductor-packages-and-biological-data" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> <a href="https://bioconductor.org">Bioconductor</a>, packages, and biological data</h3>
+<p><a href="https://bioconductor.org">Bioconductor</a></p>
+<ul>
+<li><p>Repository of more than 1900 packages for the ‘analysis and comprehension of high throughput genomic data’</p></li>
+<li><p>Bulk and single cell RNASeq; ChIP and other gene regulation, called variants, flow cytometery, proteomics, …</p></li>
+<li><p>Package discovery using <a href="https://bioconductor.org/packages">biocViews</a> and <a href="https://bioconductor.org/packages/release/BiocViews.html#___Workflow">workflows</a></p></li>
+<li><p>Landing pages &amp; vignettes</p></li>
+</ul>
+<p>Packages</p>
+<ul>
+<li><p>One-time installation of <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>))</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;https://cran.r-project.org&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">## Loading required namespace: BiocManager</span></a></code></pre></div></li>
+<li><p>Install <em>Bioconductor</em> or <em>CRAN</em> packages</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">## Biostrings and genbankr are Bioconductor packages, rentrez is from CRAN</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">BiocMangaer<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;Biostrings&quot;</span>, <span class="st">&quot;genbankr&quot;</span>, <span class="st">&quot;rentrez&quot;</span>))</a></code></pre></div></li>
+<li><p>Validate installation</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">BiocManager<span class="op">::</span><span class="kw">version</span>() <span class="co"># current release is 3.11; needs R 4.0</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">## [1] &#39;3.10&#39;</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">BiocManager<span class="op">::</span><span class="kw">valid</span>()</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## Warning in file(con, &quot;r&quot;): URL &#39;https://bioconductor.org/config.yaml&#39;: status</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## was &#39;Couldn&#39;t resolve host name&#39;</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## [1] TRUE</span></a></code></pre></div></li>
+<li><p>Types of packages</p>
+<ul>
+<li>Software (e.g., <a href="https://bioconductor.org/packages/Biostrings">Biostrings</a>, <a href="https://bioconductor.org/packages/SingleCellExperiment">SingleCellExperiment</a>)</li>
+<li>Annotation (e.g., <a href="https://bioconductor.org/packages/org.Hs.eg.db">org.Hs.eg.db</a>, <a href="https://bioconductor.org/packages/TxDb.Hsapiens.UCSC.hg38.knownGene">TxDb.Hsapiens.UCSC.hg38.knownGene</a>, <a href="https://bioconductor.org/packages/GO.db">GO.db</a>)</li>
+<li>Experiment data (e.g., <a href="https://bioconductor.org/packages/airway">airway</a>, <a href="https://bioconductor.org/packages/scRNAseq">scRNAseq</a>)</li>
+</ul></li>
+</ul>
+<p>Key packages</p>
+<ul>
+<li><a href="https://bioconductor.org/packages/Biostrings">Biostrings</a> for representing sequence data</li>
+<li><a href="https://bioconductor.org/packages/GenomicRanges">GenomicRanges</a> for working with genomic coordinates</li>
+<li><a href="https://bioconductor.org/packages/Summarizedexperiment">SummarizedExperiment</a> and <a href="https://bioconductor.org/packages/SingleCellExperiment">SingleCellExperiment</a> for representing experimental summaries, e.g., a gene x sample matrix of RNA-seq expression values.</li>
+</ul>
+<p>‘Class’ and ‘method’</p>
+<ul>
+<li><p>Classes represent data in ways that allow the specialized nature of the data to be exploited, e.g., it makes sense to calculate the <code>reverseComplement()</code> of a DNA sequence, but not of an arbitrary character vector.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(Biostrings)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">sequences &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="dt">chr1 =</span> <span class="st">&quot;CTGACT&quot;</span>,</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">chr2 =</span> <span class="st">&quot;CTGGGAACT&quot;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">dna &lt;-<span class="st"> </span><span class="kw">DNAStringSet</span>(sequences)</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">dna</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">##   A DNAStringSet instance of length 2</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">## [1]     6 CTGACT                                            chr1</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">## [2]     9 CTGGGAACT                                         chr2</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">## fails! `T` not in the RNA alphabet</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">result &lt;-<span class="st"> </span><span class="kw">try</span>( <span class="kw">RNAStringSet</span>(sequences) )</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">## Error in .Call2(&quot;new_XStringSet_from_CHARACTER&quot;, class(x0), elementType(x0),  : </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">##   key 84 (char &#39;T&#39;) not in lookup table</span></a></code></pre></div></li>
+<li><p>Methods represent the implementation of common (‘generic’) operations, specialized to the specific classes that the method operates on.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">length</span>(dna)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">## [1] 2</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">reverseComplement</span>(dna)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">##   A DNAStringSet instance of length 2</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">## [1]     6 AGTCAG                                            chr1</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">## [2]     9 AGTTCCCAG                                         chr2</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="kw">translate</span>(dna)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">##   A AAStringSet instance of length 2</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">## [1]     2 MT                                                chr1</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">## [2]     3 MGT                                               chr2</span></a></code></pre></div>
+<ul>
+<li>E.g., one could <code>translate()</code> both a DNA sequence, and an RNA sequence, so there is both <code>translate,DNAStringSet-method</code> and <code>translate,RNAStringSet-method</code></li>
+</ul></li>
+<li><p>Not all operations are implemented as methods on a class</p>
+<ul>
+<li><p>E.g., <code>length()</code> is a concept shared by collections of DNA and RNA sequences, so the method is defined on a common ‘parent’ class</p></li>
+<li><p>E.g., <code>dim()</code> of a two-dimensional object is sufficient to implement <code>nrow()</code> (as <code>dim()[1]</code>) and <code>ncol()</code> (as <code>dim()[2]</code>) so one could use a ‘plain old’ function <code>nrow &lt;- function(x) dim(x)[1]</code> for <code>nrow()</code> / <code>ncol()</code>, relying on a <code>dim()</code> generic and methods to provide specialized behavior.</p></li>
+</ul></li>
+</ul>
+<p>Getting help</p>
+<ul>
+<li>Vignettes, e.g., <a href="">DESeq2 vignette</a>! <code>browseVignettes(package = &quot;DESeq2&quot;)</code></li>
+<li>Help pages for classes, e.g., <code>?DNAStringSet</code>, <code>?GRanges</code></li>
+<li><p>Discovering methods</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">methods</span>(<span class="st">&quot;reverse&quot;</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">methods</span>(<span class="dt">class =</span> <span class="st">&quot;DNAStringSet&quot;</span>)</a></code></pre></div></li>
+<li><p>Looking at symbols made available by packages (after the package is attached to the <code>search()</code> path): <code>ls(&quot;package:GenomicRanges&quot;)</code></p></li>
+</ul>
 </div>
-<div id="day-31" class="section level2">
-<h2><span class="header-section-number">5.3</span> Day 31</h2>
+<div id="this-week-sars-cov-2-sequence-and-human-tissue-specific-gene-expression-data" class="section level3">
+<h3><span class="header-section-number">5.1.3</span> This week: SARS-CoV-2 sequence and human tissue-specific gene expression data</h3>
+<p>Sequences and annotations</p>
+<ul>
+<li><p>Input FASTA files from New York State samples (it makes little biological sense to use just New York samples!) to <code>DNAStringSet</code></p></li>
+<li><p>Work the Genbank accession of the reference sequence</p>
+<ul>
+<li>DNA sequence</li>
+<li>Coding sequence annotations</li>
+<li>Coding sequences</li>
+</ul></li>
+</ul>
+<p>Alignment and visualization</p>
+<ul>
+<li>Multiple alignment using <a href="https://bioconductor.org/packages/DECIPHER">DECIPHER</a></li>
+<li>Visualization using <a href="https://bioconductor.org/packages/ggtree">ggtree</a></li>
+</ul>
+<p>Gene expression</p>
+<ul>
+<li>Retrieving example data from ExperimentHub</li>
+<li>Annotating cell types</li>
+</ul>
 </div>
-<div id="day-32" class="section level2">
-<h2><span class="header-section-number">5.4</span> Day 32</h2>
+</div>
+<div id="day-30-dna-sequences-and-annotations" class="section level2">
+<h2><span class="header-section-number">5.2</span> Day 30 DNA sequences and annotations</h2>
+<p>Set up a directory for working</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">workdir &lt;-<span class="st"> &quot;workdir&quot;</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(workdir))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="kw">dir.create</span>(workdir)</a></code></pre></div>
+<div id="representing-dna-sequences" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Representing DNA sequences</h3>
+<p>Sample information</p>
+<ul>
+<li><p>Visit the <a href="https://www.ncbi.nlm.nih.gov/projects/genome/sars-cov-2-seqs">NCBI SARS-CoV-2</a> site for orientation. We’ll retrieve and analyse some of the samples sequenced in New York state</p></li>
+<li><p>Read a csv file summarizing records available from the US NCBI.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-genbank-accessions.csv&quot;</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">csv_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="kw">basename</span>(url))</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">download.file</span>(url, csv_file)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">records &lt;-<span class="st"> </span><span class="kw">read_csv</span>(csv_file)</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">records</a></code></pre></div></li>
+</ul>
+<p>FASTA sequence files</p>
+<ul>
+<li><p>Download a FASTA file containing DNA sequences of all samples sequenced in New York State (this doesn’t make much sense biologically!)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-NY.fasta&quot;</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">fasta_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="kw">basename</span>(url))</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">download.file</span>(url, fasta_file)</a></code></pre></div></li>
+<li><p>This is a plain text file with a simple format. Each DNA sequence is on a line starting with an identifier, <code>&gt;MT...</code>, and then lines representing the DNA (or RNA or amino acid) sequence.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">readLines</span>(fasta_file, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">## [1] &quot;&gt;MT434817&quot;                                                                       </span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">## [2] &quot;ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAACTTTCGATCTCTTGTAGATCTGTTCTCTAAACGAACTTTAA&quot;</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">## [3] &quot;AATCTGTGTGGCTGTCACTCGGCTGCATGCTTAGTGCACTCACGCAGTATAATTAATAACTAATTACTGTCGTTGACAGG&quot;</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">## [4] &quot;ACACGAGTAACTCGTCTATCTTCTGCAGGCTGCTTACGGTTTCGTCCGTGTTGCAGCCGATCATCAGCACATCTAGGTTT&quot;</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">## [5] &quot;TGTCCGGGTGTGACCGAAAGGTAAGATGGAGAGCCTTGTCCCTGGTTTCAACGAGAAAACACACGTCCAACTCAGTTTGC&quot;</span></a></code></pre></div></li>
+<li><p>Load the <a href="https://bioconductor.org/packages/Biostrings">Biostrings</a> package</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(Biostrings)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">Biostrings.coloring =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
+<li><p>Read the DNA sequences and explore basic properties</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">dna &lt;-<span class="st"> </span><span class="kw">readDNAStringSet</span>(fasta_file)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">dna</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 245</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">##       width seq                                             names               </span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">##   [1] 29873 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434817</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">##   [2] 29879 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434816</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">##   [3] 29873 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434815</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">##   [4] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434814</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">##   [5] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434813</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">##   ...   ... ...</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">## [241] 29724 GATCTGTTCTCTAAACGAACTT...TGTACAGTGAACAATGCTAGGG MT370833</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">## [242] 29717 TCTAAACGAACTTTAAAATCTG...TACAGTGAACAATGCTAGGGAG MT370832</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">## [243] 29716 TCTAAACGAACTTTAAAATCTG...GTACAGTGAACAATGCTAGGGA MT370831</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">## [244] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT325627</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">## [245] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT304486</span></a></code></pre></div></li>
+<li><p>Perform simple manipulations</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## how many records?</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">length</span>(dna)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">## [1] 245</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">## subset</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">dna[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">##   A DNAStringSet instance of length 3</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">## [1] 29873 ATTAAAGGTTTATACCTTCCCAG...AGGAGAATGACAAAAAAAAAAAA MT434817</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">## [2] 29879 ATTAAAGGTTTATACCTTCCCAG...AGGAGAATGACAAAAAAAAAAAA MT434816</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">## [3] 29873 ATTAAAGGTTTATACCTTCCCAG...AGGAGAATGACAAAAAAAAAAAA MT434815</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">dna[<span class="kw">c</span>(<span class="st">&#39;MT434817&#39;</span>, <span class="st">&#39;MT434815&#39;</span>)]</a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">##   A DNAStringSet instance of length 2</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">## [1] 29873 ATTAAAGGTTTATACCTTCCCAG...AGGAGAATGACAAAAAAAAAAAA MT434817</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">## [2] 29873 ATTAAAGGTTTATACCTTCCCAG...AGGAGAATGACAAAAAAAAAAAA MT434815</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">## extract</span></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19">dna[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">##   29873-letter &quot;DNAString&quot; instance</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">## seq: ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAAC...TTAATAGCTTCTTAGGAGAATGACAAAAAAAAAAAA</span></a>
+<a class="sourceLine" id="cb13-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">## number of characters in each record</span></a>
+<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="kw">head</span>(<span class="kw">nchar</span>(dna))</a>
+<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="co">## [1] 29873 29879 29873 29882 29882 29882</span></a>
+<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="kw">hist</span>(<span class="kw">nchar</span>(dna)) <span class="co"># histogram of sequence lengths </span></a></code></pre></div>
+<p><img src="05-Bioinformatics_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p></li>
+</ul>
+</div>
+<div id="working-with-genbankrecord-objects" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Working with <code>GenBankRecord</code> objects</h3>
+<p>Data is often represented in complicated formats that do not fit into the tidy ‘table’ format of a CSV file. An example is the information displayed on the <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_045512">SARS-CoV-2 reference genome</a> web page.</p>
+<p>Often ‘someone’ has written software to manipulate this data in a more convient way.</p>
+<ul>
+<li><p>Attach the [rentrez][] package, which provides a way to query the NCBI’s ‘Entrez’ collection of data bases. Use <code>BiocManager::install('rentrez')</code> if you need to install the package</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">library</span>(rentrez)</a></code></pre></div></li>
+<li><p>The accession number for the SARS-CoV-2 reference sequence is <code>NC_045512</code>. Use <code>entrez_search()</code> to search the NCBI ‘nuccore’ database to discover information about this accession.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">accession &lt;-<span class="st"> &quot;NC_045512&quot;</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">nuccore_record &lt;-<span class="st"> </span><span class="kw">entrez_search</span>(<span class="st">&quot;nuccore&quot;</span>, accession)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">id &lt;-<span class="st"> </span>nuccore_record<span class="op">$</span>ids</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">id</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">## [1] &quot;1798174254&quot;</span></a></code></pre></div></li>
+<li><p>The <code>id</code> is an identifier that can be used to actually retrieve the genbank record</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">gb_record &lt;-</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">    </span><span class="kw">entrez_fetch</span>(<span class="st">&quot;nuccore&quot;</span>, id, <span class="dt">rettype =</span> <span class="st">&quot;gbwithparts&quot;</span>, <span class="dt">retmode =</span> <span class="st">&quot;text&quot;</span>)</a></code></pre></div></li>
+<li><p>The record contains all the text in the record; if you like visualize it with</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">cat</span>(gb_record)</a></code></pre></div></li>
+</ul>
+<p>Represent the data as <code>GenBankR</code> object</p>
+<ul>
+<li><p>Rather than try to ‘munge’ (e.g., copy and paste) relevant information from the GenBank record into R, use the [genbankr][] package. Again, install with <code>BiocManager::install(&quot;genbankr&quot;)</code> if necessary</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">library</span>(genbankr)</a></code></pre></div></li>
+<li><p>Use the function <code>readGenBank()</code> to parse the complicated text of <code>gb_record</code></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">gb &lt;-<span class="st"> </span><span class="kw">readGenBank</span>(<span class="dt">text =</span> gb_record)</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">gb</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">## GenBank Annotations</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">## Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome. </span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">## Accession: NC_045512</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">## 1 Sequence(s) with total length length: 29903</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">## 11 genes</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">## 12 transcripts</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">## 13 exons/cds elements</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">## 0 variations</span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">## 34 other features</span></a></code></pre></div></li>
+<li><p>Extract the reference sequence from the object</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">ref &lt;-<span class="st"> </span><span class="kw">getSeq</span>(gb)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">ref</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 1</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co">## [1] 29903 ATTAAAGGTTTATACCTTCCCAG...AAAAAAAAAAAAAAAAAAAAAAA Severe acute resp...</span></a></code></pre></div></li>
+<li><p>Extract the coding sequences from the reference sequence; the <code>cds()</code> command is explained a little later.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">cds &lt;-<span class="st"> </span><span class="kw">getSeq</span>(ref, <span class="kw">cds</span>(gb))</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">cds</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 13</span></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">##      width seq</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">##  [1] 13203 ATGGAGAGCCTTGTCCCTGGTTTCAACGAGAAA...CTTCAGTCAGCTGATGCACAATCGTTTTTAAAC</span></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="co">##  [2]  8088 CGGGTTTGCGGTGTAAGTGCAGCCCGTCTTACA...GTTATTTCTAGTGATGTTCTTGTTAACAACTAA</span></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="co">##  [3] 13218 ATGGAGAGCCTTGTCCCTGGTTTCAACGAGAAA...GCACAATCGTTTTTAAACGGGTTTGCGGTGTAA</span></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="co">##  [4]  3822 ATGTTTGTTTTTCTTGTTTTATTGCCACTAGTC...GTGCTCAAAGGAGTCAAATTACATTACACATAA</span></a>
+<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="co">##  [5]   828 ATGGATTTGTTTATGAGAATCTTCACAATTGGA...GAACCGACGACGACTACTAGCGTGCCTTTGTAA</span></a>
+<a class="sourceLine" id="cb21-10" data-line-number="10"><span class="co">##  ...   ... ...</span></a>
+<a class="sourceLine" id="cb21-11" data-line-number="11"><span class="co">##  [9]   366 ATGAAAATTATTCTTTTCTTGGCACTGATAACA...CTTTGCTTCACACTCAAAAGAAAGACAGAATGA</span></a>
+<a class="sourceLine" id="cb21-12" data-line-number="12"><span class="co">## [10]   132 ATGATTGAACTTTCATTAATTGACTTCTATTTG...CTGCAAGATCATAATGAAACTTGTCACGCCTAA</span></a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="co">## [11]   366 ATGAAATTTCTTGTTTTCTTAGGAATCATCACA...CATGACGTTCGTGTTGTTTTAGATTTCATCTAA</span></a>
+<a class="sourceLine" id="cb21-14" data-line-number="14"><span class="co">## [12]  1260 ATGTCTGATAATGGACCCCAAAATCAGCGAAAT...TCCATGAGCAGTGCTGACTCAACTCAGGCCTAA</span></a>
+<a class="sourceLine" id="cb21-15" data-line-number="15"><span class="co">## [13]   117 ATGGGCTATATAAACGTTTTCGCTTTTCCGTTT...CAAGTAGATGTAGTTAACTTTAATCTCACATAG</span></a></code></pre></div></li>
+<li><p>There are 13 coding sequences in the genome. Translate these to their amino acid sequences</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">translate</span>(cds)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">##   A AAStringSet instance of length 13</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="co">##      width seq</span></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co">##  [1]  4401 MESLVPGFNEKTHVQLSLPVLQVRDVLVRGFGD...VCTVCGMWKGYGCSCDQLREPMLQSADAQSFLN</span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">##  [2]  2696 RVCGVSAARLTPCGTGTSTDVVYRAFDIYNDKV...INDMILSLLSKGRLIIRENNRVVISSDVLVNN*</span></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co">##  [3]  4406 MESLVPGFNEKTHVQLSLPVLQVRDVLVRGFGD...GMWKGYGCSCDQLREPMLQSADAQSFLNGFAV*</span></a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co">##  [4]  1274 MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFT...SCLKGCCSCGSCCKFDEDDSEPVLKGVKLHYT*</span></a>
+<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="co">##  [5]   276 MDLFMRIFTIGTVTLKQGEIKDATPSDFVRATA...VQIHTIDGSSGVVNPVMEPIYDEPTTTTSVPL*</span></a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"><span class="co">##  ...   ... ...</span></a>
+<a class="sourceLine" id="cb22-10" data-line-number="10"><span class="co">##  [9]   122 MKIILFLALITLATCELYHYQECVRGTTVLLKE...QEEVQELYSPIFLIVAAIVFITLCFTLKRKTE*</span></a>
+<a class="sourceLine" id="cb22-11" data-line-number="11"><span class="co">## [10]    44 MIELSLIDFYLCFLAFLLFLVLIMLIIFWFSLELQDHNETCHA*</span></a>
+<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="co">## [11]   122 MKFLVFLGIITTVAAFHQECSLQSCTQHQPYVV...CQEPKLGSLVVRCSFYEDFLEYHDVRVVLDFI*</span></a>
+<a class="sourceLine" id="cb22-13" data-line-number="13"><span class="co">## [12]   420 MSDNGPQNQRNAPRITFGGPSDSTGSNQNGERS...KQQTVTLLPAADLDDFSKQLQQSMSSADSTQA*</span></a>
+<a class="sourceLine" id="cb22-14" data-line-number="14"><span class="co">## [13]    39 MGYINVFAFPFTIYSLLLCRMNSRNYIAQVDVVNFNLT*</span></a></code></pre></div></li>
+</ul>
+</div>
+<div id="genomic-ranges-and-dna-sequences" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Genomic ranges and DNA sequences</h3>
+<p>Genomic ranges</p>
+<ul>
+<li><p>Attach the <a href="https://bioconductor.org/packages/GenomicRanges">GenomicRanges</a> package. If necessary, install with <code>BiocManager::install(&quot;GenomicRanges&quot;)</code></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">library</span>(GenomicRanges)</a></code></pre></div></li>
+<li><p>Extract the coordinates of the coding sequences contained in the GenBank accession</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">cds &lt;-<span class="st"> </span><span class="kw">cds</span>(gb)</a></code></pre></div></li>
+<li><p>Look at the genomic ranges defined in <code>cds</code></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">granges</span>(cds)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co">## GRanges object with 13 ranges and 0 metadata columns:</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co">##                                              seqnames      ranges strand</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">##                                                 &lt;Rle&gt;   &lt;IRanges&gt;  &lt;Rle&gt;</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">##    [1] Severe acute respiratory syndrome coronavirus2   266-13468      +</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">##    [2] Severe acute respiratory syndrome coronavirus2 13468-21555      +</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">##    [3] Severe acute respiratory syndrome coronavirus2   266-13483      +</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">##    [4] Severe acute respiratory syndrome coronavirus2 21563-25384      +</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">##    [5] Severe acute respiratory syndrome coronavirus2 25393-26220      +</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">##    ...                                            ...         ...    ...</span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">##    [9] Severe acute respiratory syndrome coronavirus2 27394-27759      +</span></a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">##   [10] Severe acute respiratory syndrome coronavirus2 27756-27887      +</span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">##   [11] Severe acute respiratory syndrome coronavirus2 27894-28259      +</span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">##   [12] Severe acute respiratory syndrome coronavirus2 28274-29533      +</span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">##   [13] Severe acute respiratory syndrome coronavirus2 29558-29674      +</span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">##   -------</span></a>
+<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">##   seqinfo: 1 sequence from NC_045512.2 genome</span></a></code></pre></div></li>
+<li><p>There are 13 coding sequences in the reference genome. The sequence is named ‘Severe acute respiratory syndrome coronavirus2’. The first region starts at position 1 of the reference genome, and goes to position 13468. The coding sequence is on the ‘+’ strand.</p></li>
+<li><p>The full <code>cds</code> object has additional detail about each coding sequence. Display the full object (the display ‘wraps’ around several lines</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">cds</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="co">## GRanges object with 13 ranges and 14 metadata columns:</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="co">##                                              seqnames      ranges strand |</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">##                                                 &lt;Rle&gt;   &lt;IRanges&gt;  &lt;Rle&gt; |</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co">##    [1] Severe acute respiratory syndrome coronavirus2   266-13468      + |</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="co">##    [2] Severe acute respiratory syndrome coronavirus2 13468-21555      + |</span></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co">##    [3] Severe acute respiratory syndrome coronavirus2   266-13483      + |</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="co">##    [4] Severe acute respiratory syndrome coronavirus2 21563-25384      + |</span></a>
+<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="co">##    [5] Severe acute respiratory syndrome coronavirus2 25393-26220      + |</span></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10"><span class="co">##    ...                                            ...         ...    ... .</span></a>
+<a class="sourceLine" id="cb26-11" data-line-number="11"><span class="co">##    [9] Severe acute respiratory syndrome coronavirus2 27394-27759      + |</span></a>
+<a class="sourceLine" id="cb26-12" data-line-number="12"><span class="co">##   [10] Severe acute respiratory syndrome coronavirus2 27756-27887      + |</span></a>
+<a class="sourceLine" id="cb26-13" data-line-number="13"><span class="co">##   [11] Severe acute respiratory syndrome coronavirus2 27894-28259      + |</span></a>
+<a class="sourceLine" id="cb26-14" data-line-number="14"><span class="co">##   [12] Severe acute respiratory syndrome coronavirus2 28274-29533      + |</span></a>
+<a class="sourceLine" id="cb26-15" data-line-number="15"><span class="co">##   [13] Severe acute respiratory syndrome coronavirus2 29558-29674      + |</span></a>
+<a class="sourceLine" id="cb26-16" data-line-number="16"><span class="co">##               type        gene   locus_tag ribosomal_slippage</span></a>
+<a class="sourceLine" id="cb26-17" data-line-number="17"><span class="co">##        &lt;character&gt; &lt;character&gt; &lt;character&gt;          &lt;logical&gt;</span></a>
+<a class="sourceLine" id="cb26-18" data-line-number="18"><span class="co">##    [1]         CDS      ORF1ab  GU280_gp01               TRUE</span></a>
+<a class="sourceLine" id="cb26-19" data-line-number="19"><span class="co">##    [2]         CDS      ORF1ab  GU280_gp01               TRUE</span></a>
+<a class="sourceLine" id="cb26-20" data-line-number="20"><span class="co">##    [3]         CDS      ORF1ab  GU280_gp01              FALSE</span></a>
+<a class="sourceLine" id="cb26-21" data-line-number="21"><span class="co">##    [4]         CDS           S  GU280_gp02              FALSE</span></a>
+<a class="sourceLine" id="cb26-22" data-line-number="22"><span class="co">##    [5]         CDS       ORF3a  GU280_gp03              FALSE</span></a>
+<a class="sourceLine" id="cb26-23" data-line-number="23"><span class="co">##    ...         ...         ...         ...                ...</span></a>
+<a class="sourceLine" id="cb26-24" data-line-number="24"><span class="co">##    [9]         CDS       ORF7a  GU280_gp07              FALSE</span></a>
+<a class="sourceLine" id="cb26-25" data-line-number="25"><span class="co">##   [10]         CDS       ORF7b  GU280_gp08              FALSE</span></a>
+<a class="sourceLine" id="cb26-26" data-line-number="26"><span class="co">##   [11]         CDS        ORF8  GU280_gp09              FALSE</span></a>
+<a class="sourceLine" id="cb26-27" data-line-number="27"><span class="co">##   [12]         CDS           N  GU280_gp10              FALSE</span></a>
+<a class="sourceLine" id="cb26-28" data-line-number="28"><span class="co">##   [13]         CDS       ORF10  GU280_gp11              FALSE</span></a>
+<a class="sourceLine" id="cb26-29" data-line-number="29"><span class="co">##                                                note codon_start</span></a>
+<a class="sourceLine" id="cb26-30" data-line-number="30"><span class="co">##                                         &lt;character&gt;   &lt;numeric&gt;</span></a>
+<a class="sourceLine" id="cb26-31" data-line-number="31"><span class="co">##    [1] pp1ab; translated by -1 ribosomal frameshift           1</span></a>
+<a class="sourceLine" id="cb26-32" data-line-number="32"><span class="co">##    [2] pp1ab; translated by -1 ribosomal frameshift           1</span></a>
+<a class="sourceLine" id="cb26-33" data-line-number="33"><span class="co">##    [3]                                         pp1a           1</span></a>
+<a class="sourceLine" id="cb26-34" data-line-number="34"><span class="co">##    [4]            structural protein; spike protein           1</span></a>
+<a class="sourceLine" id="cb26-35" data-line-number="35"><span class="co">##    [5]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb26-36" data-line-number="36"><span class="co">##    ...                                          ...         ...</span></a>
+<a class="sourceLine" id="cb26-37" data-line-number="37"><span class="co">##    [9]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb26-38" data-line-number="38"><span class="co">##   [10]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb26-39" data-line-number="39"><span class="co">##   [11]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb26-40" data-line-number="40"><span class="co">##   [12]                     ORF9; structural protein           1</span></a>
+<a class="sourceLine" id="cb26-41" data-line-number="41"><span class="co">##   [13]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb26-42" data-line-number="42"><span class="co">##                            product     protein_id         db_xref   translation</span></a>
+<a class="sourceLine" id="cb26-43" data-line-number="43"><span class="co">##                        &lt;character&gt;    &lt;character&gt; &lt;CharacterList&gt; &lt;AAStringSet&gt;</span></a>
+<a class="sourceLine" id="cb26-44" data-line-number="44"><span class="co">##    [1]          ORF1ab polyprotein YP_009724389.1 GeneID:43740578     MES...VNN</span></a>
+<a class="sourceLine" id="cb26-45" data-line-number="45"><span class="co">##    [2]          ORF1ab polyprotein YP_009724389.1 GeneID:43740578     MES...VNN</span></a>
+<a class="sourceLine" id="cb26-46" data-line-number="46"><span class="co">##    [3]           ORF1a polyprotein YP_009725295.1 GeneID:43740578     MES...FAV</span></a>
+<a class="sourceLine" id="cb26-47" data-line-number="47"><span class="co">##    [4]        surface glycoprotein YP_009724390.1 GeneID:43740568     MFV...HYT</span></a>
+<a class="sourceLine" id="cb26-48" data-line-number="48"><span class="co">##    [5]               ORF3a protein YP_009724391.1 GeneID:43740569     MDL...VPL</span></a>
+<a class="sourceLine" id="cb26-49" data-line-number="49"><span class="co">##    ...                         ...            ...             ...           ...</span></a>
+<a class="sourceLine" id="cb26-50" data-line-number="50"><span class="co">##    [9]               ORF7a protein YP_009724395.1 GeneID:43740573     MKI...KTE</span></a>
+<a class="sourceLine" id="cb26-51" data-line-number="51"><span class="co">##   [10]                       ORF7b YP_009725318.1 GeneID:43740574     MIE...CHA</span></a>
+<a class="sourceLine" id="cb26-52" data-line-number="52"><span class="co">##   [11]                ORF8 protein YP_009724396.1 GeneID:43740577     MKF...DFI</span></a>
+<a class="sourceLine" id="cb26-53" data-line-number="53"><span class="co">##   [12] nucleocapsid phosphoprotein YP_009724397.2 GeneID:43740575     MSD...TQA</span></a>
+<a class="sourceLine" id="cb26-54" data-line-number="54"><span class="co">##   [13]               ORF10 protein YP_009725255.1 GeneID:43740576     MGY...NLT</span></a>
+<a class="sourceLine" id="cb26-55" data-line-number="55"><span class="co">##            loctype       gene_synonym     gene_id transcript_id</span></a>
+<a class="sourceLine" id="cb26-56" data-line-number="56"><span class="co">##        &lt;character&gt;    &lt;CharacterList&gt; &lt;character&gt;   &lt;character&gt;</span></a>
+<a class="sourceLine" id="cb26-57" data-line-number="57"><span class="co">##    [1]      normal                 NA  GU280_gp01  GU280_gp01.1</span></a>
+<a class="sourceLine" id="cb26-58" data-line-number="58"><span class="co">##    [2]      normal                 NA  GU280_gp01  GU280_gp01.1</span></a>
+<a class="sourceLine" id="cb26-59" data-line-number="59"><span class="co">##    [3]      normal                 NA  GU280_gp01  GU280_gp01.2</span></a>
+<a class="sourceLine" id="cb26-60" data-line-number="60"><span class="co">##    [4]      normal spike glycoprotein  GU280_gp02  GU280_gp02.1</span></a>
+<a class="sourceLine" id="cb26-61" data-line-number="61"><span class="co">##    [5]      normal                 NA  GU280_gp03  GU280_gp03.1</span></a>
+<a class="sourceLine" id="cb26-62" data-line-number="62"><span class="co">##    ...         ...                ...         ...           ...</span></a>
+<a class="sourceLine" id="cb26-63" data-line-number="63"><span class="co">##    [9]      normal                 NA  GU280_gp07  GU280_gp07.1</span></a>
+<a class="sourceLine" id="cb26-64" data-line-number="64"><span class="co">##   [10]      normal                 NA  GU280_gp08  GU280_gp08.1</span></a>
+<a class="sourceLine" id="cb26-65" data-line-number="65"><span class="co">##   [11]      normal                 NA  GU280_gp09  GU280_gp09.1</span></a>
+<a class="sourceLine" id="cb26-66" data-line-number="66"><span class="co">##   [12]      normal                 NA  GU280_gp10  GU280_gp10.1</span></a>
+<a class="sourceLine" id="cb26-67" data-line-number="67"><span class="co">##   [13]      normal                 NA  GU280_gp11  GU280_gp11.1</span></a>
+<a class="sourceLine" id="cb26-68" data-line-number="68"><span class="co">##   -------</span></a>
+<a class="sourceLine" id="cb26-69" data-line-number="69"><span class="co">##   seqinfo: 1 sequence from NC_045512.2 genome</span></a></code></pre></div>
+<p>or coerce to a tibble and explore</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">library</span>(tibble)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">as_tibble</span>(cds)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="co">## # A tibble: 13 x 19</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">##    seqnames start   end width strand type  gene  locus_tag ribosomal_slipp…</span></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="co">##    &lt;fct&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;lgl&gt;           </span></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="co">##  1 Severe …   266 13468 13203 +      CDS   ORF1… GU280_gp… TRUE            </span></a>
+<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="co">##  2 Severe … 13468 21555  8088 +      CDS   ORF1… GU280_gp… TRUE            </span></a>
+<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="co">##  3 Severe …   266 13483 13218 +      CDS   ORF1… GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="co">##  4 Severe … 21563 25384  3822 +      CDS   S     GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-10" data-line-number="10"><span class="co">##  5 Severe … 25393 26220   828 +      CDS   ORF3a GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-11" data-line-number="11"><span class="co">##  6 Severe … 26245 26472   228 +      CDS   E     GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-12" data-line-number="12"><span class="co">##  7 Severe … 26523 27191   669 +      CDS   M     GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-13" data-line-number="13"><span class="co">##  8 Severe … 27202 27387   186 +      CDS   ORF6  GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-14" data-line-number="14"><span class="co">##  9 Severe … 27394 27759   366 +      CDS   ORF7a GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-15" data-line-number="15"><span class="co">## 10 Severe … 27756 27887   132 +      CDS   ORF7b GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-16" data-line-number="16"><span class="co">## 11 Severe … 27894 28259   366 +      CDS   ORF8  GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-17" data-line-number="17"><span class="co">## 12 Severe … 28274 29533  1260 +      CDS   N     GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-18" data-line-number="18"><span class="co">## 13 Severe … 29558 29674   117 +      CDS   ORF10 GU280_gp… FALSE           </span></a>
+<a class="sourceLine" id="cb27-19" data-line-number="19"><span class="co">## # … with 10 more variables: note &lt;chr&gt;, codon_start &lt;dbl&gt;, product &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb27-20" data-line-number="20"><span class="co">## #   protein_id &lt;chr&gt;, db_xref &lt;I&lt;list&gt;&gt;, translation &lt;chr&gt;, loctype &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb27-21" data-line-number="21"><span class="co">## #   gene_synonym &lt;I&lt;list&gt;&gt;, gene_id &lt;chr&gt;, transcript_id &lt;chr&gt;</span></a></code></pre></div>
+<p>For instance, we can find the gene associated with each coding sequence, using the following equivalent commands</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">cds<span class="op">$</span>gene</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="co">##  [1] &quot;ORF1ab&quot; &quot;ORF1ab&quot; &quot;ORF1ab&quot; &quot;S&quot;      &quot;ORF3a&quot;  &quot;E&quot;      &quot;M&quot;      &quot;ORF6&quot;  </span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="co">##  [9] &quot;ORF7a&quot;  &quot;ORF7b&quot;  &quot;ORF8&quot;   &quot;N&quot;      &quot;ORF10&quot;</span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="kw">subset</span>(cds, , gene)</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="co">## GRanges object with 13 ranges and 1 metadata column:</span></a>
+<a class="sourceLine" id="cb28-7" data-line-number="7"><span class="co">##                                              seqnames      ranges strand |</span></a>
+<a class="sourceLine" id="cb28-8" data-line-number="8"><span class="co">##                                                 &lt;Rle&gt;   &lt;IRanges&gt;  &lt;Rle&gt; |</span></a>
+<a class="sourceLine" id="cb28-9" data-line-number="9"><span class="co">##    [1] Severe acute respiratory syndrome coronavirus2   266-13468      + |</span></a>
+<a class="sourceLine" id="cb28-10" data-line-number="10"><span class="co">##    [2] Severe acute respiratory syndrome coronavirus2 13468-21555      + |</span></a>
+<a class="sourceLine" id="cb28-11" data-line-number="11"><span class="co">##    [3] Severe acute respiratory syndrome coronavirus2   266-13483      + |</span></a>
+<a class="sourceLine" id="cb28-12" data-line-number="12"><span class="co">##    [4] Severe acute respiratory syndrome coronavirus2 21563-25384      + |</span></a>
+<a class="sourceLine" id="cb28-13" data-line-number="13"><span class="co">##    [5] Severe acute respiratory syndrome coronavirus2 25393-26220      + |</span></a>
+<a class="sourceLine" id="cb28-14" data-line-number="14"><span class="co">##    ...                                            ...         ...    ... .</span></a>
+<a class="sourceLine" id="cb28-15" data-line-number="15"><span class="co">##    [9] Severe acute respiratory syndrome coronavirus2 27394-27759      + |</span></a>
+<a class="sourceLine" id="cb28-16" data-line-number="16"><span class="co">##   [10] Severe acute respiratory syndrome coronavirus2 27756-27887      + |</span></a>
+<a class="sourceLine" id="cb28-17" data-line-number="17"><span class="co">##   [11] Severe acute respiratory syndrome coronavirus2 27894-28259      + |</span></a>
+<a class="sourceLine" id="cb28-18" data-line-number="18"><span class="co">##   [12] Severe acute respiratory syndrome coronavirus2 28274-29533      + |</span></a>
+<a class="sourceLine" id="cb28-19" data-line-number="19"><span class="co">##   [13] Severe acute respiratory syndrome coronavirus2 29558-29674      + |</span></a>
+<a class="sourceLine" id="cb28-20" data-line-number="20"><span class="co">##               gene</span></a>
+<a class="sourceLine" id="cb28-21" data-line-number="21"><span class="co">##        &lt;character&gt;</span></a>
+<a class="sourceLine" id="cb28-22" data-line-number="22"><span class="co">##    [1]      ORF1ab</span></a>
+<a class="sourceLine" id="cb28-23" data-line-number="23"><span class="co">##    [2]      ORF1ab</span></a>
+<a class="sourceLine" id="cb28-24" data-line-number="24"><span class="co">##    [3]      ORF1ab</span></a>
+<a class="sourceLine" id="cb28-25" data-line-number="25"><span class="co">##    [4]           S</span></a>
+<a class="sourceLine" id="cb28-26" data-line-number="26"><span class="co">##    [5]       ORF3a</span></a>
+<a class="sourceLine" id="cb28-27" data-line-number="27"><span class="co">##    ...         ...</span></a>
+<a class="sourceLine" id="cb28-28" data-line-number="28"><span class="co">##    [9]       ORF7a</span></a>
+<a class="sourceLine" id="cb28-29" data-line-number="29"><span class="co">##   [10]       ORF7b</span></a>
+<a class="sourceLine" id="cb28-30" data-line-number="30"><span class="co">##   [11]        ORF8</span></a>
+<a class="sourceLine" id="cb28-31" data-line-number="31"><span class="co">##   [12]           N</span></a>
+<a class="sourceLine" id="cb28-32" data-line-number="32"><span class="co">##   [13]       ORF10</span></a>
+<a class="sourceLine" id="cb28-33" data-line-number="33"><span class="co">##   -------</span></a>
+<a class="sourceLine" id="cb28-34" data-line-number="34"><span class="co">##   seqinfo: 1 sequence from NC_045512.2 genome</span></a>
+<a class="sourceLine" id="cb28-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb28-36" data-line-number="36"><span class="kw">as_tibble</span>(cds) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-37" data-line-number="37"><span class="st">    </span><span class="co">## info on gene and protein product</span></a>
+<a class="sourceLine" id="cb28-38" data-line-number="38"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(gene, product)</a>
+<a class="sourceLine" id="cb28-39" data-line-number="39"><span class="co">## # A tibble: 13 x 2</span></a>
+<a class="sourceLine" id="cb28-40" data-line-number="40"><span class="co">##    gene   product                    </span></a>
+<a class="sourceLine" id="cb28-41" data-line-number="41"><span class="co">##    &lt;chr&gt;  &lt;chr&gt;                      </span></a>
+<a class="sourceLine" id="cb28-42" data-line-number="42"><span class="co">##  1 ORF1ab ORF1ab polyprotein         </span></a>
+<a class="sourceLine" id="cb28-43" data-line-number="43"><span class="co">##  2 ORF1ab ORF1ab polyprotein         </span></a>
+<a class="sourceLine" id="cb28-44" data-line-number="44"><span class="co">##  3 ORF1ab ORF1a polyprotein          </span></a>
+<a class="sourceLine" id="cb28-45" data-line-number="45"><span class="co">##  4 S      surface glycoprotein       </span></a>
+<a class="sourceLine" id="cb28-46" data-line-number="46"><span class="co">##  5 ORF3a  ORF3a protein              </span></a>
+<a class="sourceLine" id="cb28-47" data-line-number="47"><span class="co">##  6 E      envelope protein           </span></a>
+<a class="sourceLine" id="cb28-48" data-line-number="48"><span class="co">##  7 M      membrane glycoprotein      </span></a>
+<a class="sourceLine" id="cb28-49" data-line-number="49"><span class="co">##  8 ORF6   ORF6 protein               </span></a>
+<a class="sourceLine" id="cb28-50" data-line-number="50"><span class="co">##  9 ORF7a  ORF7a protein              </span></a>
+<a class="sourceLine" id="cb28-51" data-line-number="51"><span class="co">## 10 ORF7b  ORF7b                      </span></a>
+<a class="sourceLine" id="cb28-52" data-line-number="52"><span class="co">## 11 ORF8   ORF8 protein               </span></a>
+<a class="sourceLine" id="cb28-53" data-line-number="53"><span class="co">## 12 N      nucleocapsid phosphoprotein</span></a>
+<a class="sourceLine" id="cb28-54" data-line-number="54"><span class="co">## 13 ORF10  ORF10 protein</span></a></code></pre></div></li>
+</ul>
+<p>Using genomic ranges to extract DNA sequences</p>
+<ul>
+<li><p>Recall the sequence of the entire genome</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">ref &lt;-<span class="st"> </span><span class="kw">getSeq</span>(gb)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">ref</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 1</span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="co">## [1] 29903 ATTAAAGGTTTATACCTTCCCAG...AAAAAAAAAAAAAAAAAAAAAAA Severe acute resp...</span></a></code></pre></div></li>
+<li><p>Use <code>getSeq()</code> to extract the <code>DNAStringSet()</code> corresponding to the genomic ranges specified by <code>cds</code></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">dna &lt;-<span class="st"> </span><span class="kw">getSeq</span>(ref, cds)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">dna</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 13</span></a>
+<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="co">##      width seq</span></a>
+<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="co">##  [1] 13203 ATGGAGAGCCTTGTCCCTGGTTTCAACGAGAAA...CTTCAGTCAGCTGATGCACAATCGTTTTTAAAC</span></a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="co">##  [2]  8088 CGGGTTTGCGGTGTAAGTGCAGCCCGTCTTACA...GTTATTTCTAGTGATGTTCTTGTTAACAACTAA</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="co">##  [3] 13218 ATGGAGAGCCTTGTCCCTGGTTTCAACGAGAAA...GCACAATCGTTTTTAAACGGGTTTGCGGTGTAA</span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="co">##  [4]  3822 ATGTTTGTTTTTCTTGTTTTATTGCCACTAGTC...GTGCTCAAAGGAGTCAAATTACATTACACATAA</span></a>
+<a class="sourceLine" id="cb30-9" data-line-number="9"><span class="co">##  [5]   828 ATGGATTTGTTTATGAGAATCTTCACAATTGGA...GAACCGACGACGACTACTAGCGTGCCTTTGTAA</span></a>
+<a class="sourceLine" id="cb30-10" data-line-number="10"><span class="co">##  ...   ... ...</span></a>
+<a class="sourceLine" id="cb30-11" data-line-number="11"><span class="co">##  [9]   366 ATGAAAATTATTCTTTTCTTGGCACTGATAACA...CTTTGCTTCACACTCAAAAGAAAGACAGAATGA</span></a>
+<a class="sourceLine" id="cb30-12" data-line-number="12"><span class="co">## [10]   132 ATGATTGAACTTTCATTAATTGACTTCTATTTG...CTGCAAGATCATAATGAAACTTGTCACGCCTAA</span></a>
+<a class="sourceLine" id="cb30-13" data-line-number="13"><span class="co">## [11]   366 ATGAAATTTCTTGTTTTCTTAGGAATCATCACA...CATGACGTTCGTGTTGTTTTAGATTTCATCTAA</span></a>
+<a class="sourceLine" id="cb30-14" data-line-number="14"><span class="co">## [12]  1260 ATGTCTGATAATGGACCCCAAAATCAGCGAAAT...TCCATGAGCAGTGCTGACTCAACTCAGGCCTAA</span></a>
+<a class="sourceLine" id="cb30-15" data-line-number="15"><span class="co">## [13]   117 ATGGGCTATATAAACGTTTTCGCTTTTCCGTTT...CAAGTAGATGTAGTTAACTTTAATCTCACATAG</span></a></code></pre></div></li>
+<li><p>It might be useful to coordinate information about each coding sequence with the sequence itself</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">cds<span class="op">$</span>DNA &lt;-<span class="st"> </span>dna</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">cds<span class="op">$</span>AminoAcid &lt;-<span class="st"> </span><span class="kw">translate</span>(dna)</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">cds</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="co">## GRanges object with 13 ranges and 16 metadata columns:</span></a>
+<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="co">##                                              seqnames      ranges strand |</span></a>
+<a class="sourceLine" id="cb31-6" data-line-number="6"><span class="co">##                                                 &lt;Rle&gt;   &lt;IRanges&gt;  &lt;Rle&gt; |</span></a>
+<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="co">##    [1] Severe acute respiratory syndrome coronavirus2   266-13468      + |</span></a>
+<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="co">##    [2] Severe acute respiratory syndrome coronavirus2 13468-21555      + |</span></a>
+<a class="sourceLine" id="cb31-9" data-line-number="9"><span class="co">##    [3] Severe acute respiratory syndrome coronavirus2   266-13483      + |</span></a>
+<a class="sourceLine" id="cb31-10" data-line-number="10"><span class="co">##    [4] Severe acute respiratory syndrome coronavirus2 21563-25384      + |</span></a>
+<a class="sourceLine" id="cb31-11" data-line-number="11"><span class="co">##    [5] Severe acute respiratory syndrome coronavirus2 25393-26220      + |</span></a>
+<a class="sourceLine" id="cb31-12" data-line-number="12"><span class="co">##    ...                                            ...         ...    ... .</span></a>
+<a class="sourceLine" id="cb31-13" data-line-number="13"><span class="co">##    [9] Severe acute respiratory syndrome coronavirus2 27394-27759      + |</span></a>
+<a class="sourceLine" id="cb31-14" data-line-number="14"><span class="co">##   [10] Severe acute respiratory syndrome coronavirus2 27756-27887      + |</span></a>
+<a class="sourceLine" id="cb31-15" data-line-number="15"><span class="co">##   [11] Severe acute respiratory syndrome coronavirus2 27894-28259      + |</span></a>
+<a class="sourceLine" id="cb31-16" data-line-number="16"><span class="co">##   [12] Severe acute respiratory syndrome coronavirus2 28274-29533      + |</span></a>
+<a class="sourceLine" id="cb31-17" data-line-number="17"><span class="co">##   [13] Severe acute respiratory syndrome coronavirus2 29558-29674      + |</span></a>
+<a class="sourceLine" id="cb31-18" data-line-number="18"><span class="co">##               type        gene   locus_tag ribosomal_slippage</span></a>
+<a class="sourceLine" id="cb31-19" data-line-number="19"><span class="co">##        &lt;character&gt; &lt;character&gt; &lt;character&gt;          &lt;logical&gt;</span></a>
+<a class="sourceLine" id="cb31-20" data-line-number="20"><span class="co">##    [1]         CDS      ORF1ab  GU280_gp01               TRUE</span></a>
+<a class="sourceLine" id="cb31-21" data-line-number="21"><span class="co">##    [2]         CDS      ORF1ab  GU280_gp01               TRUE</span></a>
+<a class="sourceLine" id="cb31-22" data-line-number="22"><span class="co">##    [3]         CDS      ORF1ab  GU280_gp01              FALSE</span></a>
+<a class="sourceLine" id="cb31-23" data-line-number="23"><span class="co">##    [4]         CDS           S  GU280_gp02              FALSE</span></a>
+<a class="sourceLine" id="cb31-24" data-line-number="24"><span class="co">##    [5]         CDS       ORF3a  GU280_gp03              FALSE</span></a>
+<a class="sourceLine" id="cb31-25" data-line-number="25"><span class="co">##    ...         ...         ...         ...                ...</span></a>
+<a class="sourceLine" id="cb31-26" data-line-number="26"><span class="co">##    [9]         CDS       ORF7a  GU280_gp07              FALSE</span></a>
+<a class="sourceLine" id="cb31-27" data-line-number="27"><span class="co">##   [10]         CDS       ORF7b  GU280_gp08              FALSE</span></a>
+<a class="sourceLine" id="cb31-28" data-line-number="28"><span class="co">##   [11]         CDS        ORF8  GU280_gp09              FALSE</span></a>
+<a class="sourceLine" id="cb31-29" data-line-number="29"><span class="co">##   [12]         CDS           N  GU280_gp10              FALSE</span></a>
+<a class="sourceLine" id="cb31-30" data-line-number="30"><span class="co">##   [13]         CDS       ORF10  GU280_gp11              FALSE</span></a>
+<a class="sourceLine" id="cb31-31" data-line-number="31"><span class="co">##                                                note codon_start</span></a>
+<a class="sourceLine" id="cb31-32" data-line-number="32"><span class="co">##                                         &lt;character&gt;   &lt;numeric&gt;</span></a>
+<a class="sourceLine" id="cb31-33" data-line-number="33"><span class="co">##    [1] pp1ab; translated by -1 ribosomal frameshift           1</span></a>
+<a class="sourceLine" id="cb31-34" data-line-number="34"><span class="co">##    [2] pp1ab; translated by -1 ribosomal frameshift           1</span></a>
+<a class="sourceLine" id="cb31-35" data-line-number="35"><span class="co">##    [3]                                         pp1a           1</span></a>
+<a class="sourceLine" id="cb31-36" data-line-number="36"><span class="co">##    [4]            structural protein; spike protein           1</span></a>
+<a class="sourceLine" id="cb31-37" data-line-number="37"><span class="co">##    [5]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb31-38" data-line-number="38"><span class="co">##    ...                                          ...         ...</span></a>
+<a class="sourceLine" id="cb31-39" data-line-number="39"><span class="co">##    [9]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb31-40" data-line-number="40"><span class="co">##   [10]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb31-41" data-line-number="41"><span class="co">##   [11]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb31-42" data-line-number="42"><span class="co">##   [12]                     ORF9; structural protein           1</span></a>
+<a class="sourceLine" id="cb31-43" data-line-number="43"><span class="co">##   [13]                                         &lt;NA&gt;           1</span></a>
+<a class="sourceLine" id="cb31-44" data-line-number="44"><span class="co">##                            product     protein_id         db_xref   translation</span></a>
+<a class="sourceLine" id="cb31-45" data-line-number="45"><span class="co">##                        &lt;character&gt;    &lt;character&gt; &lt;CharacterList&gt; &lt;AAStringSet&gt;</span></a>
+<a class="sourceLine" id="cb31-46" data-line-number="46"><span class="co">##    [1]          ORF1ab polyprotein YP_009724389.1 GeneID:43740578     MES...VNN</span></a>
+<a class="sourceLine" id="cb31-47" data-line-number="47"><span class="co">##    [2]          ORF1ab polyprotein YP_009724389.1 GeneID:43740578     MES...VNN</span></a>
+<a class="sourceLine" id="cb31-48" data-line-number="48"><span class="co">##    [3]           ORF1a polyprotein YP_009725295.1 GeneID:43740578     MES...FAV</span></a>
+<a class="sourceLine" id="cb31-49" data-line-number="49"><span class="co">##    [4]        surface glycoprotein YP_009724390.1 GeneID:43740568     MFV...HYT</span></a>
+<a class="sourceLine" id="cb31-50" data-line-number="50"><span class="co">##    [5]               ORF3a protein YP_009724391.1 GeneID:43740569     MDL...VPL</span></a>
+<a class="sourceLine" id="cb31-51" data-line-number="51"><span class="co">##    ...                         ...            ...             ...           ...</span></a>
+<a class="sourceLine" id="cb31-52" data-line-number="52"><span class="co">##    [9]               ORF7a protein YP_009724395.1 GeneID:43740573     MKI...KTE</span></a>
+<a class="sourceLine" id="cb31-53" data-line-number="53"><span class="co">##   [10]                       ORF7b YP_009725318.1 GeneID:43740574     MIE...CHA</span></a>
+<a class="sourceLine" id="cb31-54" data-line-number="54"><span class="co">##   [11]                ORF8 protein YP_009724396.1 GeneID:43740577     MKF...DFI</span></a>
+<a class="sourceLine" id="cb31-55" data-line-number="55"><span class="co">##   [12] nucleocapsid phosphoprotein YP_009724397.2 GeneID:43740575     MSD...TQA</span></a>
+<a class="sourceLine" id="cb31-56" data-line-number="56"><span class="co">##   [13]               ORF10 protein YP_009725255.1 GeneID:43740576     MGY...NLT</span></a>
+<a class="sourceLine" id="cb31-57" data-line-number="57"><span class="co">##            loctype       gene_synonym     gene_id transcript_id            DNA</span></a>
+<a class="sourceLine" id="cb31-58" data-line-number="58"><span class="co">##        &lt;character&gt;    &lt;CharacterList&gt; &lt;character&gt;   &lt;character&gt; &lt;DNAStringSet&gt;</span></a>
+<a class="sourceLine" id="cb31-59" data-line-number="59"><span class="co">##    [1]      normal                 NA  GU280_gp01  GU280_gp01.1      ATG...AAC</span></a>
+<a class="sourceLine" id="cb31-60" data-line-number="60"><span class="co">##    [2]      normal                 NA  GU280_gp01  GU280_gp01.1      CGG...TAA</span></a>
+<a class="sourceLine" id="cb31-61" data-line-number="61"><span class="co">##    [3]      normal                 NA  GU280_gp01  GU280_gp01.2      ATG...TAA</span></a>
+<a class="sourceLine" id="cb31-62" data-line-number="62"><span class="co">##    [4]      normal spike glycoprotein  GU280_gp02  GU280_gp02.1      ATG...TAA</span></a>
+<a class="sourceLine" id="cb31-63" data-line-number="63"><span class="co">##    [5]      normal                 NA  GU280_gp03  GU280_gp03.1      ATG...TAA</span></a>
+<a class="sourceLine" id="cb31-64" data-line-number="64"><span class="co">##    ...         ...                ...         ...           ...            ...</span></a>
+<a class="sourceLine" id="cb31-65" data-line-number="65"><span class="co">##    [9]      normal                 NA  GU280_gp07  GU280_gp07.1      ATG...TGA</span></a>
+<a class="sourceLine" id="cb31-66" data-line-number="66"><span class="co">##   [10]      normal                 NA  GU280_gp08  GU280_gp08.1      ATG...TAA</span></a>
+<a class="sourceLine" id="cb31-67" data-line-number="67"><span class="co">##   [11]      normal                 NA  GU280_gp09  GU280_gp09.1      ATG...TAA</span></a>
+<a class="sourceLine" id="cb31-68" data-line-number="68"><span class="co">##   [12]      normal                 NA  GU280_gp10  GU280_gp10.1      ATG...TAA</span></a>
+<a class="sourceLine" id="cb31-69" data-line-number="69"><span class="co">##   [13]      normal                 NA  GU280_gp11  GU280_gp11.1      ATG...TAG</span></a>
+<a class="sourceLine" id="cb31-70" data-line-number="70"><span class="co">##            AminoAcid</span></a>
+<a class="sourceLine" id="cb31-71" data-line-number="71"><span class="co">##        &lt;AAStringSet&gt;</span></a>
+<a class="sourceLine" id="cb31-72" data-line-number="72"><span class="co">##    [1]     MES...FLN</span></a>
+<a class="sourceLine" id="cb31-73" data-line-number="73"><span class="co">##    [2]     RVC...NN*</span></a>
+<a class="sourceLine" id="cb31-74" data-line-number="74"><span class="co">##    [3]     MES...AV*</span></a>
+<a class="sourceLine" id="cb31-75" data-line-number="75"><span class="co">##    [4]     MFV...YT*</span></a>
+<a class="sourceLine" id="cb31-76" data-line-number="76"><span class="co">##    [5]     MDL...PL*</span></a>
+<a class="sourceLine" id="cb31-77" data-line-number="77"><span class="co">##    ...           ...</span></a>
+<a class="sourceLine" id="cb31-78" data-line-number="78"><span class="co">##    [9]     MKI...TE*</span></a>
+<a class="sourceLine" id="cb31-79" data-line-number="79"><span class="co">##   [10]     MIE...HA*</span></a>
+<a class="sourceLine" id="cb31-80" data-line-number="80"><span class="co">##   [11]     MKF...FI*</span></a>
+<a class="sourceLine" id="cb31-81" data-line-number="81"><span class="co">##   [12]     MSD...QA*</span></a>
+<a class="sourceLine" id="cb31-82" data-line-number="82"><span class="co">##   [13]     MGY...LT*</span></a>
+<a class="sourceLine" id="cb31-83" data-line-number="83"><span class="co">##   -------</span></a>
+<a class="sourceLine" id="cb31-84" data-line-number="84"><span class="co">##   seqinfo: 1 sequence from NC_045512.2 genome</span></a></code></pre></div></li>
+</ul>
+</div>
+</div>
+<div id="day-31-sequence-alignment-and-visualization" class="section level2">
+<h2><span class="header-section-number">5.3</span> Day 31 Sequence alignment and visualization</h2>
+<div id="sequence-alignment" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Sequence alignment</h3>
+<p>Setup</p>
+<ul>
+<li><p>Install (if necessary, using <code>BiocManager::install(&quot;DECIPHER&quot;)</code>) and attach the <a href="https://bioconductor.org/packages/DECIPHER">DECIPHER</a> package</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">library</span>(DECIPHER)</a></code></pre></div></li>
+<li><p>This package contains tools for multiple sequence alignment. Explore the introductory and other vignettes in this package.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&quot;DECIPHER&quot;</span>)</a></code></pre></div></li>
+<li><p>Check out one of the help pages, e.g.,</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">?AlignSeqs</a></code></pre></div>
+<p>Use <code>example(AlignSeqs)</code> to run the examples on the help page.</p></li>
+</ul>
+</div>
+<div id="phylogenetic-tree-visualization" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Phylogenetic tree visualization</h3>
+<p>Setup</p>
+<ul>
+<li><p>Install (if necessary, using <code>BiocManager::install(&quot;ggtree&quot;)</code>) and attach the <a href="https://bioconductor.org/packages/ggtree">ggtree</a> package</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">library</span>(ggtree)</a></code></pre></div></li>
+<li><p>The visualizations this package provides are not well-suited to <em>R</em>’s help pages; check out the online <a href="https://yulab-smu.github.io/treedata-book">ggtree book</a> to orient yourself.</p></li>
+</ul>
+</div>
+</div>
+<div id="day-32-single-cell-expression-data" class="section level2">
+<h2><span class="header-section-number">5.4</span> Day 32 Single-cell expression data</h2>
 </div>
 <div id="day-33-friday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">5.5</span> Day 33 (Friday) Zoom check-in</h2>
 <div id="review-and-trouble-shoot-25-minutes-1" class="section level3">
 <h3><span class="header-section-number">5.5.1</span> Review and trouble shoot (25 minutes)</h3>
+<p><a href="https://bioconductor.org">Bioconductor</a></p>
+<ul>
+<li><p>Packages</p></li>
+<li><p>Classes and methods</p></li>
+</ul>
+<p>SARS-CoV-2 sequence data</p>
+<ul>
+<li><p>Querying Entrez and parsing GenBank records</p></li>
+<li><p>Working with DNA sequences and genomic ranges</p></li>
+<li><p>Multiple alignment and phylogenetic tree visualization</p></li>
+</ul>
+<p>Single cell expression</p>
 </div>
 <div id="next-week-25-minutes" class="section level3">
 <h3><span class="header-section-number">5.5.2</span> Next week (25 minutes)</h3>
@@ -297,7 +900,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="day-35" class="section level2">
 <h2><span class="header-section-number">5.7</span> Day 35</h2>
-<p>Self-directed activities.</p>
 
 </div>
 </div>
