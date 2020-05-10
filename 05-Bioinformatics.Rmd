@@ -1,23 +1,433 @@
 # Bioinformatics with [Bioconductor][] {#five}
 
+```{r, echo=FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+```
+
 [Bioconductor]: https://bioconductor.org
 
 ## Day 29 (Monday) Zoom check-in
 
-## Day 30
+### Review and trouble shoot
 
-## Day 31
+### [Bioconductor][], packages, and biological data
 
-## Day 32
+[Bioconductor][]
+
+- Repository of more than 1900 packages for the 'analysis and comprehension of high throughput genomic data'
+
+- Bulk and single cell RNASeq; ChIP and other gene regulation, called variants, flow cytometery, proteomics, ...
+
+- Package discovery using [biocViews][] and [workflows][]
+
+- Landing pages & vignettes
+
+Packages
+
+- One-time installation of [BiocManager][]
+
+    ```{r}
+    if (!requireNamespace("BiocManager"))
+        install.packages("BiocManager", repos = "https://cran.r-project.org")
+    ```
+
+- Install _Bioconductor_ or _CRAN_ packages
+
+    ```{r, eval = FALSE}
+    ## Biostrings and genbankr are Bioconductor packages, rentrez is from CRAN
+    BiocMangaer::install(c("Biostrings", "genbankr", "rentrez"))
+    ```
+
+- Validate installation
+
+    ```{r}
+    BiocManager::version() # current release is 3.11; needs R 4.0
+    BiocManager::valid()
+    ```
+    
+- Types of packages
+
+    - Software (e.g., [Biostrings][], [SingleCellExperiment][])
+    - Annotation (e.g., [org.Hs.eg.db][], [TxDb.Hsapiens.UCSC.hg38.knownGene][], [GO.db][])
+    - Experiment data (e.g., [airway][], [scRNAseq][])
+
+[biocViews]: https://bioconductor.org/packages
+[workflows]: https://bioconductor.org/packages/release/BiocViews.html#___Workflow
+[BiocManager]: https://cran.r-project.org/package=BiocManager
+[Biostrings]: https://bioconductor.org/packages/Biostrings
+[GenomicRanges]: https://bioconductor.org/packages/GenomicRanges
+[SummarizedExperiment]: https://bioconductor.org/packages/Summarizedexperiment
+[SingleCellExperiment]: https://bioconductor.org/packages/SingleCellExperiment
+[org.Hs.eg.db]: https://bioconductor.org/packages/org.Hs.eg.db
+[TxDb.Hsapiens.UCSC.hg38.knownGene]: https://bioconductor.org/packages/TxDb.Hsapiens.UCSC.hg38.knownGene
+[GO.db]: https://bioconductor.org/packages/GO.db
+[airway]: https://bioconductor.org/packages/airway
+[scRNAseq]: https://bioconductor.org/packages/scRNAseq
+
+Key packages
+
+- [Biostrings][] for representing sequence data
+- [GenomicRanges][] for working with genomic coordinates
+- [SummarizedExperiment][] and [SingleCellExperiment][] for representing experimental summaries, e.g., a gene x sample matrix of RNA-seq expression values.
+
+'Class' and 'method'
+
+- Classes represent data in ways that allow the specialized nature of the data to be exploited, e.g., it makes sense to calculate the `reverseComplement()` of a DNA sequence, but not of an arbitrary character vector.
+
+    ```{r, message = FALSE}
+    library(Biostrings)
+    sequences <- c(
+        chr1 = "CTGACT",
+        chr2 = "CTGGGAACT"
+    )
+    dna <- DNAStringSet(sequences)
+    dna
+
+    ## fails! `T` not in the RNA alphabet
+    result <- try( RNAStringSet(sequences) )
+    ```
+
+- Methods represent the implementation of common ('generic') operations, specialized to the specific classes that the method operates on.
+
+    ```{r}
+    length(dna)
+    reverseComplement(dna)
+    translate(dna)
+    ```
+
+    - E.g., one could `translate()` both a DNA sequence, and an RNA sequence, so there is both `translate,DNAStringSet-method` and `translate,RNAStringSet-method`
+    
+- Not all operations are implemented as methods on a class
+
+    - E.g., `length()` is a concept shared by collections of DNA and RNA sequences, so the method is defined on a common 'parent' class
+    
+    - E.g., `dim()` of a two-dimensional object is sufficient to implement `nrow()` (as `dim()[1]`) and `ncol()` (as `dim()[2]`) so one could use a 'plain old' function `nrow <- function(x) dim(x)[1]` for `nrow()` / `ncol()`, relying on a `dim()` generic and methods to provide specialized behavior.
+    
+Getting help
+
+- Vignettes, e.g., [DESeq2 vignette][]! `browseVignettes(package = "DESeq2")`
+- Help pages for classes, e.g., `?DNAStringSet`, `?GRanges`
+- Discovering methods
+
+    ```{r, eval = FALSE}
+    methods("reverse")
+    methods(class = "DNAStringSet")
+    ```
+    
+- Looking at symbols made available by packages (after the package is attached to the `search()` path): `ls("package:GenomicRanges")`
+
+[DESeq2 vignette]: 
+
+### This week: SARS-CoV-2 sequence and human tissue-specific gene expression data
+
+Sequences and annotations
+
+- Input FASTA files from New York State samples (it makes little biological sense to use just New York samples!)  to `DNAStringSet`
+
+- Work the Genbank accession of the reference sequence
+
+    - DNA sequence
+    - Coding sequence annotations
+    - Coding sequences
+
+Alignment and visualization
+
+- Multiple alignment using [DECIPHER][]
+- Visualization using [ggtree][]
+
+Gene expression
+
+- Retrieving example data from ExperimentHub
+- Annotating cell types
+
+[DECIPHER]: https://bioconductor.org/packages/DECIPHER
+[ggtree]: https://bioconductor.org/packages/ggtree
+
+## Day 30 DNA sequences and annotations
+
+Set up a directory for working
+
+```{r}
+workdir <- "workdir"
+if (!dir.exists(workdir))
+    dir.create(workdir)
+```
+
+### Representing DNA sequences
+
+Sample information
+
+- Visit the [NCBI SARS-CoV-2][] site for orientation. We'll retrieve and analyse some of the samples sequenced in New York state
+
+- Read a csv file summarizing records available from the US NCBI.
+
+    ```{r, eval = FALSE}
+    url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-genbank-accessions.csv"
+    csv_file <- file.path(workdir, basename(url))
+    download.file(url, csv_file)
+    
+    records <- read_csv(csv_file)
+    records
+    ```
+
+[NCBI SARS-CoV-2]: https://www.ncbi.nlm.nih.gov/projects/genome/sars-cov-2-seqs
+
+FASTA sequence files
+
+- Download a FASTA file containing DNA sequences of all samples sequenced in New York State (this doesn't make much sense biologically!)
+
+    ```{r}
+    url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-NY.fasta"
+    fasta_file <- file.path(workdir, basename(url))
+    download.file(url, fasta_file)
+    ```
+
+- This is a plain text file with a simple format. Each DNA sequence is on a line starting with an identifier, `>MT...`, and then lines representing the DNA (or RNA or amino acid) sequence.
+  
+    ```{r}
+    readLines(fasta_file, 5)
+    ```
+
+- Load the [Biostrings][] package
+
+    ```{r, message = FALSE}
+    library(Biostrings)
+    options(Biostrings.coloring = FALSE)
+    ```
+
+- Read the DNA sequences and explore basic properties
+
+    ```{r}
+    dna <- readDNAStringSet(fasta_file)
+    dna
+    ```
+
+- Perform simple manipulations
+
+    ```{r}
+    ## how many records?
+    length(dna)
+
+    ## subset
+    dna[1:3]
+    dna[c('MT434817', 'MT434815')]
+
+    ## extract
+    dna[[1]]
+
+    ## number of characters in each record
+    head(nchar(dna))
+    hist(nchar(dna)) # histogram of sequence lengths 
+    ```
+    
+### Working with `GenBankRecord` objects
+
+Data is often represented in complicated formats that do not fit into the tidy 'table' format of a CSV file. An example is the information displayed on the [SARS-CoV-2 reference genome][] web page.
+
+[SARS-CoV-2 reference genome]: https://www.ncbi.nlm.nih.gov/nuccore/NC_045512
+
+Often 'someone' has written software to manipulate this data in a more convient way.
+
+- Attach the [rentrez][] package, which provides a way to query the NCBI's 'Entrez' collection of data bases. Use `BiocManager::install('rentrez')` if you need to install the package
+
+    ```{r, message = FALSE}
+    library(rentrez)
+    ```
+    
+- The accession number for the SARS-CoV-2 reference sequence is `NC_045512`. Use `entrez_search()` to search the NCBI 'nuccore' database to discover information about this accession.
+
+    ```{r}
+    accession <- "NC_045512"
+    nuccore_record <- entrez_search("nuccore", accession)
+    id <- nuccore_record$ids
+    id
+    ```
+
+- The `id` is an identifier that can be used to actually retrieve the genbank record
+
+    ```{r}
+    gb_record <-
+        entrez_fetch("nuccore", id, rettype = "gbwithparts", retmode = "text")
+    ```
+    
+- The record contains all the text in the record; if you like visualize it with
+
+    ```{r, eval = FALSE}
+    cat(gb_record)
+    ```
+    
+Represent the data as `GenBankR` object
+
+- Rather than try to 'munge' (e.g., copy and paste) relevant information from the GenBank record into R, use the [genbankr][] package. Again, install with `BiocManager::install("genbankr")` if necessary
+
+    ```{r, message = FALSE}
+    library(genbankr)
+    ```
+
+- Use the function `readGenBank()` to parse the complicated text of `gb_record`
+
+    ```{r, message = FALSE}
+    gb <- readGenBank(text = gb_record)
+    gb
+    ```
+
+- Extract the reference sequence from the object
+
+    ```{r}
+    ref <- getSeq(gb)
+    ref
+    ```
+    
+- Extract the coding sequences from the reference sequence; the `cds()` command is explained a little later.
+
+    ```{r}
+    cds <- getSeq(ref, cds(gb))
+    cds
+    ```
+
+- There are 13 coding sequences in the genome. Translate these to their amino acid sequences
+
+    ```{r}
+    translate(cds)
+    ```
+    
+### Genomic ranges and DNA sequences
+
+Genomic ranges
+
+- Attach the [GenomicRanges][] package. If necessary, install with `BiocManager::install("GenomicRanges")`
+
+    ```{r, message = FALSE}
+    library(GenomicRanges)
+    ```
+    
+- Extract the coordinates of the coding sequences contained in the GenBank accession
+
+    ```{r}
+    cds <- cds(gb)
+    ```
+
+- Look at the genomic ranges defined in `cds`
+
+    ```{r}
+    granges(cds)
+    ```
+    
+- There are 13 coding sequences in the reference genome. The sequence is named 'Severe acute respiratory syndrome coronavirus2'. The first region starts at position `r start(cds)[1]` of the reference genome, and goes to position `r end(cds)[1]`. The coding sequence is on the '+' strand.
+
+- The full `cds` object has additional detail about each coding sequence. Display the full object (the display 'wraps' around several lines
+
+    ```{r}
+    cds
+    ```
+    
+  or coerce to a tibble and explore
+  
+    ```{r}
+    library(tibble)
+    as_tibble(cds)
+    ```
+  
+  For instance, we can find the gene associated with each coding sequence, using the following equivalent commands
+  
+    ```{r}
+    cds$gene
+
+    subset(cds, , gene)
+
+    as_tibble(cds) %>%
+        ## info on gene and protein product
+        dplyr::select(gene, product)
+    ```
+
+Using genomic ranges to extract DNA sequences
+
+- Recall the sequence of the entire genome
+
+    ```{r}
+    ref <- getSeq(gb)
+    ref
+    ```
+    
+- Use `getSeq()` to extract the `DNAStringSet()` corresponding to the genomic ranges specified by `cds`
+
+    ```{r}
+    dna <- getSeq(ref, cds)
+    dna
+    ```
+    
+- It might be useful to coordinate information about each coding sequence with the sequence itself
+
+    ```{r}
+    cds$DNA <- dna
+    cds$AminoAcid <- translate(dna)
+    cds
+    ```
+
+## Day 31 Sequence alignment and visualization
+
+### Sequence alignment
+
+Setup
+
+- Install (if necessary, using `BiocManager::install("DECIPHER")`) and attach the [DECIPHER][] package
+
+    ```{r, message = FALSE}
+    library(DECIPHER)
+    ```
+- This package contains tools for multiple sequence alignment. Explore the introductory and other vignettes in this package.
+
+    ```{r, eval = FALSE}
+    browseVignettes(package = "DECIPHER")
+    ```
+
+- Check out one of the help pages, e.g.,
+
+    ```{r}
+    ?AlignSeqs
+    ```
+    
+  Use `example(AlignSeqs)` to run the examples on the help page.
+
+### Phylogenetic tree visualization
+
+Setup
+
+- Install (if necessary, using `BiocManager::install("ggtree")`) and attach the [ggtree][] package
+
+    ```{r, message = FALSE}
+    library(ggtree)
+    ```
+    
+- The visualizations this package provides are not well-suited to _R_'s help pages; check out the online [ggtree book][] to orient yourself.
+
+[ggtree book]: https://yulab-smu.github.io/treedata-book
+
+## Day 32 Single-cell expression data
 
 ## Day 33 (Friday) Zoom check-in
 
 ### Review and trouble shoot (25 minutes)
 
+[Bioconductor][]
+
+- Packages
+
+- Classes and methods
+
+SARS-CoV-2 sequence data
+
+- Querying Entrez and parsing GenBank records
+
+- Working with DNA sequences and genomic ranges
+
+- Multiple alignment and phylogenetic tree visualization
+
+Single cell expression
+
 ### Next week (25 minutes)
 
-## Day 34
+## Day 34 
 
 ## Day 35
 
-Self-directed activities.
