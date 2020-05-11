@@ -116,6 +116,26 @@ Getting help
 
 ### This week: SARS-CoV-2 sequence and human tissue-specific gene expression data
 
+Biological background
+
+- RNA virus ([source][img-src-05-1], license: [CC BY-SA 4.0][])
+
+    ```{r echo = FALSE, out.width = "60%"}
+    knitr::include_graphics('images/512px-Coronavirus_virion_structure.svg.png')
+    ```
+    
+- Key domains ([source][img-src-05-2], license: [CC BY 2][])
+
+    ```{r echo = FALSE, out.width = "100%"}
+    knitr::include_graphics('images/SARS-CoV_genome_organization.jpg')
+    ```
+
+[img-src-05-1]: https://en.wikipedia.org/wiki/File:Coronavirus_virion_structure.svg
+[img-src-05-2]: https://en.wikipedia.org/wiki/File:SARS-CoV_genome_organization.jpg
+
+[CC BY-SA 4.0]: https://creativecommons.org/licenses/by-sa/4.0/deed.en
+[CC BY 2]: https://creativecommons.org/licenses/by/2.0/deed.en
+
 Setup
 
 - Some essential _Bioconductor_ data structures
