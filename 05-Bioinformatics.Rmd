@@ -31,7 +31,7 @@ Packages
 
     ```{r, eval = FALSE}
     ## Biostrings and genbankr are Bioconductor packages, rentrez is from CRAN
-    BiocMangaer::install(c("Biostrings", "rentrez"))
+    BiocManager::install(c("Biostrings", "rentrez"))
     ```
 
 - Validate installation
@@ -123,7 +123,7 @@ Biological background
     ```{r echo = FALSE, out.width = "60%"}
     knitr::include_graphics('images/512px-Coronavirus_virion_structure.svg.png')
     ```
-    
+
 - Key domains ([source][img-src-05-2], license: [CC BY 2][])
 
     ```{r echo = FALSE, out.width = "100%"}
@@ -230,6 +230,8 @@ Gene expression
 [ggtree]: https://bioconductor.org/packages/ggtree
 
 ## Day 30 DNA sequences and annotations
+
+### Setup
 
 Set up a directory for working
 
@@ -488,6 +490,70 @@ Using genomic ranges to extract DNA sequences
 
 ## Day 31 Sequence alignment and visualization
 
+### 'S' gene exploration
+
+Read the 'S' gene sequence extracted from all genbank records into a `DNAStringSet`
+
+```{r, cache = TRUE}
+url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-S.fasta"
+dna <- readDNAStringSet(url)
+dna
+```
+
+Explore the data. How many sequences? How many unique sequences?
+
+```{r}
+length(dna)
+
+dna %>% unique() %>% length()
+```
+
+Note that the DNA alphabet contains 'ambiguity' letters, corresponding to base seuqencs that were uncertain, e.g., 'A' or 'T'. Check out the help page for `?translate` to see options for translating ambiguity codes. How many unique protein sequences?
+
+```{r}
+IUPAC_CODE_MAP
+
+dna %>% alphabetFrequency() %>% colSums()
+
+aa <- dna %>% translate(if.fuzzy.codon = "solve") %>% unique()
+
+aa
+```
+
+The `table()` function counts the number of occurrences of each element, so
+
+```{r}
+nchar(aa) %>% table() %>% as_tibble()
+```
+
+shows us that most sequences have 1274 amino acids.
+
+The `names(aa)` are misleading -- these are the identifiers of a representative accession, but several accessions may map to the same identifier. The following code creates a table that indicates which cluster each original identifer belongs to; the names of `aa` are updated accordingly.
+
+```{r}
+all <- dna %>% translate(if.fuzzy.codon = "solve")
+## match(x, y) finds the index of each element of x in y.
+## match(c("apple", "pear"), c("pear", "apple", "banana")) finds
+## that 'apple' in x matches the second element of y, and 'pear'
+## matches the first element of y. So the result is c(2, 1).
+id <- match(all, aa)
+clusters <- tibble(
+    accession = names(all),
+    label = as.character(id)
+)
+names(aa) <- match(aa, aa)
+```
+
+With this information, it's easy to count the number of times each sequence was represented. The reference sequence belongs to cluster 1.
+
+```{r}
+clusters %>% filter(accession == "NC_045512")
+
+clusters %>%
+    count(label) %>%
+    arrange(desc(n))
+```
+
 ### Sequence alignment
 
 Setup
@@ -523,81 +589,41 @@ Setup
 
   Use `example(AlignSeqs)` to run the examples on the help page.
 
-Sequence download, input, and alignment
 
-- Download, if necessary
+Perform multiple alignment
 
-    ```{r}
-    url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-NY.fasta"
-    fasta_file <- file.path(workdir, basename(url))
-    if ( !file.exists(fasta_file) )
-        download.file(url, fasta_file)
-    ```
-
-- Load as `DNAStringSet`
-
-    ```{r}
-    dna <- readDNAStringSet(fasta_file)
-    dna
-    ```
-
-- Perform multiple alignment using DECIPHER
+- Perform multiple alignment on the unique amino acid sequences using DECIPHER; this has minimal effect, with single insertions in the few sequences with unusual `nchar()`.
 
     ```{r, cache = TRUE, message = FALSE}
-    aln <- AlignSeqs(dna, verbose = FALSE)
+    aln <- AlignSeqs(aa, verbose = FALSE)
     aln
+
+    nchar(aln) %>% table() %>% as_tibble()
     ```
 
 - The 'distance matrix' measures the proximity (Hamming distance) of each sequence to other sequences in sequence space. The result is a large matrix of pairwise distances
 
     ```{r, cache = TRUE}
-    dist <- DistanceMatrix(aln)
+    dist <- DistanceMatrix(aln, verbose = FALSE)
     class(dist)
     dim(dist)
     dist[1:5, 1:5]
     ```
 
-- Use the distance matrix to cluster sequences using the 'Neighbor Joining' algorithm; visualize the result
+- Use the distance matrix to cluster sequences using the 'Neighbor Joining' algorithm; visualize the result (see `?plot.dendrogram` for plotting options when the first argument is of class `dendrogram`)
 
     ```{r, message = FALSE}
     dendrogram <- IdClusters(dist, method = "NJ", type = "dendrogram")
-    plot(dendrogram)
+    dendrogram
+    plot(dendrogram, leaflab = "none")
     ```
 
-- Save the tree to the working directory using the 'Newick' format
+Save the tree to the working directory using the 'Newick' format
 
-    ```{r}
-    dendrogram_file <- file.path(workdir, "SARS-CoV2-NY.newick")
-    WriteDendrogram(dendrogram, dendrogram_file, quoteLabels = FALSE)
-    ```
-
-**Advanced activity**
-
-- It seems likely that a more biologically motivated analysis would focus on codiong sequence, in particular the S, E, M and / or N loci. And the analysis would use all sequences, not just those from a particular geo-political region.
-
-- The information can be extracted from a genbank record, e.g., from the `gb_record` retrieved above
-
-    ```{r}
-    gb <- readGenBank(text = gb_record)
-    semn <-
-        cds(gb) %>% subset(gene %in% c("S", "E", "M", "N"))
-    ref <- getSeq(gb)
-    getSeq(ref, semn)
-    ```
-
-- The script used to retrieve New York State sequences is [available][get-SARS-CoV2-NY-fasta]. The crucial modification is in the `get_accession_sequence()` function. Modify this function to retrieve, e.g., the S (surface glycoprotein) coding sequence, along the lines of
-
-    ```{r, eval = FALSE}
-    ...
-    result <- readGenBank(text = text)
-    ref <- getSeq(result)
-    getSeq(ref, subset(cds(result), gene %in% "S"))
-    ...
-    ```
-
-- Debug an updated version of the script downloading just a few records. Then download _all_ records (this could take 10's of minutes).
-
-- Perform the multiple alignment on S gene sequences instead of whole-genome sequence
+```{r}
+dendrogram_file <- file.path(workdir, "SARS-CoV2-S.newick")
+WriteDendrogram(dendrogram, dendrogram_file, quoteLabels = FALSE)
+```
 
 ### Phylogenetic tree visualization
 
@@ -617,31 +643,33 @@ Setup
 
 [ggtree book]: https://yulab-smu.github.io/treedata-book
 
-Data preparation and initial visualization
+Read the data from the Newick-format file created by DECIPHER
 
-- Read the data from the Newick-format file created by DECIPHER
+```{r}
+dendrogram_file <- file.path(workdir, "SARS-CoV2-S.newick")
+tree <- treeio::read.newick(dendrogram_file)
+tree
+tibble::as_tibble(tree)
+```
 
-    ```{r}
-    dendrogram_file <- file.path(workdir, "SARS-CoV2-NY.newick")
-    tree <- treeio::read.newick(dendrogram_file)
-    tree
-    tibble::as_tibble(tree)
-    ```
+Plot the tree, adding tip labels to the longest branches
 
-- plot the tree, adding tip labels to the longest branches
+```{r}
+ggtree(tree) +
+    geom_tiplab(
+        aes(
+            subset = branch.length > .001,
+            label = label
+        ),
+        size = 3
+    )
+```
 
-    ```{r}
-    ggtree(tree) +
-        geom_tiplab(
-            aes(
-                subset = branch.length > .0001,
-                label = label
-            ),
-            size=2
-        )
-    ```
+Color sequences by region
 
-- Collapse clades with short branches
+- Find nodes representing just a single sequence -- 'singletons'
+- Use GenBank country to identify which country these were sequenced from
+- Color lineages according to singleton country of origin
 
 ## Day 32 Single-cell expression data
 

@@ -240,13 +240,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.3" data-path="five.html"><a href="five.html#this-week-sars-cov-2-sequence-and-human-tissue-specific-gene-expression-data"><i class="fa fa-check"></i><b>5.1.3</b> This week: SARS-CoV-2 sequence and human tissue-specific gene expression data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="five.html"><a href="five.html#day-30-dna-sequences-and-annotations"><i class="fa fa-check"></i><b>5.2</b> Day 30 DNA sequences and annotations</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="five.html"><a href="five.html#representing-dna-sequences"><i class="fa fa-check"></i><b>5.2.1</b> Representing DNA sequences</a></li>
-<li class="chapter" data-level="5.2.2" data-path="five.html"><a href="five.html#working-with-genbankrecord-objects"><i class="fa fa-check"></i><b>5.2.2</b> Working with <code>GenBankRecord</code> objects</a></li>
-<li class="chapter" data-level="5.2.3" data-path="five.html"><a href="five.html#genomic-ranges-and-dna-sequences"><i class="fa fa-check"></i><b>5.2.3</b> Genomic ranges and DNA sequences</a></li>
+<li class="chapter" data-level="5.2.1" data-path="five.html"><a href="five.html#setup-1"><i class="fa fa-check"></i><b>5.2.1</b> Setup</a></li>
+<li class="chapter" data-level="5.2.2" data-path="five.html"><a href="five.html#representing-dna-sequences"><i class="fa fa-check"></i><b>5.2.2</b> Representing DNA sequences</a></li>
+<li class="chapter" data-level="5.2.3" data-path="five.html"><a href="five.html#working-with-genbankrecord-objects"><i class="fa fa-check"></i><b>5.2.3</b> Working with <code>GenBankRecord</code> objects</a></li>
+<li class="chapter" data-level="5.2.4" data-path="five.html"><a href="five.html#genomic-ranges-and-dna-sequences"><i class="fa fa-check"></i><b>5.2.4</b> Genomic ranges and DNA sequences</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="five.html"><a href="five.html#day-31-sequence-alignment-and-visualization"><i class="fa fa-check"></i><b>5.3</b> Day 31 Sequence alignment and visualization</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="five.html"><a href="five.html#sequence-alignment"><i class="fa fa-check"></i><b>5.3.1</b> Sequence alignment</a></li>
-<li class="chapter" data-level="5.3.2" data-path="five.html"><a href="five.html#phylogenetic-tree-visualization"><i class="fa fa-check"></i><b>5.3.2</b> Phylogenetic tree visualization</a></li>
+<li class="chapter" data-level="5.3.1" data-path="five.html"><a href="five.html#s-gene-exploration"><i class="fa fa-check"></i><b>5.3.1</b> ‘S’ gene exploration</a></li>
+<li class="chapter" data-level="5.3.2" data-path="five.html"><a href="five.html#sequence-alignment"><i class="fa fa-check"></i><b>5.3.2</b> Sequence alignment</a></li>
+<li class="chapter" data-level="5.3.3" data-path="five.html"><a href="five.html#phylogenetic-tree-visualization"><i class="fa fa-check"></i><b>5.3.3</b> Phylogenetic tree visualization</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="five.html"><a href="five.html#day-32-single-cell-expression-data"><i class="fa fa-check"></i><b>5.4</b> Day 32 Single-cell expression data</a></li>
 <li class="chapter" data-level="5.5" data-path="five.html"><a href="five.html#day-33-friday-zoom-check-in"><i class="fa fa-check"></i><b>5.5</b> Day 33 (Friday) Zoom check-in</a><ul>
@@ -307,12 +309,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;https://cran.r-project.org&quot;</span>)</a></code></pre></div></li>
 <li><p>Install <em>Bioconductor</em> or <em>CRAN</em> packages</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">## Biostrings and genbankr are Bioconductor packages, rentrez is from CRAN</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">BiocMangaer<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;Biostrings&quot;</span>, <span class="st">&quot;rentrez&quot;</span>))</a></code></pre></div></li>
+<a class="sourceLine" id="cb2-2" data-line-number="2">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;Biostrings&quot;</span>, <span class="st">&quot;rentrez&quot;</span>))</a></code></pre></div></li>
 <li><p>Validate installation</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">BiocManager<span class="op">::</span><span class="kw">version</span>() <span class="co"># current release is 3.11; needs R 4.0</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">## [1] &#39;3.10&#39;</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">BiocManager<span class="op">::</span><span class="kw">valid</span>()</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## [1] TRUE</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## Warning: 3 packages out-of-date; 0 packages too new</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## * sessionInfo()</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">## R version 3.6.3 Patched (2020-02-29 r77906)</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">## Platform: x86_64-apple-darwin17.7.0 (64-bit)</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">## Running under: macOS High Sierra 10.13.6</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">## Matrix products: default</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">## BLAS:   /Users/ma38727/bin/R-3-6-branch/lib/libRblas.dylib</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">## LAPACK: /Users/ma38727/bin/R-3-6-branch/lib/libRlapack.dylib</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">## locale:</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">## attached base packages:</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">## loaded via a namespace (and not attached):</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">##  [1] BiocManager_1.30.10 compiler_3.6.3      magrittr_1.5       </span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">##  [4] bookdown_0.18       htmltools_0.4.0     tools_3.6.3        </span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">##  [7] yaml_2.2.1          Rcpp_1.0.4.6        stringi_1.4.6      </span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">## [10] rmarkdown_2.1       knitr_1.28          stringr_1.4.0      </span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">## [13] digest_0.6.25       xfun_0.13           rlang_0.4.6        </span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">## [16] evaluate_0.14      </span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">## Bioconductor version &#39;3.10&#39;</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">##   * 3 packages out-of-date</span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">##   * 0 packages too new</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">## create a valid installation with</span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">##   BiocManager::install(c(</span></a>
+<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">##     &quot;scales&quot;, &quot;tidyselect&quot;, &quot;vctrs&quot;</span></a>
+<a class="sourceLine" id="cb3-39" data-line-number="39"><span class="co">##   ), update = TRUE, ask = FALSE)</span></a>
+<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">## more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date</span></a></code></pre></div></li>
 <li><p>Types of packages</p>
 <ul>
 <li>Software (e.g., <a href="https://bioconductor.org/packages/Biostrings">Biostrings</a>, <a href="https://bioconductor.org/packages/SingleCellExperiment">SingleCellExperiment</a>)</li>
@@ -472,6 +511,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="day-30-dna-sequences-and-annotations" class="section level2">
 <h2><span class="header-section-number">5.2</span> Day 30 DNA sequences and annotations</h2>
+<div id="setup-1" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Setup</h3>
 <p>Set up a directory for working</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">workdir &lt;-<span class="st"> &quot;workdir&quot;</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(workdir))</a>
@@ -490,8 +531,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb16-5" data-line-number="5">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Biostrings&quot;</span>, <span class="st">&quot;GenomicRanges&quot;</span>, <span class="st">&quot;rentrez&quot;</span>, <span class="st">&quot;genbankr&quot;</span>)</a>
 <a class="sourceLine" id="cb16-6" data-line-number="6">BiocManager<span class="op">::</span><span class="kw">install</span>(pkgs)</a></code></pre></div></li>
 </ul>
+</div>
 <div id="representing-dna-sequences" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Representing DNA sequences</h3>
+<h3><span class="header-section-number">5.2.2</span> Representing DNA sequences</h3>
 <p>Sample information</p>
 <ul>
 <li><p>Visit the <a href="https://www.ncbi.nlm.nih.gov/projects/genome/sars-cov-2-seqs">NCBI SARS-CoV-2</a> site for orientation. We’ll retrieve and analyse some of the samples sequenced in New York state</p></li>
@@ -590,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <div id="working-with-genbankrecord-objects" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Working with <code>GenBankRecord</code> objects</h3>
+<h3><span class="header-section-number">5.2.3</span> Working with <code>GenBankRecord</code> objects</h3>
 <p>Data is often represented in complicated formats that do not fit into the tidy ‘table’ format of a CSV file. An example is the information displayed on the <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_045512">SARS-CoV-2 reference genome</a> web page.</p>
 <p>Often ‘someone’ has written software to manipulate this data in a more convient way.</p>
 <ul>
@@ -707,7 +749,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <div id="genomic-ranges-and-dna-sequences" class="section level3">
-<h3><span class="header-section-number">5.2.3</span> Genomic ranges and DNA sequences</h3>
+<h3><span class="header-section-number">5.2.4</span> Genomic ranges and DNA sequences</h3>
 <p>Genomic ranges</p>
 <ul>
 <li><p>Attach the <a href="https://bioconductor.org/packages/GenomicRanges">GenomicRanges</a> package. If necessary, install with <code>BiocManager::install(&quot;GenomicRanges&quot;)</code></p>
@@ -1011,207 +1053,266 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="day-31-sequence-alignment-and-visualization" class="section level2">
 <h2><span class="header-section-number">5.3</span> Day 31 Sequence alignment and visualization</h2>
+<div id="s-gene-exploration" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> ‘S’ gene exploration</h3>
+<p>Read the ‘S’ gene sequence extracted from all genbank records into a <code>DNAStringSet</code></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-S.fasta&quot;</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">dna &lt;-<span class="st"> </span><span class="kw">readDNAStringSet</span>(url)</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">dna</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="co">##   A DNAStringSet instance of length 2289</span></a>
+<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="co">##        width seq                                            names               </span></a>
+<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="co">##    [1]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA LC528232</span></a>
+<a class="sourceLine" id="cb41-7" data-line-number="7"><span class="co">##    [2]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA LC528233</span></a>
+<a class="sourceLine" id="cb41-8" data-line-number="8"><span class="co">##    [3]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA LC529905</span></a>
+<a class="sourceLine" id="cb41-9" data-line-number="9"><span class="co">##    [4]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA LC534418</span></a>
+<a class="sourceLine" id="cb41-10" data-line-number="10"><span class="co">##    [5]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA LC534419</span></a>
+<a class="sourceLine" id="cb41-11" data-line-number="11"><span class="co">##    ...   ... ...</span></a>
+<a class="sourceLine" id="cb41-12" data-line-number="12"><span class="co">## [2285]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA MT447174</span></a>
+<a class="sourceLine" id="cb41-13" data-line-number="13"><span class="co">## [2286]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA MT447175</span></a>
+<a class="sourceLine" id="cb41-14" data-line-number="14"><span class="co">## [2287]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA MT447176</span></a>
+<a class="sourceLine" id="cb41-15" data-line-number="15"><span class="co">## [2288]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA MT447177</span></a>
+<a class="sourceLine" id="cb41-16" data-line-number="16"><span class="co">## [2289]  3822 ATGTTTGTTTTTCTTGTTTTAT...GTCAAATTACATTACACATAA NC_045512</span></a></code></pre></div>
+<p>Explore the data. How many sequences? How many unique sequences?</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">length</span>(dna)</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="co">## [1] 2289</span></a>
+<a class="sourceLine" id="cb42-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">dna <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">length</span>()</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5"><span class="co">## [1] 427</span></a></code></pre></div>
+<p>Note that the DNA alphabet contains ‘ambiguity’ letters, corresponding to base seuqencs that were uncertain, e.g., ‘A’ or ‘T’. Check out the help page for <code>?translate</code> to see options for translating ambiguity codes. How many unique protein sequences?</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">IUPAC_CODE_MAP</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="co">##      A      C      G      T      M      R      W      S      Y      K      V </span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="co">##    &quot;A&quot;    &quot;C&quot;    &quot;G&quot;    &quot;T&quot;   &quot;AC&quot;   &quot;AG&quot;   &quot;AT&quot;   &quot;CG&quot;   &quot;CT&quot;   &quot;GT&quot;  &quot;ACG&quot; </span></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="co">##      H      D      B      N </span></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co">##  &quot;ACT&quot;  &quot;AGT&quot;  &quot;CGT&quot; &quot;ACGT&quot;</span></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">dna <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">alphabetFrequency</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">colSums</span>()</a>
+<a class="sourceLine" id="cb43-8" data-line-number="8"><span class="co">##       A       C       G       T       M       R       W       S       Y       K </span></a>
+<a class="sourceLine" id="cb43-9" data-line-number="9"><span class="co">## 2563642 1649084 1604491 2898077       2       9       6       0      17       6 </span></a>
+<a class="sourceLine" id="cb43-10" data-line-number="10"><span class="co">##       V       H       D       B       N       -       +       . </span></a>
+<a class="sourceLine" id="cb43-11" data-line-number="11"><span class="co">##       1       0       1       1   33212       0       0       0</span></a>
+<a class="sourceLine" id="cb43-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb43-13" data-line-number="13">aa &lt;-<span class="st"> </span>dna <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">translate</span>(<span class="dt">if.fuzzy.codon =</span> <span class="st">&quot;solve&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>()</a>
+<a class="sourceLine" id="cb43-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb43-15" data-line-number="15">aa</a>
+<a class="sourceLine" id="cb43-16" data-line-number="16"><span class="co">##   A AAStringSet instance of length 343</span></a>
+<a class="sourceLine" id="cb43-17" data-line-number="17"><span class="co">##       width seq                                             names               </span></a>
+<a class="sourceLine" id="cb43-18" data-line-number="18"><span class="co">##   [1]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* LC528232</span></a>
+<a class="sourceLine" id="cb43-19" data-line-number="19"><span class="co">##   [2]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT007544</span></a>
+<a class="sourceLine" id="cb43-20" data-line-number="20"><span class="co">##   [3]  1273 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT012098</span></a>
+<a class="sourceLine" id="cb43-21" data-line-number="21"><span class="co">##   [4]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT020781</span></a>
+<a class="sourceLine" id="cb43-22" data-line-number="22"><span class="co">##   [5]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT039890</span></a>
+<a class="sourceLine" id="cb43-23" data-line-number="23"><span class="co">##   ...   ... ...</span></a>
+<a class="sourceLine" id="cb43-24" data-line-number="24"><span class="co">## [339]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT446361</span></a>
+<a class="sourceLine" id="cb43-25" data-line-number="25"><span class="co">## [340]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT447160</span></a>
+<a class="sourceLine" id="cb43-26" data-line-number="26"><span class="co">## [341]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT447163</span></a>
+<a class="sourceLine" id="cb43-27" data-line-number="27"><span class="co">## [342]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* MT447168</span></a>
+<a class="sourceLine" id="cb43-28" data-line-number="28"><span class="co">## [343]  1274 MFVFLVLLPLVSSQCVNLTTRI...CCKFDEDDSEPVLKGVKLHYT* MT447177</span></a></code></pre></div>
+<p>The <code>table()</code> function counts the number of occurrences of each element, so</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">nchar</span>(aa) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">table</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="co">## # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="co">##   .         n</span></a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="co">##   &lt;chr&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="co">## 1 1273      3</span></a>
+<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="co">## 2 1274    340</span></a></code></pre></div>
+<p>shows us that most sequences have 1274 amino acids.</p>
+<p>The <code>names(aa)</code> are misleading – these are the identifiers of a representative accession, but several accessions may map to the same identifier. The following code creates a table that indicates which cluster each original identifer belongs to; the names of <code>aa</code> are updated accordingly.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">all &lt;-<span class="st"> </span>dna <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">translate</span>(<span class="dt">if.fuzzy.codon =</span> <span class="st">&quot;solve&quot;</span>)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="co">## match(x, y) finds the index of each element of x in y.</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="co">## match(c(&quot;apple&quot;, &quot;pear&quot;), c(&quot;pear&quot;, &quot;apple&quot;, &quot;banana&quot;)) finds</span></a>
+<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="co">## that &#39;apple&#39; in x matches the second element of y, and &#39;pear&#39;</span></a>
+<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="co">## matches the first element of y. So the result is c(2, 1).</span></a>
+<a class="sourceLine" id="cb45-6" data-line-number="6">id &lt;-<span class="st"> </span><span class="kw">match</span>(all, aa)</a>
+<a class="sourceLine" id="cb45-7" data-line-number="7">clusters &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb45-8" data-line-number="8">    <span class="dt">accession =</span> <span class="kw">names</span>(all),</a>
+<a class="sourceLine" id="cb45-9" data-line-number="9">    <span class="dt">label =</span> <span class="kw">as.character</span>(id)</a>
+<a class="sourceLine" id="cb45-10" data-line-number="10">)</a>
+<a class="sourceLine" id="cb45-11" data-line-number="11"><span class="kw">names</span>(aa) &lt;-<span class="st"> </span><span class="kw">match</span>(aa, aa)</a></code></pre></div>
+<p>With this information, it’s easy to count the number of times each sequence was represented. The reference sequence belongs to cluster 1.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">clusters <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(accession <span class="op">==</span><span class="st"> &quot;NC_045512&quot;</span>)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="co">## # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="co">##   accession label</span></a>
+<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="co">##   &lt;chr&gt;     &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb46-5" data-line-number="5"><span class="co">## 1 NC_045512 1</span></a>
+<a class="sourceLine" id="cb46-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb46-7" data-line-number="7">clusters <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-8" data-line-number="8"><span class="st">    </span><span class="kw">count</span>(label) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-9" data-line-number="9"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n))</a>
+<a class="sourceLine" id="cb46-10" data-line-number="10"><span class="co">## # A tibble: 343 x 2</span></a>
+<a class="sourceLine" id="cb46-11" data-line-number="11"><span class="co">##    label     n</span></a>
+<a class="sourceLine" id="cb46-12" data-line-number="12"><span class="co">##    &lt;chr&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb46-13" data-line-number="13"><span class="co">##  1 11     1117</span></a>
+<a class="sourceLine" id="cb46-14" data-line-number="14"><span class="co">##  2 1       723</span></a>
+<a class="sourceLine" id="cb46-15" data-line-number="15"><span class="co">##  3 126      21</span></a>
+<a class="sourceLine" id="cb46-16" data-line-number="16"><span class="co">##  4 34       10</span></a>
+<a class="sourceLine" id="cb46-17" data-line-number="17"><span class="co">##  5 341      10</span></a>
+<a class="sourceLine" id="cb46-18" data-line-number="18"><span class="co">##  6 125       6</span></a>
+<a class="sourceLine" id="cb46-19" data-line-number="19"><span class="co">##  7 167       6</span></a>
+<a class="sourceLine" id="cb46-20" data-line-number="20"><span class="co">##  8 47        6</span></a>
+<a class="sourceLine" id="cb46-21" data-line-number="21"><span class="co">##  9 59        6</span></a>
+<a class="sourceLine" id="cb46-22" data-line-number="22"><span class="co">## 10 170       5</span></a>
+<a class="sourceLine" id="cb46-23" data-line-number="23"><span class="co">## # … with 333 more rows</span></a></code></pre></div>
+</div>
 <div id="sequence-alignment" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Sequence alignment</h3>
+<h3><span class="header-section-number">5.3.2</span> Sequence alignment</h3>
 <p>Setup</p>
 <ul>
 <li><p>Create a working directory, if necessary. E.g.,</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">workdir &lt;-<span class="st"> &quot;workdir&quot;</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(workdir))</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">    <span class="kw">dir.create</span>(workdir)</a></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">workdir &lt;-<span class="st"> &quot;workdir&quot;</span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(workdir))</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">    <span class="kw">dir.create</span>(workdir)</a></code></pre></div></li>
 <li><p>Install (if necessary, using <code>BiocManager::install(&quot;DECIPHER&quot;)</code>) and attach the <a href="https://bioconductor.org/packages/DECIPHER">DECIPHER</a> package</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">library</span>(DECIPHER)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="kw">maintainer</span>(<span class="st">&quot;DECIPHER&quot;</span>)</a>
-<a class="sourceLine" id="cb42-4" data-line-number="4"><span class="co">## [1] &quot;Erik Wright &lt;eswright@pitt.edu&gt;&quot;</span></a>
-<a class="sourceLine" id="cb42-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb42-6" data-line-number="6"><span class="kw">citation</span>(<span class="st">&quot;DECIPHER&quot;</span>)</a>
-<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb42-8" data-line-number="8"><span class="co">## Wright ES (2016). &quot;Using DECIPHER v2.0 to Analyze Big Biological</span></a>
-<a class="sourceLine" id="cb42-9" data-line-number="9"><span class="co">## Sequence Data in R.&quot; _The R Journal_, *8*(1), 352-359.</span></a>
-<a class="sourceLine" id="cb42-10" data-line-number="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb42-11" data-line-number="11"><span class="co">## A BibTeX entry for LaTeX users is</span></a>
-<a class="sourceLine" id="cb42-12" data-line-number="12"><span class="co">## </span></a>
-<a class="sourceLine" id="cb42-13" data-line-number="13"><span class="co">##   @Article{,</span></a>
-<a class="sourceLine" id="cb42-14" data-line-number="14"><span class="co">##     title = {Using DECIPHER v2.0 to Analyze Big Biological Sequence Data in R},</span></a>
-<a class="sourceLine" id="cb42-15" data-line-number="15"><span class="co">##     author = {Erik S. Wright},</span></a>
-<a class="sourceLine" id="cb42-16" data-line-number="16"><span class="co">##     journal = {The R Journal},</span></a>
-<a class="sourceLine" id="cb42-17" data-line-number="17"><span class="co">##     year = {2016},</span></a>
-<a class="sourceLine" id="cb42-18" data-line-number="18"><span class="co">##     volume = {8},</span></a>
-<a class="sourceLine" id="cb42-19" data-line-number="19"><span class="co">##     number = {1},</span></a>
-<a class="sourceLine" id="cb42-20" data-line-number="20"><span class="co">##     pages = {352-359},</span></a>
-<a class="sourceLine" id="cb42-21" data-line-number="21"><span class="co">##   }</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">library</span>(DECIPHER)</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="kw">maintainer</span>(<span class="st">&quot;DECIPHER&quot;</span>)</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="co">## [1] &quot;Erik Wright &lt;eswright@pitt.edu&gt;&quot;</span></a>
+<a class="sourceLine" id="cb48-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="kw">citation</span>(<span class="st">&quot;DECIPHER&quot;</span>)</a>
+<a class="sourceLine" id="cb48-7" data-line-number="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb48-8" data-line-number="8"><span class="co">## Wright ES (2016). &quot;Using DECIPHER v2.0 to Analyze Big Biological</span></a>
+<a class="sourceLine" id="cb48-9" data-line-number="9"><span class="co">## Sequence Data in R.&quot; _The R Journal_, *8*(1), 352-359.</span></a>
+<a class="sourceLine" id="cb48-10" data-line-number="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb48-11" data-line-number="11"><span class="co">## A BibTeX entry for LaTeX users is</span></a>
+<a class="sourceLine" id="cb48-12" data-line-number="12"><span class="co">## </span></a>
+<a class="sourceLine" id="cb48-13" data-line-number="13"><span class="co">##   @Article{,</span></a>
+<a class="sourceLine" id="cb48-14" data-line-number="14"><span class="co">##     title = {Using DECIPHER v2.0 to Analyze Big Biological Sequence Data in R},</span></a>
+<a class="sourceLine" id="cb48-15" data-line-number="15"><span class="co">##     author = {Erik S. Wright},</span></a>
+<a class="sourceLine" id="cb48-16" data-line-number="16"><span class="co">##     journal = {The R Journal},</span></a>
+<a class="sourceLine" id="cb48-17" data-line-number="17"><span class="co">##     year = {2016},</span></a>
+<a class="sourceLine" id="cb48-18" data-line-number="18"><span class="co">##     volume = {8},</span></a>
+<a class="sourceLine" id="cb48-19" data-line-number="19"><span class="co">##     number = {1},</span></a>
+<a class="sourceLine" id="cb48-20" data-line-number="20"><span class="co">##     pages = {352-359},</span></a>
+<a class="sourceLine" id="cb48-21" data-line-number="21"><span class="co">##   }</span></a></code></pre></div></li>
 <li><p>This package contains tools for multiple sequence alignment. Explore the introductory and other vignettes in this package.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&quot;DECIPHER&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&quot;DECIPHER&quot;</span>)</a></code></pre></div></li>
 <li><p>Check out one of the help pages, e.g.,</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">?AlignSeqs</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">?AlignSeqs</a></code></pre></div>
 <p>Use <code>example(AlignSeqs)</code> to run the examples on the help page.</p></li>
 </ul>
-<p>Sequence download, input, and alignment</p>
+<p>Perform multiple alignment</p>
 <ul>
-<li><p>Download, if necessary</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-NY.fasta&quot;</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">fasta_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="kw">basename</span>(url))</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="cf">if</span> ( <span class="op">!</span><span class="kw">file.exists</span>(fasta_file) )</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">    <span class="kw">download.file</span>(url, fasta_file)</a></code></pre></div></li>
-<li><p>Load as <code>DNAStringSet</code></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">dna &lt;-<span class="st"> </span><span class="kw">readDNAStringSet</span>(fasta_file)</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">dna</a>
-<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 245</span></a>
-<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="co">##       width seq                                             names               </span></a>
-<a class="sourceLine" id="cb46-5" data-line-number="5"><span class="co">##   [1] 29873 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434817</span></a>
-<a class="sourceLine" id="cb46-6" data-line-number="6"><span class="co">##   [2] 29879 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434816</span></a>
-<a class="sourceLine" id="cb46-7" data-line-number="7"><span class="co">##   [3] 29873 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434815</span></a>
-<a class="sourceLine" id="cb46-8" data-line-number="8"><span class="co">##   [4] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434814</span></a>
-<a class="sourceLine" id="cb46-9" data-line-number="9"><span class="co">##   [5] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434813</span></a>
-<a class="sourceLine" id="cb46-10" data-line-number="10"><span class="co">##   ...   ... ...</span></a>
-<a class="sourceLine" id="cb46-11" data-line-number="11"><span class="co">## [241] 29724 GATCTGTTCTCTAAACGAACTT...TGTACAGTGAACAATGCTAGGG MT370833</span></a>
-<a class="sourceLine" id="cb46-12" data-line-number="12"><span class="co">## [242] 29717 TCTAAACGAACTTTAAAATCTG...TACAGTGAACAATGCTAGGGAG MT370832</span></a>
-<a class="sourceLine" id="cb46-13" data-line-number="13"><span class="co">## [243] 29716 TCTAAACGAACTTTAAAATCTG...GTACAGTGAACAATGCTAGGGA MT370831</span></a>
-<a class="sourceLine" id="cb46-14" data-line-number="14"><span class="co">## [244] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT325627</span></a>
-<a class="sourceLine" id="cb46-15" data-line-number="15"><span class="co">## [245] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT304486</span></a></code></pre></div></li>
-<li><p>Perform multiple alignment using DECIPHER</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">aln &lt;-<span class="st"> </span><span class="kw">AlignSeqs</span>(dna, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">aln</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 245</span></a>
-<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="co">##       width seq                                             names               </span></a>
-<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="co">##   [1] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434817</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="co">##   [2] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434816</span></a>
-<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="co">##   [3] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434815</span></a>
-<a class="sourceLine" id="cb47-8" data-line-number="8"><span class="co">##   [4] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434814</span></a>
-<a class="sourceLine" id="cb47-9" data-line-number="9"><span class="co">##   [5] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT434813</span></a>
-<a class="sourceLine" id="cb47-10" data-line-number="10"><span class="co">##   ...   ... ...</span></a>
-<a class="sourceLine" id="cb47-11" data-line-number="11"><span class="co">## [241] 29882 ----------------------...---------------------- MT370833</span></a>
-<a class="sourceLine" id="cb47-12" data-line-number="12"><span class="co">## [242] 29882 ----------------------...---------------------- MT370832</span></a>
-<a class="sourceLine" id="cb47-13" data-line-number="13"><span class="co">## [243] 29882 ----------------------...---------------------- MT370831</span></a>
-<a class="sourceLine" id="cb47-14" data-line-number="14"><span class="co">## [244] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT325627</span></a>
-<a class="sourceLine" id="cb47-15" data-line-number="15"><span class="co">## [245] 29882 ATTAAAGGTTTATACCTTCCCA...GGAGAATGACAAAAAAAAAAAA MT304486</span></a></code></pre></div></li>
+<li><p>Perform multiple alignment on the unique amino acid sequences using DECIPHER; this has minimal effect, with single insertions in the few sequences with unusual <code>nchar()</code>.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">aln &lt;-<span class="st"> </span><span class="kw">AlignSeqs</span>(aa, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">aln</a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="co">##   A AAStringSet instance of length 343</span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="co">##       width seq                                             names               </span></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="co">##   [1]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 1</span></a>
+<a class="sourceLine" id="cb51-6" data-line-number="6"><span class="co">##   [2]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 2</span></a>
+<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="co">##   [3]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 3</span></a>
+<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="co">##   [4]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 4</span></a>
+<a class="sourceLine" id="cb51-9" data-line-number="9"><span class="co">##   [5]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 5</span></a>
+<a class="sourceLine" id="cb51-10" data-line-number="10"><span class="co">##   ...   ... ...</span></a>
+<a class="sourceLine" id="cb51-11" data-line-number="11"><span class="co">## [339]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 339</span></a>
+<a class="sourceLine" id="cb51-12" data-line-number="12"><span class="co">## [340]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 340</span></a>
+<a class="sourceLine" id="cb51-13" data-line-number="13"><span class="co">## [341]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 341</span></a>
+<a class="sourceLine" id="cb51-14" data-line-number="14"><span class="co">## [342]  1274 MFVFLVLLPLVSSQCVNLTTRT...CCKFDEDDSEPVLKGVKLHYT* 342</span></a>
+<a class="sourceLine" id="cb51-15" data-line-number="15"><span class="co">## [343]  1274 MFVFLVLLPLVSSQCVNLTTRI...CCKFDEDDSEPVLKGVKLHYT* 343</span></a>
+<a class="sourceLine" id="cb51-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb51-17" data-line-number="17"><span class="kw">nchar</span>(aln) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">table</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()</a>
+<a class="sourceLine" id="cb51-18" data-line-number="18"><span class="co">## # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb51-19" data-line-number="19"><span class="co">##   .         n</span></a>
+<a class="sourceLine" id="cb51-20" data-line-number="20"><span class="co">##   &lt;chr&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb51-21" data-line-number="21"><span class="co">## 1 1274    343</span></a></code></pre></div></li>
 <li><p>The ‘distance matrix’ measures the proximity (Hamming distance) of each sequence to other sequences in sequence space. The result is a large matrix of pairwise distances</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">dist &lt;-<span class="st"> </span><span class="kw">DistanceMatrix</span>(aln)</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="co">## ================================================================================</span></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="co">## </span></a>
-<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="co">## Time difference of 3.28 secs</span></a>
-<a class="sourceLine" id="cb48-5" data-line-number="5"><span class="kw">class</span>(dist)</a>
-<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="co">## [1] &quot;matrix&quot;</span></a>
-<a class="sourceLine" id="cb48-7" data-line-number="7"><span class="kw">dim</span>(dist)</a>
-<a class="sourceLine" id="cb48-8" data-line-number="8"><span class="co">## [1] 245 245</span></a>
-<a class="sourceLine" id="cb48-9" data-line-number="9">dist[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb48-10" data-line-number="10"><span class="co">##              MT434817     MT434816     MT434815     MT434814     MT434813</span></a>
-<a class="sourceLine" id="cb48-11" data-line-number="11"><span class="co">## MT434817 0.0000000000 0.0005019744 0.0007027642 0.0007362292 0.0006358343</span></a>
-<a class="sourceLine" id="cb48-12" data-line-number="12"><span class="co">## MT434816 0.0005019744 0.0000000000 0.0004685095 0.0005019744 0.0004015795</span></a>
-<a class="sourceLine" id="cb48-13" data-line-number="13"><span class="co">## MT434815 0.0007027642 0.0004685095 0.0000000000 0.0007027642 0.0006023693</span></a>
-<a class="sourceLine" id="cb48-14" data-line-number="14"><span class="co">## MT434814 0.0007362292 0.0005019744 0.0007027642 0.0000000000 0.0003011847</span></a>
-<a class="sourceLine" id="cb48-15" data-line-number="15"><span class="co">## MT434813 0.0006358343 0.0004015795 0.0006023693 0.0003011847 0.0000000000</span></a></code></pre></div></li>
-<li><p>Use the distance matrix to cluster sequences using the ‘Neighbor Joining’ algorithm; visualize the result</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">dendrogram &lt;-<span class="st"> </span><span class="kw">IdClusters</span>(dist, <span class="dt">method =</span> <span class="st">&quot;NJ&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;dendrogram&quot;</span>)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="co">## ================================================================================</span></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="co">## </span></a>
-<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="co">## Time difference of 0.41 secs</span></a>
-<a class="sourceLine" id="cb49-5" data-line-number="5"><span class="kw">plot</span>(dendrogram)</a></code></pre></div>
-<p><img src="05-Bioinformatics_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p></li>
-<li><p>Save the tree to the working directory using the ‘Newick’ format</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">dendrogram_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="st">&quot;SARS-CoV2-NY.newick&quot;</span>)</a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">WriteDendrogram</span>(dendrogram, dendrogram_file, <span class="dt">quoteLabels =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">dist &lt;-<span class="st"> </span><span class="kw">DistanceMatrix</span>(aln, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">class</span>(dist)</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="co">## [1] &quot;matrix&quot;</span></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="kw">dim</span>(dist)</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="co">## [1] 343 343</span></a>
+<a class="sourceLine" id="cb52-6" data-line-number="6">dist[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="co">##              1            2           3            4            5</span></a>
+<a class="sourceLine" id="cb52-8" data-line-number="8"><span class="co">## 1 0.0000000000 0.0007849294 0.001569859 0.0007849294 0.0007849294</span></a>
+<a class="sourceLine" id="cb52-9" data-line-number="9"><span class="co">## 2 0.0007849294 0.0000000000 0.002354788 0.0015698587 0.0015698587</span></a>
+<a class="sourceLine" id="cb52-10" data-line-number="10"><span class="co">## 3 0.0015698587 0.0023547881 0.000000000 0.0023547881 0.0023547881</span></a>
+<a class="sourceLine" id="cb52-11" data-line-number="11"><span class="co">## 4 0.0007849294 0.0015698587 0.002354788 0.0000000000 0.0015698587</span></a>
+<a class="sourceLine" id="cb52-12" data-line-number="12"><span class="co">## 5 0.0007849294 0.0015698587 0.002354788 0.0015698587 0.0000000000</span></a></code></pre></div></li>
+<li><p>Use the distance matrix to cluster sequences using the ‘Neighbor Joining’ algorithm; visualize the result (see <code>?plot.dendrogram</code> for plotting options when the first argument is of class <code>dendrogram</code>)</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">dendrogram &lt;-<span class="st"> </span><span class="kw">IdClusters</span>(dist, <span class="dt">method =</span> <span class="st">&quot;NJ&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;dendrogram&quot;</span>)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="co">## ================================================================================</span></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="co">## </span></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co">## Time difference of 0.67 secs</span></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">dendrogram</a>
+<a class="sourceLine" id="cb53-6" data-line-number="6"><span class="co">## &#39;dendrogram&#39; with 2 branches and 343 members total, at height 0.009898669</span></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7"><span class="kw">plot</span>(dendrogram, <span class="dt">leaflab =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<p><img src="05-Bioinformatics_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p></li>
 </ul>
-<p><strong>Advanced activity</strong></p>
-<ul>
-<li><p>It seems likely that a more biologically motivated analysis would focus on codiong sequence, in particular the S, E, M and / or N loci. And the analysis would use all sequences, not just those from a particular geo-political region.</p></li>
-<li><p>The information can be extracted from a genbank record, e.g., from the <code>gb_record</code> retrieved above</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">gb &lt;-<span class="st"> </span><span class="kw">readGenBank</span>(<span class="dt">text =</span> gb_record)</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="co">## No exons read from genbank file. Assuming sections of CDS are full exons</span></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="co">## No transcript features (mRNA) found, using spans of CDSs</span></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4">semn &lt;-</a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="st">    </span><span class="kw">cds</span>(gb) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">subset</span>(gene <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;S&quot;</span>, <span class="st">&quot;E&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;N&quot;</span>))</a>
-<a class="sourceLine" id="cb51-6" data-line-number="6">ref &lt;-<span class="st"> </span><span class="kw">getSeq</span>(gb)</a>
-<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="kw">getSeq</span>(ref, semn)</a>
-<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="co">##   A DNAStringSet instance of length 4</span></a>
-<a class="sourceLine" id="cb51-9" data-line-number="9"><span class="co">##     width seq</span></a>
-<a class="sourceLine" id="cb51-10" data-line-number="10"><span class="co">## [1]  3822 ATGTTTGTTTTTCTTGTTTTATTGCCACTAGTCT...GTGCTCAAAGGAGTCAAATTACATTACACATAA</span></a>
-<a class="sourceLine" id="cb51-11" data-line-number="11"><span class="co">## [2]   228 ATGTACTCATTCGTTTCGGAAGAGACAGGTACGT...AATTCTTCTAGAGTTCCTGATCTTCTGGTCTAA</span></a>
-<a class="sourceLine" id="cb51-12" data-line-number="12"><span class="co">## [3]   669 ATGGCAGATTCCAACGGTACTATTACCGTTGAAG...AGCAGTGACAATATTGCTTTGCTTGTACAGTAA</span></a>
-<a class="sourceLine" id="cb51-13" data-line-number="13"><span class="co">## [4]  1260 ATGTCTGATAATGGACCCCAAAATCAGCGAAATG...TCCATGAGCAGTGCTGACTCAACTCAGGCCTAA</span></a></code></pre></div></li>
-<li><p>The script used to retrieve New York State sequences is [available][get-SARS-CoV2-NY-fasta]. The crucial modification is in the <code>get_accession_sequence()</code> function. Modify this function to retrieve, e.g., the S (surface glycoprotein) coding sequence, along the lines of</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">...</a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw">readGenBank</span>(<span class="dt">text =</span> text)</a>
-<a class="sourceLine" id="cb52-3" data-line-number="3">ref &lt;-<span class="st"> </span><span class="kw">getSeq</span>(result)</a>
-<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="kw">getSeq</span>(ref, <span class="kw">subset</span>(<span class="kw">cds</span>(result), gene <span class="op">%in%</span><span class="st"> &quot;S&quot;</span>))</a>
-<a class="sourceLine" id="cb52-5" data-line-number="5">...</a></code></pre></div></li>
-<li><p>Debug an updated version of the script downloading just a few records. Then download <em>all</em> records (this could take 10’s of minutes).</p></li>
-<li><p>Perform the multiple alignment on S gene sequences instead of whole-genome sequence</p></li>
-</ul>
+<p>Save the tree to the working directory using the ‘Newick’ format</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">dendrogram_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="st">&quot;SARS-CoV2-S.newick&quot;</span>)</a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">WriteDendrogram</span>(dendrogram, dendrogram_file, <span class="dt">quoteLabels =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="phylogenetic-tree-visualization" class="section level3">
-<h3><span class="header-section-number">5.3.2</span> Phylogenetic tree visualization</h3>
+<h3><span class="header-section-number">5.3.3</span> Phylogenetic tree visualization</h3>
 <p>Setup</p>
 <ul>
 <li><p>Install (if necessary, using <code>BiocManager::install(&quot;ggtree&quot;)</code>) and attach the <a href="https://bioconductor.org/packages/ggtree">ggtree</a> package</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">library</span>(ggtree)</a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="kw">maintainer</span>(<span class="st">&quot;ggtree&quot;</span>)</a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co">## [1] &quot;Guangchuang Yu &lt;guangchuangyu@gmail.com&gt;&quot;</span></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb53-6" data-line-number="6"><span class="kw">citation</span>(<span class="st">&quot;ggtree&quot;</span>)</a>
-<a class="sourceLine" id="cb53-7" data-line-number="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb53-8" data-line-number="8"><span class="co">## To cite ggtree in publications use:</span></a>
-<a class="sourceLine" id="cb53-9" data-line-number="9"><span class="co">## </span></a>
-<a class="sourceLine" id="cb53-10" data-line-number="10"><span class="co">##   Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk</span></a>
-<a class="sourceLine" id="cb53-11" data-line-number="11"><span class="co">##   Lam. ggtree: an R package for visualization and annotation of</span></a>
-<a class="sourceLine" id="cb53-12" data-line-number="12"><span class="co">##   phylogenetic trees with their covariates and other associated data.</span></a>
-<a class="sourceLine" id="cb53-13" data-line-number="13"><span class="co">##   Methods in Ecology and Evolution 2017, 8(1):28-36</span></a>
-<a class="sourceLine" id="cb53-14" data-line-number="14"><span class="co">## </span></a>
-<a class="sourceLine" id="cb53-15" data-line-number="15"><span class="co">##   Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods</span></a>
-<a class="sourceLine" id="cb53-16" data-line-number="16"><span class="co">##   for mapping and visualizing associated data on phylogeny using</span></a>
-<a class="sourceLine" id="cb53-17" data-line-number="17"><span class="co">##   ggtree. Molecular Biology and Evolution 2018, 35(2):3041-3043. doi:</span></a>
-<a class="sourceLine" id="cb53-18" data-line-number="18"><span class="co">##   10.1093/molbev/msy194</span></a>
-<a class="sourceLine" id="cb53-19" data-line-number="19"><span class="co">## </span></a>
-<a class="sourceLine" id="cb53-20" data-line-number="20"><span class="co">## To see these entries in BibTeX format, use &#39;print(&lt;citation&gt;,</span></a>
-<a class="sourceLine" id="cb53-21" data-line-number="21"><span class="co">## bibtex=TRUE)&#39;, &#39;toBibtex(.)&#39;, or set</span></a>
-<a class="sourceLine" id="cb53-22" data-line-number="22"><span class="co">## &#39;options(citation.bibtex.max=999)&#39;.</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">library</span>(ggtree)</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="kw">maintainer</span>(<span class="st">&quot;ggtree&quot;</span>)</a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="co">## [1] &quot;Guangchuang Yu &lt;guangchuangyu@gmail.com&gt;&quot;</span></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="kw">citation</span>(<span class="st">&quot;ggtree&quot;</span>)</a>
+<a class="sourceLine" id="cb55-7" data-line-number="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb55-8" data-line-number="8"><span class="co">## To cite ggtree in publications use:</span></a>
+<a class="sourceLine" id="cb55-9" data-line-number="9"><span class="co">## </span></a>
+<a class="sourceLine" id="cb55-10" data-line-number="10"><span class="co">##   Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk</span></a>
+<a class="sourceLine" id="cb55-11" data-line-number="11"><span class="co">##   Lam. ggtree: an R package for visualization and annotation of</span></a>
+<a class="sourceLine" id="cb55-12" data-line-number="12"><span class="co">##   phylogenetic trees with their covariates and other associated data.</span></a>
+<a class="sourceLine" id="cb55-13" data-line-number="13"><span class="co">##   Methods in Ecology and Evolution 2017, 8(1):28-36</span></a>
+<a class="sourceLine" id="cb55-14" data-line-number="14"><span class="co">## </span></a>
+<a class="sourceLine" id="cb55-15" data-line-number="15"><span class="co">##   Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods</span></a>
+<a class="sourceLine" id="cb55-16" data-line-number="16"><span class="co">##   for mapping and visualizing associated data on phylogeny using</span></a>
+<a class="sourceLine" id="cb55-17" data-line-number="17"><span class="co">##   ggtree. Molecular Biology and Evolution 2018, 35(2):3041-3043. doi:</span></a>
+<a class="sourceLine" id="cb55-18" data-line-number="18"><span class="co">##   10.1093/molbev/msy194</span></a>
+<a class="sourceLine" id="cb55-19" data-line-number="19"><span class="co">## </span></a>
+<a class="sourceLine" id="cb55-20" data-line-number="20"><span class="co">## To see these entries in BibTeX format, use &#39;print(&lt;citation&gt;,</span></a>
+<a class="sourceLine" id="cb55-21" data-line-number="21"><span class="co">## bibtex=TRUE)&#39;, &#39;toBibtex(.)&#39;, or set</span></a>
+<a class="sourceLine" id="cb55-22" data-line-number="22"><span class="co">## &#39;options(citation.bibtex.max=999)&#39;.</span></a></code></pre></div></li>
 <li><p>The visualizations this package provides are not well-suited to <em>R</em>’s help pages; check out the online <a href="https://yulab-smu.github.io/treedata-book">ggtree book</a> to orient yourself.</p></li>
 </ul>
-<p>Data preparation and initial visualization</p>
+<p>Read the data from the Newick-format file created by DECIPHER</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">dendrogram_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="st">&quot;SARS-CoV2-S.newick&quot;</span>)</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">tree &lt;-<span class="st"> </span>treeio<span class="op">::</span><span class="kw">read.newick</span>(dendrogram_file)</a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">tree</a>
+<a class="sourceLine" id="cb56-4" data-line-number="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="co">## Phylogenetic tree with 343 tips and 288 internal nodes.</span></a>
+<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="co">## </span></a>
+<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="co">## Tip labels:</span></a>
+<a class="sourceLine" id="cb56-8" data-line-number="8"><span class="co">##  228, 267, 298, 294, 77, 189, ...</span></a>
+<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="co">## </span></a>
+<a class="sourceLine" id="cb56-10" data-line-number="10"><span class="co">## Rooted; includes branch lengths.</span></a>
+<a class="sourceLine" id="cb56-11" data-line-number="11">tibble<span class="op">::</span><span class="kw">as_tibble</span>(tree)</a>
+<a class="sourceLine" id="cb56-12" data-line-number="12"><span class="co">## # A tibble: 631 x 4</span></a>
+<a class="sourceLine" id="cb56-13" data-line-number="13"><span class="co">##    parent  node branch.length label</span></a>
+<a class="sourceLine" id="cb56-14" data-line-number="14"><span class="co">##     &lt;int&gt; &lt;int&gt;         &lt;dbl&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb56-15" data-line-number="15"><span class="co">##  1    346     1      0        228  </span></a>
+<a class="sourceLine" id="cb56-16" data-line-number="16"><span class="co">##  2    346     2      0.00385  267  </span></a>
+<a class="sourceLine" id="cb56-17" data-line-number="17"><span class="co">##  3    347     3      0        298  </span></a>
+<a class="sourceLine" id="cb56-18" data-line-number="18"><span class="co">##  4    348     4      0        294  </span></a>
+<a class="sourceLine" id="cb56-19" data-line-number="19"><span class="co">##  5    349     5      0        77   </span></a>
+<a class="sourceLine" id="cb56-20" data-line-number="20"><span class="co">##  6    349     6      0.00600  189  </span></a>
+<a class="sourceLine" id="cb56-21" data-line-number="21"><span class="co">##  7    350     7      0        295  </span></a>
+<a class="sourceLine" id="cb56-22" data-line-number="22"><span class="co">##  8    351     8      0.000580 280  </span></a>
+<a class="sourceLine" id="cb56-23" data-line-number="23"><span class="co">##  9    352     9      0        297  </span></a>
+<a class="sourceLine" id="cb56-24" data-line-number="24"><span class="co">## 10    353    10      0        87   </span></a>
+<a class="sourceLine" id="cb56-25" data-line-number="25"><span class="co">## # … with 621 more rows</span></a></code></pre></div>
+<p>Plot the tree, adding tip labels to the longest branches</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">ggtree</span>(tree) <span class="op">+</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_tiplab</span>(</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">        <span class="kw">aes</span>(</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">            <span class="dt">subset =</span> branch.length <span class="op">&gt;</span><span class="st"> </span><span class="fl">.001</span>,</a>
+<a class="sourceLine" id="cb57-5" data-line-number="5">            <span class="dt">label =</span> label</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6">        ),</a>
+<a class="sourceLine" id="cb57-7" data-line-number="7">        <span class="dt">size =</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb57-8" data-line-number="8">    )</a>
+<a class="sourceLine" id="cb57-9" data-line-number="9"><span class="co">## Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span></a>
+<a class="sourceLine" id="cb57-10" data-line-number="10"><span class="co">## Please use `tibble()` instead.</span></a>
+<a class="sourceLine" id="cb57-11" data-line-number="11"><span class="co">## This warning is displayed once every 8 hours.</span></a>
+<a class="sourceLine" id="cb57-12" data-line-number="12"><span class="co">## Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
+<p><img src="05-Bioinformatics_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p>Color sequences by region</p>
 <ul>
-<li><p>Read the data from the Newick-format file created by DECIPHER</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">dendrogram_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="st">&quot;SARS-CoV2-NY.newick&quot;</span>)</a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">tree &lt;-<span class="st"> </span>treeio<span class="op">::</span><span class="kw">read.newick</span>(dendrogram_file)</a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">tree</a>
-<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="co">## </span></a>
-<a class="sourceLine" id="cb54-5" data-line-number="5"><span class="co">## Phylogenetic tree with 245 tips and 244 internal nodes.</span></a>
-<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="co">## </span></a>
-<a class="sourceLine" id="cb54-7" data-line-number="7"><span class="co">## Tip labels:</span></a>
-<a class="sourceLine" id="cb54-8" data-line-number="8"><span class="co">##  MT370841, MT370857, MT370848, MT370954, MT370985, MT370842, ...</span></a>
-<a class="sourceLine" id="cb54-9" data-line-number="9"><span class="co">## </span></a>
-<a class="sourceLine" id="cb54-10" data-line-number="10"><span class="co">## Rooted; includes branch lengths.</span></a>
-<a class="sourceLine" id="cb54-11" data-line-number="11">tibble<span class="op">::</span><span class="kw">as_tibble</span>(tree)</a>
-<a class="sourceLine" id="cb54-12" data-line-number="12"><span class="co">## # A tibble: 489 x 4</span></a>
-<a class="sourceLine" id="cb54-13" data-line-number="13"><span class="co">##    parent  node branch.length label   </span></a>
-<a class="sourceLine" id="cb54-14" data-line-number="14"><span class="co">##     &lt;int&gt; &lt;int&gt;         &lt;dbl&gt; &lt;chr&gt;   </span></a>
-<a class="sourceLine" id="cb54-15" data-line-number="15"><span class="co">##  1    248     1   0.000336    MT370841</span></a>
-<a class="sourceLine" id="cb54-16" data-line-number="16"><span class="co">##  2    249     2   0.000168    MT370857</span></a>
-<a class="sourceLine" id="cb54-17" data-line-number="17"><span class="co">##  3    250     3   0.000639    MT370848</span></a>
-<a class="sourceLine" id="cb54-18" data-line-number="18"><span class="co">##  4    252     4   0.000000316 MT370954</span></a>
-<a class="sourceLine" id="cb54-19" data-line-number="19"><span class="co">##  5    253     5   0           MT370985</span></a>
-<a class="sourceLine" id="cb54-20" data-line-number="20"><span class="co">##  6    253     6   0.000000117 MT370842</span></a>
-<a class="sourceLine" id="cb54-21" data-line-number="21"><span class="co">##  7    254     7   0           MT370929</span></a>
-<a class="sourceLine" id="cb54-22" data-line-number="22"><span class="co">##  8    255     8   0.0000227   MT370849</span></a>
-<a class="sourceLine" id="cb54-23" data-line-number="23"><span class="co">##  9    256     9   0.000000558 MT434800</span></a>
-<a class="sourceLine" id="cb54-24" data-line-number="24"><span class="co">## 10    256    10   0.0000329   MT434786</span></a>
-<a class="sourceLine" id="cb54-25" data-line-number="25"><span class="co">## # … with 479 more rows</span></a></code></pre></div></li>
-<li><p>plot the tree, adding tip labels to the longest branches</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">ggtree</span>(tree) <span class="op">+</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_tiplab</span>(</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3">        <span class="kw">aes</span>(</a>
-<a class="sourceLine" id="cb55-4" data-line-number="4">            <span class="dt">subset =</span> branch.length <span class="op">&gt;</span><span class="st"> </span><span class="fl">.0001</span>,</a>
-<a class="sourceLine" id="cb55-5" data-line-number="5">            <span class="dt">label =</span> label</a>
-<a class="sourceLine" id="cb55-6" data-line-number="6">        ),</a>
-<a class="sourceLine" id="cb55-7" data-line-number="7">        <span class="dt">size=</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb55-8" data-line-number="8">    )</a>
-<a class="sourceLine" id="cb55-9" data-line-number="9"><span class="co">## Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span></a>
-<a class="sourceLine" id="cb55-10" data-line-number="10"><span class="co">## Please use `tibble()` instead.</span></a>
-<a class="sourceLine" id="cb55-11" data-line-number="11"><span class="co">## This warning is displayed once every 8 hours.</span></a>
-<a class="sourceLine" id="cb55-12" data-line-number="12"><span class="co">## Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
-<p><img src="05-Bioinformatics_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p></li>
-<li><p>Collapse clades with short branches</p></li>
+<li>Find nodes representing just a single sequence – ‘singletons’</li>
+<li>Use GenBank country to identify which country these were sequenced from</li>
+<li>Color lineages according to singleton country of origin</li>
 </ul>
 </div>
 </div>
