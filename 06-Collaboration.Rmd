@@ -2,11 +2,37 @@
 
 ## 5 Days (Monday) Zoom check-in
 
-## 4 Days
+### Weekend review (5 minutes)
 
-## 3 Days
+### Vignettes (25 minutes; Shawn)
 
-## 2 Days
+Create a small hierarcy of directories
+
+- `MyQuarantine` (top level)
+
+    - `R` (inside `MyQuarantine`
+    - `vignettes` (also insided `MyQuarantine`
+    
+Create an 'R markdown' document
+
+- File -> New file -> 'R markdown...'
+- Enter a 'Title' and your name as 'Author'
+- Use 'HTML' as default output
+- _RStudio_ creates a template; save it (e.g., click the floppy disk icon) in the `vignettes` folder
+
+Preview (knit) the template
+
+Edit the template
+
+Preview the edited template
+
+### Writing and documenting R functions (25 minutes)
+
+## 4 Days Write a vignette!
+
+## 3 Days Create documented, reusable functions!
+
+## 2 Days Share your work as a package!
 
 ## Today! (Friday) Zoom check-in
 
