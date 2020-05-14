@@ -62,7 +62,7 @@ read_expression_as_tibble <-
     function(x, lvl)
 {
     lvl <- trimws(lvl)
-    value <- match(x, as.raw(seq_along(lvl) - 1))
+    value <- match(as.numeric(x), seq_along(lvl) - 1L)
     factor(lvl[value], levels = lvl)
 }
 
