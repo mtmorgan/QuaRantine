@@ -767,13 +767,13 @@ This experiment measured gene expression in `r nrow(obs)` cells. Use standard dp
     ```{r}
     obs %>% distinct(Patient_ID, Age, Gender)
     ```
-    
+
 - Which cell types are represented (the column contains a space in its name, which causes problems for _R_ unless the column is quoted)
 
     ```{r}
     obs %>% dplyr::count(`Cell Type`) %>% arrange(desc(n))
     ```
-    
+
 - Each cell was classified to cell type based on overall gene expression. How many cells of each type were observed?
 
     ```{r}
@@ -799,7 +799,7 @@ How sparse is the data, i.e., what is the fraction of zeros in the data?
     ```{r}
     nrow(x) * ncol(x)
     ```
-    
+
 - Total number of zero elements (`x == 0` returns a logical vector of `TRUE` and `FALSE` values; `sum()` treats `TRUE` as 1, and `FALSE` as 0, so `sum(x -- 0)` is the number of zero elements)
 
     ```{r}
@@ -811,8 +811,8 @@ How sparse is the data, i.e., what is the fraction of zeros in the data?
     ```{r}
     sum(x == 0) / (nrow(x) * ncol(x))
     ```
-    
-- More than 80% of the values are zeros! This primarily represents limitations of the technology, where relatively few 'reads' are available from each cell, so only a fraction of the genes being expressed are detected. 
+
+- More than 80% of the values are zeros! This primarily represents limitations of the technology, where relatively few 'reads' are available from each cell, so only a fraction of the genes being expressed are detected.
 
 - Use the function `rowMeans()` to calculate average expression of each gene; present this as a tibble
 
@@ -825,28 +825,54 @@ How sparse is the data, i.e., what is the fraction of zeros in the data?
 
 ### Coordinating cell and expression data
 
+Notice that we have two separate data structures -- a large matrix of expression values, and a tibble describing each cell. It seems error-prone to manage these data separately, e.g., what if we remove some rows from the cell annotations without removing the corresponding columns from the expression matrix?
+
+A better strategy is to introduce an object that can manage both parts of the data in a coordinated way. This container is provided by the [SingleCellExperiment][] package
+
+[SingleCellExperiment]: https;//bioconductor.org/packages/SingleCellExperiment
 
 ```{r, message = FALSE}
 library(SingleCellExperiment)
 ```
 
+Use the _constructor_ `SingleCellExperiment()` to create this object. The basic metaphor is that a `SingleCellExperiment` is like a matrix, but with column (and row) annotations. The column annotations are called `colData`.
+
+```{r, out.width = "60%"}
+knitr::include_graphics('images/SummarizedExperiment.svg')
+```
+
+Create and view a `SingleCellExperiment`
+
 ```{r}
 sce <- SingleCellExperiment(x, colData = obs)
 sce
+
+dim(sce)
 ```
 
+Use `subset()` to select particular rows and columns. The subset operates in a coordinated fashion on both the cell annotations and expression data, so there is no risk of 'book-keeping' error.
+
 ```{r}
-sce %>%
+my_sce <-
+    sce %>%
     subset(
         rownames(.) %in% "ACE2",
         `Cell Type` %in% c("Fibroblast", "SmoothMuscle")
     )
+
+my_sce
+
+dim(my_sce)
 ```
+
+For the exercises below, focus on the ACE2 gene. ACE2 is a gene on the outer surface of the cell membrane in lung and other tissue.
 
 ```{r}
 ace2 <- subset(sce, rownames(sce) %in% "ACE2")
 ace2
 ```
+
+We will perform some simple visualization, as we start to explore the data. Create a tibble containing the `cell_subset` annotation and the expression values of the ACE2 gene. We make use of `$` to access columns of the cell annotation (`colData`) and `assay()` to access the expression data. `as.vector()` changes the one-dimensional array returned by `assay()` into a numeric vector.
 
 ```{r}
 tbl <- tibble(
@@ -855,6 +881,8 @@ tbl <- tibble(
 )
 tbl
 ```
+
+Summarize the number of cells, non-zero expression values, and average expression of ACE2 for each cell subset.
 
 ```{r}
 tbl %>%
@@ -866,9 +894,13 @@ tbl %>%
     )
 ```
 
+Pictures speak louder than words. Use the [ggplot2][] package
+
 ```{r, message = FALSE}
 library(ggplot2)
 ```
+
+to visualize as a horizontal boxplot the ACE2 expression values of each cell subtype. I had initially used `geom_boxplot()` without `coord_flip()`, but the cell subtype labels overlapped. I experimented with rotating the labels, but that just made them difficult to read. So `coord_flip()` makes the boxplot horizontal rather than vertical, the labels are easy to read, and the figure easy to interpret.
 
 ```{r}
 tbl %>%
@@ -879,21 +911,51 @@ tbl %>%
     ggtitle("ACE2")
 ```
 
-```{r}
-genes <- subset(sce, rownames(sce) %in% c("ACE2", "TMPRSS2"))
-tbl <- tibble(
-    gene = rep(rownames(genes), ncol(genes)),
-    cell = rep(colnames(genes), each = nrow(genes)),
-    expression = as.vector(assay(genes))
-)
-```
+I want to explore co-expression of two genes, ACE2 and TMPRSS2. I used `subset()` to select the relevant expression and cell annotation values, then created a tibble with gene, cell, and expression columns.
+
+- The `rep()` function replicates each element of its first argument the number of times indicated by it's second argument; explore it's behavior with simple examples, e.g.,
+
+    ```{r}
+    1:3
+
+    rep(1:3, 2)
+
+    rep(1:3, each = 2)
+    ```
+
+- When a two-dimensional array is coerced to a vector, it is 'flattened' by appending columns
+
+    ```{r}
+    m <- matrix(1:12, nrow = 4)
+    m
+
+    as.vector(m)
+    ```
+
+- Putting this together
+
+    ```{r}
+    two_genes <- subset(sce, rownames(sce) %in% c("ACE2", "TMPRSS2"))
+    tbl <- tibble(
+        gene = rep(rownames(two_genes), ncol(two_genes)),
+        cell = rep(colnames(two_genes), each = nrow(two_genes)),
+        expression = as.vector(assay(two_genes))
+    )
+    tbl
+    ```
+
+I'd like to plot the expression of one gene against the expression of the other. It is convenient to transform the tidy tibble we just created to have a separate column for each gene. Use `tidyr::pivot_wider()` for this operation
 
 ```{r}
 wider_tbl <-
     tbl %>%
     mutate(expression = log(expression)) %>%
     tidyr::pivot_wider(names_from=gene, values_from=expression)
+
+wider_tbl
 ```
+
+We're ready to plot expression values of TMPRSS2 against ACE2. If we were to use `geom_point()`, many points would over-plot and we would have a difficult time seeing overall pattern. So instead we use `geom_hex()` to divide the plot area into hexagonal regions, and to fill each region with a color that indicates the number of points in the region. `coord_fix()` ensures that the x- and y- axes have the same scale, and the plot is printed so that the 'aspect ratio' (height / width) is 1.
 
 ```{r, fix.asp=1}
 wider_tbl %>%
@@ -901,6 +963,10 @@ wider_tbl %>%
     geom_hex() +
     coord_fixed()
 ```
+
+The plot shows a positive relation between expression of the two genes.
+
+A major caveat to any conclusion of co-expression from the figure is that _covariates_ may introduce spurious correlations. For instance, sequencing of one cell can be more efficient than sequencing of another, so _all_ genes in one cell might appear to have higher expression than in another cell, but for completely un-interesting reasons (i.e., a technological artifact of sequencing efficiency). We would need to do a more sophisticated analysis to reach robust conclusions.
 
 ## Day 33 (Friday) Zoom check-in
 
