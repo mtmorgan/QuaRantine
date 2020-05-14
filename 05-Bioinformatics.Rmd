@@ -2,6 +2,10 @@
 
 [Bioconductor]: https://bioconductor.org
 
+```{r, echo = FALSE, eval = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+```
+
 ## Day 29 (Monday) Zoom check-in
 
 ### Review and trouble shoot
@@ -508,7 +512,7 @@ length(dna)
 dna %>% unique() %>% length()
 ```
 
-Note that the DNA alphabet contains 'ambiguity' letters, corresponding to base seuqencs that were uncertain, e.g., 'A' or 'T'. Check out the help page for `?translate` to see options for translating ambiguity codes. How many unique protein sequences?
+Note that the DNA alphabet contains 'ambiguity' letters, corresponding to base sequences that were uncertain, e.g., 'A' or 'T'. Check out the help page for `?translate` to see options for translating ambiguity codes. How many unique protein sequences?
 
 ```{r}
 IUPAC_CODE_MAP
@@ -528,7 +532,7 @@ nchar(aa) %>% table() %>% as_tibble()
 
 shows us that most sequences have 1274 amino acids.
 
-The `names(aa)` are misleading -- these are the identifiers of a representative accession, but several accessions may map to the same identifier. The following code creates a table that indicates which cluster each original identifer belongs to; the names of `aa` are updated accordingly.
+The `names(aa)` are misleading -- these are the identifiers of a representative accession, but several accessions may map to the same identifier. The following code creates a table that indicates which cluster each original identifier belongs to; the names of `aa` are updated accordingly.
 
 ```{r}
 all <- dna %>% translate(if.fuzzy.codon = "solve")
@@ -673,6 +677,231 @@ Color sequences by region
 
 ## Day 32 Single-cell expression data
 
+This is a very preliminary foray into COVID-19 single-cell RNA-seq gene expression data. It is derived from a preprint by [Muus et al][], including a 'Terra' (NHGRI) cloud computing [workspace][].
+
+RNA-seq is a technology for measuring RNA expression levels as a proxy for gene expression. Single-cell RNA seq measures RNA expression levels at the single-cell resolution, sometimes in conjunction with imaging or other spatial information. Often, the overall pattern of expression of a single cell can be used to classify the cell to a particular type, e.g., epithelial.
+
+Many interesting questions present themselves in the context of COVID-19. It would be interesting to investigate patterns of expression of human genes known to interact with the SARS-CoV-2 virus, especially in tissues likely to be involved in the introduction of the virus to the human body. One could imagine further studies identifying, e.g., genetic variants that influence susceptibility or response to infection.
+
+Our goal is to do some preliminary visualization of scRNA seq at human genes whose product is known to interact with virus proteins. A much more comprehensive guide is available as [Orchestrating Single Cell Analysis with _Bioconductor_][osca]
+
+[Muss et al]: https://www.biorxiv.org/content/10.1101/2020.04.19.049254v2
+[workspace]: https://anvil.terra.bio/#workspaces/kco-incubator/COVID-19_cross_tissue_analysis
+[osca]: https://osca.bioconductor.org/
+
+### Setup
+
+This module requires a recent version of _R_ and _Bioconductor_. It also requires some advanced packages that may be difficult to install. Definitely it is necessary that
+
+```{r}
+as.package_version(R.version) >= "3.6"
+BiocManager::version() >= "3.10"
+```
+
+If those conditions are met, load the following libraries (use `BiocManager::install(<pkgs>)` if necessary)
+
+```{r, message = FALSE}
+library(SingleCellExperiment)
+library(Matrix)
+library(rhdf5)
+library(dplyr)
+library(hexbin)
+```
+
+Create a working directory for today.
+
+```{r}
+workdir <- "workdir"
+if (!dir.exists(workdir))
+    dir.create(workdir)
+```
+
+A couple of scripts provide helper functions for working with the data. Download the following file to the working directory
+
+```{r}
+url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-scRNAseq-import.R"
+destination <- file.path(workdir, basename(url))
+if (!file.exists(destination))
+    download.file(url, destination)
+```
+
+Take a quick look at the downloaded file (e.g., in RStudio File -> open) and verify that it is an _R_ script. Source the script in to your _R_ session so that you have access to the functions in the file.
+
+
+```{r, cache=FALSE, message = FALSE}
+source(destination)
+```
+
+Download our sample data set
+
+```{r}
+url <- "https://github.com/mtmorgan/QuaRantine/raw/master/assets/05-internal_nonsmokerslung.h5ad"
+destination <- file.path(workdir, basename(url))
+if (!file.exists(destination))
+    download.file(url, destination)
+```
+
+The file is an 'hdf5' file format, used to store relatively large data sets in a binary format that allows for faster and more robust input than a CSV file. _R_ and other software packages can read hdf5 files, but Excel, etc.
+
+### Data input and exploration
+
+There are two main components to the data. The first describes each observation (cell).
+
+```{r, cache = FALSE}
+obs <- read_obs(destination)
+obs
+```
+
+If _R_ complains that it can't find `read_obs`, then remember to `source()` the script downloaded earlier.
+
+This experiment measured gene expression in `r nrow(obs)` cells. Use standard dplyr commands to explore information about the cells
+
+- How many patients are represented? (we need to use `dplyr::count()` because another package attached to our search path also has a `count()` function)
+
+    ```{r}
+    obs %>% dplyr::count(Patient_ID)
+    ```
+
+- What is the age and gender of each patient?
+
+    ```{r}
+    obs %>% distinct(Patient_ID, Age, Gender)
+    ```
+    
+- Which cell types are represented (the column contains a space in its name, which causes problems for _R_ unless the column is quoted)
+
+    ```{r}
+    obs %>% dplyr::count(`Cell Type`) %>% arrange(desc(n))
+    ```
+    
+- Each cell was classified to cell type based on overall gene expression. How many cells of each type were observed?
+
+    ```{r}
+    obs %>% dplyr::count(cell_subset)
+    ```
+
+Single-cell RNA assays expression across all genes, but the current data set has been restricted to 22 genes relevant to virus interaction. Read in the expression levels of these 22 genes across all cells.
+
+```{r, cache = FALSE}
+x <- read_expression(destination)
+dim(x)
+class(x)
+
+x[, 1:3]
+```
+
+This is a matrix of `r nrow(x)` x `r ncol(x)` values, one entry for each gene and cell. However, single-cell assays are 'sparse', with a large number of zeros. To take advantage of this sparse data, _R_ has represented the matrix as a special _sparse_ matrix. The `.` in the display above represent zeros; the object `x` only contains information about the non-zero values.
+
+How sparse is the data, i.e., what is the fraction of zeros in the data?
+
+- Total number of elements
+
+    ```{r}
+    nrow(x) * ncol(x)
+    ```
+    
+- Total number of zero elements (`x == 0` returns a logical vector of `TRUE` and `FALSE` values; `sum()` treats `TRUE` as 1, and `FALSE` as 0, so `sum(x -- 0)` is the number of zero elements)
+
+    ```{r}
+    sum(x == 0)
+    ```
+
+- Fraction of zero elements
+
+    ```{r}
+    sum(x == 0) / (nrow(x) * ncol(x))
+    ```
+    
+- More than 80% of the values are zeros! This primarily represents limitations of the technology, where relatively few 'reads' are available from each cell, so only a fraction of the genes being expressed are detected. 
+
+- Use the function `rowMeans()` to calculate average expression of each gene; present this as a tibble
+
+    ```{r}
+    tibble(
+        gene = rownames(x),
+        average_expression = rowMeans(x)
+    )
+    ```
+
+### Coordinating cell and expression data
+
+
+```{r, message = FALSE}
+library(SingleCellExperiment)
+```
+
+```{r}
+sce <- SingleCellExperiment(x, colData = obs)
+sce
+```
+
+```{r}
+sce %>%
+    subset(
+        rownames(.) %in% "ACE2",
+        `Cell Type` %in% c("Fibroblast", "SmoothMuscle")
+    )
+```
+
+```{r}
+ace2 <- subset(sce, rownames(sce) %in% "ACE2")
+ace2
+```
+
+```{r}
+tbl <- tibble(
+    cell_subset = ace2$cell_subset,
+    expression = as.vector(assay(ace2))
+)
+tbl
+```
+
+```{r}
+tbl %>%
+    group_by(cell_subset) %>%
+    summarize(
+        n = n(),
+        n_non_zero = sum(expression != 0),
+        mean_expression = mean(expression)
+    )
+```
+
+```{r, message = FALSE}
+library(ggplot2)
+```
+
+```{r}
+tbl %>%
+    filter(expression > 0) %>%
+    ggplot(aes(cell_subset, expression)) +
+    geom_boxplot() +
+    coord_flip() +
+    ggtitle("ACE2")
+```
+
+```{r}
+genes <- subset(sce, rownames(sce) %in% c("ACE2", "TMPRSS2"))
+tbl <- tibble(
+    gene = rep(rownames(genes), ncol(genes)),
+    cell = rep(colnames(genes), each = nrow(genes)),
+    expression = as.vector(assay(genes))
+)
+```
+
+```{r}
+wider_tbl <-
+    tbl %>%
+    mutate(expression = log(expression)) %>%
+    tidyr::pivot_wider(names_from=gene, values_from=expression)
+```
+
+```{r, fix.asp=1}
+wider_tbl %>%
+    ggplot(aes(ACE2, TMPRSS2)) +
+    geom_hex() +
+    coord_fixed()
+```
+
 ## Day 33 (Friday) Zoom check-in
 
 ### Review and trouble shoot (25 minutes)
@@ -695,6 +924,6 @@ Single cell expression
 
 ### Next week (25 minutes)
 
-## Day 34
+## Day 34 Revising tree visualization
 
-## Day 35
+## Day 35 Exploring [Bioconductor][]
