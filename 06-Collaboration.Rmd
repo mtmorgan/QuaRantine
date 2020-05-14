@@ -10,8 +10,8 @@ Create a small hierarcy of directories
 
 - `MyQuarantine` (top level)
 
-    - `R` (inside `MyQuarantine`
-    - `vignettes` (also insided `MyQuarantine`
+    - `R` (inside `MyQuarantine`)
+    - `vignettes` (also insided `MyQuarantine`)
     
 Create an 'R markdown' document
 
