@@ -17,11 +17,12 @@ Create a small hierarcy of directories {-}
     - `vignettes` (also inside `MyQuarantine`)
     
 ```{r}
-setwd("C:/temp")
-dir.create("./MyQuarantine")
-dir.create("./MyQuarantine/R")
-dir.create("./MyQuarantine/vignette")
-setwd("./MyQuarantine")
+workdir = "workdir/Week-06/MyQuarantine"
+if (!dir.exists(workdir)) {
+    dir.create(workdir, recursive = TRUE)
+    dir.create(file.path(workdir, "R"))
+    dir.create(file.path(workdir, "vignettes"))
+}
 ```
     
 #### Create an `R markdown` document {-}
@@ -46,7 +47,7 @@ setwd("./MyQuarantine")
 
 Let's add a demonstration of `ggplot2` using the `mtcars` data set:
 
-```{}
+<pre>
 ---
 title: "multiple regression plots"
 author: "Shawn Matott"
@@ -54,27 +55,26 @@ date: "5/13/2020"
 output: html_document
 ---
 
-\```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-\```
-
 ## Muliple Regression Plots
 
 - Scatterplot by category with regression lines (using ggplot2)
 
-\```{r}
+```{r}`r ''`
 library(ggplot2)
 
 data("mtcars")
 
 # convert cyl to a factor-level object
-mtcars$cyl = factor(
-    mtcars$cyl,
-    levels = c(4, 6, 8),
-    labels = c("4 cyl", "6 cyl", "8 cyl")
-)
->>>>>>> Stashed changes
-    
+mtcars <-
+    mtcars %>%
+    mutate(
+        cyl = factor(
+            cyl,
+            levels = c(4, 6, 8),
+            labels = c("4 cyl", "6 cyl", "8 cyl")
+        )
+    )
+
 ggplot(mtcars, aes(wt, mpg, color=cyl))+
     geom_point()+
     geom_smooth(method="lm")+
@@ -82,8 +82,8 @@ ggplot(mtcars, aes(wt, mpg, color=cyl))+
          x = "Weight",
          y = "Miles per Gallon",
          color = "Cylinders")
-\```
 ```
+</pre>
 
 #### Preview your edits {-}
 
