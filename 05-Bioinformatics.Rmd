@@ -666,7 +666,8 @@ ggtree(tree) +
             label = label
         ),
         size = 3
-    )
+    ) +
+    ggplot2::ggtitle("SARS-CoV-2 S-locus phylogeny; genbank, 10 May 2020")
 ```
 
 Color sequences by region
