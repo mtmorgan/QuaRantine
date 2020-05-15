@@ -971,26 +971,151 @@ A major caveat to any conclusion of co-expression from the figure is that _covar
 
 ## Day 33 (Friday) Zoom check-in
 
-### Review and trouble shoot (25 minutes)
+Biological background
+
+- RNA virus ([source][img-src-05-1], license: [CC BY-SA 4.0][])
+
+    ```{r echo = FALSE, out.width = "60%"}
+    knitr::include_graphics('images/512px-Coronavirus_virion_structure.svg.png')
+    ```
+
+- Key domains ([source][img-src-05-2], license: [CC BY 2][])
+
+    ```{r echo = FALSE, out.width = "100%"}
+    knitr::include_graphics('images/SARS-CoV_genome_organization.jpg')
+    ```
+
+### Monday troubles (10 minutes)
+
+Where we ran into trouble on Monday
+
+- Load specific packages
+
+    ```{r, message = FALSE}
+    library(Biostrings)
+    library(GenomicRanges)
+    ```
+
+- DNA sequences and genomic ranges
+
+    ```{r}
+    sequences <- c(chr1 = "CTGACT", chr2 = "CTGGGAACT")
+    dna <- DNAStringSet(sequences)
+    
+    regions_of_interest <- c("chr1:1-3", "chr1:3-6", "chr2:4-6")
+    roi <- GRanges(regions_of_interest)
+    ```
+    
+- So far so good, but...
+
+    ```{r, eval = FALSE}
+    > getSeq(dna, roi)
+    Error in (function (classes, fdef, mtable)  : 
+      unable to find an inherited method for function 'getSeq' for signature '"DNAStringSet"'
+    ```
+
+- What went wrong? The `getSeq()` _generic_ is defined in [Biostrings][], but the `getSeq()` _method_ `getSeq,DNAStringSet-method` is not! Hence 'unable to find an inherited method ... for signature ...'.
+
+- Why did it work in the QuaRantine document? I had also loaded another package
+
+    ```{r, message = FALSE}
+    library(genbankr)
+    ```
+
+  - [genbankr][] depends on the package [BSgenome][]
+  - [BSgenome][] defines a method `getSeq,DNAStringSet-method`.
+  - The generic in [Biostrings][] now finds the method in [BSgenome][]!
+  
+      ```{r}
+      getSeq(dna, roi)
+      ```
+
+[BSgenome]: https://bioconductor.org/packages/BSgenome
+
+### Review and trouble shoot (40 minutes)
 
 [Bioconductor][]
 
-- Packages
+- Useful resource: statistical analysis and comprehension of high-throughput genomic data.
 
-- Classes and methods
+- Key concepts: package, vignette, class, method.
 
 SARS-CoV-2 sequence data
 
-- Querying Entrez and parsing GenBank records
+- Querying Entrez for [NC_045512][] and parsing GenBank records
 
-- Working with DNA sequences and genomic ranges
+    ```{r}
+    library(genbankr)
+    gb <- readGenBank(GBAccession("NC_045512"))
+    gb
+    ```
 
-- Multiple alignment and phylogenetic tree visualization
+- Extract whole-genome sequence and annotation
+
+    ```{r}
+    ref <- getSeq(gb)
+    ref
+    
+    cds <- cds(gb)
+    getSeq(ref, subset(cds, gene == "S"))
+    ```
+
+- Multiple alignment and phylogenetic tree construction
+
+    ```{r}
+    library(DECIPHER)
+    url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-S.fasta"
+    dna <- readDNAStringSet(url)
+    aa <- dna %>% translate(if.fuzzy.codon = "solve") %>% unique()
+    aln <- AlignSeqs(aa, verbose = FALSE)
+    dist <- DistanceMatrix(aln, verbose = FALSE)
+    dendrogram <- 
+        IdClusters(dist, method = "NJ", type = "dendrogram", verbose = FALSE)
+    ```
+
+- Save intermediate result and take a deep breath
+
+    ```{r, eval = FALSE}
+    dendrogram_file <- file.path(workdir, "SARS-CoV2-S.newick")    
+    WriteDendrogram(dendrogram, dendrogram_file, quoteLabels = FALSE)
+    ```
+
+- Visualization
+
+    ```{r, message = FALSE}
+    library(ggtree)
+    tree <- treeio::read.newick(dendrogram_file)
+    ggtree(tree) +
+        geom_tiplab(
+            aes(subset = branch.length > .001, label = label), 
+            size = 3
+        ) +
+        ggplot2::ggtitle("SARS-CoV-2 S-locus phylogeny; genbank, 10 May 2020")
+    ```
+
+[NC_045512]: https://www.ncbi.nlm.nih.gov/nuccore/NC_045512
 
 Single cell expression
 
-### Next week (25 minutes)
+### This weekend (10 minutes)
+
+Saturday
+
+- Tree visualization: color lineages based on observed attributes
+
+Sunday
+
+- Package exploration: identifying solutions for your research challenges.
 
 ## Day 34 Revising tree visualization
 
+The goal for today is to return to the Wednesday challenge: to color the S-locus gene phylogeny based on the country the lineage was sequenced in. The steps are as follows:
+
+- Find nodes representing just a single sequence -- 'singletons'
+- Use GenBank country to identify which country these were sequenced from
+- Color lineages according to singleton country of origin
+
+
 ## Day 35 Exploring [Bioconductor][]
+
+The exciting part of science is that we are always on the edge -- on our own edge of new discovery, where no one has gone before. We've barely scratched the surface of _Bioconductor_ this week. Explore [available packages][biocViews] for solutions that might be appropriate for **your particular problem**.
