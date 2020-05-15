@@ -6,26 +6,18 @@
 
 ### Vignettes (25 minutes; Shawn)
 
-#### Vignette Preparation {-}
+Vignette preparation
 
-Create a small hierarcy of directories {-}
+- Create a directory `Week-06` in the working directory
 
-- `MyQuarantine` (top level)
-
-    - `R` (inside `MyQuarantine`)
-
-    - `vignettes` (also inside `MyQuarantine`)
+    ```{r}
+    workdir = "workdir/Week-06"
+    if (!dir.exists(workdir)) {
+        dir.create(workdir, recursive = TRUE)
+    }
+    ```
     
-```{r}
-workdir = "workdir/Week-06/MyQuarantine"
-if (!dir.exists(workdir)) {
-    dir.create(workdir, recursive = TRUE)
-    dir.create(file.path(workdir, "R"))
-    dir.create(file.path(workdir, "vignettes"))
-}
-```
-    
-#### Create an `R markdown` document {-}
+Create an _R_ markdown document
 
 - `File` -> `New file` -> `R markdown...`
 
@@ -35,57 +27,57 @@ if (!dir.exists(workdir)) {
 
 - _RStudio_ creates a template
 
-  - save it (e.g., click the floppy disk icon) in the `vignettes` folder
+- Save it (e.g., click the floppy disk icon) in the `Week-06` folder
 
-#### Preview (knit) the markdown template {-}
+Preview (knit) the markdown template
 
 - Click the `knit` button 
 
-  -  install the `knitr` package if button is missing
+-  Install the `knitr` package if button is missing
 
-#### Customize the template {-}
+Customize the template
 
-Let's add a demonstration of `ggplot2` using the `mtcars` data set:
+- Let's add a demonstration of `ggplot2` using the `mtcars` data set:
 
-<pre>
----
-title: "multiple regression plots"
-author: "Shawn Matott"
-date: "5/13/2020"
-output: html_document
----
+  <pre>
+  ---
+  title: "multiple regression plots"
+  author: "Shawn Matott"
+  date: "5/13/2020"
+  output: html_document
+  ---
+  
+  ## Muliple Regression Plots
+  
+  - Scatterplot by category with regression lines (using ggplot2)
+  
+  ```{r}`r ''`
+  library(ggplot2)
+  
+  data("mtcars")
+  
+  ## convert cyl to a factor-level object
+  mtcars <-
+      mtcars %>%
+      mutate(
+          cyl = factor(
+              cyl,
+              levels = c(4, 6, 8),
+              labels = c("4 cyl", "6 cyl", "8 cyl")
+          )
+      )
+  
+  ggplot(mtcars, aes(wt, mpg, color=cyl))+
+      geom_point()+
+      geom_smooth(method="lm")+
+      labs(title="Regression of MPG on Weight by # Cylinders",
+           x = "Weight",
+           y = "Miles per Gallon",
+           color = "Cylinders")
+  ```
+  </pre>
 
-## Muliple Regression Plots
-
-- Scatterplot by category with regression lines (using ggplot2)
-
-```{r}`r ''`
-library(ggplot2)
-
-data("mtcars")
-
-# convert cyl to a factor-level object
-mtcars <-
-    mtcars %>%
-    mutate(
-        cyl = factor(
-            cyl,
-            levels = c(4, 6, 8),
-            labels = c("4 cyl", "6 cyl", "8 cyl")
-        )
-    )
-
-ggplot(mtcars, aes(wt, mpg, color=cyl))+
-    geom_point()+
-    geom_smooth(method="lm")+
-    labs(title="Regression of MPG on Weight by # Cylinders",
-         x = "Weight",
-         y = "Miles per Gallon",
-         color = "Cylinders")
-```
-</pre>
-
-#### Preview your edits {-}
+Preview your edits
 
 - Save your changes
 
