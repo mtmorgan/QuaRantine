@@ -252,8 +252,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.3" data-path="five.html"><a href="five.html#coordinating-cell-and-expression-data"><i class="fa fa-check"></i><b>5.4.3</b> Coordinating cell and expression data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="five.html"><a href="five.html#day-33-friday-zoom-check-in"><i class="fa fa-check"></i><b>5.5</b> Day 33 (Friday) Zoom check-in</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="five.html"><a href="five.html#review-and-trouble-shoot-25-minutes-1"><i class="fa fa-check"></i><b>5.5.1</b> Review and trouble shoot (25 minutes)</a></li>
-<li class="chapter" data-level="5.5.2" data-path="five.html"><a href="five.html#next-week-25-minutes"><i class="fa fa-check"></i><b>5.5.2</b> Next week (25 minutes)</a></li>
+<li class="chapter" data-level="5.5.1" data-path="five.html"><a href="five.html#monday-troubles-10-minutes"><i class="fa fa-check"></i><b>5.5.1</b> Monday troubles (10 minutes)</a></li>
+<li class="chapter" data-level="5.5.2" data-path="five.html"><a href="five.html#review-and-trouble-shoot-40-minutes-1"><i class="fa fa-check"></i><b>5.5.2</b> Review and trouble shoot (40 minutes)</a></li>
+<li class="chapter" data-level="5.5.3" data-path="five.html"><a href="five.html#this-weekend-10-minutes"><i class="fa fa-check"></i><b>5.5.3</b> This weekend (10 minutes)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="five.html"><a href="five.html#day-34-revising-tree-visualization"><i class="fa fa-check"></i><b>5.6</b> Day 34 Revising tree visualization</a></li>
 <li class="chapter" data-level="5.7" data-path="five.html"><a href="five.html#day-35-exploring-bioconductor"><i class="fa fa-check"></i><b>5.7</b> Day 35 Exploring <span>Bioconductor</span></a></li>
@@ -271,6 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.5</b> 2 Days Share your work as a package!</a></li>
 <li class="chapter" data-level="6.6" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.6</b> Today! (Friday) Zoom check-in</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i>Frequently asked questions</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1198,7 +1200,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">dendrogram &lt;-<span class="st"> </span><span class="kw">IdClusters</span>(dist, <span class="dt">method =</span> <span class="st">&quot;NJ&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;dendrogram&quot;</span>)</a>
 <a class="sourceLine" id="cb53-2" data-line-number="2"><span class="co">## ================================================================================</span></a>
 <a class="sourceLine" id="cb53-3" data-line-number="3"><span class="co">## </span></a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co">## Time difference of 0.75 secs</span></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co">## Time difference of 0.66 secs</span></a>
 <a class="sourceLine" id="cb53-5" data-line-number="5">dendrogram</a>
 <a class="sourceLine" id="cb53-6" data-line-number="6"><span class="co">## &#39;dendrogram&#39; with 2 branches and 343 members total, at height 0.009898669</span></a>
 <a class="sourceLine" id="cb53-7" data-line-number="7"><span class="kw">plot</span>(dendrogram, <span class="dt">leaflab =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
@@ -1684,30 +1686,131 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="day-33-friday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">5.5</span> Day 33 (Friday) Zoom check-in</h2>
-<div id="review-and-trouble-shoot-25-minutes-1" class="section level3">
-<h3><span class="header-section-number">5.5.1</span> Review and trouble shoot (25 minutes)</h3>
+<p>Biological background</p>
+<ul>
+<li><p>RNA virus (<a href="https://en.wikipedia.org/wiki/File:Coronavirus_virion_structure.svg">source</a>, license: <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>)</p>
+<p><img src="images/512px-Coronavirus_virion_structure.svg.png" width="60%" /></p></li>
+<li><p>Key domains (<a href="https://en.wikipedia.org/wiki/File:SARS-CoV_genome_organization.jpg">source</a>, license: <a href="https://creativecommons.org/licenses/by/2.0/deed.en">CC BY 2</a>)</p>
+<p><img src="images/SARS-CoV_genome_organization.jpg" width="100%" /></p></li>
+</ul>
+<div id="monday-troubles-10-minutes" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> Monday troubles (10 minutes)</h3>
+<p>Where we ran into trouble on Monday</p>
+<ul>
+<li><p>Load specific packages</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">library</span>(Biostrings)</a>
+<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="kw">library</span>(GenomicRanges)</a></code></pre></div></li>
+<li><p>DNA sequences and genomic ranges</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">sequences &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">chr1 =</span> <span class="st">&quot;CTGACT&quot;</span>, <span class="dt">chr2 =</span> <span class="st">&quot;CTGGGAACT&quot;</span>)</a>
+<a class="sourceLine" id="cb89-2" data-line-number="2">dna &lt;-<span class="st"> </span><span class="kw">DNAStringSet</span>(sequences)</a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4">regions_of_interest &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;chr1:1-3&quot;</span>, <span class="st">&quot;chr1:3-6&quot;</span>, <span class="st">&quot;chr2:4-6&quot;</span>)</a>
+<a class="sourceLine" id="cb89-5" data-line-number="5">roi &lt;-<span class="st"> </span><span class="kw">GRanges</span>(regions_of_interest)</a></code></pre></div></li>
+<li><p>So far so good, but…</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">getSeq</span>(dna, roi)</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2">Error <span class="cf">in</span> (<span class="cf">function</span> (classes, fdef, mtable)  <span class="op">:</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb90-3" data-line-number="3"><span class="st">  </span>unable to find an inherited method <span class="cf">for</span> <span class="cf">function</span> <span class="st">&#39;getSeq&#39;</span> <span class="cf">for</span> signature <span class="st">&#39;&quot;DNAStringSet&quot;&#39;</span></a></code></pre></div></li>
+<li><p>What went wrong? The <code>getSeq()</code> <em>generic</em> is defined in <a href="https://bioconductor.org/packages/Biostrings">Biostrings</a>, but the <code>getSeq()</code> <em>method</em> <code>getSeq,DNAStringSet-method</code> is not! Hence ‘unable to find an inherited method … for signature …’.</p></li>
+<li><p>Why did it work in the QuaRantine document? I had also loaded another package</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">library</span>(genbankr)</a></code></pre></div>
+<ul>
+<li><a href="https://bioconductor.org/packages/genbankr">genbankr</a> depends on the package <a href="https://bioconductor.org/packages/BSgenome">BSgenome</a></li>
+<li><a href="https://bioconductor.org/packages/BSgenome">BSgenome</a> defines a method <code>getSeq,DNAStringSet-method</code>.</li>
+<li><p>The generic in <a href="https://bioconductor.org/packages/Biostrings">Biostrings</a> now finds the method in <a href="https://bioconductor.org/packages/BSgenome">BSgenome</a>!</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">getSeq</span>(dna, roi)</a>
+<a class="sourceLine" id="cb92-2" data-line-number="2"><span class="co">##   A DNAStringSet instance of length 3</span></a>
+<a class="sourceLine" id="cb92-3" data-line-number="3"><span class="co">##     width seq</span></a>
+<a class="sourceLine" id="cb92-4" data-line-number="4"><span class="co">## [1]     3 CTG</span></a>
+<a class="sourceLine" id="cb92-5" data-line-number="5"><span class="co">## [2]     4 GACT</span></a>
+<a class="sourceLine" id="cb92-6" data-line-number="6"><span class="co">## [3]     3 GGA</span></a></code></pre></div></li>
+</ul></li>
+</ul>
+</div>
+<div id="review-and-trouble-shoot-40-minutes-1" class="section level3">
+<h3><span class="header-section-number">5.5.2</span> Review and trouble shoot (40 minutes)</h3>
 <p><a href="https://bioconductor.org">Bioconductor</a></p>
 <ul>
-<li><p>Packages</p></li>
-<li><p>Classes and methods</p></li>
+<li><p>Useful resource: statistical analysis and comprehension of high-throughput genomic data.</p></li>
+<li><p>Key concepts: package, vignette, class, method.</p></li>
 </ul>
 <p>SARS-CoV-2 sequence data</p>
 <ul>
-<li><p>Querying Entrez and parsing GenBank records</p></li>
-<li><p>Working with DNA sequences and genomic ranges</p></li>
-<li><p>Multiple alignment and phylogenetic tree visualization</p></li>
+<li><p>Querying Entrez for <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_045512">NC_045512</a> and parsing GenBank records</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">library</span>(genbankr)</a>
+<a class="sourceLine" id="cb93-2" data-line-number="2">gb &lt;-<span class="st"> </span><span class="kw">readGenBank</span>(<span class="kw">GBAccession</span>(<span class="st">&quot;NC_045512&quot;</span>))</a>
+<a class="sourceLine" id="cb93-3" data-line-number="3"><span class="co">## No exons read from genbank file. Assuming sections of CDS are full exons</span></a>
+<a class="sourceLine" id="cb93-4" data-line-number="4"><span class="co">## No transcript features (mRNA) found, using spans of CDSs</span></a>
+<a class="sourceLine" id="cb93-5" data-line-number="5">gb</a>
+<a class="sourceLine" id="cb93-6" data-line-number="6"><span class="co">## GenBank Annotations</span></a>
+<a class="sourceLine" id="cb93-7" data-line-number="7"><span class="co">## Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome. </span></a>
+<a class="sourceLine" id="cb93-8" data-line-number="8"><span class="co">## Accession: NC_045512</span></a>
+<a class="sourceLine" id="cb93-9" data-line-number="9"><span class="co">## 1 Sequence(s) with total length length: 29903</span></a>
+<a class="sourceLine" id="cb93-10" data-line-number="10"><span class="co">## 11 genes</span></a>
+<a class="sourceLine" id="cb93-11" data-line-number="11"><span class="co">## 12 transcripts</span></a>
+<a class="sourceLine" id="cb93-12" data-line-number="12"><span class="co">## 13 exons/cds elements</span></a>
+<a class="sourceLine" id="cb93-13" data-line-number="13"><span class="co">## 0 variations</span></a>
+<a class="sourceLine" id="cb93-14" data-line-number="14"><span class="co">## 34 other features</span></a></code></pre></div></li>
+<li><p>Extract whole-genome sequence and annotation</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1">ref &lt;-<span class="st"> </span><span class="kw">getSeq</span>(gb)</a>
+<a class="sourceLine" id="cb94-2" data-line-number="2">ref</a>
+<a class="sourceLine" id="cb94-3" data-line-number="3"><span class="co">##   A DNAStringSet instance of length 1</span></a>
+<a class="sourceLine" id="cb94-4" data-line-number="4"><span class="co">##     width seq                                               names               </span></a>
+<a class="sourceLine" id="cb94-5" data-line-number="5"><span class="co">## [1] 29903 ATTAAAGGTTTATACCTTCCCAG...AAAAAAAAAAAAAAAAAAAAAAA Severe acute resp...</span></a>
+<a class="sourceLine" id="cb94-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb94-7" data-line-number="7">cds &lt;-<span class="st"> </span><span class="kw">cds</span>(gb)</a>
+<a class="sourceLine" id="cb94-8" data-line-number="8"><span class="kw">getSeq</span>(ref, <span class="kw">subset</span>(cds, gene <span class="op">==</span><span class="st"> &quot;S&quot;</span>))</a>
+<a class="sourceLine" id="cb94-9" data-line-number="9"><span class="co">##   A DNAStringSet instance of length 1</span></a>
+<a class="sourceLine" id="cb94-10" data-line-number="10"><span class="co">##     width seq</span></a>
+<a class="sourceLine" id="cb94-11" data-line-number="11"><span class="co">## [1]  3822 ATGTTTGTTTTTCTTGTTTTATTGCCACTAGTCT...GTGCTCAAAGGAGTCAAATTACATTACACATAA</span></a></code></pre></div></li>
+<li><p>Multiple alignment and phylogenetic tree construction</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">library</span>(DECIPHER)</a>
+<a class="sourceLine" id="cb95-2" data-line-number="2">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-S.fasta&quot;</span></a>
+<a class="sourceLine" id="cb95-3" data-line-number="3">dna &lt;-<span class="st"> </span><span class="kw">readDNAStringSet</span>(url)</a>
+<a class="sourceLine" id="cb95-4" data-line-number="4">aa &lt;-<span class="st"> </span>dna <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">translate</span>(<span class="dt">if.fuzzy.codon =</span> <span class="st">&quot;solve&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>()</a>
+<a class="sourceLine" id="cb95-5" data-line-number="5">aln &lt;-<span class="st"> </span><span class="kw">AlignSeqs</span>(aa, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb95-6" data-line-number="6">dist &lt;-<span class="st"> </span><span class="kw">DistanceMatrix</span>(aln, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb95-7" data-line-number="7">dendrogram &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb95-8" data-line-number="8"><span class="st">    </span><span class="kw">IdClusters</span>(dist, <span class="dt">method =</span> <span class="st">&quot;NJ&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;dendrogram&quot;</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
+<li><p>Save intermediate result and take a deep breath</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1">dendrogram_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(workdir, <span class="st">&quot;SARS-CoV2-S.newick&quot;</span>)    </a>
+<a class="sourceLine" id="cb96-2" data-line-number="2"><span class="kw">WriteDendrogram</span>(dendrogram, dendrogram_file, <span class="dt">quoteLabels =</span> <span class="ot">FALSE</span>)</a></code></pre></div></li>
+<li><p>Visualization</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">library</span>(ggtree)</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">tree &lt;-<span class="st"> </span>treeio<span class="op">::</span><span class="kw">read.newick</span>(dendrogram_file)</a>
+<a class="sourceLine" id="cb97-3" data-line-number="3"><span class="kw">ggtree</span>(tree) <span class="op">+</span></a>
+<a class="sourceLine" id="cb97-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_tiplab</span>(</a>
+<a class="sourceLine" id="cb97-5" data-line-number="5">        <span class="kw">aes</span>(<span class="dt">subset =</span> branch.length <span class="op">&gt;</span><span class="st"> </span><span class="fl">.001</span>, <span class="dt">label =</span> label), </a>
+<a class="sourceLine" id="cb97-6" data-line-number="6">        <span class="dt">size =</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb97-7" data-line-number="7">    ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb97-8" data-line-number="8"><span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">ggtitle</span>(<span class="st">&quot;SARS-CoV-2 S-locus phylogeny; genbank, 10 May 2020&quot;</span>)</a></code></pre></div>
+<p><img src="05-Bioinformatics_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p></li>
 </ul>
 <p>Single cell expression</p>
 </div>
-<div id="next-week-25-minutes" class="section level3">
-<h3><span class="header-section-number">5.5.2</span> Next week (25 minutes)</h3>
+<div id="this-weekend-10-minutes" class="section level3">
+<h3><span class="header-section-number">5.5.3</span> This weekend (10 minutes)</h3>
+<p>Saturday</p>
+<ul>
+<li>Tree visualization: color lineages based on observed attributes</li>
+</ul>
+<p>Sunday</p>
+<ul>
+<li>Package exploration: identifying solutions for your research challenges.</li>
+</ul>
 </div>
 </div>
 <div id="day-34-revising-tree-visualization" class="section level2">
 <h2><span class="header-section-number">5.6</span> Day 34 Revising tree visualization</h2>
+<p>The goal for today is to return to the Wednesday challenge: to color the S-locus gene phylogeny based on the country the lineage was sequenced in. The steps are as follows:</p>
+<ul>
+<li>Find nodes representing just a single sequence – ‘singletons’</li>
+<li>Use GenBank country to identify which country these were sequenced from</li>
+<li>Color lineages according to singleton country of origin</li>
+</ul>
 </div>
 <div id="day-35-exploring-bioconductor" class="section level2">
 <h2><span class="header-section-number">5.7</span> Day 35 Exploring <a href="https://bioconductor.org">Bioconductor</a></h2>
+<p>The exciting part of science is that we are always on the edge – on our own edge of new discovery, where no one has gone before. We’ve barely scratched the surface of <em>Bioconductor</em> this week. Explore <a href="https://bioconductor.org/packages">available packages</a> for solutions that might be appropriate for <strong>your particular problem</strong>.</p>
 
 </div>
 </div>
