@@ -684,9 +684,9 @@ RNA-seq is a technology for measuring RNA expression levels as a proxy for gene 
 
 Many interesting questions present themselves in the context of COVID-19. It would be interesting to investigate patterns of expression of human genes known to interact with the SARS-CoV-2 virus, especially in tissues likely to be involved in the introduction of the virus to the human body. One could imagine further studies identifying, e.g., genetic variants that influence susceptibility or response to infection.
 
-Our goal is to do some preliminary visualization of scRNA seq at human genes whose product is known to interact with virus proteins. A much more comprehensive guide is available as [Orchestrating Single Cell Analysis with _Bioconductor_][osca]
+Our goal is to do some preliminary visualization of scRNA seq at human genes whose product is known to interact with virus proteins. A much more comprehensive guide is available as [Orchestrating Single Cell Analysis with _Bioconductor_][osca].
 
-[Muss et al]: https://www.biorxiv.org/content/10.1101/2020.04.19.049254v2
+[Muus et al]: https://www.biorxiv.org/content/10.1101/2020.04.19.049254v2
 [workspace]: https://anvil.terra.bio/#workspaces/kco-incubator/COVID-19_cross_tissue_analysis
 [osca]: https://osca.bioconductor.org/
 
@@ -830,8 +830,6 @@ Notice that we have two separate data structures -- a large matrix of expression
 
 A better strategy is to introduce an object that can manage both parts of the data in a coordinated way. This container is provided by the [SingleCellExperiment][] package
 
-[SingleCellExperiment]: https;//bioconductor.org/packages/SingleCellExperiment
-
 ```{r, message = FALSE}
 library(SingleCellExperiment)
 ```
@@ -907,9 +905,9 @@ to visualize as a horizontal boxplot the ACE2 expression values of each cell sub
 tbl %>%
     filter(expression > 0) %>%
     ggplot(aes(cell_subset, expression)) +
-    geom_boxplot() +
-    coord_flip() +
-    ggtitle("ACE2")
+        geom_boxplot() +
+        coord_flip() +
+        ggtitle("ACE2")
 ```
 
 I want to explore co-expression of two genes, ACE2 and TMPRSS2. I used `subset()` to select the relevant expression and cell annotation values, then created a tibble with gene, cell, and expression columns.
@@ -993,6 +991,7 @@ Where we ran into trouble on Monday
 
     ```{r, message = FALSE}
     library(Biostrings)
+    options(Biostrings.coloring = FALSE)
     library(GenomicRanges)
     ```
 
@@ -1037,6 +1036,8 @@ Where we ran into trouble on Monday
 [Bioconductor][]
 
 - Useful resource: statistical analysis and comprehension of high-throughput genomic data.
+
+- `BiocManager::install()`, `BiocManager::version()`, `BiocManager::valid()`
 
 - Key concepts: package, vignette, class, method.
 
@@ -1096,6 +1097,63 @@ SARS-CoV-2 sequence data
 [NC_045512]: https://www.ncbi.nlm.nih.gov/nuccore/NC_045512
 
 Single cell expression
+
+- Retrieve script and file to a local working directory
+
+    ```{r}
+    workdir <- "workdir"
+    if (!dir.exists(workdir))
+        dir.create(workdir)
+    
+    url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-scRNAseq-import.R"
+    destination <- file.path(workdir, basename(url))
+    if (!file.exists(destination))
+        download.file(url, destination)
+
+    url <- "https://github.com/mtmorgan/QuaRantine/raw/master/assets/05-internal_nonsmokerslung.h5ad"
+    h5_file <- file.path(workdir, basename(url))
+    if (!file.exists(h5_file))
+        download.file(url, h5_file)
+    ```
+
+- Input and explore cell annotations and expression values
+
+    ```{r}
+    obs <- read_obs(h5_file)      # tibble
+    x <- read_expression(h5_file) # sparse matrix
+    ```
+    
+- Coordinate cell annotation and expression values as `SingleCellExperiment`
+
+    ```{r, echo = FALSE, out.width = "60%"}
+    knitr::include_graphics('images/SummarizedExperiment.svg')
+    ```
+
+    ```{r}
+    sce <- SingleCellExperiment(x, colData = obs)
+    sce
+    ```
+
+- Etc., e.g., cell subtype expression
+
+    ```{r}
+    library(ggplot2)
+
+    ace2 <- subset(sce, rownames(sce) %in% "ACE2")
+    tbl <- tibble(
+        cell_subset = ace2$cell_subset,
+        expression = as.vector(assay(ace2))
+    )
+    
+    tbl %>%
+        filter(expression > 0) %>%
+        ggplot(aes(cell_subset, expression)) +
+            geom_boxplot() +
+            coord_flip() +
+            ggtitle("ACE2")
+    ```
+
+- Many more single cell resources described in [Orchestrating Single Cell Analysis with _Bioconductor_][osca].
 
 ### This weekend (10 minutes)
 
