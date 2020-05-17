@@ -264,11 +264,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.1" data-path="six.html"><a href="six.html#weekend-review-5-minutes"><i class="fa fa-check"></i><b>6.1.1</b> Weekend review (5 minutes)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="six.html"><a href="six.html#vignettes-25-minutes-shawn"><i class="fa fa-check"></i><b>6.1.2</b> Vignettes (25 minutes; Shawn)</a></li>
 <li class="chapter" data-level="6.1.3" data-path="six.html"><a href="six.html#writing-and-documenting-r-functions-25-minutes"><i class="fa fa-check"></i><b>6.1.3</b> Writing and documenting R functions (25 minutes)</a></li>
+<li class="chapter" data-level="6.1.4" data-path="six.html"><a href="six.html#create-an-r-pacakge"><i class="fa fa-check"></i><b>6.1.4</b> Create an <em>R</em> pacakge!</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="six.html"><a href="six.html#days-write-a-vignette"><i class="fa fa-check"></i><b>6.2</b> 4 Days Write a vignette!</a></li>
 <li class="chapter" data-level="6.3" data-path="six.html"><a href="six.html#days-create-documented-reusable-functions"><i class="fa fa-check"></i><b>6.3</b> 3 Days Create documented, reusable functions!</a></li>
-<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a></li>
-<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a></li>
+<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="six.html"><a href="six.html#description"><i class="fa fa-check"></i><b>6.4.1</b> DESCRIPTION</a></li>
+<li class="chapter" data-level="6.4.2" data-path="six.html"><a href="six.html#documentation"><i class="fa fa-check"></i><b>6.4.2</b> Documentation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="six.html"><a href="six.html#vignettes"><i class="fa fa-check"></i><b>6.4.3</b> Vignettes</a></li>
+<li class="chapter" data-level="6.4.4" data-path="six.html"><a href="six.html#build-and-share"><i class="fa fa-check"></i><b>6.4.4</b> Build and share</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="six.html"><a href="six.html#course-review"><i class="fa fa-check"></i><b>6.5.1</b> Course review</a></li>
+<li class="chapter" data-level="6.5.2" data-path="six.html"><a href="six.html#feedback-next-steps"><i class="fa fa-check"></i><b>6.5.2</b> Feedback &amp; next steps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i>Frequently asked questions</a></li>
@@ -294,6 +303,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="six" class="section level1">
 <h1><span class="header-section-number">Week 6</span> Collaboration</h1>
+<p>In this final week of QuaRantine, we focus on communicating reproducible analyses with our peers. We will</p>
+<ul>
+<li><p>Write ‘markdown’ vignettes to describe and share our analyses</p></li>
+<li><p>Create and document functions that encapsulate common tasks or steps in a work flow</p></li>
+<li><p>Combine vignettes and documented functions into an <em>R</em> package that can be easily shared with others</p></li>
+</ul>
+<p>Instead of counting upward from the begining of our quarantine, we count down to the end.</p>
 <div id="days-monday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">6.1</span> 5 Days (Monday) Zoom check-in</h2>
 <div id="weekend-review-5-minutes" class="section level3">
@@ -315,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Enter a <code>Title</code> and your name as <code>Author</code></p></li>
 <li><p>Use <code>HTML</code> as default output</p></li>
 <li><p><em>RStudio</em> creates a template</p></li>
-<li><p>Save it (e.g., click the floppy disk icon) in the <code>Week-06</code> folder</p></li>
+<li><p>Save it (e.g., click the floppy disk icon) in the <code>Week-06</code> folder. Use a title such as <code>mtcars_regression.Rmd</code>.</p></li>
 </ul>
 <p>Preview (knit) the markdown template</p>
 <ul>
@@ -342,7 +358,7 @@ library(ggplot2)
 
 data("mtcars")
 
-# convert cyl to a factor-level object
+## convert cyl to a factor-level object
 mtcars <-
     mtcars %>%
     mutate(
@@ -373,21 +389,214 @@ ggplot(mtcars, aes(wt, mpg, color=cyl))+
 </div>
 <div id="writing-and-documenting-r-functions-25-minutes" class="section level3">
 <h3><span class="header-section-number">6.1.3</span> Writing and documenting R functions (25 minutes)</h3>
+<p>Writing our own functions can be useful in several situations</p>
+<ul>
+<li><p>Capturing a common operation, such as retieving data from an internet resource.</p></li>
+<li><p>Representing a transformation that can be applied to different parts of the data, e.g., calculuating the difference in new cases, applied to different counties or states</p></li>
+<li><p>Summarizing overall steps in a work flow, e.g., translating, aligning, and clustering a DNA sequence.</p></li>
+</ul>
+<p>As an example, the following function takes as input a vector representing the cummulative number of observations (e.g., new cases, deaths) over successive days. It calculates the difference in cases, and then uses <code>stats::filter()</code> to return the trailing average of the difference</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">trailing_difference &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">n_days =</span> <span class="dv">7</span>) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">    diff &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, x))</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    average_weights &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n_days, n_days)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    stats<span class="op">::</span><span class="kw">filter</span>(diff, average_weights, <span class="dt">sides =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">}</a></code></pre></div>
+<p>Here’s a vector and the result of applying the function</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">trailing_difference</span>(obs, <span class="dt">n_days =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">## Time Series:</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## Start = 1 </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## End = 14 </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## Frequency = 1 </span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">##  [1]   NA   NA   NA 1.50 1.50 2.50 2.50 3.00 3.00 2.00 1.50 0.75 0.75 1.00</span></a></code></pre></div>
+<p>This function could be used, for instance, to calculate the seven-day average number of new cases in each county of the US.</p>
+<p>Let’s formalize this function, including documentation, in a separate file.</p>
+<ul>
+<li><p>Use RStudio File -&gt; New Script to create a file <code>workdir/Week-06/trailing_difference.R</code></p></li>
+<li><p>Document the function using <code>roxygen</code> formatting. This involves placing special comment characters <code>#'</code> at the start of lines, and using ‘tags’ that describe different parts of the function. One can guess at the meaning of most of the tags. We use the special tags <code>@importFrom</code> to tell <em>R</em> that we want to use the <code>filter</code> from the stats package, and <code>@export</code> to indicate that the function is meant for the ‘end user’ (i.e., us!).</p>
+<pre><code>#&#39; @title Trailing difference of a vector
+#&#39;
+#&#39; @description Calculate the difference of successive elements of a
+#&#39;     vector, and then the running average of the difference. The
+#&#39;     width of the difference can be specied as an argument.
+#&#39;
+#&#39; @param x numeric() vector of observations.
+#&#39;
+#&#39; @param n_days scalar (length 1) numeric() number of days used to
+#&#39;     calculate the trailing average. The length of `x` should be
+#&#39;     greater than `n_days`.
+#&#39;
+#&#39; @return numeric() vector with the same length of x, representing
+#&#39;     the n_day average difference in x. Initial values are `NA`.
+#&#39;
+#&#39; @examples
+#&#39; obs &lt;- c(1, 2, 4, 6, 7, 12, 14, 18, 19, 20, 20, 21, 22, 24)
+#&#39; trailing_difference(obs, n_day = 4
+#&#39;
+#&#39; @importFrom stats filter
+#&#39;
+#&#39; @export
+trailing_difference &lt;- function(x, n_days = 7) {
+    diff &lt;- diff(c(0, x))
+    average_weights &lt;- rep(1 / n_days, n_days)
+    stats::filter(diff, average_weights, sides = 1)
+}</code></pre></li>
+</ul>
+</div>
+<div id="create-an-r-pacakge" class="section level3">
+<h3><span class="header-section-number">6.1.4</span> Create an <em>R</em> pacakge!</h3>
+<p>The vignette and documents function are great for our own use, but we’d really like to share these with our colleagues so that they too can benefit from our work. This is very easy to do.</p>
+<ul>
+<li>In RStudio, choose File -&gt; New project -&gt; New directory -&gt; R package</li>
+<li>Enter a package name, e.g., <code>MyQuarantine</code>, and use the <code>add</code> button to select the vignette <code>mtcars_regression.Rmd</code> and <em>R</em> <code>trailing_difference.R</code> files.</li>
+<li>Choose a location for your package, select the ‘Open in a new session’ button, and click ‘Create project’.</li>
+</ul>
+<p>The end result is a directory structure that actually represents an <em>R</em> package that you can build and share with your colleagues. The directory contains</p>
+<ul>
+<li>An R/ folder, containing your R source code</li>
+<li>A vignettes/ folder, containing the vignette you wrote.</li>
+</ul>
+<p>Later in the week we’ll see how to</p>
+<ul>
+<li>Edit the <code>DESCRIPTION</code> file to describe your package</li>
+<li>Generate help pages in the <code>man/</code> folder from the roxygen comments in the <code>.R</code> files.</li>
+<li>Create the knit vignette from the source .Rmd file.</li>
+<li>Build the package for distribution and sharing with others.</li>
+</ul>
 </div>
 </div>
 <div id="days-write-a-vignette" class="section level2">
 <h2><span class="header-section-number">6.2</span> 4 Days Write a vignette!</h2>
+<p>Choose one week from the quarantine, and write a vignette summarizing the material. Start with an outline using using level 1 <code>#</code> and level 2 <code>##</code> headings as well as bulleted lists / short paragraphs. One could think of this as structured more-or-less along the lines of classic scientific paper, with introductino, methods, results (use case), and discussion</p>
+<pre><code>```
+# Introduction to tidy data
+
+# Tools for working with tidy data
+
+## Key packages
+
+- dplyr
+- ggplot2
+
+## 5 Essential functions
+
+- `mutate()`
+- `filter()`
+- `select()`
+- `group_by()` / `ungroup()`
+
+# Use case
+
+E.g., summarizing and visualizing cell subtypes in Week 5.
+
+- narrative text describing what steps are being taken
+- include code chunks for reproducible analysis
+- include figures and / or summary tables to help communicate your results
+
+# Discussion
+
+A paragraph on strengths and limitations of the tidy approach
+
+Narrative on use case / insights
+
+Future directions
+
+## Session information
+
+- include a code chunk that has the command `sessionInfo()`; this 
+  documents  the specfici versions of packages you used.
+```</code></pre>
 </div>
 <div id="days-create-documented-reusable-functions" class="section level2">
 <h2><span class="header-section-number">6.3</span> 3 Days Create documented, reusable functions!</h2>
+<p>Create functions that represents key operations (e.g., data retrieval), data transformations (e.g., trailing difference in new cases), or that integrate several related steps in an analysis (e.g., <code>translate()</code>, <code>unique()</code>, align, and cluster DNA sequences).</p>
+<p>Place the function(s) in separate files (one or several functions per file). Document them using the notation introduced on Monday.</p>
+<p>Make sure the functions work by writing simple examples.</p>
 </div>
 <div id="days-share-your-work-as-a-package" class="section level2">
 <h2><span class="header-section-number">6.4</span> 2 Days Share your work as a package!</h2>
+<p>Use the steps outlined on Monday to create an <em>R</em> package from Tuesday’s vignette and Wednesday’s functions.</p>
+<div id="description" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> DESCRIPTION</h3>
+<p>Edit the DESCRIPTION file to include a Title and Description. Update the Author infromation to include your name. Add as maintainer your name and email address, using the format <code>Ima Maintainer &lt;my@email.com&gt;</code>.</p>
+</div>
+<div id="documentation" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Documentation</h3>
+<p>Make sure that <code>getwd()</code> returns the path to the package. Run the command (it may be necessary to install additional packages.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">getwd</span>() <span class="co"># in the directory of the project; use `setwd()` to change</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">document</span>()</a></code></pre></div>
+<p>There may be problems with the roxygen that you wrote; investigate how to fix these.</p>
+<p>This creates file(s) in the <code>man/</code> directory that transform the ‘roxygen’ comments (lines with <code>#'</code>) in the R/ file. Open one of the man files and use the ‘preview’ button to see the help page.</p>
+</div>
+<div id="vignettes" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Vignettes</h3>
+<p>Add the following lines to the end of the DESCRIPTION file:</p>
+<pre><code>Suggests: knitr
+VignetteBuilder: knitr</code></pre>
+<p>Update the ‘yaml’ at the top of the vignette</p>
+<pre><code>---
+title: &quot;Multiple regression plots&quot;
+author: &quot;Shawn Matott&quot;
+date: &quot;5/13/2020&quot;
+output: html_document
+vignette: |
+    %\VignetteIndexEntry{ Multiple Regression Plots }
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---</code></pre>
+<p>Use the following command to build the vignette</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">getwd</span>() <span class="co"># in the directory of the project</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">build_vignettes</span>()</a></code></pre></div>
+</div>
+<div id="build-and-share" class="section level3">
+<h3><span class="header-section-number">6.4.4</span> Build and share</h3>
+<p>With all the pieces now in place, choose Build -&gt; Build Source Package. This creates a single file with a name like <code>MyQuarantine_0.1.0.tar.gz</code> that you can share with colleagues – use</p>
+<pre><code>install.packages(&quot;path/to/MyQuarantine_0.1.0.tar.gz&quot;, repos = NULL).</code></pre>
+<p>to install your pacakge!</p>
+</div>
 </div>
 <div id="today-friday-zoom-check-in" class="section level2">
 <h2><span class="header-section-number">6.5</span> Today! (Friday) Zoom check-in</h2>
-<p>Course review and next steps</p>
+<div id="course-review" class="section level3">
+<h3><span class="header-section-number">6.5.1</span> Course review</h3>
+<p>Basic <em>R</em></p>
+<ul>
+<li>Numeric, character, logical vectors</li>
+<li>subsetting, applying functions</li>
+<li>The data.frame</li>
+</ul>
+<p>‘Tidy’ <em>R</em> and visualization</p>
+<ul>
+<li>The tibble and pipe (<code>%&gt;%</code>)</li>
+<li>readr: <code>read_csv()</code></li>
+<li>dplyr: <code>mutate()</code>, <code>filter()</code>, <code>select()</code>, <code>group_by()</code>, <code>summarize()</code></li>
+<li>ggplot2</li>
+<li>Visualizing the pandemic locally and globally</li>
+</ul>
+<p>Machine learning</p>
+<ul>
+<li>Underlying concepts</li>
+<li>Support vector machines, k-nearest neighbors, KNN</li>
+<li>Accuracy and confusion matrix; ROC curves and AUC</li>
+</ul>
+<p>Bioinformatics</p>
+<ul>
+<li><em>Bioconductor</em> packages</li>
+<li>Classes, generics, and methods for representing sequences and ranges</li>
+<li>Virus phylogeny</li>
+<li>Host gene expression</li>
+</ul>
+<p>Reproducible communication</p>
+<ul>
+<li>Vignettes</li>
+<li>Documented functions</li>
+<li>Packages</li>
+</ul>
+</div>
+<div id="feedback-next-steps" class="section level3">
+<h3><span class="header-section-number">6.5.2</span> Feedback &amp; next steps</h3>
 
+</div>
 </div>
 </div>
             </section>
