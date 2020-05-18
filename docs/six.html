@@ -399,22 +399,29 @@ ggplot(mtcars, aes(wt, mpg, color=cyl))+
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">trailing_difference &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">n_days =</span> <span class="dv">7</span>) {</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">    diff &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, x))</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">    average_weights &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n_days, n_days)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    stats<span class="op">::</span><span class="kw">filter</span>(diff, average_weights, <span class="dt">sides =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">}</a></code></pre></div>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    lag &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">filter</span>(diff, average_weights, <span class="dt">sides =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">as.numeric</span>(lag)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">}</a></code></pre></div>
 <p>Here’s a vector and the result of applying the function</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">trailing_difference</span>(obs, <span class="dt">n_days =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">## Time Series:</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## Start = 1 </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## End = 14 </span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## Frequency = 1 </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">##  [1]   NA   NA   NA 1.50 1.50 2.50 2.50 3.00 3.00 2.00 1.50 0.75 0.75 1.00</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">##  [1]   NA   NA   NA 1.50 1.50 2.50 2.50 3.00 3.00 2.00 1.50 0.75 0.75 1.00</span></a></code></pre></div>
 <p>This function could be used, for instance, to calculate the seven-day average number of new cases in each county of the US.</p>
 <p>Let’s formalize this function, including documentation, in a separate file.</p>
 <ul>
 <li><p>Use RStudio File -&gt; New Script to create a file <code>workdir/Week-06/trailing_difference.R</code></p></li>
-<li><p>Document the function using <code>roxygen</code> formatting. This involves placing special comment characters <code>#'</code> at the start of lines, and using ‘tags’ that describe different parts of the function. One can guess at the meaning of most of the tags. We use the special tags <code>@importFrom</code> to tell <em>R</em> that we want to use the <code>filter</code> from the stats package, and <code>@export</code> to indicate that the function is meant for the ‘end user’ (i.e., us!).</p>
-<pre><code>#&#39; @title Trailing difference of a vector
+<li><p>Document the function using <code>roxygen</code> formatting. This involves placing special comment characters <code>#'</code> at the start of lines, and using ‘tags’ that describe different parts of the function.</p>
+<ul>
+<li><p><code>@title</code>: a one-line description of the help page</p></li>
+<li><p><code>@description</code>: a short (paragraph-length?) summary of what capabilities the help page documents</p></li>
+<li><p><code>@param</code>: one for each argument, describing the value (e.g., ‘<code>numeric()</code>’ and meaning (e.g., ‘vector of observations over successive days’)</p></li>
+<li><p><code>@return</code>: the value returned by the function</p></li>
+<li><p><code>@examples</code>: valid <em>R</em> code illustrating how the function works.</p></li>
+</ul></li>
+</ul>
+<p>We use the special tags <code>@importFrom</code> to tell <em>R</em> that we want to use the <code>filter</code> from the stats package, and <code>@export</code> to indicate that the function is meant for the ‘end user’ (i.e., us!).</p>
+<pre><code>```
+#&#39; @title Trailing difference of a vector
 #&#39;
 #&#39; @description Calculate the difference of successive elements of a
 #&#39;     vector, and then the running average of the difference. The
@@ -439,9 +446,11 @@ ggplot(mtcars, aes(wt, mpg, color=cyl))+
 trailing_difference &lt;- function(x, n_days = 7) {
     diff &lt;- diff(c(0, x))
     average_weights &lt;- rep(1 / n_days, n_days)
-    stats::filter(diff, average_weights, sides = 1)
-}</code></pre></li>
-</ul>
+    lag &lt;- stats::filter(diff, average_weights, sides = 1)
+    as.vector(lag)
+}
+```
+    </code></pre>
 </div>
 <div id="create-an-r-pacakge" class="section level3">
 <h3><span class="header-section-number">6.1.4</span> Create an <em>R</em> pacakge!</h3>
@@ -551,7 +560,7 @@ vignette: |
 <div id="build-and-share" class="section level3">
 <h3><span class="header-section-number">6.4.4</span> Build and share</h3>
 <p>With all the pieces now in place, choose Build -&gt; Build Source Package. This creates a single file with a name like <code>MyQuarantine_0.1.0.tar.gz</code> that you can share with colleagues – use</p>
-<pre><code>install.packages(&quot;path/to/MyQuarantine_0.1.0.tar.gz&quot;, repos = NULL).</code></pre>
+<pre><code>install.packages(&quot;path/to/MyQuarantine_0.1.0.tar.gz&quot;, repos = NULL)</code></pre>
 <p>to install your pacakge!</p>
 </div>
 </div>

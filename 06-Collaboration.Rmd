@@ -113,7 +113,8 @@ As an example, the following function takes as input a vector representing the c
 trailing_difference <- function(x, n_days = 7) {
     diff <- diff(c(0, x))
     average_weights <- rep(1 / n_days, n_days)
-    stats::filter(diff, average_weights, sides = 1)
+    lag <- stats::filter(diff, average_weights, sides = 1)
+    as.numeric(lag)
 }
 ```
     
@@ -130,7 +131,19 @@ Let's formalize this function, including documentation, in a separate file.
 
 - Use RStudio File -> New Script to create a file `workdir/Week-06/trailing_difference.R`
 
-- Document the function using `roxygen` formatting. This involves placing special comment characters `#'` at the start of lines, and using 'tags' that describe different parts of the function. One can guess at the meaning of most of the tags. We use the special tags `@importFrom` to tell _R_ that we want to use the `filter` from the stats package, and `@export` to indicate that the function is meant for the 'end user' (i.e., us!).
+- Document the function using `roxygen` formatting. This involves placing special comment characters `#'` at the start of lines, and using 'tags' that describe different parts of the function. 
+
+  - `@title`: a one-line description of the help page
+  
+  - `@description`: a short (paragraph-length?) summary of what capabilities the help page documents
+  
+  - `@param`: one for each argument, describing the value (e.g., '`numeric()`' and meaning (e.g., 'vector of observations over successive days')
+  
+  - `@return`: the value returned by the function
+  
+  - `@examples`: valid _R_ code illustrating how the function works.
+
+We use the special tags `@importFrom` to tell _R_ that we want to use the `filter` from the stats package, and `@export` to indicate that the function is meant for the 'end user' (i.e., us!).
 
     ```
     #' @title Trailing difference of a vector
@@ -158,7 +171,8 @@ Let's formalize this function, including documentation, in a separate file.
     trailing_difference <- function(x, n_days = 7) {
         diff <- diff(c(0, x))
         average_weights <- rep(1 / n_days, n_days)
-        stats::filter(diff, average_weights, sides = 1)
+        lag <- stats::filter(diff, average_weights, sides = 1)
+        as.vector(lag)
     }
     ```
         
@@ -290,7 +304,7 @@ devtools::build_vignettes()
 With all the pieces now in place, choose Build -> Build Source Package. This creates a single file with a name like `MyQuarantine_0.1.0.tar.gz`  that you can share with colleagues -- use
 
 ```
-install.packages("path/to/MyQuarantine_0.1.0.tar.gz", repos = NULL).
+install.packages("path/to/MyQuarantine_0.1.0.tar.gz", repos = NULL)
 ```
 
 to install your pacakge!
