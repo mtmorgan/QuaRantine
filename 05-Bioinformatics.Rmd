@@ -498,9 +498,12 @@ Using genomic ranges to extract DNA sequences
 
 Read the 'S' gene sequence extracted from all genbank records into a `DNAStringSet`
 
-```{r, cache = TRUE}
+```{r}
 url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-S.fasta"
-dna <- readDNAStringSet(url)
+fasta_file <- file.path(workdir, basename(url))
+if ( !file.exists(fasta_file) )
+    download.file(url, fasta_file)
+dna <- readDNAStringSet(fasta_file)
 dna
 ```
 
@@ -598,7 +601,7 @@ Perform multiple alignment
 
 - Perform multiple alignment on the unique amino acid sequences using DECIPHER; this has minimal effect, with single insertions in the few sequences with unusual `nchar()`.
 
-    ```{r, cache = TRUE, message = FALSE}
+    ```{r, message = FALSE}
     aln <- AlignSeqs(aa, verbose = FALSE)
     aln
 
@@ -607,7 +610,7 @@ Perform multiple alignment
 
 - The 'distance matrix' measures the proximity (Hamming distance) of each sequence to other sequences in sequence space. The result is a large matrix of pairwise distances
 
-    ```{r, cache = TRUE}
+    ```{r}
     dist <- DistanceMatrix(aln, verbose = FALSE)
     class(dist)
     dim(dist)
@@ -837,7 +840,7 @@ library(SingleCellExperiment)
 Use the _constructor_ `SingleCellExperiment()` to create this object. The basic metaphor is that a `SingleCellExperiment` is like a matrix, but with column (and row) annotations. The column annotations are called `colData`.
 
 ```{r, out.width = "60%"}
-knitr::include_graphics('images/SummarizedExperiment.svg')
+knitr::include_graphics('images/SummarizedExperiment.png')
 ```
 
 Create and view a `SingleCellExperiment`
@@ -1066,7 +1069,10 @@ SARS-CoV-2 sequence data
     ```{r}
     library(DECIPHER)
     url <- "https://raw.githubusercontent.com/mtmorgan/QuaRantine/master/assets/05-SARS-CoV2-S.fasta"
-    dna <- readDNAStringSet(url)
+    fasta_file <- file.path(workdir, basename(url))
+    if ( !file.exists(fasta_file) )
+        download.file(url, fasta_file)
+    dna <- readDNAStringSet(fasta_file)
     aa <- dna %>% translate(if.fuzzy.codon = "solve") %>% unique()
     aln <- AlignSeqs(aa, verbose = FALSE)
     dist <- DistanceMatrix(aln, verbose = FALSE)
@@ -1077,7 +1083,7 @@ SARS-CoV-2 sequence data
 - Save intermediate result and take a deep breath
 
     ```{r, eval = FALSE}
-    dendrogram_file <- file.path(workdir, "SARS-CoV2-S.newick")    
+    dendrogram_file <- file.path(workdir, "SARS-CoV2-S.newick")
     WriteDendrogram(dendrogram, dendrogram_file, quoteLabels = FALSE)
     ```
 
@@ -1126,7 +1132,7 @@ Single cell expression
 - Coordinate cell annotation and expression values as `SingleCellExperiment`
 
     ```{r, echo = FALSE, out.width = "60%"}
-    knitr::include_graphics('images/SummarizedExperiment.svg')
+    knitr::include_graphics('images/SummarizedExperiment.png')
     ```
 
     ```{r}

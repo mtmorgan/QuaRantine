@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse." />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-05-15" />
+<meta name="date" content="2020-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -264,11 +264,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.1" data-path="six.html"><a href="six.html#weekend-review-5-minutes"><i class="fa fa-check"></i><b>6.1.1</b> Weekend review (5 minutes)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="six.html"><a href="six.html#vignettes-25-minutes-shawn"><i class="fa fa-check"></i><b>6.1.2</b> Vignettes (25 minutes; Shawn)</a></li>
 <li class="chapter" data-level="6.1.3" data-path="six.html"><a href="six.html#writing-and-documenting-r-functions-25-minutes"><i class="fa fa-check"></i><b>6.1.3</b> Writing and documenting R functions (25 minutes)</a></li>
+<li class="chapter" data-level="6.1.4" data-path="six.html"><a href="six.html#create-an-r-pacakge"><i class="fa fa-check"></i><b>6.1.4</b> Create an <em>R</em> pacakge!</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="six.html"><a href="six.html#days-write-a-vignette"><i class="fa fa-check"></i><b>6.2</b> 4 Days Write a vignette!</a></li>
 <li class="chapter" data-level="6.3" data-path="six.html"><a href="six.html#days-create-documented-reusable-functions"><i class="fa fa-check"></i><b>6.3</b> 3 Days Create documented, reusable functions!</a></li>
-<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a></li>
-<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a></li>
+<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="six.html"><a href="six.html#description"><i class="fa fa-check"></i><b>6.4.1</b> DESCRIPTION</a></li>
+<li class="chapter" data-level="6.4.2" data-path="six.html"><a href="six.html#documentation"><i class="fa fa-check"></i><b>6.4.2</b> Documentation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="six.html"><a href="six.html#vignettes"><i class="fa fa-check"></i><b>6.4.3</b> Vignettes</a></li>
+<li class="chapter" data-level="6.4.4" data-path="six.html"><a href="six.html#build-and-share"><i class="fa fa-check"></i><b>6.4.4</b> Build and share</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="six.html"><a href="six.html#review-and-troubleshoot"><i class="fa fa-check"></i><b>6.5.1</b> Review and troubleshoot</a></li>
+<li class="chapter" data-level="6.5.2" data-path="six.html"><a href="six.html#course-review"><i class="fa fa-check"></i><b>6.5.2</b> Course review</a></li>
+<li class="chapter" data-level="6.5.3" data-path="six.html"><a href="six.html#feedback-next-steps"><i class="fa fa-check"></i><b>6.5.3</b> Feedback &amp; next steps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i>Frequently asked questions</a></li>
@@ -790,7 +800,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1"><span class="kw">class</span>(us)</a>
 <a class="sourceLine" id="cb145-2" data-line-number="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
 <a class="sourceLine" id="cb145-3" data-line-number="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb145-4" data-line-number="4"><span class="co">## [1] 141403      6</span></a>
+<a class="sourceLine" id="cb145-4" data-line-number="4"><span class="co">## [1] 164886      6</span></a>
 <a class="sourceLine" id="cb145-5" data-line-number="5"><span class="kw">head</span>(us)</a>
 <a class="sourceLine" id="cb145-6" data-line-number="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
 <a class="sourceLine" id="cb145-7" data-line-number="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
@@ -802,7 +812,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Subset the data to only New York state or Erie county</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">ny_state &lt;-<span class="st"> </span>us[us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>,]</a>
 <a class="sourceLine" id="cb146-2" data-line-number="2"><span class="kw">dim</span>(ny_state)</a>
-<a class="sourceLine" id="cb146-3" data-line-number="3"><span class="co">## [1] 3349    6</span></a>
+<a class="sourceLine" id="cb146-3" data-line-number="3"><span class="co">## [1] 3813    6</span></a>
 <a class="sourceLine" id="cb146-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb146-5" data-line-number="5">erie &lt;-<span class="st"> </span>us[(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>), ]</a>
 <a class="sourceLine" id="cb146-6" data-line-number="6">erie</a>
@@ -833,40 +843,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb146-31" data-line-number="31"><span class="co">## 39558  2020-04-07   Erie New York 36029  1163     36</span></a>
 <a class="sourceLine" id="cb146-32" data-line-number="32"><span class="co">## 42109  2020-04-08   Erie New York 36029  1205     38</span></a>
 <a class="sourceLine" id="cb146-33" data-line-number="33"><span class="co">## 44685  2020-04-09   Erie New York 36029  1362     46</span></a>
-<a class="sourceLine" id="cb146-34" data-line-number="34"><span class="co">## 47295  2020-04-10   Erie New York 36029  1409     58</span></a>
-<a class="sourceLine" id="cb146-35" data-line-number="35"><span class="co">## 49947  2020-04-11   Erie New York 36029  1472     62</span></a>
-<a class="sourceLine" id="cb146-36" data-line-number="36"><span class="co">## 52617  2020-04-12   Erie New York 36029  1571     75</span></a>
-<a class="sourceLine" id="cb146-37" data-line-number="37"><span class="co">## 55298  2020-04-13   Erie New York 36029  1624     86</span></a>
-<a class="sourceLine" id="cb146-38" data-line-number="38"><span class="co">## 57994  2020-04-14   Erie New York 36029  1668     99</span></a>
-<a class="sourceLine" id="cb146-39" data-line-number="39"><span class="co">## 60706  2020-04-15   Erie New York 36029  1751    110</span></a>
-<a class="sourceLine" id="cb146-40" data-line-number="40"><span class="co">## 63431  2020-04-16   Erie New York 36029  1850    115</span></a>
-<a class="sourceLine" id="cb146-41" data-line-number="41"><span class="co">## 66172  2020-04-17   Erie New York 36029  1929    115</span></a>
-<a class="sourceLine" id="cb146-42" data-line-number="42"><span class="co">## 68927  2020-04-18   Erie New York 36029  1997    115</span></a>
-<a class="sourceLine" id="cb146-43" data-line-number="43"><span class="co">## 71691  2020-04-19   Erie New York 36029  2070    146</span></a>
-<a class="sourceLine" id="cb146-44" data-line-number="44"><span class="co">## 74464  2020-04-20   Erie New York 36029  2109    153</span></a>
-<a class="sourceLine" id="cb146-45" data-line-number="45"><span class="co">## 77242  2020-04-21   Erie New York 36029  2147    161</span></a>
-<a class="sourceLine" id="cb146-46" data-line-number="46"><span class="co">## 80029  2020-04-22   Erie New York 36029  2233    174</span></a>
-<a class="sourceLine" id="cb146-47" data-line-number="47"><span class="co">## 82827  2020-04-23   Erie New York 36029  2450    179</span></a>
-<a class="sourceLine" id="cb146-48" data-line-number="48"><span class="co">## 85628  2020-04-24   Erie New York 36029  2603    184</span></a>
-<a class="sourceLine" id="cb146-49" data-line-number="49"><span class="co">## 88437  2020-04-25   Erie New York 36029  2773    199</span></a>
-<a class="sourceLine" id="cb146-50" data-line-number="50"><span class="co">## 91249  2020-04-26   Erie New York 36029  2954    205</span></a>
-<a class="sourceLine" id="cb146-51" data-line-number="51"><span class="co">## 94072  2020-04-27   Erie New York 36029  3021    208</span></a>
-<a class="sourceLine" id="cb146-52" data-line-number="52"><span class="co">## 96905  2020-04-28   Erie New York 36029  3089    216</span></a>
-<a class="sourceLine" id="cb146-53" data-line-number="53"><span class="co">## 99748  2020-04-29   Erie New York 36029  3196    220</span></a>
-<a class="sourceLine" id="cb146-54" data-line-number="54"><span class="co">## 102597 2020-04-30   Erie New York 36029  3319    227</span></a>
-<a class="sourceLine" id="cb146-55" data-line-number="55"><span class="co">## 105455 2020-05-01   Erie New York 36029  3481    233</span></a>
-<a class="sourceLine" id="cb146-56" data-line-number="56"><span class="co">## 108318 2020-05-02   Erie New York 36029  3598    243</span></a>
-<a class="sourceLine" id="cb146-57" data-line-number="57"><span class="co">## 111187 2020-05-03   Erie New York 36029  3710    250</span></a>
-<a class="sourceLine" id="cb146-58" data-line-number="58"><span class="co">## 114063 2020-05-04   Erie New York 36029  3802    254</span></a>
-<a class="sourceLine" id="cb146-59" data-line-number="59"><span class="co">## 116939 2020-05-05   Erie New York 36029  3891    264</span></a>
-<a class="sourceLine" id="cb146-60" data-line-number="60"><span class="co">## 119822 2020-05-06   Erie New York 36029  4008    338</span></a>
-<a class="sourceLine" id="cb146-61" data-line-number="61"><span class="co">## 122721 2020-05-07   Erie New York 36029  4136    350</span></a>
-<a class="sourceLine" id="cb146-62" data-line-number="62"><span class="co">## 125627 2020-05-08   Erie New York 36029  4255    356</span></a>
-<a class="sourceLine" id="cb146-63" data-line-number="63"><span class="co">## 128538 2020-05-09   Erie New York 36029  4337    368</span></a>
-<a class="sourceLine" id="cb146-64" data-line-number="64"><span class="co">## 131449 2020-05-10   Erie New York 36029  4453    376</span></a>
-<a class="sourceLine" id="cb146-65" data-line-number="65"><span class="co">## 134361 2020-05-11   Erie New York 36029  4483    387</span></a>
-<a class="sourceLine" id="cb146-66" data-line-number="66"><span class="co">## 137274 2020-05-12   Erie New York 36029  4530    395</span></a>
-<a class="sourceLine" id="cb146-67" data-line-number="67"><span class="co">## 140193 2020-05-13   Erie New York 36029  4606    402</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb146-34" data-line-number="34"><span class="co">## 47294  2020-04-10   Erie New York 36029  1409     58</span></a>
+<a class="sourceLine" id="cb146-35" data-line-number="35"><span class="co">## 49946  2020-04-11   Erie New York 36029  1472     62</span></a>
+<a class="sourceLine" id="cb146-36" data-line-number="36"><span class="co">## 52616  2020-04-12   Erie New York 36029  1571     75</span></a>
+<a class="sourceLine" id="cb146-37" data-line-number="37"><span class="co">## 55297  2020-04-13   Erie New York 36029  1624     86</span></a>
+<a class="sourceLine" id="cb146-38" data-line-number="38"><span class="co">## 57993  2020-04-14   Erie New York 36029  1668     99</span></a>
+<a class="sourceLine" id="cb146-39" data-line-number="39"><span class="co">## 60705  2020-04-15   Erie New York 36029  1751    110</span></a>
+<a class="sourceLine" id="cb146-40" data-line-number="40"><span class="co">## 63430  2020-04-16   Erie New York 36029  1850    115</span></a>
+<a class="sourceLine" id="cb146-41" data-line-number="41"><span class="co">## 66171  2020-04-17   Erie New York 36029  1929    115</span></a>
+<a class="sourceLine" id="cb146-42" data-line-number="42"><span class="co">## 68926  2020-04-18   Erie New York 36029  1997    115</span></a>
+<a class="sourceLine" id="cb146-43" data-line-number="43"><span class="co">## 71690  2020-04-19   Erie New York 36029  2070    146</span></a>
+<a class="sourceLine" id="cb146-44" data-line-number="44"><span class="co">## 74463  2020-04-20   Erie New York 36029  2109    153</span></a>
+<a class="sourceLine" id="cb146-45" data-line-number="45"><span class="co">## 77241  2020-04-21   Erie New York 36029  2147    161</span></a>
+<a class="sourceLine" id="cb146-46" data-line-number="46"><span class="co">## 80028  2020-04-22   Erie New York 36029  2233    174</span></a>
+<a class="sourceLine" id="cb146-47" data-line-number="47"><span class="co">## 82826  2020-04-23   Erie New York 36029  2450    179</span></a>
+<a class="sourceLine" id="cb146-48" data-line-number="48"><span class="co">## 85627  2020-04-24   Erie New York 36029  2603    184</span></a>
+<a class="sourceLine" id="cb146-49" data-line-number="49"><span class="co">## 88436  2020-04-25   Erie New York 36029  2773    199</span></a>
+<a class="sourceLine" id="cb146-50" data-line-number="50"><span class="co">## 91248  2020-04-26   Erie New York 36029  2954    205</span></a>
+<a class="sourceLine" id="cb146-51" data-line-number="51"><span class="co">## 94071  2020-04-27   Erie New York 36029  3021    208</span></a>
+<a class="sourceLine" id="cb146-52" data-line-number="52"><span class="co">## 96904  2020-04-28   Erie New York 36029  3089    216</span></a>
+<a class="sourceLine" id="cb146-53" data-line-number="53"><span class="co">## 99747  2020-04-29   Erie New York 36029  3196    220</span></a>
+<a class="sourceLine" id="cb146-54" data-line-number="54"><span class="co">## 102596 2020-04-30   Erie New York 36029  3319    227</span></a>
+<a class="sourceLine" id="cb146-55" data-line-number="55"><span class="co">## 105454 2020-05-01   Erie New York 36029  3481    233</span></a>
+<a class="sourceLine" id="cb146-56" data-line-number="56"><span class="co">## 108317 2020-05-02   Erie New York 36029  3598    243</span></a>
+<a class="sourceLine" id="cb146-57" data-line-number="57"><span class="co">## 111186 2020-05-03   Erie New York 36029  3710    250</span></a>
+<a class="sourceLine" id="cb146-58" data-line-number="58"><span class="co">## 114062 2020-05-04   Erie New York 36029  3802    254</span></a>
+<a class="sourceLine" id="cb146-59" data-line-number="59"><span class="co">## 116938 2020-05-05   Erie New York 36029  3891    264</span></a>
+<a class="sourceLine" id="cb146-60" data-line-number="60"><span class="co">## 119821 2020-05-06   Erie New York 36029  4008    338</span></a>
+<a class="sourceLine" id="cb146-61" data-line-number="61"><span class="co">## 122719 2020-05-07   Erie New York 36029  4136    350</span></a>
+<a class="sourceLine" id="cb146-62" data-line-number="62"><span class="co">## 125624 2020-05-08   Erie New York 36029  4255    356</span></a>
+<a class="sourceLine" id="cb146-63" data-line-number="63"><span class="co">## 128534 2020-05-09   Erie New York 36029  4337    368</span></a>
+<a class="sourceLine" id="cb146-64" data-line-number="64"><span class="co">## 131444 2020-05-10   Erie New York 36029  4453    376</span></a>
+<a class="sourceLine" id="cb146-65" data-line-number="65"><span class="co">## 134355 2020-05-11   Erie New York 36029  4483    387</span></a>
+<a class="sourceLine" id="cb146-66" data-line-number="66"><span class="co">## 137266 2020-05-12   Erie New York 36029  4530    395</span></a>
+<a class="sourceLine" id="cb146-67" data-line-number="67"><span class="co">## 140183 2020-05-13   Erie New York 36029  4606    402</span></a>
+<a class="sourceLine" id="cb146-68" data-line-number="68"><span class="co">## 143100 2020-05-14   Erie New York 36029  4671    411</span></a>
+<a class="sourceLine" id="cb146-69" data-line-number="69"><span class="co">## 146023 2020-05-15   Erie New York 36029  4782    417</span></a>
+<a class="sourceLine" id="cb146-70" data-line-number="70"><span class="co">## 148952 2020-05-16   Erie New York 36029  4867    428</span></a>
+<a class="sourceLine" id="cb146-71" data-line-number="71"><span class="co">## 151883 2020-05-17   Erie New York 36029  4954    438</span></a>
+<a class="sourceLine" id="cb146-72" data-line-number="72"><span class="co">## 154819 2020-05-18   Erie New York 36029  4993    444</span></a>
+<a class="sourceLine" id="cb146-73" data-line-number="73"><span class="co">## 157757 2020-05-19   Erie New York 36029  5037    450</span></a>
+<a class="sourceLine" id="cb146-74" data-line-number="74"><span class="co">## 160706 2020-05-20   Erie New York 36029  5131    455</span></a>
+<a class="sourceLine" id="cb146-75" data-line-number="75"><span class="co">## 163659 2020-05-21   Erie New York 36029  5270    463</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -883,27 +901,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Create subsets, e.g., to include only New York state, or only Erie county</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
 <a class="sourceLine" id="cb148-2" data-line-number="2"><span class="kw">dim</span>(ny_state)</a>
-<a class="sourceLine" id="cb148-3" data-line-number="3"><span class="co">## [1] 3349    6</span></a>
+<a class="sourceLine" id="cb148-3" data-line-number="3"><span class="co">## [1] 3813    6</span></a>
 <a class="sourceLine" id="cb148-4" data-line-number="4"><span class="kw">tail</span>(ny_state)</a>
 <a class="sourceLine" id="cb148-5" data-line-number="5"><span class="co">##              date      county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb148-6" data-line-number="6"><span class="co">## 140232 2020-05-13      Warren New York 36113   223     24</span></a>
-<a class="sourceLine" id="cb148-7" data-line-number="7"><span class="co">## 140233 2020-05-13  Washington New York 36115   214     10</span></a>
-<a class="sourceLine" id="cb148-8" data-line-number="8"><span class="co">## 140234 2020-05-13       Wayne New York 36117    84      1</span></a>
-<a class="sourceLine" id="cb148-9" data-line-number="9"><span class="co">## 140235 2020-05-13 Westchester New York 36119 31610   1368</span></a>
-<a class="sourceLine" id="cb148-10" data-line-number="10"><span class="co">## 140236 2020-05-13     Wyoming New York 36121    77      3</span></a>
-<a class="sourceLine" id="cb148-11" data-line-number="11"><span class="co">## 140237 2020-05-13       Yates New York 36123    22      4</span></a>
+<a class="sourceLine" id="cb148-6" data-line-number="6"><span class="co">## 163698 2020-05-21      Warren New York 36113   241     28</span></a>
+<a class="sourceLine" id="cb148-7" data-line-number="7"><span class="co">## 163699 2020-05-21  Washington New York 36115   222     11</span></a>
+<a class="sourceLine" id="cb148-8" data-line-number="8"><span class="co">## 163700 2020-05-21       Wayne New York 36117   103      1</span></a>
+<a class="sourceLine" id="cb148-9" data-line-number="9"><span class="co">## 163701 2020-05-21 Westchester New York 36119 32672   1438</span></a>
+<a class="sourceLine" id="cb148-10" data-line-number="10"><span class="co">## 163702 2020-05-21     Wyoming New York 36121    79      3</span></a>
+<a class="sourceLine" id="cb148-11" data-line-number="11"><span class="co">## 163703 2020-05-21       Yates New York 36123    34      6</span></a>
 <a class="sourceLine" id="cb148-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb148-13" data-line-number="13">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>)</a>
 <a class="sourceLine" id="cb148-14" data-line-number="14"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb148-15" data-line-number="15"><span class="co">## [1] 60  6</span></a>
+<a class="sourceLine" id="cb148-15" data-line-number="15"><span class="co">## [1] 68  6</span></a>
 <a class="sourceLine" id="cb148-16" data-line-number="16"><span class="kw">tail</span>(erie)</a>
 <a class="sourceLine" id="cb148-17" data-line-number="17"><span class="co">##              date county    state  fips cases deaths</span></a>
-<a class="sourceLine" id="cb148-18" data-line-number="18"><span class="co">## 125627 2020-05-08   Erie New York 36029  4255    356</span></a>
-<a class="sourceLine" id="cb148-19" data-line-number="19"><span class="co">## 128538 2020-05-09   Erie New York 36029  4337    368</span></a>
-<a class="sourceLine" id="cb148-20" data-line-number="20"><span class="co">## 131449 2020-05-10   Erie New York 36029  4453    376</span></a>
-<a class="sourceLine" id="cb148-21" data-line-number="21"><span class="co">## 134361 2020-05-11   Erie New York 36029  4483    387</span></a>
-<a class="sourceLine" id="cb148-22" data-line-number="22"><span class="co">## 137274 2020-05-12   Erie New York 36029  4530    395</span></a>
-<a class="sourceLine" id="cb148-23" data-line-number="23"><span class="co">## 140193 2020-05-13   Erie New York 36029  4606    402</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb148-18" data-line-number="18"><span class="co">## 148952 2020-05-16   Erie New York 36029  4867    428</span></a>
+<a class="sourceLine" id="cb148-19" data-line-number="19"><span class="co">## 151883 2020-05-17   Erie New York 36029  4954    438</span></a>
+<a class="sourceLine" id="cb148-20" data-line-number="20"><span class="co">## 154819 2020-05-18   Erie New York 36029  4993    444</span></a>
+<a class="sourceLine" id="cb148-21" data-line-number="21"><span class="co">## 157757 2020-05-19   Erie New York 36029  5037    450</span></a>
+<a class="sourceLine" id="cb148-22" data-line-number="22"><span class="co">## 160706 2020-05-20   Erie New York 36029  5131    455</span></a>
+<a class="sourceLine" id="cb148-23" data-line-number="23"><span class="co">## 163659 2020-05-21   Erie New York 36029  5270    463</span></a></code></pre></div></li>
 </ul>
 </div>
 <div id="with" class="section level3 unnumbered">
@@ -916,7 +934,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>E.g., Calculate the maximum number of cases in the <code>erie</code> subset</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases))</a>
-<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="co">## [1] 4606</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="co">## [1] 5270</span></a></code></pre></div></li>
 </ul></li>
 </ul>
 <p>Second argument can be more complicated, using <code>{}</code> to enclose several lines.</p>
@@ -938,7 +956,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb152-2" data-line-number="2">    new_cases &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cases))</a>
 <a class="sourceLine" id="cb152-3" data-line-number="3">    <span class="kw">mean</span>(new_cases)</a>
 <a class="sourceLine" id="cb152-4" data-line-number="4">})</a>
-<a class="sourceLine" id="cb152-5" data-line-number="5"><span class="co">## [1] 76.76667</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb152-5" data-line-number="5"><span class="co">## [1] 77.5</span></a></code></pre></div></li>
 </ul>
 </div>
 <div id="within" class="section level3 unnumbered">
@@ -991,20 +1009,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Subset to some interesting ‘counties’</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="kw">head</span>(max_cases_by_county)</a>
 <a class="sourceLine" id="cb157-2" data-line-number="2"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb157-3" data-line-number="3"><span class="co">## 1      Albany  1494</span></a>
+<a class="sourceLine" id="cb157-3" data-line-number="3"><span class="co">## 1      Albany  1700</span></a>
 <a class="sourceLine" id="cb157-4" data-line-number="4"><span class="co">## 2    Allegany    44</span></a>
-<a class="sourceLine" id="cb157-5" data-line-number="5"><span class="co">## 3      Broome   382</span></a>
-<a class="sourceLine" id="cb157-6" data-line-number="6"><span class="co">## 4 Cattaraugus    61</span></a>
-<a class="sourceLine" id="cb157-7" data-line-number="7"><span class="co">## 5      Cayuga    60</span></a>
-<a class="sourceLine" id="cb157-8" data-line-number="8"><span class="co">## 6  Chautauqua    43</span></a>
+<a class="sourceLine" id="cb157-5" data-line-number="5"><span class="co">## 3      Broome   451</span></a>
+<a class="sourceLine" id="cb157-6" data-line-number="6"><span class="co">## 4 Cattaraugus    71</span></a>
+<a class="sourceLine" id="cb157-7" data-line-number="7"><span class="co">## 5      Cayuga    72</span></a>
+<a class="sourceLine" id="cb157-8" data-line-number="8"><span class="co">## 6  Chautauqua    58</span></a>
 <a class="sourceLine" id="cb157-9" data-line-number="9"><span class="kw">subset</span>(</a>
 <a class="sourceLine" id="cb157-10" data-line-number="10">    max_cases_by_county,</a>
 <a class="sourceLine" id="cb157-11" data-line-number="11">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
 <a class="sourceLine" id="cb157-12" data-line-number="12">)</a>
 <a class="sourceLine" id="cb157-13" data-line-number="13"><span class="co">##           county  cases</span></a>
-<a class="sourceLine" id="cb157-14" data-line-number="14"><span class="co">## 14          Erie   4606</span></a>
-<a class="sourceLine" id="cb157-15" data-line-number="15"><span class="co">## 29 New York City 192394</span></a>
-<a class="sourceLine" id="cb157-16" data-line-number="16"><span class="co">## 57   Westchester  31610</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb157-14" data-line-number="14"><span class="co">## 14          Erie   5270</span></a>
+<a class="sourceLine" id="cb157-15" data-line-number="15"><span class="co">## 29 New York City 200507</span></a>
+<a class="sourceLine" id="cb157-16" data-line-number="16"><span class="co">## 57   Westchester  32672</span></a></code></pre></div></li>
 </ul>
 <p>Help: <code>?aggregate.formula</code></p>
 </div>
@@ -1018,7 +1036,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="kw">class</span>(us)</a>
 <a class="sourceLine" id="cb159-2" data-line-number="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
 <a class="sourceLine" id="cb159-3" data-line-number="3"><span class="kw">dim</span>(us)</a>
-<a class="sourceLine" id="cb159-4" data-line-number="4"><span class="co">## [1] 141403      6</span></a>
+<a class="sourceLine" id="cb159-4" data-line-number="4"><span class="co">## [1] 164886      6</span></a>
 <a class="sourceLine" id="cb159-5" data-line-number="5"><span class="kw">head</span>(us)</a>
 <a class="sourceLine" id="cb159-6" data-line-number="6"><span class="co">##         date    county      state  fips cases deaths</span></a>
 <a class="sourceLine" id="cb159-7" data-line-number="7"><span class="co">## 1 2020-01-21 Snohomish Washington 53061     1      0</span></a>
@@ -1062,11 +1080,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1">row_idx &lt;-<span class="st"> </span>(us<span class="op">$</span>county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(us<span class="op">$</span>state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
 <a class="sourceLine" id="cb163-2" data-line-number="2">erie &lt;-<span class="st"> </span>us[row_idx,]</a>
 <a class="sourceLine" id="cb163-3" data-line-number="3"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb163-4" data-line-number="4"><span class="co">## [1] 60  6</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb163-4" data-line-number="4"><span class="co">## [1] 68  6</span></a></code></pre></div></li>
 <li><p>Subset, method 2</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1">erie &lt;-<span class="st"> </span><span class="kw">subset</span>(us, (county <span class="op">==</span><span class="st"> &quot;Erie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>))</a>
 <a class="sourceLine" id="cb164-2" data-line-number="2"><span class="kw">dim</span>(erie)</a>
-<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="co">## [1] 60  6</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="co">## [1] 68  6</span></a></code></pre></div></li>
 </ul>
 <p>Manipulation</p>
 <ul>
@@ -1089,9 +1107,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>For Erie county, let’s see how to calculate the maximum (total) number of cases</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="kw">max</span>(erie<span class="op">$</span>cases)        <span class="co"># one way...</span></a>
-<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="co">## [1] 4606</span></a>
+<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="co">## [1] 5270</span></a>
 <a class="sourceLine" id="cb167-3" data-line-number="3"><span class="kw">with</span>(erie, <span class="kw">max</span>(cases)) <span class="co"># ... another</span></a>
-<a class="sourceLine" id="cb167-4" data-line-number="4"><span class="co">## [1] 4606</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb167-4" data-line-number="4"><span class="co">## [1] 5270</span></a></code></pre></div></li>
 <li><p>Subset US data to New York state</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a></code></pre></div></li>
 <li><p>Summarize each county in the state using <code>aggregate()</code>.</p>
@@ -1102,12 +1120,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">max_cases_by_county &lt;-<span class="st"> </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county, ny_state, max)</a>
 <a class="sourceLine" id="cb169-2" data-line-number="2"><span class="kw">head</span>(max_cases_by_county)</a>
 <a class="sourceLine" id="cb169-3" data-line-number="3"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb169-4" data-line-number="4"><span class="co">## 1      Albany  1494</span></a>
+<a class="sourceLine" id="cb169-4" data-line-number="4"><span class="co">## 1      Albany  1700</span></a>
 <a class="sourceLine" id="cb169-5" data-line-number="5"><span class="co">## 2    Allegany    44</span></a>
-<a class="sourceLine" id="cb169-6" data-line-number="6"><span class="co">## 3      Broome   382</span></a>
-<a class="sourceLine" id="cb169-7" data-line-number="7"><span class="co">## 4 Cattaraugus    61</span></a>
-<a class="sourceLine" id="cb169-8" data-line-number="8"><span class="co">## 5      Cayuga    60</span></a>
-<a class="sourceLine" id="cb169-9" data-line-number="9"><span class="co">## 6  Chautauqua    43</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb169-6" data-line-number="6"><span class="co">## 3      Broome   451</span></a>
+<a class="sourceLine" id="cb169-7" data-line-number="7"><span class="co">## 4 Cattaraugus    71</span></a>
+<a class="sourceLine" id="cb169-8" data-line-number="8"><span class="co">## 5      Cayuga    72</span></a>
+<a class="sourceLine" id="cb169-9" data-line-number="9"><span class="co">## 6  Chautauqua    58</span></a></code></pre></div></li>
 </ul></li>
 <li><p><code>subset()</code> to select counties</p>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="kw">subset</span>(</a>
@@ -1115,9 +1133,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb170-3" data-line-number="3">    county <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;Westchester&quot;</span>, <span class="st">&quot;Erie&quot;</span>)</a>
 <a class="sourceLine" id="cb170-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb170-5" data-line-number="5"><span class="co">##           county  cases</span></a>
-<a class="sourceLine" id="cb170-6" data-line-number="6"><span class="co">## 14          Erie   4606</span></a>
-<a class="sourceLine" id="cb170-7" data-line-number="7"><span class="co">## 29 New York City 192394</span></a>
-<a class="sourceLine" id="cb170-8" data-line-number="8"><span class="co">## 57   Westchester  31610</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb170-6" data-line-number="6"><span class="co">## 14          Erie   5270</span></a>
+<a class="sourceLine" id="cb170-7" data-line-number="7"><span class="co">## 29 New York City 200507</span></a>
+<a class="sourceLine" id="cb170-8" data-line-number="8"><span class="co">## 57   Westchester  32672</span></a></code></pre></div></li>
 </ul>
 <p>Summary: calculate maximum (total) number of cases per state</p>
 <ul>
@@ -1126,36 +1144,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">max_cases_by_county_state &lt;-</a>
 <a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>county <span class="op">+</span><span class="st"> </span>state, us, max )</a>
 <a class="sourceLine" id="cb171-3" data-line-number="3"><span class="kw">dim</span>(max_cases_by_county_state)</a>
-<a class="sourceLine" id="cb171-4" data-line-number="4"><span class="co">## [1] 2937    3</span></a>
+<a class="sourceLine" id="cb171-4" data-line-number="4"><span class="co">## [1] 2975    3</span></a>
 <a class="sourceLine" id="cb171-5" data-line-number="5"><span class="kw">head</span>(max_cases_by_county_state)</a>
 <a class="sourceLine" id="cb171-6" data-line-number="6"><span class="co">##    county   state cases</span></a>
-<a class="sourceLine" id="cb171-7" data-line-number="7"><span class="co">## 1 Autauga Alabama    93</span></a>
-<a class="sourceLine" id="cb171-8" data-line-number="8"><span class="co">## 2 Baldwin Alabama   231</span></a>
-<a class="sourceLine" id="cb171-9" data-line-number="9"><span class="co">## 3 Barbour Alabama    69</span></a>
-<a class="sourceLine" id="cb171-10" data-line-number="10"><span class="co">## 4    Bibb Alabama    46</span></a>
-<a class="sourceLine" id="cb171-11" data-line-number="11"><span class="co">## 5  Blount Alabama    45</span></a>
-<a class="sourceLine" id="cb171-12" data-line-number="12"><span class="co">## 6 Bullock Alabama    28</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb171-7" data-line-number="7"><span class="co">## 1 Autauga Alabama   147</span></a>
+<a class="sourceLine" id="cb171-8" data-line-number="8"><span class="co">## 2 Baldwin Alabama   270</span></a>
+<a class="sourceLine" id="cb171-9" data-line-number="9"><span class="co">## 3 Barbour Alabama   100</span></a>
+<a class="sourceLine" id="cb171-10" data-line-number="10"><span class="co">## 4    Bibb Alabama    52</span></a>
+<a class="sourceLine" id="cb171-11" data-line-number="11"><span class="co">## 5  Blount Alabama    48</span></a>
+<a class="sourceLine" id="cb171-12" data-line-number="12"><span class="co">## 6 Bullock Alabama    71</span></a></code></pre></div></li>
 <li><p><code>aggregate()</code> a second time, using <code>max_cases_by_county_state</code> and aggregtaing by state</p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">max_cases_by_state &lt;-</a>
 <a class="sourceLine" id="cb172-2" data-line-number="2"><span class="st">    </span><span class="kw">aggregate</span>( cases <span class="op">~</span><span class="st"> </span>state, max_cases_by_county_state, max )</a></code></pre></div></li>
 <li><p>Explore the data</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="kw">head</span>(max_cases_by_state)</a>
 <a class="sourceLine" id="cb173-2" data-line-number="2"><span class="co">##        state cases</span></a>
-<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="co">## 1    Alabama  1545</span></a>
-<a class="sourceLine" id="cb173-4" data-line-number="4"><span class="co">## 2     Alaska   196</span></a>
-<a class="sourceLine" id="cb173-5" data-line-number="5"><span class="co">## 3    Arizona  6341</span></a>
-<a class="sourceLine" id="cb173-6" data-line-number="6"><span class="co">## 4   Arkansas   942</span></a>
-<a class="sourceLine" id="cb173-7" data-line-number="7"><span class="co">## 5 California 34428</span></a>
-<a class="sourceLine" id="cb173-8" data-line-number="8"><span class="co">## 6   Colorado  4254</span></a>
+<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="co">## 1    Alabama  1874</span></a>
+<a class="sourceLine" id="cb173-4" data-line-number="4"><span class="co">## 2     Alaska   207</span></a>
+<a class="sourceLine" id="cb173-5" data-line-number="5"><span class="co">## 3    Arizona  7835</span></a>
+<a class="sourceLine" id="cb173-6" data-line-number="6"><span class="co">## 4   Arkansas   966</span></a>
+<a class="sourceLine" id="cb173-7" data-line-number="7"><span class="co">## 5 California 42037</span></a>
+<a class="sourceLine" id="cb173-8" data-line-number="8"><span class="co">## 6   Colorado  4948</span></a>
 <a class="sourceLine" id="cb173-9" data-line-number="9"><span class="kw">subset</span>(</a>
 <a class="sourceLine" id="cb173-10" data-line-number="10">    max_cases_by_state,</a>
 <a class="sourceLine" id="cb173-11" data-line-number="11">    state <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;Illinois&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Washington&quot;</span>)</a>
 <a class="sourceLine" id="cb173-12" data-line-number="12">)</a>
 <a class="sourceLine" id="cb173-13" data-line-number="13"><span class="co">##         state  cases</span></a>
-<a class="sourceLine" id="cb173-14" data-line-number="14"><span class="co">## 5  California  34428</span></a>
-<a class="sourceLine" id="cb173-15" data-line-number="15"><span class="co">## 15   Illinois  56406</span></a>
-<a class="sourceLine" id="cb173-16" data-line-number="16"><span class="co">## 34   New York 192394</span></a>
-<a class="sourceLine" id="cb173-17" data-line-number="17"><span class="co">## 52 Washington   7540</span></a></code></pre></div></li>
+<a class="sourceLine" id="cb173-14" data-line-number="14"><span class="co">## 5  California  42037</span></a>
+<a class="sourceLine" id="cb173-15" data-line-number="15"><span class="co">## 15   Illinois  67551</span></a>
+<a class="sourceLine" id="cb173-16" data-line-number="16"><span class="co">## 34   New York 200507</span></a>
+<a class="sourceLine" id="cb173-17" data-line-number="17"><span class="co">## 52 Washington   7647</span></a></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1207,51 +1225,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb174-42" data-line-number="42"><span class="co">## 39558  2020-04-07   Erie New York 36029  1163     36         0</span></a>
 <a class="sourceLine" id="cb174-43" data-line-number="43"><span class="co">## 42109  2020-04-08   Erie New York 36029  1205     38        42</span></a>
 <a class="sourceLine" id="cb174-44" data-line-number="44"><span class="co">## 44685  2020-04-09   Erie New York 36029  1362     46       157</span></a>
-<a class="sourceLine" id="cb174-45" data-line-number="45"><span class="co">## 47295  2020-04-10   Erie New York 36029  1409     58        47</span></a>
-<a class="sourceLine" id="cb174-46" data-line-number="46"><span class="co">## 49947  2020-04-11   Erie New York 36029  1472     62        63</span></a>
-<a class="sourceLine" id="cb174-47" data-line-number="47"><span class="co">## 52617  2020-04-12   Erie New York 36029  1571     75        99</span></a>
-<a class="sourceLine" id="cb174-48" data-line-number="48"><span class="co">## 55298  2020-04-13   Erie New York 36029  1624     86        53</span></a>
-<a class="sourceLine" id="cb174-49" data-line-number="49"><span class="co">## 57994  2020-04-14   Erie New York 36029  1668     99        44</span></a>
-<a class="sourceLine" id="cb174-50" data-line-number="50"><span class="co">## 60706  2020-04-15   Erie New York 36029  1751    110        83</span></a>
-<a class="sourceLine" id="cb174-51" data-line-number="51"><span class="co">## 63431  2020-04-16   Erie New York 36029  1850    115        99</span></a>
-<a class="sourceLine" id="cb174-52" data-line-number="52"><span class="co">## 66172  2020-04-17   Erie New York 36029  1929    115        79</span></a>
-<a class="sourceLine" id="cb174-53" data-line-number="53"><span class="co">## 68927  2020-04-18   Erie New York 36029  1997    115        68</span></a>
-<a class="sourceLine" id="cb174-54" data-line-number="54"><span class="co">## 71691  2020-04-19   Erie New York 36029  2070    146        73</span></a>
-<a class="sourceLine" id="cb174-55" data-line-number="55"><span class="co">## 74464  2020-04-20   Erie New York 36029  2109    153        39</span></a>
-<a class="sourceLine" id="cb174-56" data-line-number="56"><span class="co">## 77242  2020-04-21   Erie New York 36029  2147    161        38</span></a>
-<a class="sourceLine" id="cb174-57" data-line-number="57"><span class="co">## 80029  2020-04-22   Erie New York 36029  2233    174        86</span></a>
-<a class="sourceLine" id="cb174-58" data-line-number="58"><span class="co">## 82827  2020-04-23   Erie New York 36029  2450    179       217</span></a>
-<a class="sourceLine" id="cb174-59" data-line-number="59"><span class="co">## 85628  2020-04-24   Erie New York 36029  2603    184       153</span></a>
-<a class="sourceLine" id="cb174-60" data-line-number="60"><span class="co">## 88437  2020-04-25   Erie New York 36029  2773    199       170</span></a>
-<a class="sourceLine" id="cb174-61" data-line-number="61"><span class="co">## 91249  2020-04-26   Erie New York 36029  2954    205       181</span></a>
-<a class="sourceLine" id="cb174-62" data-line-number="62"><span class="co">## 94072  2020-04-27   Erie New York 36029  3021    208        67</span></a>
-<a class="sourceLine" id="cb174-63" data-line-number="63"><span class="co">## 96905  2020-04-28   Erie New York 36029  3089    216        68</span></a>
-<a class="sourceLine" id="cb174-64" data-line-number="64"><span class="co">## 99748  2020-04-29   Erie New York 36029  3196    220       107</span></a>
-<a class="sourceLine" id="cb174-65" data-line-number="65"><span class="co">## 102597 2020-04-30   Erie New York 36029  3319    227       123</span></a>
-<a class="sourceLine" id="cb174-66" data-line-number="66"><span class="co">## 105455 2020-05-01   Erie New York 36029  3481    233       162</span></a>
-<a class="sourceLine" id="cb174-67" data-line-number="67"><span class="co">## 108318 2020-05-02   Erie New York 36029  3598    243       117</span></a>
-<a class="sourceLine" id="cb174-68" data-line-number="68"><span class="co">## 111187 2020-05-03   Erie New York 36029  3710    250       112</span></a>
-<a class="sourceLine" id="cb174-69" data-line-number="69"><span class="co">## 114063 2020-05-04   Erie New York 36029  3802    254        92</span></a>
-<a class="sourceLine" id="cb174-70" data-line-number="70"><span class="co">## 116939 2020-05-05   Erie New York 36029  3891    264        89</span></a>
-<a class="sourceLine" id="cb174-71" data-line-number="71"><span class="co">## 119822 2020-05-06   Erie New York 36029  4008    338       117</span></a>
-<a class="sourceLine" id="cb174-72" data-line-number="72"><span class="co">## 122721 2020-05-07   Erie New York 36029  4136    350       128</span></a>
-<a class="sourceLine" id="cb174-73" data-line-number="73"><span class="co">## 125627 2020-05-08   Erie New York 36029  4255    356       119</span></a>
-<a class="sourceLine" id="cb174-74" data-line-number="74"><span class="co">## 128538 2020-05-09   Erie New York 36029  4337    368        82</span></a>
-<a class="sourceLine" id="cb174-75" data-line-number="75"><span class="co">## 131449 2020-05-10   Erie New York 36029  4453    376       116</span></a>
-<a class="sourceLine" id="cb174-76" data-line-number="76"><span class="co">## 134361 2020-05-11   Erie New York 36029  4483    387        30</span></a>
-<a class="sourceLine" id="cb174-77" data-line-number="77"><span class="co">## 137274 2020-05-12   Erie New York 36029  4530    395        47</span></a>
-<a class="sourceLine" id="cb174-78" data-line-number="78"><span class="co">## 140193 2020-05-13   Erie New York 36029  4606    402        76</span></a>
-<a class="sourceLine" id="cb174-79" data-line-number="79"></a>
-<a class="sourceLine" id="cb174-80" data-line-number="80"><span class="co">## aggregate() cases in each county to find total (max) number</span></a>
-<a class="sourceLine" id="cb174-81" data-line-number="81">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
-<a class="sourceLine" id="cb174-82" data-line-number="82"><span class="kw">head</span>( <span class="kw">aggregate</span>(cases <span class="op">~</span><span class="st"> </span>county, ny_state, max) )</a>
-<a class="sourceLine" id="cb174-83" data-line-number="83"><span class="co">##        county cases</span></a>
-<a class="sourceLine" id="cb174-84" data-line-number="84"><span class="co">## 1      Albany  1494</span></a>
-<a class="sourceLine" id="cb174-85" data-line-number="85"><span class="co">## 2    Allegany    44</span></a>
-<a class="sourceLine" id="cb174-86" data-line-number="86"><span class="co">## 3      Broome   382</span></a>
-<a class="sourceLine" id="cb174-87" data-line-number="87"><span class="co">## 4 Cattaraugus    61</span></a>
-<a class="sourceLine" id="cb174-88" data-line-number="88"><span class="co">## 5      Cayuga    60</span></a>
-<a class="sourceLine" id="cb174-89" data-line-number="89"><span class="co">## 6  Chautauqua    43</span></a></code></pre></div>
+<a class="sourceLine" id="cb174-45" data-line-number="45"><span class="co">## 47294  2020-04-10   Erie New York 36029  1409     58        47</span></a>
+<a class="sourceLine" id="cb174-46" data-line-number="46"><span class="co">## 49946  2020-04-11   Erie New York 36029  1472     62        63</span></a>
+<a class="sourceLine" id="cb174-47" data-line-number="47"><span class="co">## 52616  2020-04-12   Erie New York 36029  1571     75        99</span></a>
+<a class="sourceLine" id="cb174-48" data-line-number="48"><span class="co">## 55297  2020-04-13   Erie New York 36029  1624     86        53</span></a>
+<a class="sourceLine" id="cb174-49" data-line-number="49"><span class="co">## 57993  2020-04-14   Erie New York 36029  1668     99        44</span></a>
+<a class="sourceLine" id="cb174-50" data-line-number="50"><span class="co">## 60705  2020-04-15   Erie New York 36029  1751    110        83</span></a>
+<a class="sourceLine" id="cb174-51" data-line-number="51"><span class="co">## 63430  2020-04-16   Erie New York 36029  1850    115        99</span></a>
+<a class="sourceLine" id="cb174-52" data-line-number="52"><span class="co">## 66171  2020-04-17   Erie New York 36029  1929    115        79</span></a>
+<a class="sourceLine" id="cb174-53" data-line-number="53"><span class="co">## 68926  2020-04-18   Erie New York 36029  1997    115        68</span></a>
+<a class="sourceLine" id="cb174-54" data-line-number="54"><span class="co">## 71690  2020-04-19   Erie New York 36029  2070    146        73</span></a>
+<a class="sourceLine" id="cb174-55" data-line-number="55"><span class="co">## 74463  2020-04-20   Erie New York 36029  2109    153        39</span></a>
+<a class="sourceLine" id="cb174-56" data-line-number="56"><span class="co">## 77241  2020-04-21   Erie New York 36029  2147    161        38</span></a>
+<a class="sourceLine" id="cb174-57" data-line-number="57"><span class="co">## 80028  2020-04-22   Erie New York 36029  2233    174        86</span></a>
+<a class="sourceLine" id="cb174-58" data-line-number="58"><span class="co">## 82826  2020-04-23   Erie New York 36029  2450    179       217</span></a>
+<a class="sourceLine" id="cb174-59" data-line-number="59"><span class="co">## 85627  2020-04-24   Erie New York 36029  2603    184       153</span></a>
+<a class="sourceLine" id="cb174-60" data-line-number="60"><span class="co">## 88436  2020-04-25   Erie New York 36029  2773    199       170</span></a>
+<a class="sourceLine" id="cb174-61" data-line-number="61"><span class="co">## 91248  2020-04-26   Erie New York 36029  2954    205       181</span></a>
+<a class="sourceLine" id="cb174-62" data-line-number="62"><span class="co">## 94071  2020-04-27   Erie New York 36029  3021    208        67</span></a>
+<a class="sourceLine" id="cb174-63" data-line-number="63"><span class="co">## 96904  2020-04-28   Erie New York 36029  3089    216        68</span></a>
+<a class="sourceLine" id="cb174-64" data-line-number="64"><span class="co">## 99747  2020-04-29   Erie New York 36029  3196    220       107</span></a>
+<a class="sourceLine" id="cb174-65" data-line-number="65"><span class="co">## 102596 2020-04-30   Erie New York 36029  3319    227       123</span></a>
+<a class="sourceLine" id="cb174-66" data-line-number="66"><span class="co">## 105454 2020-05-01   Erie New York 36029  3481    233       162</span></a>
+<a class="sourceLine" id="cb174-67" data-line-number="67"><span class="co">## 108317 2020-05-02   Erie New York 36029  3598    243       117</span></a>
+<a class="sourceLine" id="cb174-68" data-line-number="68"><span class="co">## 111186 2020-05-03   Erie New York 36029  3710    250       112</span></a>
+<a class="sourceLine" id="cb174-69" data-line-number="69"><span class="co">## 114062 2020-05-04   Erie New York 36029  3802    254        92</span></a>
+<a class="sourceLine" id="cb174-70" data-line-number="70"><span class="co">## 116938 2020-05-05   Erie New York 36029  3891    264        89</span></a>
+<a class="sourceLine" id="cb174-71" data-line-number="71"><span class="co">## 119821 2020-05-06   Erie New York 36029  4008    338       117</span></a>
+<a class="sourceLine" id="cb174-72" data-line-number="72"><span class="co">## 122719 2020-05-07   Erie New York 36029  4136    350       128</span></a>
+<a class="sourceLine" id="cb174-73" data-line-number="73"><span class="co">## 125624 2020-05-08   Erie New York 36029  4255    356       119</span></a>
+<a class="sourceLine" id="cb174-74" data-line-number="74"><span class="co">## 128534 2020-05-09   Erie New York 36029  4337    368        82</span></a>
+<a class="sourceLine" id="cb174-75" data-line-number="75"><span class="co">## 131444 2020-05-10   Erie New York 36029  4453    376       116</span></a>
+<a class="sourceLine" id="cb174-76" data-line-number="76"><span class="co">## 134355 2020-05-11   Erie New York 36029  4483    387        30</span></a>
+<a class="sourceLine" id="cb174-77" data-line-number="77"><span class="co">## 137266 2020-05-12   Erie New York 36029  4530    395        47</span></a>
+<a class="sourceLine" id="cb174-78" data-line-number="78"><span class="co">## 140183 2020-05-13   Erie New York 36029  4606    402        76</span></a>
+<a class="sourceLine" id="cb174-79" data-line-number="79"><span class="co">## 143100 2020-05-14   Erie New York 36029  4671    411        65</span></a>
+<a class="sourceLine" id="cb174-80" data-line-number="80"><span class="co">## 146023 2020-05-15   Erie New York 36029  4782    417       111</span></a>
+<a class="sourceLine" id="cb174-81" data-line-number="81"><span class="co">## 148952 2020-05-16   Erie New York 36029  4867    428        85</span></a>
+<a class="sourceLine" id="cb174-82" data-line-number="82"><span class="co">## 151883 2020-05-17   Erie New York 36029  4954    438        87</span></a>
+<a class="sourceLine" id="cb174-83" data-line-number="83"><span class="co">## 154819 2020-05-18   Erie New York 36029  4993    444        39</span></a>
+<a class="sourceLine" id="cb174-84" data-line-number="84"><span class="co">## 157757 2020-05-19   Erie New York 36029  5037    450        44</span></a>
+<a class="sourceLine" id="cb174-85" data-line-number="85"><span class="co">## 160706 2020-05-20   Erie New York 36029  5131    455        94</span></a>
+<a class="sourceLine" id="cb174-86" data-line-number="86"><span class="co">## 163659 2020-05-21   Erie New York 36029  5270    463       139</span></a>
+<a class="sourceLine" id="cb174-87" data-line-number="87"></a>
+<a class="sourceLine" id="cb174-88" data-line-number="88"><span class="co">## aggregate() cases in each county to find total (max) number</span></a>
+<a class="sourceLine" id="cb174-89" data-line-number="89">ny_state &lt;-<span class="st"> </span><span class="kw">subset</span>(us, state <span class="op">==</span><span class="st"> &quot;New York&quot;</span>)</a>
+<a class="sourceLine" id="cb174-90" data-line-number="90"><span class="kw">head</span>( <span class="kw">aggregate</span>(cases <span class="op">~</span><span class="st"> </span>county, ny_state, max) )</a>
+<a class="sourceLine" id="cb174-91" data-line-number="91"><span class="co">##        county cases</span></a>
+<a class="sourceLine" id="cb174-92" data-line-number="92"><span class="co">## 1      Albany  1700</span></a>
+<a class="sourceLine" id="cb174-93" data-line-number="93"><span class="co">## 2    Allegany    44</span></a>
+<a class="sourceLine" id="cb174-94" data-line-number="94"><span class="co">## 3      Broome   451</span></a>
+<a class="sourceLine" id="cb174-95" data-line-number="95"><span class="co">## 4 Cattaraugus    71</span></a>
+<a class="sourceLine" id="cb174-96" data-line-number="96"><span class="co">## 5      Cayuga    72</span></a>
+<a class="sourceLine" id="cb174-97" data-line-number="97"><span class="co">## 6  Chautauqua    58</span></a></code></pre></div>
 </div>
 <div id="user-defined-functions" class="section level3 unnumbered">
 <h3>User-defined functions</h3>

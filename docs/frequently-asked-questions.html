@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse." />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-05-15" />
+<meta name="date" content="2020-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -264,11 +264,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.1" data-path="six.html"><a href="six.html#weekend-review-5-minutes"><i class="fa fa-check"></i><b>6.1.1</b> Weekend review (5 minutes)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="six.html"><a href="six.html#vignettes-25-minutes-shawn"><i class="fa fa-check"></i><b>6.1.2</b> Vignettes (25 minutes; Shawn)</a></li>
 <li class="chapter" data-level="6.1.3" data-path="six.html"><a href="six.html#writing-and-documenting-r-functions-25-minutes"><i class="fa fa-check"></i><b>6.1.3</b> Writing and documenting R functions (25 minutes)</a></li>
+<li class="chapter" data-level="6.1.4" data-path="six.html"><a href="six.html#create-an-r-pacakge"><i class="fa fa-check"></i><b>6.1.4</b> Create an <em>R</em> pacakge!</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="six.html"><a href="six.html#days-write-a-vignette"><i class="fa fa-check"></i><b>6.2</b> 4 Days Write a vignette!</a></li>
 <li class="chapter" data-level="6.3" data-path="six.html"><a href="six.html#days-create-documented-reusable-functions"><i class="fa fa-check"></i><b>6.3</b> 3 Days Create documented, reusable functions!</a></li>
-<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a></li>
-<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a></li>
+<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="six.html"><a href="six.html#description"><i class="fa fa-check"></i><b>6.4.1</b> DESCRIPTION</a></li>
+<li class="chapter" data-level="6.4.2" data-path="six.html"><a href="six.html#documentation"><i class="fa fa-check"></i><b>6.4.2</b> Documentation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="six.html"><a href="six.html#vignettes"><i class="fa fa-check"></i><b>6.4.3</b> Vignettes</a></li>
+<li class="chapter" data-level="6.4.4" data-path="six.html"><a href="six.html#build-and-share"><i class="fa fa-check"></i><b>6.4.4</b> Build and share</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="six.html"><a href="six.html#review-and-troubleshoot"><i class="fa fa-check"></i><b>6.5.1</b> Review and troubleshoot</a></li>
+<li class="chapter" data-level="6.5.2" data-path="six.html"><a href="six.html#course-review"><i class="fa fa-check"></i><b>6.5.2</b> Course review</a></li>
+<li class="chapter" data-level="6.5.3" data-path="six.html"><a href="six.html#feedback-next-steps"><i class="fa fa-check"></i><b>6.5.3</b> Feedback &amp; next steps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i>Frequently asked questions</a></li>
@@ -328,10 +338,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>What is the difference between quotes <code>&quot;</code> (double quote), <code>'</code> (single quote), <code>`</code> (backtick)</p>
 <p><code>&quot;</code> and <code>'</code> can be used interchangeably (but always matching open and closing quotes) to represent and element of a character vector: <code>&quot;DNA&quot;</code> and <code>'DNA'</code> are the same. It can be convenient to use one style over another in particular situations: <code>&quot;3' DNA&quot;</code>, <code>'Tolstoy says: &quot;All happy families are alike; each unhappy family is unhappy in its own way.&quot;'</code>, where the choice of quotes means that the ‘inner’ quote does not have to be ‘escaped’, e.g., using single quotes in the first example: <code>'3\' DNA'</code>.</p>
 <p>The backtick <code>`</code> is a special quote, and says to treat the enclosed expression as a symbol <em>name</em>. We came across one use case in the world-wide COVID-19 data, where the column names was <code>Region/Country</code>. If we wanted to create a variable with that name, we could NOT write <code>Region/Country = c(&quot;US&quot;, &quot;Canada&quot;)</code> because <em>R</em> would interpret <code>Region</code> and <code>Country</code> as variables that were to be divided. Likewise, we couldn’t use <code>&quot;Region/Country&quot; = c(&quot;US&quot;, &quot;Canada&quot;)</code> because <em>R</em> would say ‘hey, you’re trying to assign a character vector to a character vector not to a symbol!’.</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" data-line-number="1"><span class="st">`</span><span class="dt">Region/Country</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>, <span class="st">&quot;Canada&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" data-line-number="1"><span class="st">`</span><span class="dt">Region/Country</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>, <span class="st">&quot;Canada&quot;</span>)</a></code></pre></div>
 <p>says ‘create a symbol <code>Region/Country</code> and assign it the value <code>c(&quot;US&quot;, &quot;Canada&quot;)</code>’. Any time we want to use this variable, we have to quote it</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" data-line-number="1"><span class="kw">length</span>(<span class="st">`</span><span class="dt">Region/Country</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb419-2" data-line-number="2"><span class="co">## [1] 2</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" data-line-number="1"><span class="kw">length</span>(<span class="st">`</span><span class="dt">Region/Country</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb428-2" data-line-number="2"><span class="co">## [1] 2</span></a></code></pre></div></li>
 </ol>
 
 </div>

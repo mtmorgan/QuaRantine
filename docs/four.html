@@ -28,7 +28,7 @@ COVID-19 epidemic as an excuse." />
 <meta name="author" content="L. Shawn Matott" />
 
 
-<meta name="date" content="2020-05-15" />
+<meta name="date" content="2020-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -264,11 +264,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.1" data-path="six.html"><a href="six.html#weekend-review-5-minutes"><i class="fa fa-check"></i><b>6.1.1</b> Weekend review (5 minutes)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="six.html"><a href="six.html#vignettes-25-minutes-shawn"><i class="fa fa-check"></i><b>6.1.2</b> Vignettes (25 minutes; Shawn)</a></li>
 <li class="chapter" data-level="6.1.3" data-path="six.html"><a href="six.html#writing-and-documenting-r-functions-25-minutes"><i class="fa fa-check"></i><b>6.1.3</b> Writing and documenting R functions (25 minutes)</a></li>
+<li class="chapter" data-level="6.1.4" data-path="six.html"><a href="six.html#create-an-r-pacakge"><i class="fa fa-check"></i><b>6.1.4</b> Create an <em>R</em> pacakge!</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="six.html"><a href="six.html#days-write-a-vignette"><i class="fa fa-check"></i><b>6.2</b> 4 Days Write a vignette!</a></li>
 <li class="chapter" data-level="6.3" data-path="six.html"><a href="six.html#days-create-documented-reusable-functions"><i class="fa fa-check"></i><b>6.3</b> 3 Days Create documented, reusable functions!</a></li>
-<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a></li>
-<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a></li>
+<li class="chapter" data-level="6.4" data-path="six.html"><a href="six.html#days-share-your-work-as-a-package"><i class="fa fa-check"></i><b>6.4</b> 2 Days Share your work as a package!</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="six.html"><a href="six.html#description"><i class="fa fa-check"></i><b>6.4.1</b> DESCRIPTION</a></li>
+<li class="chapter" data-level="6.4.2" data-path="six.html"><a href="six.html#documentation"><i class="fa fa-check"></i><b>6.4.2</b> Documentation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="six.html"><a href="six.html#vignettes"><i class="fa fa-check"></i><b>6.4.3</b> Vignettes</a></li>
+<li class="chapter" data-level="6.4.4" data-path="six.html"><a href="six.html#build-and-share"><i class="fa fa-check"></i><b>6.4.4</b> Build and share</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="six.html"><a href="six.html#today-friday-zoom-check-in"><i class="fa fa-check"></i><b>6.5</b> Today! (Friday) Zoom check-in</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="six.html"><a href="six.html#review-and-troubleshoot"><i class="fa fa-check"></i><b>6.5.1</b> Review and troubleshoot</a></li>
+<li class="chapter" data-level="6.5.2" data-path="six.html"><a href="six.html#course-review"><i class="fa fa-check"></i><b>6.5.2</b> Course review</a></li>
+<li class="chapter" data-level="6.5.3" data-path="six.html"><a href="six.html#feedback-next-steps"><i class="fa fa-check"></i><b>6.5.3</b> Feedback &amp; next steps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i>Frequently asked questions</a></li>
@@ -665,24 +675,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb304-23" data-line-number="23"><span class="co">##                      Number of trees: 500</span></a>
 <a class="sourceLine" id="cb304-24" data-line-number="24"><span class="co">## No. of variables tried at each split: 2</span></a>
 <a class="sourceLine" id="cb304-25" data-line-number="25"><span class="co">## </span></a>
-<a class="sourceLine" id="cb304-26" data-line-number="26"><span class="co">##         OOB estimate of  error rate: 68.42%</span></a>
+<a class="sourceLine" id="cb304-26" data-line-number="26"><span class="co">##         OOB estimate of  error rate: 65.79%</span></a>
 <a class="sourceLine" id="cb304-27" data-line-number="27"><span class="co">## Confusion matrix:</span></a>
 <a class="sourceLine" id="cb304-28" data-line-number="28"><span class="co">##   3 4 5 6 7 8 class.error</span></a>
-<a class="sourceLine" id="cb304-29" data-line-number="29"><span class="co">## 3 0 0 1 0 0 0         1.0</span></a>
-<a class="sourceLine" id="cb304-30" data-line-number="30"><span class="co">## 4 0 0 1 1 0 0         1.0</span></a>
-<a class="sourceLine" id="cb304-31" data-line-number="31"><span class="co">## 5 0 0 6 9 0 0         0.6</span></a>
-<a class="sourceLine" id="cb304-32" data-line-number="32"><span class="co">## 6 0 1 8 6 0 0         0.6</span></a>
-<a class="sourceLine" id="cb304-33" data-line-number="33"><span class="co">## 7 0 0 1 3 0 0         1.0</span></a>
-<a class="sourceLine" id="cb304-34" data-line-number="34"><span class="co">## 8 0 0 0 1 0 0         1.0</span></a>
+<a class="sourceLine" id="cb304-29" data-line-number="29"><span class="co">## 3 0 0 1 0 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb304-30" data-line-number="30"><span class="co">## 4 0 0 1 1 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb304-31" data-line-number="31"><span class="co">## 5 0 0 7 8 0 0   0.5333333</span></a>
+<a class="sourceLine" id="cb304-32" data-line-number="32"><span class="co">## 6 0 1 8 6 0 0   0.6000000</span></a>
+<a class="sourceLine" id="cb304-33" data-line-number="33"><span class="co">## 7 0 0 1 3 0 0   1.0000000</span></a>
+<a class="sourceLine" id="cb304-34" data-line-number="34"><span class="co">## 8 0 0 0 1 0 0   1.0000000</span></a>
 <a class="sourceLine" id="cb304-35" data-line-number="35"></a>
 <a class="sourceLine" id="cb304-36" data-line-number="36"><span class="co"># measure of parameter importance</span></a>
 <a class="sourceLine" id="cb304-37" data-line-number="37"><span class="kw">importance</span>(model) </a>
 <a class="sourceLine" id="cb304-38" data-line-number="38"><span class="co">##     MeanDecreaseGini</span></a>
-<a class="sourceLine" id="cb304-39" data-line-number="39"><span class="co">## X01         3.833634</span></a>
-<a class="sourceLine" id="cb304-40" data-line-number="40"><span class="co">## X10         5.311772</span></a>
-<a class="sourceLine" id="cb304-41" data-line-number="41"><span class="co">## X12         5.766440</span></a>
-<a class="sourceLine" id="cb304-42" data-line-number="42"><span class="co">## X13         4.702649</span></a>
-<a class="sourceLine" id="cb304-43" data-line-number="43"><span class="co">## X23         5.336312</span></a></code></pre></div>
+<a class="sourceLine" id="cb304-39" data-line-number="39"><span class="co">## X01         3.864809</span></a>
+<a class="sourceLine" id="cb304-40" data-line-number="40"><span class="co">## X10         5.506581</span></a>
+<a class="sourceLine" id="cb304-41" data-line-number="41"><span class="co">## X12         5.997087</span></a>
+<a class="sourceLine" id="cb304-42" data-line-number="42"><span class="co">## X13         4.585045</span></a>
+<a class="sourceLine" id="cb304-43" data-line-number="43"><span class="co">## X23         4.982478</span></a></code></pre></div>
 <p>At this point the model is trained and the next step is to evaluate its usefulness at making predictions. Let’s see how the model does at predicting the labels of the test dataset. Remember that the test data was <em>not</em> used during the training exericse. As such, the confusion matrix and classification accuracy associated with the test dataset provides a useful check of the skill of the model. Add the <code>Part 4</code> code below to your RScript but omit lines that begin with a double-hash (<code>##</code>) :</p>
 <div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="co">#</span></a>
 <a class="sourceLine" id="cb305-2" data-line-number="2"><span class="co"># Part 4 - evaluate the model using test data</span></a>
@@ -703,13 +713,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb305-17" data-line-number="17"><span class="co">## actual 4 5 6 7</span></a>
 <a class="sourceLine" id="cb305-18" data-line-number="18"><span class="co">##      4 0 1 1 0</span></a>
 <a class="sourceLine" id="cb305-19" data-line-number="19"><span class="co">##      5 0 3 3 0</span></a>
-<a class="sourceLine" id="cb305-20" data-line-number="20"><span class="co">##      6 0 1 2 0</span></a>
+<a class="sourceLine" id="cb305-20" data-line-number="20"><span class="co">##      6 0 2 1 0</span></a>
 <a class="sourceLine" id="cb305-21" data-line-number="21"><span class="co">##      7 0 0 1 0</span></a>
 <a class="sourceLine" id="cb305-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb305-23" data-line-number="23"><span class="co">#classification accuracy</span></a>
 <a class="sourceLine" id="cb305-24" data-line-number="24">accuracy &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(confusion)<span class="op">/</span><span class="kw">nrow</span>(test))</a>
 <a class="sourceLine" id="cb305-25" data-line-number="25"><span class="kw">cat</span>(<span class="st">&quot;Classification Accuracy = &quot;</span>, accuracy, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb305-26" data-line-number="26"><span class="co">## Classification Accuracy =  0.4166667</span></a></code></pre></div>
+<a class="sourceLine" id="cb305-26" data-line-number="26"><span class="co">## Classification Accuracy =  0.3333333</span></a></code></pre></div>
 <p>Save your script and run it. Take a look at the results for the test dataset - the classifcation accuracy is well under 50%. Furthermore, there are systematic failures in the confusion matrix. It’s not a very good model. The most likely culprit is that the set of features is inadequate for making the desired prediction. We should re-run the model using different or additional features.</p>
 </div>
 </div>
@@ -937,9 +947,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb315-5" data-line-number="5"><span class="co">##   lvls    auc</span></a>
 <a class="sourceLine" id="cb315-6" data-line-number="6"><span class="co">##   &lt;chr&gt; &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb315-7" data-line-number="7"><span class="co">## 1 4     0.6  </span></a>
-<a class="sourceLine" id="cb315-8" data-line-number="8"><span class="co">## 2 5     0.472</span></a>
-<a class="sourceLine" id="cb315-9" data-line-number="9"><span class="co">## 3 6     0.667</span></a>
-<a class="sourceLine" id="cb315-10" data-line-number="10"><span class="co">## 4 7     0.545</span></a></code></pre></div>
+<a class="sourceLine" id="cb315-8" data-line-number="8"><span class="co">## 2 5     0.514</span></a>
+<a class="sourceLine" id="cb315-9" data-line-number="9"><span class="co">## 3 6     0.630</span></a>
+<a class="sourceLine" id="cb315-10" data-line-number="10"><span class="co">## 4 7     0.682</span></a></code></pre></div>
 <p>Assuming you’ve been following along with the daily activities, you can add this <code>Part 5</code> code to any of your algorithm scripts (e.g. <code>covid_19_rf.R</code>, <code>covid_19_knn.R</code>, <code>covid_19_svm.R</code>, etc.). The code uses the <code>inherits()</code> function to adapt the output of each individual algorithm into a form that is suitable for the ROC/AUC calculation.</p>
 </div>
 </div>
