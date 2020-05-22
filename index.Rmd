@@ -94,7 +94,7 @@ We haven't thought this through much, but roughly we might cover:
     knitr::include_graphics("images/05-ACE2.png")
     ```
 
-- Week \@ref(six): COVID-19 has really shown the value of open data and collaboration. In the final week of our quarantine, we'll explore collaboration; developing independent and group projects that synthesize the use of _R_ to explore data. We'll learn tools of collaboration including git and github, and develop 'best practices' for robust, reproducible research. We'll learn about writing 'markdown' reports to share our project with others.
+- Week \@ref(six): COVID-19 has really shown the value of open data and collaboration. In the final week of our quarantine, we'll explore collaboration. We'll learn about writing 'markdown' vignettes (reports to) share our results with others, such as our lab colleagues. We'll write and document functions so that we can easily re-do steps in an analysis. And we will synthesize the vignettes and functions into a package for documenting and sharing our work.
 
 [CRAN]: https://cran.r-project.org
 [Bioconductor]: https://bioconductor.org
