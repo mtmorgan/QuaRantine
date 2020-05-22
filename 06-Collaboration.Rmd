@@ -316,6 +316,7 @@ to install your pacakge!
 Vignettes
 
 - Any vignettes to share?
+- Shruti's QuaRantine Learnings
 
 Documented functions
 
