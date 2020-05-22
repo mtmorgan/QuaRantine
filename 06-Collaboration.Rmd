@@ -311,6 +311,16 @@ to install your pacakge!
 
 ## Today! (Friday) Zoom check-in
 
+### Review and troubleshoot
+
+Vignettes
+
+- Any vignettes to share?
+
+Documented functions
+
+Packages
+
 ### Course review
 
 Basic _R_
